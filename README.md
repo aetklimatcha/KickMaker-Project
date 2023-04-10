@@ -9,5 +9,5 @@ pm2 start server.js --watch
 http://localhost:3000/
 에서 실행된 페이지 확인
 
-서버 종료
+서버 종료.
 pm2 stop server.js
