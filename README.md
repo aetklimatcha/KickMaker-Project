@@ -1,6 +1,8 @@
 # capstone
 
-터미널에서 다음 명령어하여 expressjs설치(처음만)
+nodejs 설치할것
+
+터미널(프로젝트 위치에서)에서 다음 명령어하여 expressjs설치(처음만)
 
 npm install
 
