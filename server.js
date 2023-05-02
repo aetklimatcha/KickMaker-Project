@@ -22,7 +22,7 @@ connection.connect(function (err) {
     } else {
         // 접속시 쿼리를 보냅니다.
         connection.query("SELECT * FROM Team", function (err, rows, fields) {
-            console.log(rows); // 결과를 출력합니다!
+            console.log(rows); // 결과를 출력합니다!!!
         });
     }
 });
