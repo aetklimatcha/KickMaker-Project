@@ -4,7 +4,7 @@ var path = require('path');
 var qs = require('querystring');
 var fs = require('fs')
 // var sanitizeHtml = require('sanitize-html');
-// var bodyParser = require('body-parser');
+ var bodyParser = require('body-parser');
 // var compression = require('compression')
 
 var port = 3000
