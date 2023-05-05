@@ -4,7 +4,7 @@ var path = require("path");
 router.get('/', (request, response) => {
     //response.sendFile(__dirname, '..','pages','index.html');
     //response.sendFile('C:/Users/201810519/Desktop/prac/capstone/pages/index.html');
-    response.sendFile(path.join(__dirname + '/../pages/index.html'));
+    response.sendFile(path.join(__dirname + '/../views/index.ejs'));
 });
 
 router.get('/about', (request, response) => {
