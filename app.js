@@ -29,19 +29,14 @@ connection.connect(function (err) {
     }
 });
 
+//router 폴더 연결
+const routes = require("./routes/index.js");
+app.use(routes)
 
 var port = 3000
 const { request } = require('http');
 const { response } = require('express');
 const req = require('express/lib/request.js');
-
-app.get('', (request, response) => {
-    response.sendFile(__dirname + '/index.html');
-});
-
-app.get('/about', (request, response) => {
-    response.send('test about');
-});
 
 
 app.listen(port, () => {
