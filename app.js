@@ -7,6 +7,7 @@ var fs = require('fs')
 //var bodyParser = require('body-parser');
 // var compression = require('compression')
 
+//MYSQL CONNETCION
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
@@ -16,6 +17,7 @@ const connection = mysql.createConnection({
     database: "KICKMATCH"
 });
 
+//MYSQL 커넥션 확인 (Team 테이블 출력)
 connection.connect(function (err) {
     if (err) {
         throw err; // 접속에 실패하면 에러를 throw 합니다.

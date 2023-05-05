@@ -8,12 +8,12 @@ npm install
 
 다음 명령어 실행하여 서버 구동
 
-pm2 start server.js --watch
+pm2 start app.js --watch
 
 http://localhost:3000/
 에서 실행된 페이지 확인
 
 서버 종료.
 
-pm2 stop server.js
+pm2 stop app.js
 
