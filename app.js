@@ -1,13 +1,19 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
+var port = 3000;
+var http = require('http').createServer(app);
 var path = require('path');
 var qs = require('querystring');
 var fs = require('fs')
+const request = require('http');
+const response = require('express');
+const req = require('express/lib/request.js');
 //var sanitizeHtml = require('sanitize-html');
 //var bodyParser = require('body-parser');
 // var compression = require('compression')
 
 //MYSQL CONNETCION
+
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
@@ -24,7 +30,7 @@ connection.connect(function (err) {
     } else {
         // 접속시 쿼리를 보냅니다.
         connection.query("SELECT * FROM Team", function (err, rows, fields) {
-            console.log(rows); // 결과를 출력합니다!!!
+           // console.log(rows); // 결과를 출력합니다!!!
         });
     }
 });
@@ -33,11 +39,11 @@ connection.connect(function (err) {
 const routes = require("./routes/index.js");
 app.use(routes)
 
-var port = 3000
-const { request } = require('http');
-const { response } = require('express');
-const req = require('express/lib/request.js');
 
+//304 발생 해결
+// app.set("etag", false);
+// app.disable('etag');
+// const options = { etag : false };
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
