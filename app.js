@@ -12,8 +12,10 @@ const req = require('express/lib/request.js');
 //var bodyParser = require('body-parser');
 // var compression = require('compression')
 
-//MYSQL CONNETCION
+//정적파일 서비스하는 모듈? (css 안됐을때 씀)
+app.use(express.static(__dirname));
 
+//MYSQL CONNETCION
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
