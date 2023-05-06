@@ -1,14 +1,23 @@
-const router = require("express").Router();
-var path = require("path");
+const express = require("express");
+const router = express.Router();
+const path = require("path");
+const req = require('http');
+const res = require('express');
 
-router.get('/', (request, response) => {
-    //response.sendFile(__dirname, '..','pages','index.html');
-    //response.sendFile('C:/Users/201810519/Desktop/prac/capstone/pages/index.html');
-    response.sendFile(path.join(__dirname + '/../views/index.ejs'));
+//url이 빈 상태로 넘어올 경우
+router.get('/', (req, res) => {
+    //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
+    //index.ejs 렌더링 및 변수 ejs에 넘기기
+    res.render(path.join(__dirname + '/../views/index.ejs'),{
+        title : "TestTemplate"
+    });
+}, (req, res) => {
+    throw new Error('에러 발생');
 });
 
-router.get('/about', (request, response) => {
-    response.send('test about');
+//url이 http://localhost:3000/test 인 경우
+router.get('/test', (req, res) => {
+    res.send('test about');
 });
 
 module.exports = router;
