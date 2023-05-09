@@ -8,6 +8,7 @@ var fs = require('fs')
 const request = require('http');
 const response = require('express');
 const req = require('express/lib/request.js');
+const routes = require("./routes/index.js");
 //var sanitizeHtml = require('sanitize-html');
 //var bodyParser = require('body-parser');
 // var compression = require('compression')
@@ -40,7 +41,7 @@ connection.connect(function (err) {
 });
 
 //router 폴더 연결
-const routes = require("./routes/index.js");
+
 app.use(routes)
 
 
