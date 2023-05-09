@@ -20,4 +20,22 @@ router.get('/test', (req, res) => {
     res.send('test about');
 });
 
+// 로그인 핸들러
+router.get('/login',(req,res)=>{
+    res.render('login');
+})
+router.get('/register',(req,res)=>{
+    res.render('register')
+    })
+
+// 회원가입
+router.post('/register',(req,res)=>{
+})
+router.post('/login',(req,res,next)=>{
+  })
+
+// 로그아웃
+router.get('/logout',(req,res)=>{
+ })
+
 module.exports = router;
