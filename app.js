@@ -12,6 +12,7 @@ const routes = require("./routes/index.js");
 //var sanitizeHtml = require('sanitize-html');
 //var bodyParser = require('body-parser');
 // var compression = require('compression')
+const userRoutes = require('./routes/user.js')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -43,7 +44,7 @@ connection.connect(function (err) {
 //router 폴더 연결
 
 app.use(routes)
-
+app.use(userRoutes);  
 
 //304 발생 해결
 // app.set("etag", false);
