@@ -10,7 +10,7 @@ const response = require('express');
 const req = require('express/lib/request.js');
 const routes = require("./routes/index.js");
 //var sanitizeHtml = require('sanitize-html');
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 // var compression = require('compression')
 
 app.set('view engine', 'ejs');
@@ -18,8 +18,8 @@ app.set('views', __dirname + '/views');
 //정적파일 서비스하는 모듈? (css 안됐을때 씀)
 app.use(express.static(__dirname));
 
-//MYSQL CONNETCION
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 //router 폴더 연결
 
