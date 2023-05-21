@@ -3,12 +3,13 @@ const router = express.Router();
 const path = require("path");
 const req = require('http');
 const res = require('express');
-const controller = require('../controllers/controller');
+const controller = require('../controllers/login');
 
 // 로그인 핸들러
 router.get('/login',(req,res)=>{
     res.render('login');
 })
+
 router.get('/register',(req,res)=>{
     res.render('register')
     })
