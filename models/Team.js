@@ -55,6 +55,16 @@ module.exports = {
 
             callback(rows);
         })
+    },
+
+    //login_demo - insert Team 테스트 코드
+    insertTeamtest: function ( id, password, callback ) {
+        const querystring = `INSERT INTO Team (id, password) VALUES ('${id}', '${password}');`;
+        mysql.query(querystring, function (err, rows) {
+            if ( err ) console.log("errorrr");
+            //console.log(rows);
+            callback(rows.insertId);
+        });
     }
 
 

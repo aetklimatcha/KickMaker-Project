@@ -1,5 +1,5 @@
 const path = require("path");
-const model = require("../models/model");
+const model = require("../models/Team");
 
 exports.loginview = (req, res) => {
     model.getAllTeam(function( result ) {
@@ -7,7 +7,7 @@ exports.loginview = (req, res) => {
             title: "testtitle",
             Team: result
         });
-        console.log(result);
+        //console.log(result);
     });
 };
 

@@ -20,6 +20,8 @@ router.get('/match_making', main.match_makingview);
 router.get('/noMatch', main.noMatchview);
 router.get('/signin', main.signinview);
 router.get('/signup', main.signupview);
+
+router.post('/createteam', main.createteam);
 /*
 // 로그인, 회원가입 핸들러
 router.get('/login',(req,res)=>{
