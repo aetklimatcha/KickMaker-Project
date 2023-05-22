@@ -26,9 +26,37 @@ module.exports = {
         })
     },
 
+    //Team에 팀 삽입
+    insertTeam: function ( id, password, teamname, represent_name, hp, callback ) {
+        const querystring = `INSERT INTO Team (user_id, id, password, teamname, represent_name, hp) VALUES (${user_id}, '${id}', '${password}', '${teamname}', '${represent_name}','${hp}');`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
+            console.log( rows ); 
+        callback(rows.insertId);
+        });
+    },
 
+    //팀 정보 수정
+    updateTeam: function (data, callback) {
+        var querystring = `UPDATE Team SET password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}' WHERE user_id=${data.id}`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
+            console.log( rows );
+
+            callback(rows);
+        })
+    },
+
+    //팀 정보 삭제
+    updateTeam: function (id, callback) {
+        mysql.query(`DELETE FROM Team WHERE user_id=${id}`, (err, rows) => {
+            if ( err ) throw err;
+            console.log( rows );
+
+            callback(rows);
+        })
+    }
 
 
 
     }
-
