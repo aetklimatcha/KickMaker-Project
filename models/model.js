@@ -48,7 +48,7 @@ module.exports = {
     },
 
     //팀 정보 삭제
-    updateTeam: function (id, callback) {
+    DeleteTeam: function (id, callback) {
         mysql.query(`DELETE FROM Team WHERE user_id=${id}`, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
