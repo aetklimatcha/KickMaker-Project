@@ -10,3 +10,4 @@ exports.loginview = (req, res) => {
         console.log(result);
     });
 };
+
