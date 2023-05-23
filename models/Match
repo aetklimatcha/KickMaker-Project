@@ -1,24 +1,26 @@
+//아직 수정중 [김건태]
+
 const { response } = require("express");
 const mysql = require("../config/mysql");
 
 module.exports = {
 
-    //Team 전체 조회
-    getAllTeam : function (callback) {
-        const querystring = `Select * from Team;`;
+    //Match 전체 조회
+    getAllMatch : function (callback) {
+        const querystring = `Select * from Match;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             callback(result);
         })
     },
 
-    //user_id로 단일 TEam 조회
-    getOneTeam: function (user_id, callback) {
-        const querystring = `SELECT * FROM Team Where user_id= ${user_id} limit 1;`;
+    //home_userid로 생성팀아이디 조회
+    gethome_userid: function (home_userid, callback) {
+        const querystring = `SELECT * FROM Match Where home_userid= ${home_userid} limit 1;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found2 team: ", result[0]);
+                console.log("found2 Match: ", result[0]);
                 callback(result[0]);
             }
             // 결과가 없을 시 
