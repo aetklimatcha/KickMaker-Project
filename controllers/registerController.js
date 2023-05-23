@@ -1,5 +1,5 @@
 // 회원가입
-
+const path = require("path");
 const connection = require('../config/mysql');
 
 module.exports.register = function( req , res ){

@@ -57,7 +57,17 @@ app.get('/api/login', function(req, res) {
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-  
+// 쿠키 테스트하기
+app.get('/cookie', (req, res) => {
+    res.render('cookie');
+});
+app.post('/cookie', (req, res) => {
+    const text = req.body.text;
+    res.cookie('Text', text);
+    console.log(req.cookies.Text)
+    res.render('Cookie', {'text': text});
+});
+
 // 서버
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
