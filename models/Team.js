@@ -28,7 +28,7 @@ module.exports = {
 
     //Team에 팀 삽입
     insertTeam: function ( id, password, teamname, represent_name, hp, callback ) {
-        const querystring = `INSERT INTO Team (user_id, id, password, teamname, represent_name, hp) VALUES (${user_id}, '${id}', '${password}', '${teamname}', '${represent_name}','${hp}');`;
+        const querystring = `INSERT INTO Team ( id, password, teamname, represent_name, hp) VALUES ( '${id}', '${password}', '${teamname}', '${represent_name}','${hp}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows ); 
