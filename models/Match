@@ -14,13 +14,13 @@ module.exports = {
         })
     },
 
-    //home_userid로 생성팀아이디 조회
-    gethome_userid: function (home_userid, callback) {
-        const querystring = `SELECT * FROM Match Where home_userid= ${home_userid} limit 1;`;
+    //match_id로 경기번호 조회
+    getmatch_id: function (match_id, callback) {
+        const querystring = `SELECT * FROM Match Where match_id= ${match_id} limit 1;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found2 Match: ", result[0]);
+                console.log("found Match: ", result[0]);
                 callback(result[0]);
             }
             // 결과가 없을 시 
@@ -28,7 +28,7 @@ module.exports = {
         })
     },
 
-    //Team에 팀 삽입
+    //Match에 팀 삽입?
     insertTeam: function ( id, password, teamname, represent_name, hp, callback ) {
         const querystring = `INSERT INTO Team ( id, password, teamname, represent_name, hp) VALUES ( '${id}', '${password}', '${teamname}', '${represent_name}','${hp}');`;
         mysql.query(querystring, (err, rows) => {
