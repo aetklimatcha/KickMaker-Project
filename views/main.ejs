@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>알림 기능 예시</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,6 +46,31 @@
     <script type="importmap">
 
   </script> 
+
+  <script>
+    // 알림을 지원하는지 확인
+if ("Notification" in window) {
+  // 사용자에게 알림 허용 여부를 요청
+  Notification.requestPermission()
+    .then(function (permission) {
+      if (permission === "granted") {
+        // 알림 생성
+        var notification = new Notification("알림 제목", {
+          body: "알림 내용",
+          icon: "알림 아이콘 URL",
+        });
+
+        // 알림 클릭 시 동작 설정
+        notification.onclick = function () {
+          // 알림을 클릭했을 때 수행할 동작
+        };
+      }
+    })
+    .catch(function (error) {
+      console.error("알림 허용 요청 실패:", error);
+    });
+}
+  </script>
 
 </body>
 </html>
