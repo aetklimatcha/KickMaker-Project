@@ -12,9 +12,6 @@ const routes = require("./routes/index.js");
 //var sanitizeHtml = require('sanitize-html');
 var bodyParser = require('body-parser');
 // var compression = require('compression')
-const loginController = require('./controllers/loginController.js');
-const registerController = require('./controllers/registerController.js');
-
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 //정적파일 서비스하는 모듈? (css 안됐을때 씀)
@@ -34,39 +31,6 @@ app.use(routes)
 // const options = { etag : false };
 
 
-// 미들웨어
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
-/*
-// 회원가입, 로그인 핸들 라우터 
-app.post('/api/register',registerController.register);
-app.post('/api/login',loginController.login);
-
-app.get('/api/register', function(req, res) { 
-    res.sendFile('register.html', {  root : 'user' });
-
-});
-app.get('/api/login', function(req, res) { 
-    res.sendFile('login.html', {  root : 'user' });
-});
-
-*/
-
-// 로그인을 위한 쿠키 사용하기
-var cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
-// 쿠키 테스트하기
-app.get('/cookie', (req, res) => {
-    res.render('cookie');
-});
-app.post('/cookie', (req, res) => {
-    const text = req.body.text;
-    res.cookie('Text', text);
-    console.log(req.cookies.Text)
-    res.render('Cookie', {'text': text});
-});
 
 // 서버
 app.listen(port, () => {
