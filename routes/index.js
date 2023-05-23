@@ -22,22 +22,39 @@ router.get('/signin', main.signinview);
 router.get('/signup', main.signupview);
 
 router.post('/createteam', main.createteam);
+
+
+
+// 회원가입 핸들러
+
 /*
-// 로그인, 회원가입 핸들러
-router.get('/login',(req,res)=>{
-    res.render('login');
-})
 router.get('/register',(req,res)=>{
     res.render('register')
     })
 
 router.post('/register',(req,res)=>{
 })
+*/
+// 로그인 핸들러
+router.get('/login',(req,res)=>{
+  res.render('login');
+})
+
 router.post('/login',(req,res,next)=>{
-  })
+  var email = req.body.email;
+  var password = req.body.password;
+  var title = 'Welcome';
+  console.log("email : ", email);
+  console.log("password : ", password);
+  res.send(
+      `<h1>${title}</h1>
+      <p>Your email : ${email}</p>
+      <p>Your password : ${password}</p>`
+  )
+})
 
 // 로그아웃
 router.get('/logout',(req,res)=>{
- })
-*/
+})
+
 module.exports = router;

@@ -33,20 +33,30 @@ app.use(routes)
 // app.disable('etag');
 // const options = { etag : false };
 
-// 미들웨어
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
 
+// 미들웨어
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'static')));
+/*
 // 회원가입, 로그인 핸들 라우터 
 app.post('/api/register',registerController.register);
 app.post('/api/login',loginController.login);
 
 app.get('/api/register', function(req, res) { 
     res.sendFile('register.html', {  root : 'user' });
+
 });
 app.get('/api/login', function(req, res) { 
     res.sendFile('login.html', {  root : 'user' });
 });
+
+*/
+
+// 로그인을 위한 쿠키 사용하기
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
   
 // 서버
 app.listen(port, () => {
