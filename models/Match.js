@@ -28,9 +28,9 @@ module.exports = {
         })
     },
 
-    //Match에 팀 삽입?
-    insertTeam: function ( id, password, teamname, represent_name, hp, callback ) {
-        const querystring = `INSERT INTO Team ( id, password, teamname, represent_name, hp) VALUES ( '${id}', '${password}', '${teamname}', '${represent_name}','${hp}');`;
+    //Match에 팀 삽입
+    insertMatch: function ( id, password, teamname, represent_name, hp, callback ) {
+        const querystring = `INSERT INTO Team ( home_userid, away_userid, match_time, match_place, created, updated) VALUES ( '${home_userid}', '${away_userid}', '${match_time}', '${match_place}','${created}','${updated}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows ); 
@@ -38,9 +38,9 @@ module.exports = {
         });
     },
 
-    //팀 정보 수정
-    updateTeam: function (data, callback) {
-        var querystring = `UPDATE Team SET password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}' WHERE user_id=${data.id}`;
+    //매치 정보 수정
+    updateMatch: function (data, callback) {
+        var querystring = `UPDATE Match SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}', WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
@@ -49,9 +49,9 @@ module.exports = {
         })
     },
 
-    //팀 정보 삭제
-    DeleteTeam: function (id, callback) {
-        mysql.query(`DELETE FROM Team WHERE user_id=${id}`, (err, rows) => {
+    //매치 정보 삭제
+    DeleteMatch: function (id, callback) {
+        mysql.query(`DELETE FROM Team WHERE match_id=${id}`, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
 
