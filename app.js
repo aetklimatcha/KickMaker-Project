@@ -9,8 +9,10 @@ const request = require('http');
 const response = require('express');
 const req = require('express/lib/request.js');
 const routes = require("./routes/index.js");
-//var sanitizeHtml = require('sanitize-html');
 var bodyParser = require('body-parser');
+const jwt = require("jsonwebtoken");
+
+//var sanitizeHtml = require('sanitize-html');
 // var compression = require('compression')
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -22,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //router 폴더 연결
 
-app.use(routes)
+app.use(routes);
 
 
 //304 발생 해결

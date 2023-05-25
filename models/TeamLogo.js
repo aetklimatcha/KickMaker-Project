@@ -3,22 +3,22 @@ const mysql = require("../config/mysql");
 
 module.exports = {
 
-    //Match 전체 조회
-    getAllMatch : function (callback) {
-        const querystring = `Select * from Match;`;
+    //TeamLogo 전체 조회
+    getAllTeamLogo : function (callback) {
+        const querystring = `Select * from TeamLogo;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             callback(result);
         })
     },
 
-    //match_id로 경기번호 조회
-    getmatch_id: function (match_id, callback) {
-        const querystring = `SELECT * FROM Match Where match_id= ${match_id} limit 1;`;
+    //logo_id로 팀 로고 조회
+    getlogo_id: function (logo_id, callback) {
+        const querystring = `SELECT * FROM TeamLogo Where logo_id= ${logo_id} limit 1;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found Match: ", result[0]);
+                console.log("found TeamLogo: ", result[0]);
                 callback(result[0]);
             }
             // 결과가 없을 시 
@@ -26,19 +26,19 @@ module.exports = {
         })
     },
 
-    //Match에 팀 삽입
-    insertMatch: function ( home_userid, away_userid, match_time, match_place, created, updated, callback ) {
-        const querystring = `INSERT INTO Team ( home_userid, away_userid, match_time, match_place, created, updated) VALUES ( '${home_userid}', '${away_userid}', '${match_time}', '${match_place}','${created}','${updated}');`;
+    //TeamLogo에 정보(팀아이디,사진url) 삽입
+    insertTeamLogo: function ( user_id, url, callback ) {
+        const querystring = `INSERT INTO TeamLogo ( user_id, url ) VALUES ( '${user_id}', '${url}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows ); 
-        callback(rows.insertId);
+        callback(rows.insertTeamLogo);
         });
     },
 
-    //매치 정보 수정
-    updateMatch: function (data, callback) {
-        var querystring = `UPDATE Match SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}', WHERE match_id=${data.match_id}`;
+    //TeamLogo 정보 수정
+    updateTeamLogo: function (data, callback) {
+        var querystring = `UPDATE TeamLogo SET user_id='${data.user_id}', url='${url}'`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
@@ -47,9 +47,9 @@ module.exports = {
         })
     },
 
-    //매치 정보 삭제
-    DeleteMatch: function (id, callback) {
-        mysql.query(`DELETE FROM Team WHERE match_id=${id}`, (err, rows) => {
+    //TeamLogo 정보 삭제
+    DeleteTeamLogo: function (id, callback) {
+        mysql.query(`DELETE FROM TeamLogo WHERE logo_id=${id}`, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
 
