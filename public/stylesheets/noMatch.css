@@ -1,6 +1,8 @@
 /*notMatching page*/
 .notMatching {
   /* margin-top: 120px; */
+  height: 100vh;
+  position: relative;
   background-image: url("../images/soccer.jpg");
   background-repeat: no-repeat;
   background-position: center;
@@ -8,7 +10,8 @@
   background-size: cover;
 }
 .notMatching .inner {
-  width: 1100px;
+  /* width: 1100px; */
+  width: 100vh;
   margin: 0 auto;
   position: relative;
   height: 800px;
@@ -26,6 +29,7 @@
   color: #ddd;
 }
 .notMatching .notMatchingBtn {
+  top: 30vh;
   position: absolute;
   display: flex;
   justify-content: center;
