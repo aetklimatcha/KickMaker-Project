@@ -29,7 +29,7 @@ module.exports = {
     },
 
     //Match에 팀 삽입
-    insertMatch: function ( id, password, teamname, represent_name, hp, callback ) {
+    insertMatch: function ( home_userid, away_userid, match_time, match_place, created, updated, callback ) {
         const querystring = `INSERT INTO Team ( home_userid, away_userid, match_time, match_place, created, updated) VALUES ( '${home_userid}', '${away_userid}', '${match_time}', '${match_place}','${created}','${updated}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
