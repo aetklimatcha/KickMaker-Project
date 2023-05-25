@@ -1,5 +1,3 @@
-//아직 수정중 [김건태]
-
 const { response } = require("express");
 const mysql = require("../config/mysql");
 
