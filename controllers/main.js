@@ -59,7 +59,6 @@ module.exports = {
                 title: "testtitle",
                 Team: result
             });
-            //console.log(result);
         });
     },
 
