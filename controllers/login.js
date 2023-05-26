@@ -17,10 +17,16 @@ module.exports= {
 
     login_process : (req, res) => {
         model.getLoginTeam(req.body.id,req.body.pass,function( result ) {
-            payload = result;
+            console.log(result);
+            payload = result.user_id;
+            ino();
         }); 
-        token = jwt.sign(payload,secretKey,options);  
-        console.log(token);
-        res.redirect('/test')
+        
+        function ino () {
+            token = jwt.sign(payload,secretKey,options);  
+            console.log(token);
+            res.cookie('token',token)
+            res.redirect('/test')
+        }
     }
 }

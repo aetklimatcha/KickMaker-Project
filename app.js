@@ -10,6 +10,7 @@ const response = require('express');
 const req = require('express/lib/request.js');
 const routes = require("./routes/index.js");
 var bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
 
 //var sanitizeHtml = require('sanitize-html');
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //router 폴더 연결
-
+app.use(cookieParser());
 app.use(routes);
 
 

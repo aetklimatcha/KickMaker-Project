@@ -22,23 +22,25 @@ module.exports = {
                 callback(result[0]);
             }
             // 결과가 없을 시 
-            result({kind: "not_found"}, null);
+            //result({kind: "not_found"}, null);
         })
     },
 
         //id password로 단일 TEam 조회 (로그인)
-        getLoginTeam: function (id,password, callback) {
-            const querystring = `SELECT * FROM Team Where id= ${id} and password = ${password} limit 1;`;
-            mysql.query(querystring, function (error, result) {
-                if ( error ) throw error;
-                if(result.length) {
-                    console.log("found id team: ", result[0]);
-                    callback(result[0]);
-                }
-                // 결과가 없을 시 
-                result({kind: "not_found"}, null);
-            })
-        },
+    getLoginTeam: function (id,password, callback) {
+        const querystring = `SELECT * FROM Team Where id= '${id}' and password = '${password}';`;
+        mysql.query(querystring, function (error, result) {
+            if ( error ) throw error;
+            if(result.length) {
+                callback(result[0]);
+            }
+            // 결과가 없을 시 
+            else {
+                console.log("login 실패 null반환")
+                callback(null);
+            }
+        })
+    },
 
     //Team에 팀 삽입
     insertTeam: function ( id, password, teamname, represent_name, hp, callback ) {
