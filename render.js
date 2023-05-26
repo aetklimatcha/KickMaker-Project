@@ -8,7 +8,7 @@ app.use(express.static(__dirname));
 
 app.get('/',function(req,res){
     //아래 경로 조정해서 띄울 ejs 설정!!!!!!!
-    res.render(__dirname + '/views/signin.ejs');
+    res.render(__dirname + '/views/main.ejs');
 });
 
 app.listen(3000, () => {
