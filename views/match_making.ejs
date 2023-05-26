@@ -15,40 +15,50 @@
 </head>
 <body>
 <!--HEADER-->
-<div>
-  <header>
-    <div class="inner">
+    <!--HEADER-->
+    <header>
+      <div class="inner">
 
-      <a href="/" class="logo">MATCH MAKER</a>
+        <a href="/" class="logo">MATCH MAKER</a>
 
-      <ul class="main-menu">
-        <li class="menu">
-          <div class="menu__name">alert</div>
-          <div class="menu__contents">
-            <ul class="inner">
-              <li>알림</li>
-            </ul>
-          </div>
-        </li>
-        <li class="menu">
-          <div class="menu__name">My page</div>
-          <div class="menu__contents">
-            <ul class="inner">
-              <li>등록한 경기 정보 수정</li>
-              <li>팀 승률 확인</li>
-              <li>팀 프로필 변경</li>
-            </ul>
-          </div>
-        </li>
-        <li class="menu">
-          <div class="menu__name">
-            <a href="../views/signin.ejs">Sign In</a>
-        </il>
-        </ul>
-    </div>
-  </header>
-</div>
-
+        <ul class="main-menu">
+          <li class="menu">
+            <div class="menu__name">My match</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">My page</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>등록한 경기 정보 수정</li>
+                <li>팀 승률 확인</li>
+                <li>팀 프로필 변경</li>
+                <li>계정 정보 변경</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">alert</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">
+              <a href="/signin">Sign In</a>
+          </il>
+          </ul>
+      </div>
+    </header>
+    
   <section class="match_making">
     <h1>매칭 정보 입력</h1>
     <div class="match_making__card">

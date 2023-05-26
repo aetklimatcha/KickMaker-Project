@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>회원가입</title>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../public/stylesheets/common.css">
@@ -12,7 +12,7 @@
 </head>
 <body>
   <!--HEADER-->
-  <div>
+    <!--HEADER-->
     <header>
       <div class="inner">
 
@@ -20,10 +20,10 @@
 
         <ul class="main-menu">
           <li class="menu">
-            <div class="menu__name">alert</div>
+            <div class="menu__name">My match</div>
             <div class="menu__contents">
               <ul class="inner">
-                <li>알림</li>
+                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
               </ul>
             </div>
           </li>
@@ -34,18 +34,28 @@
                 <li>등록한 경기 정보 수정</li>
                 <li>팀 승률 확인</li>
                 <li>팀 프로필 변경</li>
+                <li>계정 정보 변경</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">alert</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
               </ul>
             </div>
           </li>
           <li class="menu">
             <div class="menu__name">
-              <a href="../views/signin.ejs">Sign In</a>
+              <a href="/signin">Sign In</a>
           </il>
           </ul>
       </div>
     </header>
-  </div>
-
+    
   <!-- 회원가입 섹션 -->
   <section class="signup">
     <h1>회원가입</h1>
