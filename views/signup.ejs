@@ -58,20 +58,31 @@
     
   <!-- 회원가입 섹션 -->
   <section class="signup">
-    <h1>회원가입</h1>
+    <pre>
+
+      <p>
+      <h1>SIGN UP</h1>
     <div class="signup__card">
       <form action="" >
-        <p>팀명 입력</p>
-        <input type="text" name="team__name" placeholder="팀명을 입력하세요.">
-        <p>아이디 입력</p>
-        <input type="text" name="id" placeholder="아이디를 입력하세요." />
-        <p>비밀번호 입력</p>
-        <input type="password" name="pass" placeholder="비밀번호를 입력하세요." />
-        <p>비밀번호 확인</p>
-        <input type="password__confirm" name="pass__check" placeholder="비밀번호 확인" />
-        <input type="submit" value="설정 완료"></input>
+        <form name="signup" method="post">
+          아이디 입력<br>
+          <input type="text" name="id" placeholder="아이디를 입력하세요" ><br>
+          비밀번호 입력<br> 
+          <input type="password" name="password" placeholder="비밀번호를 입력하세요." /><br>
+          팀이름 입력<br>
+          <input type="text" name="teamname" placeholder="팀명을 입력하세요" ><br>
+          팀대표자명 입력<br>
+          <input type="text" name="represent_name" placeholder="대표자 이름을 입력하세요" ><br>
+          연락처 입력<br>
+          <input type="text" name="hp" placeholder="010-****-****"><br>
+          로고 아이디 입력<br>
+          <input type="text" name="logo_id" placeholder="로고 아이디를 입력하세요"><br>
+          <br><br>
+          <br><input type="submit" value="설정 완료"></input><br>
       </form>
-    </div>
+      </div>
+     </p>
+   </pre>
   </section>
   
 </body>
