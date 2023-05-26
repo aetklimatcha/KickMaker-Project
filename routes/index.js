@@ -22,6 +22,6 @@ router.get('/signin', main.signinview);
 router.get('/signup', main.signupview);
 
 router.post('/createteam', main.createteam);
-
+router.post('/login', login.login_process);
 
 module.exports = router;
