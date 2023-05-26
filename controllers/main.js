@@ -1,5 +1,6 @@
 const path = require("path");
 const model = require("../models/Team");
+require('dotenv').config();
 
 module.exports = {
 
@@ -96,6 +97,7 @@ module.exports = {
             });
             //console.log(result);
         });
+        console.log("Team");
     },
 
     signupview : (req, res) => {
@@ -111,6 +113,14 @@ module.exports = {
     },
 
     createteam : (req, res) => {
+        // const key = process.env;
+        // let token = "";
+        // token = jwt.sign(
+        //     {
+        //         type: "JWT",
+                
+        //     }
+        // )
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
         model.insertTeamtest(req.body.id,req.body.pass,function( result ) {
@@ -119,7 +129,7 @@ module.exports = {
             //res.send({id:result});
         });    
         res.redirect('/login_demo')
-    },
+    }
 
 
 }

@@ -1,13 +1,26 @@
 const path = require("path");
 const model = require("../models/Team");
+const jwt = require('jsonwebtoken');
+const secretKey = require('../config/secretkey').secretKey;
+const options = require('../config/secretkey').options;
 
-exports.loginview = (req, res) => {
-    model.getAllTeam(function( result ) {
-        res.render(path.join(__dirname + '/../views/login_demo.ejs'), {
-            title: "testtitle",
-            Team: result
-        });
-        //console.log(result);
-    });
-};
+module.exports= {
+    loginview : (req, res) => {
+        model.getAllTeam(function( result ) {
+            res.render(path.join(__dirname + '/../views/signin.ejs'), {
+                title: "testtitle",
+                Team: result
+            });
+            //console.log(result);
+        });  
+    },
 
+    login_process : (req, res) => {
+        model.getLoginTeam(req.body.id,req.body.pass,function( result ) {
+            payload = result;
+        }); 
+        token = jwt.sign(payload,secretKey,options);  
+        console.log(token);
+        res.redirect('/test')
+    }
+}
