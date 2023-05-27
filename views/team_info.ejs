@@ -35,10 +35,8 @@
           <div class="menu__name">My page</div>
           <div class="menu__contents">
             <ul class="inner">
-              <li>등록한 경기 정보 수정</li>
-              <li>팀 승률 확인</li>
-              <li>팀 프로필 변경</li>
-              <li>계정 정보 변경</li>
+              <li>등록한 경기 정보</li>
+              <li>팀 정보</li>
             </ul>
           </div>
         </li>
@@ -70,26 +68,34 @@
         <section>
           <article class="profile">
             <!-- <img src= "팀프로필이미지 링크" alt="프로필 이미지" > -->
-      
-            <h1>팀 이름:<!--teamname--></h1>
-            <% if(Team){ %>
-              <p><%= Team.teamname %></p>
+            <!--teamname-->
+            <p>팀 이름:<% if(Team){ %>
+              <%= Team.teamname %>
               <% } else { %> 
-              <p>testno</p>
-              <% } %>
-            <h2>아이디:<!--user_id--></h2>
-      
-            <a href="#" class="btnView">VIEW MORE</a></br></br>
+              testno
+              <% } %></p></br>
+            
+              <!--user_id-->
+            <p>아이디:<% if(Team){ %>
+                <%= Team.id %>
+                <% } else { %> 
+                testno
+                <% } %></p></br>
+            
+            <!--대표자명-->
+            <p>대표자명:<% if(Team){ %>
+                <%= Team.represent_name %>
+                <% } else { %> 
+                testno
+                <% } %></p></br>
+
+            <!--대표자 연락처-->
+            <p>대표자 연락처:<% if(Team){ %>
+                <%= Team.hp %>
+                <% } else { %> 
+                testno
+                <% } %></p></br>
           </article>		
-      
-          <ul class="team_info">
-            <li>
-              <span>대표자명:<!--대표자명--></span>
-            </li>
-            <li>
-              <span>대표자 연락처:<!--대표자 연락처--></span>
-            </li>			
-          </ul>
         </section>
       </body>
     </div>
