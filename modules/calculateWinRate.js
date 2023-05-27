@@ -16,7 +16,7 @@ connection.connect((err) => {
 
 // 데이터 가져와서 승률 계산하는 함수
 function calculateWinRate() {
-  const query = 'SELECT COUNT(*) AS totalMatches, SUM(CASE WHEN result = "win" THEN 1 ELSE 0 END) AS wins FROM Match';
+  const query = 'SELECT COUNT(*) AS totalMatches, SUM(CASE WHEN result = "win" THEN 1 ELSE 0 END) AS wins FROM Team';
   connection.query(query, (err, rows) => {
     if (err) {
       console.error('쿼리 실행 오류:', err);
