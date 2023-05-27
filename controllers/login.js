@@ -19,14 +19,14 @@ module.exports= {
         model.getLoginTeam(req.body.id,req.body.pass,function( result ) {
             console.log(result);
             payload = result.user_id;
-            ino();
+            login_success();
         }); 
         
-        function ino () {
+        function login_success () {
             token = jwt.sign(payload,secretKey,options);  
             console.log(token);
             res.cookie('token',token)
-            res.redirect('/test')
+            res.redirect('/')
         }
     },
 
