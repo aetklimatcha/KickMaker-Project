@@ -16,18 +16,16 @@ router.get('/demo',main.demoview);
 router.get('/login_demo',login.loginview);
 
 //ejs 파일들 연결 페이지
-router.get('/test',main.testview);
+router.get('/test',cookieJwtAuth,main.testsview);
 router.get('/match_list', main.match_listview);
 router.get('/match_making', main.match_makingview);
 router.get('/noMatch', main.noMatchview);
 router.get('/signin', main.signinview);
 router.get('/signup', main.signupview);
 
-router.post('/check', cookieJwtAuth, (req, res) => {
-    console.log(req.user); 
-    res.redirect('/test'); 
-});
+router.post('/test', cookieJwtAuth,main.testview);
 router.post('/createteam', main.createteam);
 router.post('/login',login.login_process);
+router.post('/logout',login.logout);
 
 module.exports = router;

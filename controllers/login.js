@@ -28,5 +28,12 @@ module.exports= {
             res.cookie('token',token)
             res.redirect('/test')
         }
-    }
+    },
+
+    logout : (req, res) => {
+        res.cookie('token', null, {
+            maxAge: 0,
+        });
+        res.redirect('/')
+    } 
 }
