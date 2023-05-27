@@ -20,7 +20,7 @@ class Team {
     new Team("팀B", 12, 18),
     new Team("팀C", 8, 14),
     new Team("팀D", 15, 22),
-    new Team("팀E", 9, 16)
+    new Team("팀E", 9, 16),
   ];
   
   // 팀을 승률 순으로 정렬하는 함수
@@ -74,3 +74,27 @@ class Team {
 //가장 승률 차이가 작은 팀을 찾아 매칭합니다. 만약 팀의 개수가 홀수인 경우에는 마지막 팀은 bye 처리됩니다.
 //위의 예시 코드에서는 팀 목록 teams를 사용하여 매칭 결과를 출력하였습니다. 이 예시에서는 teams 배열에 5개의 팀이 포함되어 있으며, 
 //각 팀의 승리 횟수와 총 게임 횟수를 기반으로 승률을 계산하여 매칭합니다. 이러한 팀 정보는 실제로는 데이터베이스나 외부 소스에서 가져오는 것이 일반적일 것입니다.
+
+
+
+// 이건 단 두 팀만 매칭시키는 코드!! //
+// 비슷한 승률을 가진 두 팀끼리 매칭하는 함수
+//function matchTeams(teams) {
+ // const sortedTeams = sortTeamsByWinRate(teams);
+ // const matches = [];
+
+  // 두 팀만 매칭
+ // const teamA = sortedTeams[0];
+//  const teamB = sortedTeams[1];
+ // matches.push([teamA, teamB]);
+
+ // return matches;
+//}
+
+// 매칭 결과 출력
+//const matches = matchTeams(teams);
+//matches.forEach((match, index) => {
+//  const teamA = match[0];
+//  const teamB = match[1];
+//  console.log(`매치 ${index + 1}: ${teamA.name} vs ${teamB ? teamB.name : "Bye"}`);
+//});
