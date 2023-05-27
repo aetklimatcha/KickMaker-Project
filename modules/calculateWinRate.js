@@ -1,13 +1,6 @@
-// 필요한 모듈 가져오기
-const mysql = require('mysql');
 
-// Mysql 연결 설정
-const connection = mysql.createConnection({
-  host: 'localhost',     // Mysql 호스트
-  user: '사용자이름',    // Mysql 사용자 이름
-  password: '비밀번호', // Mysql 비밀번호
-  database: '데이터베이스이름' // 사용할 데이터베이스 이름
-});
+// Mysql 연결
+const connection = require("../config/mysql");
 
 // Mysql 연결
 connection.connect((err) => {
