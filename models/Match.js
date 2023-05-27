@@ -31,7 +31,6 @@ module.exports = {
         const querystring = `INSERT INTO Matches ( home_userid, match_place, created, match_time_start, match_time_end) VALUES ( '${home_userid}', '${match_place}','${created}','${match_time_start}','${match_time_end}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
-            console.log( rows ); 
         callback(rows.insertId);
         });
     },
