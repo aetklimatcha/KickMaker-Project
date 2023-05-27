@@ -44,7 +44,7 @@
           <% if(Team){ %>
           <p><%= Team.teamname %></p>
           <% } else { %> 
-          <p>testno</p>
+          <p><%= locals.title %></p>
           <% } %>
       </ul>
     </nav>
@@ -52,7 +52,10 @@
       
     <canvas id="canvas" width="1000" height="1000" ></canvas>
 
-    <script type="importmap"> </script>
+    <script>
+      var titl = '<%= Team %>';
+    </script>
+    <script src ="../public/javascripts/test.js"></script>
 
 
 </body>

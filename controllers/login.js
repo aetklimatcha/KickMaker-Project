@@ -17,11 +17,18 @@ module.exports= {
 
     login_process : (req, res) => {
         model.getLoginTeam(req.body.id,req.body.pass,function( result ) {
-            console.log(result);
-            payload = result.user_id;
-            login_success();
+            if(result==null){
+                login_fail();
+            } else {
+                payload = result.user_id;
+                login_success();
+            }
         }); 
         
+        function login_fail () {
+            res.redirect('/')
+        }
+
         function login_success () {
             token = jwt.sign(payload,secretKey,options);  
             console.log(token);
