@@ -10,6 +10,9 @@ exports.cookieJwtAuth = (req, res, next) => {
       next();
   } catch (err) {
     res.clearCookie('token');
-    return res.redirect('/');
+    console.log("cookie 없는데요?");
+    req.user = null;
+      next();
+    //res.redirect('/test');
   }
 };

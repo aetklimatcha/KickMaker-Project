@@ -29,9 +29,14 @@ module.exports = {
     },
 
     testview : (req, res) => {
+        if(req.user.length) {
+            console.log(req.user);
+        } else {
+            console.log("없당");
+        }
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
+        model.getOneTeam(3,function( result ) {
             res.render(path.join(__dirname + '/../views/test.ejs'), {
                 title: "testtitle",
                 Team: result
@@ -78,12 +83,10 @@ module.exports = {
     signinview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/signin.ejs'), {
-                title: "testtitle",
+        model.getOneTeam(req.user, function( result ) {
+            res.render(path.join(__dirname + '/../views/test.ejs'), {
                 Team: result
             });
-            //console.log(result);
         });
     },
 
@@ -97,14 +100,13 @@ module.exports = {
             });
             //console.log(result);
         });
-        console.log("Team");
     },
 
-    signupview : (req, res) => {
+    testsview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/signup.ejs'), {
+        model.getOneTeam(req.user, function( result ) {
+            res.render(path.join(__dirname + '/../views/test.ejs'), {
                 title: "testtitle",
                 Team: result
             });

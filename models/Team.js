@@ -14,16 +14,20 @@ module.exports = {
 
     //user_id로 단일 TEam 조회
     getOneTeam: function (user_id, callback) {
-        const querystring = `SELECT * FROM Team Where user_id= ${user_id} limit 1;`;
-        mysql.query(querystring, function (error, result) {
-            if ( error ) throw error;
-            if(result.length) {
-                console.log("found2 team: ", result[0]);
-                callback(result[0]);
-            }
-            // 결과가 없을 시 
-            //result({kind: "not_found"}, null);
-        })
+        if(user_id == null){
+            callback(null);
+        }else {
+            const querystring = `SELECT * FROM Team Where user_id= ${user_id} limit 1;`;
+            mysql.query(querystring, function (error, result) {
+                if ( error ) throw error;
+                if(result.length) {
+                    console.log("found2 team: ", result[0]);
+                    callback(result[0]);
+                }
+                // 결과가 없을 시 
+                //result({kind: "not_found"}, null);
+            })
+        }
     },
 
         //id password로 단일 TEam 조회 (로그인)
