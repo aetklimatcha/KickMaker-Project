@@ -1,6 +1,7 @@
 .signin {
-  margin-top: 50px;
-  padding: 100px 0 240px;
+  /* margin-top: 50px; */
+  /* padding: 50px 0; */
+  height: 100vh;
   background-image: url("../images/soccer.jpg");
   background-repeat: no-repeat;
   background-position: center;
@@ -13,11 +14,11 @@
   font-size: 30px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 .signin__card {
   width: 500px;
-  margin: 0 auto;
+  margin: 200px auto;
   border-radius: 6px;
   background-color: #f6f5f0;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
