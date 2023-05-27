@@ -1,62 +1,9 @@
-body {
-  font-size: 14px;
-  line-height: 1.5;
-  background-color: #f6f5f0;
-}
-
-/* Header styles */
-header {
-  background-color: #f2f2f2;
-  padding: 20px 0;
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  text-decoration: none;
-}
-
-.main-menu {
-  display: flex;
-  list-style: none;
-  margin-top: 10px;
-}
-
-.menu {
-  position: relative;
-  margin-right: 20px;
-}
-
-.menu__name {
-  cursor: pointer;
-}
-
-.menu__contents {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.menu:hover .menu__contents {
-  display: block;
-}
-
-.menu__contents ul.inner {
-  list-style: none;
-}
-
 /* Team Info styles */
 .team_info_wrap {
   display: flex;
   justify-content: center;
   margin-top: 100px;
 }
-
 .team_info_left {
   width: 340px;
   padding: 30px;
@@ -64,15 +11,20 @@ header {
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-right: 40px;
-  text-align: left;
+  text-align: center;
+  position: relative;
 }
+.team_info_left .profile{
 
-.team_info_left ul.team_info {
+}
+.team_info_left .profile p{
   list-style: none;
   margin-top: 10px;
-  text-align: left; /* 왼쪽 정렬 */
+  margin-bottom: 1em;
+  text-align: left; 
+  left: 0;
+  display: inline;
 }
-
 .team_info_right {
   width: 340px;
   padding: 30px;
@@ -84,37 +36,31 @@ header {
   align-items: center;
   justify-content: center;
 }
-
 .team_info li {
   font-size: 14px;
   margin-bottom: 5px;
   text-align: left; /* 왼쪽 정렬 */
 }
-
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
-
 h1 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 }
-
 .team01 img {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
 }
-
 .team_profile ul {
   list-style: none;
   margin-top: 10px;
 }
-
 .team_profile li {
   font-size: 14px;
   margin-bottom: 5px;
@@ -135,4 +81,19 @@ h1 {
 .donut-label {
   font-size: 16px;
   font-weight: bold;
+}
+
+section a.btnView {
+    width: 180px;
+    height: 32px;
+    /* margin: 0px auto 20px; */
+    padding: 10px;
+    background-color:#444;
+    border-radius: 16px;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: "arial";
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
 }
