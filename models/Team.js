@@ -21,7 +21,6 @@ module.exports = {
             mysql.query(querystring, function (error, result) {
                 if ( error ) throw error;
                 if(result.length) {
-                    console.log("found2 team: ", result[0]);
                     callback(result[0]);
                 }
                 // 결과가 없을 시 
