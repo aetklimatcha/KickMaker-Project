@@ -84,7 +84,7 @@ module.exports = {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
         model.getOneTeam(req.user, function( result ) {
-            res.render(path.join(__dirname + '/../views/signin.ejs'), {
+            res.render(path.join(__dirname + '/../views/team_info.ejs'), {
                 Team: result
             });
             //console.log(result);
