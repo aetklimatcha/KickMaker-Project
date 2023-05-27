@@ -23,10 +23,11 @@ module.exports= {
                 payload = result.user_id;
                 login_success();
             }
-        }); 
-        
+        });        
+        //실패시 실패알람코드 추가필요
         function login_fail () {
-            res.redirect('/')
+            var string = 'fail';
+            res.redirect('/signin/?value='+string);
         }
 
         function login_success () {
