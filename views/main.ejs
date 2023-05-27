@@ -18,56 +18,21 @@
   <link rel="stylesheet" href="../public/stylesheets/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
   <title>KICKMATCH</title>
 
 </head>
 <body>
 <!--HEADER-->
     <header>
-      <div class="inner">
-
-        <a href="/" class="logo">MATCH MAKER</a>
-
-        <ul class="main-menu">
-          <li class="menu">
-            <div class="menu__name">My match</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">My page</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>등록한 경기 정보</li>
-                <li>팀 정보</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">alert</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">
-              <!-- 로그인되면 로그아웃으로 -->
-              <a href="/signin">Sign In</a> 
-          </il>
-          </ul>
-      </div>
+      <%- include ("./header.ejs") %>
     </header>
 
     <div class="main">
       <div class="inner">
-        <div class="matchingBtn fade-in" onclick="location.href=('/match-making')">
+        <div class="matchingBtn fade-in" onclick="location.href=('/match_making')">
           매칭 시작하기
         </div>
       </div>
