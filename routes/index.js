@@ -19,18 +19,18 @@ router.get('/login_demo',login.loginview);
 
 //ejs 파일들 연결 페이지
 
-router.get('/match_list', main.match_listview);
-router.get('/match_making', main.match_makingview);
+router.get('/match-list', main.match_listview);
+router.get('/match-making', cookieJwtAuth,main.match_makingview);
 router.get('/noMatch', main.noMatchview);
 router.get('/signin', main.signinview)
 router.get('/signup', main.signupview);
-router.get('/team_info',cookieJwtAuth, main.team_infoview);
+router.get('/team-info',cookieJwtAuth, main.team_infoview);
 
 router.post('/createteam', main.createteam);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', signup.signup);
-
+//router.post('/match_making', cookieJwtAuth,main.match_making);
 //규빈 테스트용 페이지
 
 router.get('/test',cookieJwtAuth,main.testsview);
