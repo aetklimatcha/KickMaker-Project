@@ -7,7 +7,7 @@
   background-attachment: fixed;
   background-size: cover;
 }
-.inner {
+.main .inner {
   width: 100vh;
   margin: 0 auto;
   position: relative;
@@ -26,15 +26,15 @@
   margin: 30px;
   height: 300px;
   width: 300px;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
   line-height: 260px;
   color: #fff;
-  font-size: 24px;
+  font-size: 30px;
   background-color: #666;
   box-shadow: 4px 4px 10px rgba(0,0,0,.5);
   cursor: pointer;
 }
-.main .fade-in {
+.matchingBtn.fade-in {
   opacity: 0;
 }
