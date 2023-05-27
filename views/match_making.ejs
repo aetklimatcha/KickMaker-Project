@@ -18,44 +18,7 @@
 <!--HEADER-->
     <!--HEADER-->
     <header>
-      <div class="inner">
-
-        <a href="/" class="logo">MATCH MAKER</a>
-
-        <ul class="main-menu">
-          <li class="menu">
-            <div class="menu__name">My match</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">My page</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>등록한 경기 정보</li>
-                <li>팀 정보</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">alert</div>
-            <div class="menu__contents">
-              <ul class="inner">
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-              </ul>
-            </div>
-          </li>
-          <li class="menu">
-            <div class="menu__name">
-              <a href="/signin">Sign In</a>
-          </il>
-          </ul>
-      </div>
+      <%- include ("./header.ejs") %>
     </header>
     
   <section class="match_making">
@@ -63,7 +26,7 @@
     <div class="match_making__card">
       <form action="/match-making" method="post">
         <label for="gameDate" class="option__title">경기 가능한 날짜를 선택해주세요.</label><br /><br />
-          <input type="date" id="gameDate" name="gameDay"><br /><br />
+          <input type="date" id="gameDate" name="gameDate"><br /><br />
         <label for="gameStartTime" class="option__title">경기 가능한 시간을 선택해주세요:</label></br></br>
             <input
               type="time"
