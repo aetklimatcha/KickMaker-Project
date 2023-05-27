@@ -7,15 +7,12 @@ const connection = require('../config/mysql');
 const main = require('../controllers/main');
 const login = require('../controllers/login')
 const signup = require("../controllers/signup");
+const match = require("../controllers/match");
 
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 
 //url이 빈 상태로 넘어올 경우
 router.get('/',main.mainview);
-
-router.get('/demo',main.demoview);
-
-router.get('/login_demo',login.loginview);
 
 //ejs 파일들 연결 페이지
 
@@ -30,7 +27,7 @@ router.post('/createteam', main.createteam);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', signup.signup);
-//router.post('/match_making', cookieJwtAuth,main.match_making);
+router.post('/match-making', cookieJwtAuth,match.match_making);
 //규빈 테스트용 페이지
 
 router.get('/test',cookieJwtAuth,main.testsview);
