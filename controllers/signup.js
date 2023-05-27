@@ -6,7 +6,7 @@ const model = require("../models/signup");
 
 module.exports= {
     signup : (req, res) => {
-        model.insertsignup(req.body.user_id,req.body.password,req.body.teamname,req.body.represent_name,req.body.hp,req.body.logo_id,function( result ) {
+        model.insertsignup(req.body.id,req.body.password,req.body.teamname,req.body.represent_name,req.body.hp,req.body.logo_id,function( result ) {
             res.redirect('/')
         });  
     }
