@@ -40,7 +40,6 @@ module.exports = {
             }
             // 결과가 없을 시 
             else {
-                console.log("login 실패 null반환")
                 callback(null);
             }
         })
