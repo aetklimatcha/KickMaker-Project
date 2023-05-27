@@ -20,7 +20,7 @@ router.get('/test',cookieJwtAuth,main.testsview);
 router.get('/match_list', main.match_listview);
 router.get('/match_making', main.match_makingview);
 router.get('/noMatch', main.noMatchview);
-router.get('/signin', main.signinview);
+router.get('/signin',cookieJwtAuth,main.signinview);
 router.get('/signup', main.signupview);
 
 router.post('/test', cookieJwtAuth,main.testview);
