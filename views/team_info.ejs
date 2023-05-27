@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>match_making</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/team_info.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!--HEADER-->
+  <div>
+    <header>
+      <div class="inner">
+
+        <a href="/" class="logo">MATCH MAKER</a>
+
+        <ul class="main-menu">
+          <li class="menu">
+            <div class="menu__name">alert</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>알림</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">My page</div>
+            <div class="menu__contents">
+              <ul class="inner">
+                <li>등록한 경기 정보 수정</li>
+                <li>팀 승률 확인</li>
+                <li>팀 프로필 변경</li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu">
+            <div class="menu__name">
+              <a href="/signin">Sign In</a>
+          </il>
+          </ul>
+      </div>
+    </header>
+  </div>
+
+  <div class="team_info_wrap">
+    <div class="team_info_left">
+      <h1>팀 정보 확인</h1></br>
+      <body class="team01">
+        <section>
+          <article class="profile">
+            <!-- <img src= "팀프로필이미지 링크" alt="프로필 이미지" > -->
+      
+            <h1>팀 이름:<!--teamname--></h1>
+            <h2>아이디:<!--user_id--></h2>
+      
+            <a href="#" class="btnView">VIEW MORE</a></br></br>
+          </article>		
+      
+          <ul class="team_info">
+            <li>
+              <span>팀소개:<!--팀 소개--></span>
+            </li>			
+            <li>
+              <span>대표자명:<!--대표자명--></span>
+            </li>
+            <li>
+              <span>대표자 연락처:<!--대표자 연락처--></span>
+            </li>			
+          </ul>
+        </section>
+      </body>
+    </div>
+    <div class="team_info_right">
+      <h1>승률과 매너점수</h1>
+      <div class="donut-chart">
+        <canvas id="winRateChart" width="200" height="200"></canvas>
+        <div class="donut-label"></div>
+      </div>
+      <div class="donut-chart">
+        <canvas id="mannerChart" width="200" height="200"></canvas>
+        <div class="donut-label"></div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/team_info.js"></script>
+  <script src="../js/common.js"></script>
+</body>
+</html>
