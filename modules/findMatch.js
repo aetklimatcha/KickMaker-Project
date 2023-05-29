@@ -36,7 +36,13 @@ module.exports = {
 
 //기존에 있던 array 배열의 장소에서, user_place의 장소와 겹치는 부분을 찾아서 반환해라! 아니면 없다고 보내라! 
 function placeMatch (user_place, matchData) {
-    var sepnum = (typeof(user_place)=='string') ? 1 : user_place.length;
+    if (typeof(user_place)=='string') {
+        sepnum = 1;
+        var user_place = [user_place];
+        console.log(user_place);
+    } else {
+        sepnum = user_place.length;
+    }
     var venue = new Array();
     var delnum = [];
 
