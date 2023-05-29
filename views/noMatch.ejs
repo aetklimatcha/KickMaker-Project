@@ -23,7 +23,7 @@
       <%- include ("./header.ejs") %>
     </header>
 
-  <section class="notMatching">
+  <!--<section class="notMatching">
     <div class="inner">
       <div class="msg">매칭할 수 있는 팀이 없습니다.</div>
       <div class="notMatchingBtn">
@@ -33,6 +33,21 @@
         <div class="check fade-in" onclick="location.href=('/match-list')">
           경기 둘러보기
         </div>
+      </div>
+    </div>
+  </section>-->
+  <section class="notMatching">
+    <div class="inner">
+      <div class="msg">매칭할 수 있는 팀이 없습니다.</div>
+      <div class="notMatchingBtn">
+        <form id="registerForm" method="post" action="/complete">
+          <button class="enter fade-in" type="submit">
+            경기 등록하기
+          </button>
+        </form>
+        <button class="check fade-in" onclick="location.href=('/match-list')">
+          경기 둘러보기
+        </button>
       </div>
     </div>
   </section>
