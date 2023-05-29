@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [60, 40], // 승률 점수와 나머지 비율 (임의의 값)
-        backgroundColor: ['#3f51b5', '#f2f2f2'],
+        data: [win_score, 100-win_score], // 승률 점수와 나머지 비율 (임의의 값)
+        backgroundColor: ['#3B6E0E', '#CCCCCC'],
         borderWidth: 0
       }]
     },
@@ -35,13 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+
   // 매너 점수 차트
   var mannerChart = new Chart(document.getElementById('mannerChart'), {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [80, 20], // 매너 점수와 나머지 비율 (임의의 값)
-        backgroundColor: ['#3f51b5', '#f2f2f2'],
+        data: [manner_score, 100-manner_score], // db에서 받아온 manner_score과 나머지 비율
+        backgroundColor: ['#3B6E0E', '#CCCCCC'],
         borderWidth: 0
       }]
     },

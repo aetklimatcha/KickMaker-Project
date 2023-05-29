@@ -1,66 +1,46 @@
 <div class="inner">
 
   <a href="/" class="logo">MATCH MAKER</a>
-
   <ul class="main-menu">
-      <!-- 임시 -->
-      <div class="menu__contents">
-          <% if(loginTeam){ %>
-            <p><%=loginTeam.teamname %> 환영합니다</p>
-          <% } else { %> 
-            <a href="/signin">Sign In</a>
-          <% } %>
-      </div>
+      <% if(loginTeam){ %>
+        <li class="menu">
+          <div class="menu__name">My match</div>
+          <div class="menu__contents">
+            <ul class="inner">
+                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
+            </ul>
+          </div>
+        </li>
+        <li class="menu">
+          <div class="menu__name">My page</div>
+          <div class="menu__contents">
+            <ul class="inner">
+                <li>등록한 경기 정보</li>
+                <li> 
+                  <a href="/team-info">팀 정보</a>
+                  <!-- 팀 정보 -->
+                </li>
+            </ul>
+          </div>
+        </li>
+        <li class="menu">
+          <div class="menu__name">alert</div>
+          <div class="menu__contents">
+            <ul class="inner">
+                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="menu">
+              <form action="/logout" method="post">
+                <input type="submit" value="logout" />
+              </form>
+        </li>
 
-      <li class="menu">
-      <div class="menu__name">My match</div>
-      <div class="menu__contents">
-        <ul class="inner">
-          <% if(loginTeam){ %>
-            <li>${경기날짜} ${상대팀명}팀과의 경기</li>
-          <% } else { %> 
-            <a href="/signin">Sign In</a>
-          <% } %>
-        </ul>
-      </div>
-    </li>
-    <li class="menu">
-      <div class="menu__name">My page</div>
-      <div class="menu__contents">
-        <ul class="inner">
-          <% if(loginTeam){ %>
-            <li>등록한 경기 정보</li>
-            <li>팀 정보</li>
-          <% } else { %> 
-            <a href="/signin">Sign In</a>
-          <% } %>
-        </ul>
-      </div>
-    </li>
-    <li class="menu">
-      <div class="menu__name">alert</div>
-      <div class="menu__contents">
-        <ul class="inner">
-          <% if(loginTeam){ %>
-              <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-              <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-              <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-          <% } else { %> 
-              <a href="/signin">Sign In</a>
-          <% } %>
-        </ul>
-      </div>
-    </li>
-    <li class="menu">
-      <div class="menu__name">
-        <% if(loginTeam){ %>
-          <form action="/logout" method="post">
-            <input type="submit" value="로그아웃" />
-          </form>
-        <% } else { %> 
-          <a href="/signin">Sign In</a>
-        <% } %>
-      </div>
-    </li>
+      <% } else { %> 
+        <a class="signinBtn" href="/signin">Sign In</a>
+      <% } %>     
     </ul>
 </div>

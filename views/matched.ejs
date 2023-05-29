@@ -4,6 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/list.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="../public/javascripts/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <title>Document</title>
 </head>
 <body>
@@ -29,10 +43,24 @@
 }
 ]
 -->
-  <p><%= findTeams[0].match_id %></p>
-  <p><%= findTeams[0].match_date %></p>
-  <p><%= findTeams[0].match_place %></p>
-  <p><%= findTeams[0].overlap_start %></p>
-  <p><%= findTeams[0].teamname %></p>
+
+<!--HEADER-->
+  <header>
+    <%- include ("./header.ejs") %>
+  </header>
+
+    <section class="matched">
+      <h1>매치된 경기들</h1>
+      <% for (var i=0;  i < findTeams.length; i++) { %>
+      <% var data = findTeams[i]; %>
+      <div class="matchedInfo__card">
+        <p><%= findTeams[0].match_id %></p>
+        <p><%= findTeams[0].match_date %></p>
+        <p><%= findTeams[0].match_place %></p>
+        <p><%= findTeams[0].overlap_start %></p>
+      </div>
+      <%  } %>
+    </section>
+
 </body>
 </html>

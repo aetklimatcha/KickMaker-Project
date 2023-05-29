@@ -3,8 +3,7 @@ label {
 }
 
 .match_making {
-  margin-top: 50px;
-  padding: 100px 0 240px;
+  height: 100vh;
   background-image: url("../images/soccer.jpg");
   background-repeat: no-repeat;
   background-position: center;
@@ -22,7 +21,7 @@ label {
 
 .match_making__card {
   width: 500px;
-  margin: 0 auto;
+  margin: 100px auto 0;
   border-radius: 6px;
   background-color: #f6f5f0;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
