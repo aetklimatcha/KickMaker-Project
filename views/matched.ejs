@@ -14,20 +14,25 @@
     match_date: 매치날짜,
     match_place: [ '겹치는 구1', '겹치는 구2' ],
     overlap_start: '겹치는 시간의 시작',
-    overlap_end: '겹치는 시간의 끝'
+    overlap_end: '겹치는 시간의 끝',
+    home_userid: 개최 팀의 pk,
+    teamname: '팀명'
   },
-  {
-    match_id: 55,
-    match_date: 매치날짜,
-    match_place: [ '강동구', '강북구' ],
-    overlap_start: '13:16:00',
-    overlap_end: '16:00'
-  }
+ {
+   match_id: 55,
+   match_place: [ '강동구' ],
+   match_date: '2023-05-18',
+   overlap_start: '13:16:00',
+   overlap_end: '16:00',
+   home_userid: 9,
+   teamname: 'FC마마'
+}
 ]
 -->
   <p><%= findTeams[0].match_id %></p>
   <p><%= findTeams[0].match_date %></p>
   <p><%= findTeams[0].match_place %></p>
   <p><%= findTeams[0].overlap_start %></p>
+  <p><%= findTeams[0].teamname %></p>
 </body>
 </html>
