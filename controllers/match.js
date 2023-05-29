@@ -17,8 +17,6 @@ module.exports = {
         var match_time_start = req.body.gameStartTime;
         var match_time_end = req.body.gameEndTime;
 
-
-
         var info = {
             place:match_place,
             date:gameDate,
@@ -68,8 +66,7 @@ module.exports = {
 
         //nomatch 페이지에서 등록하기 누를 경우 실행할 것
         model.insertMatch(home_userid, match_date,match_place,match_time_start,match_time_end, created,function( result ) { 
-            res.write("<script>alert('match register complete')</script>");
-            res.redirect('/');
+            res.redirect('/complete');
         });  
     },
 
