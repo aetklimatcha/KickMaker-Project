@@ -64,7 +64,7 @@ function placeMatch (user_place, matchData) {
             delnum.push(i);
         }
     }
-    //뒤에서부터잘라야함 혹은 다른 방식
+    //뒤에서부터 자름
     for(var i = delnum.length-1; i>=0; i--) {
         matchData.splice(delnum[i],1);
     }

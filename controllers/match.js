@@ -28,17 +28,22 @@ module.exports = {
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
             //results : 경기 가능 팀들의 {id,가능장소,겹치는시간}
             //matchAvailability : 경기할 팀 여부 true: 있음, false: 없음
-            payload = matchData;
-            payload = JSON.stringify(payload);
-            console.log(JSON.parse(payload));
+
+            console.log(info);
+            console.log(JSON.parse(JSON.stringify(matchData)));
             //매치가 없는 경우
             if (matchAvailability==false) {
+                //payload = JSON.parse(JSON.stringify(info));
+                payload = JSON.stringify(info);
                 token = jwt.sign(payload,secretKey,options);
-                res.cookie('matchtoken',token);
+                res.cookie('myMatchtoken',token);
                 res.redirect('/noMatch');
+            //매치가 있는 경우
             } else if (matchAvailability==true) {
+                //payload = JSON.parse(JSON.stringify(matchData));
+                payload = JSON.stringify(matchData);
                 token = jwt.sign(payload,secretKey,options);
-                res.cookie('matchtoken',token);
+                res.cookie('findMatchestoken',token);
                 res.redirect('/');
             }
         });
