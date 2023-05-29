@@ -61,7 +61,7 @@ module.exports = {
             model.getOneTeam(req.user_id, function( loginresult ) {
                 res.render(path.join(__dirname + '/../views/match_making.ejs'), {
                     title: "testtitle",
-                    Team: loginresult
+                    loginTeam: loginresult
                 });
             });
         }
