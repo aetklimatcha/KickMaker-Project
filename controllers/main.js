@@ -171,7 +171,16 @@ module.exports = {
             //res.send({id:result});
         });    
         res.redirect('/login_demo')
-    }
+    },
 
+    tomain : (req, res) => {
+        res.cookie('findMatchestoken', null, {
+            maxAge: 0,
+        });
+        res.cookie('myMatchtoken', null, {
+            maxAge: 0,
+        });
+        res.redirect('/')
+    },
 
 }

@@ -11,11 +11,10 @@ const match = require("../controllers/match");
 
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 
-//url이 빈 상태로 넘어올 경우
-router.get('/', cookieJwtAuth,main.mainview);
+
 
 //ejs 파일들 연결 페이지
-
+router.get('/', cookieJwtAuth,main.mainview);
 router.get('/match-list',cookieJwtAuth, main.match_listview);
 router.get('/match-making', cookieJwtAuth,main.match_makingview);
 router.get('/noMatch',cookieJwtAuth, main.noMatchview);
@@ -24,6 +23,8 @@ router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
 router.get('/complete',cookieJwtAuth, main.completeview);
 
+
+router.post('/tomain', cookieJwtAuth,main.tomain);
 router.post('/createteam', main.createteam);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
