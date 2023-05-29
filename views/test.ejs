@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
+  <title>TEST PAGE</title>
+
+  <!-- <script src="../routes/cats.js"></script> -->
+
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <i class="fa-solid fa-car"></i>
+        <a href="/login_demo">login_demo</a>
+        <a href="/match_list">match_list</a>
+        <a href="/match_making">match_making</a>
+        <a href="/noMatch">noMatch</a>
+        <a href="/signin">signin</a>
+        <a href="/signup">signup</a>
+        <a href="/test">TEST PAGE</a>
+      </div>
+  
+      <form action="/test" method="post">
+        <input type="text" name="id" placeholder="아이디를 입력하세요." />
+        <input type="password" name="pass" placeholder="비밀번호를 입력하세요." />
+        <input type="submit" value="로그인" />
+      </form>
+      <form action="/logout" method="post">
+        <input type="submit" value="로그아웃" />
+      </form>
+
+      <ul class="navbar__menu">
+          <% if(Team){ %>
+          <p><%= Team.teamname %></p>
+          <% } else { %> 
+          <p><%= locals.title %></p>
+          <% } %>
+      </ul>
+    </nav>
+
+      
+    <canvas id="canvas" width="1000" height="1000" ></canvas>
+
+    <script>
+      var titl = '<%= Team %>';
+    </script>
+    <script src ="../public/javascripts/test.js"></script>
+
+
+</body>
+</html>

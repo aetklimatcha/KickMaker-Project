@@ -1,0 +1,86 @@
+.signup {
+  margin-top: 50px;
+  padding: 100px 0 240px;
+  background-image: url("../images/soccer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+.signup h1 {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.signup__card {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #f6f5f0;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+  color: #555;
+} 
+.signup__card h2 {
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.signup__card h2 strong{
+  font-weight: 700;
+  color: #006633;
+}
+
+.signup__card form {
+  padding: 20px 12px;
+}
+.signup__card form input {
+  width: 75%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 14px
+}
+.signup__card form [type="submit"] {
+  background-color: #666;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.signup__card form p {
+  display: block;
+  font-size: 15px;
+  color: #555;
+  margin: 0 0 8px 3px;
+  font-weight: 700;
+  /* text-align: center; */
+}
+.signup__card .actions {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.signup__card .actions a {
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+  padding: 20px;
+  color: #555;
+  font-size: 14px;
+  border-right: 1px solid #ddd;
+}
+.signup__card .actions a:last-child {
+  border-right: none;
+}
+.signup__card .actions a:hover {
+  text-decoration: underline;
+} 

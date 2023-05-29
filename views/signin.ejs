@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/signin.css">
+</head>
+<body>
+    <!--HEADER-->
+    <header>
+      <%- include ("./header.ejs") %>
+    </header>
+
+  <!-- 로그인 섹션 -->
+    <section class="signin">
+      <h1>로그인</h1>
+      <div class="signin__card">
+        <h2>환영합니동</h2>
+        <form action ="/login" method="post" >
+          <input type="text" name="id" placeholder="아이디를 입력하세요." />
+          <input type="password" name="password" placeholder="비밀번호를 입력하세요." />
+          <input type="submit" value="로그인" />
+        </form>
+
+        <!-- 지윤님이 작성하신 코드 -->
+        <!-- <script src="../controllers/loginController.js"></script> -->
+
+        <div class="actions">
+          <a href="/signup">회원가입</a>
+          <a href="javascript:void(0)">아이디 찾기</a>
+          <a href="javascript:void(0)">비밀번호 찾기</a>
+        </div>
+      </div>
+    </section>
+
+</body>
+</html>

@@ -3,38 +3,37 @@ const router = express.Router();
 const path = require("path");
 const req = require('http');
 const res = require('express');
-
+const connection = require('../config/mysql');
 const main = require('../controllers/main');
 const login = require('../controllers/login')
-//url이 빈 상태로 넘어올 경우
-router.get('/',main.mainview);
+const signup = require("../controllers/signup");
+const match = require("../controllers/match");
 
-router.get('/demo',main.demoview);
-
-router.get('/login_demo',login.loginview);
-
-//url이 http://localhost:3000/test 인 경우
-router.get('/test', (req, res) => {
-    res.send('test about');
-});
+const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 
 
-/*
-// 로그인, 회원가입 핸들러
-router.get('/login',(req,res)=>{
-    res.render('login');
-})
-router.get('/register',(req,res)=>{
-    res.render('register')
-    })
 
-router.post('/register',(req,res)=>{
-})
-router.post('/login',(req,res,next)=>{
-  })
+//ejs 파일들 연결 페이지
+router.get('/', cookieJwtAuth,main.mainview);
+router.get('/match-list',cookieJwtAuth, main.match_listview);
+router.get('/match-making', cookieJwtAuth,main.match_makingview);
+router.get('/noMatch',cookieJwtAuth, main.noMatchview);
+router.get('/matched', cookieJwtAuth,main.matchedview);
+router.get('/signin',cookieJwtAuth, main.signinview)
+router.get('/signup',cookieJwtAuth, main.signupview);
+router.get('/complete',cookieJwtAuth, main.completeview);
 
-// 로그아웃
-router.get('/logout',(req,res)=>{
- })
-*/
+
+router.post('/tomain', cookieJwtAuth,main.tomain);
+router.post('/createteam', main.createteam);
+router.post('/login',login.login_process);
+router.post('/logout',login.logout);
+router.post('/signup', signup.signup);
+router.post('/match-making', cookieJwtAuth,match.match_making);
+router.post('/complete', cookieJwtAuth,match.insertMatch);
+//규빈 테스트용 페이지
+
+router.get('/test',cookieJwtAuth,main.testsview);
+router.post('/test', cookieJwtAuth,main.testview);
+
 module.exports = router;
