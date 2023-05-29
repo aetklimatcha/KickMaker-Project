@@ -12,22 +12,10 @@ module.exports = {
         } else if (!req.user_id) {
             isLogin = false;
         }
-        model.getOneTeam(req.user_id, function( result ) {
+        model.getOneTeam(req.user_id, function( loginresult ) {
             res.render(path.join(__dirname + '/../views/main.ejs'), {
                 isLogin: isLogin,
-                Team: result
-            });
-            //console.log(result);
-        });
-    },
-
-    demoview : (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/login_demo.ejs'), {
-                title: "testtitle",
-                Team: result
+                loginTeam: loginresult
             });
             //console.log(result);
         });
@@ -41,10 +29,10 @@ module.exports = {
         }
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getOneTeam(req.user_id,function( result ) {
+        model.getOneTeam(req.user_id,function( loginresult ) {
             res.render(path.join(__dirname + '/../views/test.ejs'), {
                 title: "testtitle",
-                Team: result
+                loginTeam: loginresult
             });
             //console.log(result);
         });
@@ -53,11 +41,14 @@ module.exports = {
     match_listview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/match_list.ejs'), {
-                Team: result
+        model.getOneTeam(req.user_id, function( loginresult ) {
+            model.getAllTeam(function( result ) {
+                res.render(path.join(__dirname + '/../views/match_list.ejs'), {
+                    loginTeam: loginresult,
+                    Team: result
+                });
+                //console.log(result);
             });
-            //console.log(result);
         });
     },
 
@@ -67,10 +58,10 @@ module.exports = {
         if(req.user_id == null) {
             res.redirect('/signin')
         } else {
-            model.getOneTeam(req.user_id, function( result ) {
+            model.getOneTeam(req.user_id, function( loginresult ) {
                 res.render(path.join(__dirname + '/../views/match_making.ejs'), {
                     title: "testtitle",
-                    Team: result
+                    Team: loginresult
                 });
             });
         }
@@ -79,12 +70,15 @@ module.exports = {
     noMatchview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/noMatch.ejs'), {
-                title: "testtitle",
-                Team: result
+        model.getOneTeam(req.user_id, function( loginresult ) {
+            model.getAllTeam(function( result ) {
+                res.render(path.join(__dirname + '/../views/noMatch.ejs'), {
+                    title: "testtitle",
+                    loginTeam:loginresult,
+                    Team: result
+                });
+                //console.log(result);
             });
-            //console.log(result);
         });
     },
 
@@ -92,17 +86,20 @@ module.exports = {
 
         result = req.findMatches;
         console.log(result);
-        res.render(path.join(__dirname + '/../views/matched.ejs'), {
-            Team: result
+        model.getOneTeam(req.user_id, function( loginresult ) {
+            res.render(path.join(__dirname + '/../views/matched.ejs'), {
+                loginTeam: loginresult,
+                findTeams: result
+            }); 
         }); 
     },
 
     team_infoview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getOneTeam(req.user_id, function( result ) {
+        model.getOneTeam(req.user_id, function( loginresult ) {
             res.render(path.join(__dirname + '/../views/team_info.ejs'), {
-                Team: result
+                loginTeam: loginresult
             });
             //console.log(result);
         });
@@ -111,32 +108,37 @@ module.exports = {
     signinview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        res.render(path.join(__dirname + '/../views/signin.ejs'));
-        //로그인 실패시!!!!
-        if(req.query.value == 'fail') {
-            console.log("login failed");
-        };
+        model.getOneTeam(req.user_id, function( loginresult ) {
+            res.render(path.join(__dirname + '/../views/signin.ejs'),{
+                loginTeam: loginresult
+            });
+            //로그인 실패시!!!!
+            if(req.query.value == 'fail') {
+                console.log("login failed");
+            };
+        });
     },
 
     signupview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/signup.ejs'), {
-                title: "testtitle",
-                Team: result
+        model.getOneTeam(req.user_id, function( loginresult ) {
+            model.getAllTeam(function( result ) {
+                res.render(path.join(__dirname + '/../views/signup.ejs'), {
+                    loginTeam: loginresult,
+                    Team: result
+                });
+                //console.log(result);
             });
-            //console.log(result);
         });
     },
 
     testsview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.getOneTeam(req.user_id, function( result ) {
+        model.getOneTeam(req.user_id, function( loginresult ) {
             res.render(path.join(__dirname + '/../views/test.ejs'), {
-                title: "testtitle",
-                Team: result
+                loginTeam: loginresult
             });
             //console.log(result);
         });

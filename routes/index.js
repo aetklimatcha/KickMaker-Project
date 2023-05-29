@@ -16,12 +16,12 @@ router.get('/', cookieJwtAuth,main.mainview);
 
 //ejs 파일들 연결 페이지
 
-router.get('/match-list', main.match_listview);
+router.get('/match-list',cookieJwtAuth, main.match_listview);
 router.get('/match-making', cookieJwtAuth,main.match_makingview);
-router.get('/noMatch', main.noMatchview);
+router.get('/noMatch',cookieJwtAuth, main.noMatchview);
 router.get('/matched', cookieJwtAuth,main.matchedview);
-router.get('/signin', main.signinview)
-router.get('/signup', main.signupview);
+router.get('/signin',cookieJwtAuth, main.signinview)
+router.get('/signup',cookieJwtAuth, main.signupview);
 router.get('/team-info',cookieJwtAuth, main.team_infoview);
 
 router.post('/createteam', main.createteam);
