@@ -85,7 +85,6 @@ module.exports = {
     matchedview : (req,res) => {
 
         result = req.findMatches;
-        console.log(result);
         model.getOneTeam(req.user_id, function( loginresult ) {
             res.render(path.join(__dirname + '/../views/matched.ejs'), {
                 loginTeam: loginresult,
