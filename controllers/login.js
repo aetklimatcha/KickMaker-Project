@@ -16,7 +16,7 @@ module.exports= {
     },
 
     login_process : (req, res) => {
-        model.getLoginTeam(req.body.id,req.body.pass,function( result ) {
+        model.getLoginTeam(req.body.id,req.body.password,function( result ) {
             if(result==null){
                 login_fail();
             } else {
@@ -33,13 +33,13 @@ module.exports= {
         function login_success () {
             token = jwt.sign(payload,secretKey,options);  
             console.log(token);
-            res.cookie('token',token)
+            res.cookie('usertoken',token)
             res.redirect('/')
         }
     },
 
     logout : (req, res) => {
-        res.cookie('token', null, {
+        res.cookie('usertoken', null, {
             maxAge: 0,
         });
         res.redirect('/')
