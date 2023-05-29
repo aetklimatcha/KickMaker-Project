@@ -12,7 +12,7 @@ const match = require("../controllers/match");
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 
 //url이 빈 상태로 넘어올 경우
-router.get('/',main.mainview);
+router.get('/', cookieJwtAuth,main.mainview);
 
 //ejs 파일들 연결 페이지
 
