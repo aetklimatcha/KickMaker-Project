@@ -40,15 +40,16 @@ header .logo {
   left: 0;
   margin: auto;
 }
-header a {
+header .signinBtn {
   color: #656565;
   padding: 20px;
   display: block;
   font-size: 12px;
 }
-header a:hover {
+header .signinBtn:hover {
   color: #669900;
 }
+
 header .main-menu {
   position: absolute;
   bottom: 0;
@@ -115,5 +116,11 @@ header .main-menu .menu .menu__contents ul > li {
   cursor: pointer;
 }
 header .main-menu .menu .menu__contents ul > li:hover {
+  color: #669900;
+}
+header .main-menu .menu .menu__contents ul > li a {
+  color: #999;
+}
+header .main-menu .menu .menu__contents ul > li a:hover {
   color: #669900;
 }
