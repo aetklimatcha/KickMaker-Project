@@ -50,10 +50,10 @@
       <% for (var i=0;  i < findTeams.length; i++) { %>
       <% var data = findTeams[i]; %>
       <div class="matchedInfo__card">
-        <p><%= findTeams[0].match_id %></p>
-        <p><%= findTeams[0].match_date %></p>
-        <p><%= findTeams[0].match_place %></p>
-        <p><%= findTeams[0].overlap_start %></p>
+        <p><%= findTeams[i].match_id %></p>
+        <p><%= findTeams[i].match_date %></p>
+        <p><%= findTeams[i].match_place %></p>
+        <p><%= findTeams[i].overlap_start %></p>
       </div>
       <%  } %>
     </section>
