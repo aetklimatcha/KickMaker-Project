@@ -18,13 +18,13 @@
 .signup__card {
   width: 500px;
   margin: 0 auto;
-  border-radius: 6px;
+  border-radius: 5px;
   background-color: #f6f5f0;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 } 
 .signup__card h2 {
-  padding: 30px;
+  padding: 10px;
   font-size: 18px;
   text-align: center;
   border-bottom: 1px solid #ddd;
@@ -35,12 +35,12 @@
 }
 
 .signup__card form {
-  padding: 30px 22px;
+  padding: 20px 12px;
 }
 .signup__card form input {
-  width: 100%;
+  width: 75%;
   margin-bottom: 12px;
-  padding: 15px;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   outline: none;
@@ -53,7 +53,10 @@
   color: #fff;
   font-size: 20px;
   cursor: pointer;
+  display: block;
+  margin: 0 auto;
 }
+
 .signup__card form p {
   display: block;
   font-size: 15px;

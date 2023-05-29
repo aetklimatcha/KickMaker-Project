@@ -1,5 +1,3 @@
-<--! 회원가입 회면. 수정해주세요 :D-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../public/stylesheets/common.css">
-  <link rel="stylesheet" href="../public/stylesheets/signin.css">
+  <link rel="stylesheet" href="../public/stylesheets/signup.css">
 </head>
 <body>
   <!--HEADER-->
@@ -24,19 +22,21 @@
     <pre>
 
       <p>
-      <h1>SIGN UP</h1>
+      <h1>회원가입</h1>
     <div class="signup__card">
       <form action="/signup" method="post">
           아이디 입력<br>
           <input type="text" name="id" placeholder="아이디를 입력하세요" ><br>
           비밀번호 입력<br> 
-          <input type="password" name="password" placeholder="비밀번호를 입력하세요." /><br>
+          <input type="password" name="password" placeholder="비밀번호를 입력하세요."><br>
           팀이름 입력<br>
           <input type="text" name="teamname" placeholder="팀명을 입력하세요" ><br>
           팀대표자명 입력<br>
           <input type="text" name="represent_name" placeholder="대표자 이름을 입력하세요" ><br>
           연락처 입력<br>
           <input type="text" name="hp" placeholder="010-****-****"><br>
+          사진 첨부<br>
+          <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br>
         
           <br>
           <br><input type="submit" value="설정 완료"></input><br>
