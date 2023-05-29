@@ -22,7 +22,7 @@ router.get('/noMatch',cookieJwtAuth, main.noMatchview);
 router.get('/matched', cookieJwtAuth,main.matchedview);
 router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
-router.get('/team-info',cookieJwtAuth, main.team_infoview);
+router.get('/complete',cookieJwtAuth, main.completeview);
 
 router.post('/createteam', main.createteam);
 router.post('/login',login.login_process);
