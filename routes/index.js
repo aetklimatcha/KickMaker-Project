@@ -19,6 +19,7 @@ router.get('/',main.mainview);
 router.get('/match-list', main.match_listview);
 router.get('/match-making', cookieJwtAuth,main.match_makingview);
 router.get('/noMatch', main.noMatchview);
+router.get('/matched', cookieJwtAuth,main.matchedview);
 router.get('/signin', main.signinview)
 router.get('/signup', main.signupview);
 router.get('/team-info',cookieJwtAuth, main.team_infoview);

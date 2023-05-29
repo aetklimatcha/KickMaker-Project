@@ -29,8 +29,6 @@ module.exports = {
             //results : 경기 가능 팀들의 {id,가능장소,겹치는시간}
             //matchAvailability : 경기할 팀 여부 true: 있음, false: 없음
 
-            console.log(info);
-            console.log(JSON.parse(JSON.stringify(matchData)));
             //매치가 없는 경우
             if (matchAvailability==false) {
                 //payload = JSON.parse(JSON.stringify(info));
@@ -44,7 +42,7 @@ module.exports = {
                 payload = JSON.stringify(matchData);
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('findMatchestoken',token);
-                res.redirect('/');
+                res.redirect('/matched');
             }
         });
     },
@@ -57,6 +55,7 @@ module.exports = {
         model.insertMatch(req.user_id, gameDate,match_place, created,match_time_start,match_time_end,function( result ) { 
 
         });  
+    },
 
-    }
+
 }

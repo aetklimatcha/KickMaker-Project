@@ -7,6 +7,24 @@
   <title>Document</title>
 </head>
 <body>
-  
+  <!-- 넘어오는 정보 형식: Team 배열
+    [
+  {
+    match_id: 매치 아이디,
+    match_place: [ '겹치는 구1', '겹치는 구2' ],
+    overlap_start: '겹치는 시간의 시작',
+    overlap_end: '겹치는 시간의 끝'
+  },
+  {
+    match_id: 55,
+    match_place: [ '강동구', '강북구' ],
+    overlap_start: '13:16:00',
+    overlap_end: '16:00'
+  }
+]
+-->
+  <p><%= Team[0].match_id %></p>
+  <p><%= Team[0].match_place %></p>
+  <p><%= Team[0].overlap_start %></p>
 </body>
 </html>
