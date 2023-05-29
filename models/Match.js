@@ -5,7 +5,7 @@ module.exports = {
 
     //Match 전체 조회
     getAllMatch : function (callback) {
-        const querystring = `Select * from Match;`;
+        const querystring = `Select * from Matches;`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             callback(result);
@@ -21,7 +21,7 @@ module.exports = {
                 console.log("found Match: ", result[0]);
                 callback(result[0]);
             }
-            // 결과가 없을 시 
+            //결과가 없을 시 
             result({kind: "not_found"}, null);
         })
     },

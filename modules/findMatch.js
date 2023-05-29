@@ -19,8 +19,8 @@ module.exports = {
         const querystring = 
         `SELECT match_id, match_place, 
         DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
-        GREATEST(match_time_start, '${info.starttime}') AS overlap_start,
-        LEAST(match_time_end, '${info.endtime}') AS overlap_end,
+        TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
+        TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
         home_userid
         FROM Matches
         WHERE match_date = '${info.date}'
