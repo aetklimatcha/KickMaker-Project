@@ -17,7 +17,7 @@ module.exports = {
         // };
 
         const querystring = 
-        `SELECT match_id, match_place,
+        `SELECT match_id, match_place, match_date, 
         GREATEST(match_time_start, '${info.starttime}') AS overlap_start,
         LEAST(match_time_end, '${info.endtime}') AS overlap_end
         FROM Matches
