@@ -27,8 +27,8 @@ module.exports = {
     },
 
     //Match 메이킹시에 팀 삽입
-    insertMatch: function ( home_userid, match_date, match_place,created, match_time_start, match_time_end, callback ) {
-        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, created, match_time_start, match_time_end) VALUES ( '${home_userid}', '${match_date}','${match_place}','${created}','${match_time_start}','${match_time_end}');`;
+    insertMatch: function ( home_userid, match_date, match_place, match_time_start, match_time_end, created, callback ) {
+        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, match_time_start, match_time_end, created) VALUES ( '${home_userid}', '${match_date}','${match_place}','${match_time_start}','${match_time_end}','${created}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
         callback(rows.insertId);

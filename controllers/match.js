@@ -3,6 +3,7 @@ const model = require("../models/Match");
 const findMatch = require("../modules/findMatch");
 const { match } = require("assert");
 const jwt = require('jsonwebtoken');
+const { create } = require("domain");
 const secretKey = require('../config/secretkey').secretKey;
 const options = require('../config/secretkey').options;
 require('dotenv').config();
@@ -35,6 +36,7 @@ module.exports = {
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('myMatchtoken',token);
                 res.redirect('/noMatch');
+                console.log("매치없음");
 
             //매치가 있는 경우
             } else if (matchAvailability==true) {
@@ -44,17 +46,30 @@ module.exports = {
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('findMatchestoken',token);
                 res.redirect('/matched');
+                console.log("매치있음");
             }
         });
     },
 
-    noMatch : (req,res) => {
+    insertMatch : (req,res) => {
 
-        var currentDate = new Date();
-        var created = currentDate.toISOString().replace('T', ' ').substr(0, 19);
+        console.log(req.myMatch);
+        var home_userid = req.user_id;
+        var match_date = req.myMatch.date;
+        var match_place = req.myMatch.place;
+        var match_time_start = req.myMatch.starttime;
+        var match_time_end = req.myMatch.endtime;
+
+        const now = new Date(); // 현재 시간
+        const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
+        const koreaTimeDiff = 9 * 60 * 60 * 1000; // 한국 시간은 UTC보다 9시간 빠름(9시간의 밀리세컨드 표현)
+        const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
+        const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
+
         //nomatch 페이지에서 등록하기 누를 경우 실행할 것
-        model.insertMatch(req.user_id, gameDate,match_place, created,match_time_start,match_time_end,function( result ) { 
-
+        model.insertMatch(home_userid, match_date,match_place,match_time_start,match_time_end, created,function( result ) { 
+            res.write("<script>alert('match register complete')</script>");
+            res.redirect('/');
         });  
     },
 

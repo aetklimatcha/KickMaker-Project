@@ -32,9 +32,6 @@ module.exports = {
             enterTeaminfo(results,(matchData)=>{
                 matchAvailability = (results.length === 0) ? false : true;
                 results = matchData;
-                // console.log("에");
-                // console.log(results);
-                // console.log("러");
                 callback(results, matchAvailability);
             });
             
@@ -59,7 +56,9 @@ module.exports = {
 
 function enterTeaminfo(matchData, callback) {
     let count = 0; // 완료된 콜백 함수 수를 추적하기 위한 변수
-
+    if (matchData.length===0) {
+        callback(matchData);
+    }
     for (let i = 0; i < matchData.length; i++) {
         user_id = matchData[i].home_userid;
         console.log(user_id);
