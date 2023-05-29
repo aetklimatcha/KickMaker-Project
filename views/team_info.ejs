@@ -29,36 +29,35 @@
       <body class="team01">
         <section>
           <article class="profile">
-            <!-- <img src= "팀프로필이미지 링크" alt="프로필 이미지" > -->
-            <!--<% if (Team) { %>
-              <img src="<%=Team.team_image%>" alt="">
+            <% if (loginTeam && loginTeam.image_data) { %>
+              <img src="<%= loginTeam.image_data %>" alt="팀 로고 이미지">
             <% } else { %> 
               <img src="testno.jpg" alt="팀 로고 이미지가 없음">
-            <% } %>-->
+            <% } %>
             <!--teamname-->
-            <p>팀 이름:<% if(Team){ %>
-              <%= Team.teamname %>
+            <p>팀 이름:<% if(loginTeam){ %>
+              <%= loginTeam.teamname %>
               <% } else { %> 
               testno
               <% } %></p></br>
             
               <!--user_id-->
-            <p>아이디:<% if(Team){ %>
-                <%= Team.id %>
+            <p>아이디:<% if(loginTeam){ %>
+                <%= loginTeam.id %>
                 <% } else { %> 
                 testno
                 <% } %></p></br>
             
             <!--대표자명-->
-            <p>대표자명:<% if(Team){ %>
-                <%= Team.represent_name %>
+            <p>대표자명:<% if(loginTeam){ %>
+                <%= loginTeam.represent_name %>
                 <% } else { %> 
                 testno
                 <% } %></p></br>
 
             <!--대표자 연락처-->
-            <p>대표자 연락처:<% if(Team){ %>
-                <%= Team.hp %>
+            <p>대표자 연락처:<% if(loginTeam){ %>
+                <%= loginTeam.hp %>
                 <% } else { %> 
                 testno
                 <% } %></p></br>

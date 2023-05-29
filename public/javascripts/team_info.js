@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [80, 20], // 매너 점수와 나머지 비율 (임의의 값)
+        data: [0, 100], // 매너 점수와 나머지 비율 (임의의 값)
         backgroundColor: ['#3f51b5', '#f2f2f2'],
         borderWidth: 0
       }]
