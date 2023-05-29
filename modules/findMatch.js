@@ -17,7 +17,8 @@ module.exports = {
         // };
 
         const querystring = 
-        `SELECT match_id, match_place, match_date, 
+        `SELECT match_id, match_place, 
+        DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
         GREATEST(match_time_start, '${info.starttime}') AS overlap_start,
         LEAST(match_time_end, '${info.endtime}') AS overlap_end
         FROM Matches
@@ -26,6 +27,7 @@ module.exports = {
         AND match_time_end >= '${info.starttime}';`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
+            console.log(result);
             var results = placeMatch(info.place, result);
             matchAvailability = (results.length === 0) ? false : true;
             //경기 정보 , 경기 가능 여부 콜백
@@ -39,13 +41,11 @@ function placeMatch (user_place, matchData) {
     if (typeof(user_place)=='string') {
         sepnum = 1;
         var user_place = [user_place];
-        console.log(user_place);
     } else {
         sepnum = user_place.length;
     }
     var venue = new Array();
     var delnum = [];
-
     for (var i =0; i < matchData.length; i++) {
         venue[i] = matchData[i].match_place.split(',');
     }
