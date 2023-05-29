@@ -1,3 +1,30 @@
 .matched {
+  height: 100vh;
+  /* position: relative; 
+  margin-top: 50px; */
+  background-image: url("../images/soccer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.matched h1 {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  padding: 100px 0 0 0;
+}
+.matchedInfo__card {
+  width: 500px;
+  margin: 100px auto;
+  border-radius: 6px;
+  background-color: #f6f5f0;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+  color: #555;
+}
+.matchedInfo__card p {
+  font-size: 24px;
   
 }
