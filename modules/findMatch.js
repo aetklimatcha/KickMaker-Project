@@ -17,7 +17,8 @@ module.exports = {
         // };
 
         const querystring = 
-        `SELECT match_id, match_place,
+        `SELECT match_id, match_place, 
+        DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
         GREATEST(match_time_start, '${info.starttime}') AS overlap_start,
         LEAST(match_time_end, '${info.endtime}') AS overlap_end
         FROM Matches
@@ -26,6 +27,7 @@ module.exports = {
         AND match_time_end >= '${info.starttime}';`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
+            console.log(result);
             var results = placeMatch(info.place, result);
             matchAvailability = (results.length === 0) ? false : true;
             //경기 정보 , 경기 가능 여부 콜백
@@ -36,10 +38,14 @@ module.exports = {
 
 //기존에 있던 array 배열의 장소에서, user_place의 장소와 겹치는 부분을 찾아서 반환해라! 아니면 없다고 보내라! 
 function placeMatch (user_place, matchData) {
-    var sepnum = (typeof(user_place)=='string') ? 1 : user_place.length;
+    if (typeof(user_place)=='string') {
+        sepnum = 1;
+        var user_place = [user_place];
+    } else {
+        sepnum = user_place.length;
+    }
     var venue = new Array();
     var delnum = [];
-
     for (var i =0; i < matchData.length; i++) {
         venue[i] = matchData[i].match_place.split(',');
     }
