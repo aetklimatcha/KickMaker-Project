@@ -61,7 +61,6 @@ function enterTeaminfo(matchData, callback) {
     }
     for (let i = 0; i < matchData.length; i++) {
         user_id = matchData[i].home_userid;
-        console.log(user_id);
         const querystring = `SELECT teamname FROM Team WHERE user_id = ${user_id} LIMIT 1;`;
         mysql.query(querystring, function (error, result) {
             if (result.length) {

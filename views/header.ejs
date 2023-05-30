@@ -44,7 +44,7 @@
           <div class="menu__contents">
             <ul class="inner">
             <% for (var i=0;  i < notifications.length; i++) { %>
-              <li><%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.</li>
+              <li href="/requested-match"><a href="/requested-match"><%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.</a></li>
             <% } %>
             </ul>
           </div>

@@ -18,11 +18,25 @@ module.exports = {
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found Match: ", result[0]);
+                console.log("조회"+match_id)
                 callback(result[0]);
+            } else if (result.length == 0){
+                console.log("엥 이번호로 경기 조회 안돼"+match_id);
+                callback(null);
             }
-            //결과가 없을 시 
-            result({kind: "not_found"}, null);
+        })
+    },
+
+    //home_userid로 경기번호 조회
+    gethome_id: function (home_userid, callback) {
+        const querystring = `SELECT * FROM Matches Where home_userid= ${home_userid};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result);
+            } else {
+                callback(null);
+            }
         })
     },
 

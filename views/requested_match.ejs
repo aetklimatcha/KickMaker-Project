@@ -21,27 +21,42 @@
   <title>request</title>
 </head>
 <body>
-  <!-- 넘어오는 정보 형식: findTeams 배열
-    [
-  {
-    match_id: 매치 아이디,
-    match_date: 매치날짜,
-    match_place: [ '겹치는 구1', '겹치는 구2' ],
-    overlap_start: '겹치는 시간의 시작',
-    overlap_end: '겹치는 시간의 끝',
-    home_userid: 개최 팀의 pk,
-    teamname: '팀명'
-  },
- {
-   match_id: 55,
-   match_place: [ '강동구' ],
-   match_date: '2023-05-18',
-   overlap_start: '13:16:00',
-   overlap_end: '16:00',
-   home_userid: 9,
-   teamname: 'FC마마'
-}
-]
+  <!-- 넘어오는 정보 형식: matchinfo 배열
+
+date: 경기날짜
+RQteamname: 내게 경기 요청한 팀
+RQplace: 경기 요청한 장소 (겹치는 장소)
+RQstart: 요청된 시간 (겹치는 시간 맨앞)
+OGplace: 내가 등록했던 장소
+OGstart: 내가 등록한 시간 시작
+OGend: 내가 등록한 시간 끝
+
+ [
+   {
+     notif_id: 1,
+     match_id: 73,
+     date: '2023-05-31',
+     RQuserid : 10,
+     RQteamname: 'FC바바',
+     RQplace: '강동구,강북구',
+     RQstart: '12:14',
+     OGplace: '관악구,영등포구',
+     OGstart: '21:44:00',
+     OGend: '22:44:00'
+   },
+   {
+     notif_id: 10,
+     match_id: 16,
+     date: '2023-05-18',
+     RQuserid : 1,
+     RQteamname: 'FC도봉',
+     RQplace: '강동구',
+     RQstart: '16:14',
+     OGplace: '강동구,강북구',
+     OGstart: '12:14:00',
+     OGend: '16:16:00'
+   }
+ ]
 -->
 
 <!--HEADER-->
@@ -60,17 +75,23 @@
           <div class="teamname">팀명</div>
           <div class="request_match">경기 수락</div>
         </div>
-        <% for (var i=0;  i < findTeams.length; i++) { %>
-          <% var data = findTeams[i]; %>
+        <% for (var i=0;  i < matchinfo.length; i++) { %>
+          <% var data = matchinfo[i]; %>
           <div class="request_match">
-            <form id="requestMatch" method="post" action="/complete">
-              <div class="match_date"><%= findTeams[i].match_date %></div>
-              <div class="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_time"><%= findTeams[i].overlap_start %></div>
-              <div class="teamname"><%= findTeams[i].teamname %></div>
+            <form id="requestMatch" method="post" action="/match-accept">
+              <div class="match_date"><%= matchinfo[i].date %></div>
+              <div class="match_place"><%= matchinfo[i].RQplace %></div>
+              <div class="overlap_time"><%= matchinfo[i].RQstart %></div>
+              <div class="teamname"><%= matchinfo[i].RQteamname %></div>
+              <div class="teamname"><%= matchinfo[i].OGplace %></div>
+              <div class="overlap_time"><%= matchinfo[i].OGstart %></div>
+              <div class="overlap_time"><%= matchinfo[i].OGend %></div>
 
+              <!-- action /match-accept로 수정했어요!
+              경기 수락 버튼 시 notif_id , match_id , RQuserid, RQstart, RQplace 다시 넘어오게 해주세요! (다 넘어와도 상관은 없음)
+              만약 경기 거절 버튼 만든다면 post방식으로 /reject , 똑같이 위에 것들 넘어와야함  -->
               <button class="enter fade-in" type="submit">
-                경기 요청
+                경기 수락
               </button>
             </form>
           </div>

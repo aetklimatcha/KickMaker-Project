@@ -85,11 +85,50 @@ module.exports = {
         request_userid = req.user_id;
         receive_userid = req.body.home_userid;
         request_teamname = req.body.teamname;
+        match_date = req.body.match_date
+        overlap_start = req.body.overlap_start
+        match_place = req.body.match_place //얘 하나일 때 배열로 넣기?
+        
+
+        //notif 테이블에다가 match_date부터 match_place, overlap_start도 넣어서 
         
         team.getOneTeam(request_userid, function (result) {
             request_teamname = result.teamname;
             notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function (notiID) {
-                console.log("알림등록" + notiID);
+                res.redirect('/');
+            });
+        })
+    },
+
+    match_accept : (req,res) => {
+        //여기서 할 일 
+        //noti 알림 삭제
+        //matchtable away_userid에 id넣기
+        //matchtime 넣기
+        //matchplace 바꾸기
+
+        // {
+        //   home_userid: '2',
+        //   match_id: '16',
+        //   match_date: '2023-05-18',
+        //   match_place: '강동구,강북구',
+        //   overlap_start: '12:14',
+        //   teamname: 'FC강동'
+        // }
+        match_id = req.body.match_id;
+        request_userid = req.user_id;
+        receive_userid = req.body.home_userid;
+        request_teamname = req.body.teamname;
+        match_date = req.body.match_date
+        overlap_start = req.body.overlap_start
+        match_place = req.body.match_place //얘 하나일 때 배열로 넣기?
+        
+
+        //notif 테이블에다가 match_date부터 match_place, overlap_start도 넣어서 
+        
+        team.getOneTeam(request_userid, function (result) {
+            request_teamname = result.teamname;
+            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function (notiID) {
                 res.redirect('/');
             });
         })

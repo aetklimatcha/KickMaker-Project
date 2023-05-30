@@ -172,38 +172,111 @@ module.exports = {
         });
     },
 
-    testsview: (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/test.ejs'), {
-                    loginTeam: loginresult,
-                    notifications: notifications,
+    // requested_matchview: (req, res) => {
+    //     model.getOneTeam(req.user_id, function (loginresult) {
+    //         notif.getnotif_userid(req.user_id, function (notifications) {
+    //             var notifications = notifications;
+    //             //let count = 0;
+    //             for (var i = 0; i < notifications.length; i++) {
+    //                 match.getmatch_id(notifications[i].match_id, function (OG) {
+    //                     console.log(JSON.stringify(OG.match_date).split("T")[0]+'"')
+    //                     notifications[i].OGdate = JSON.stringify(OG.match_date).split("T")[0]+'"';
+    //                     notifications[i].OGplace = OG.match_place;
+    //                     notifications[i].OGstart = OG.match_time_start;
+    //                     notifications[i].OGend = OG.match_time_end;
+    //                     console.log(notifications);
+    //                 });
+    //             }
+
+    //             res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
+    //                 loginTeam: loginresult,
+    //                 notifications: notifications,
+    //             });
+    //         });
+    //     });
+    // },
+
+    // requested_matchview: (req, res) => {
+    //     model.getOneTeam(req.user_id, function (loginresult) {
+    //         notif.getnotif_userid(req.user_id, function (notifications) {
+    //             let count = 0;
+    //             const updatedNotifications = []; // 수정된 notifications를 저장할 배열
+    
+    //             notifications.forEach(function (notification, i) {
+    //                 match.getmatch_id(notification.match_id, function (OG) {
+    //                     const updatedNotification = {
+    //                         notif_id : notification.notif_id,
+    //                         match_id : notification.match_id,
+    //                         date: JSON.stringify(OG.match_date).split("T")[0] + '"',
+    //                         RQplace : notification.match_place,
+    //                         RQstart : notification.overlap_start,
+    //                         //RQend : ,
+    //                         OGplace: OG.match_place,
+    //                         OGstart: OG.match_time_start,
+    //                         OGend: OG.match_time_end,
+    //                     };
+    //                     updatedNotifications[i] = updatedNotification;
+    //                     count++;
+    //                 });
+    //                 console.log(i);
+    //             });
+    
+    //             // 위의 비동기 작업이 모두 완료된 후에 렌더링 및 응답 처리를 수행
+    //             Promise.all(updatedNotifications).then(function () {
+    //                 console.log("끝 렌더");
+    //                 res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
+    //                     loginTeam: loginresult,
+    //                     notifications: updatedNotifications,
+    //                 });
+    //             });
+    //         });
+    //     });
+    // },
+    
+    requested_matchview: (req, res) => {
+        model.getOneTeam(req.user_id, function (loginresult) {
+            notif.getnotif_userid(req.user_id, function (notifications) {
+                // let count = 0;
+                const updatedNotifications = []; // 수정된 notifications를 저장할 배열
+                let counter = 0; // 완료된 비동기 작업의 수를 추적하는 카운터 변수
+    
+                notifications.forEach(function (notification, i) {
+                    match.getmatch_id(notification.match_id, function (OG) {
+                        const date = new Date(OG.match_date);
+                        //const formattedDate = date.toISOString().split("T")[0];
+                        const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+                        const updatedNotification = {
+                            notif_id : notification.notif_id,
+                            match_id : notification.match_id,
+                            date: formattedDate,
+                            RQuserid : notification.request_userid,
+                            RQteamname : notification.request_teamname,
+                            RQplace : notification.match_place,
+                            RQstart : notification.overlap_start,
+                            //RQend : ,
+                            OGplace: OG.match_place,
+                            OGstart: OG.match_time_start,
+                            OGend: OG.match_time_end,
+                        };
+                        updatedNotifications[i] = updatedNotification;
+                        counter++;
+
+                        if (counter === notifications.length) {
+                            // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
+                            console.log(updatedNotifications);
+                            res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
+                                loginTeam: loginresult,
+                                notifications: notifications, 
+                                matchinfo : updatedNotifications,
+                            });
+                        }
+                    });
                 });
-                //console.log(result);
             });
         });
     },
+    
 
-    createteam: (req, res) => {
-        // const key = process.env;
-        // let token = "";
-        // token = jwt.sign(
-        //     {
-        //         type: "JWT",
-
-        //     }
-        // )
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
-        model.insertTeamtest(req.body.id, req.body.pass, function (result) {
-            console.log(req.body);
-            console.log(result);
-            //res.send({id:result});
-        });
-        res.redirect('/login_demo')
-    },
 
     tomain: (req, res) => {
         res.cookie('findMatchestoken', null, {
