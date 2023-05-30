@@ -23,6 +23,7 @@ router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
 router.get('/complete',cookieJwtAuth, main.completeview);
 router.get('/team-info', cookieJwtAuth,main.team_infoview);
+router.get('/edit-team', cookieJwtAuth,main.edit_teamview);
 router.get('/requested-match', cookieJwtAuth,main.requested_matchview);
 
 
@@ -31,6 +32,7 @@ router.post('/tomain', cookieJwtAuth,main.tomain);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', signup.signup);
+router.post('/edit-team', cookieJwtAuth,login.edit_team);
 router.post('/match-making', cookieJwtAuth,match.match_making);
 router.post('/request', cookieJwtAuth,match.match_request);
 router.post('/complete', cookieJwtAuth,match.insertMatch);

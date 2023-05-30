@@ -43,5 +43,24 @@ module.exports= {
             maxAge: 0,
         });
         res.redirect('/')
-    } 
+    },
+    
+    edit_team :(req, res) => {
+        // {
+        //   id: 'dobong3344',
+        //   password: '11123',
+        //   teamname: 'daf',
+        //   represent_name: 'zzz',
+        //   hp: '123',
+        //   profile_pic: ''
+        // }
+
+        console.log(req.body);
+        model.updateTeam(req.body, req.user_id,function( result ) {
+            res.cookie('usertoken', null, {
+                maxAge: 0,
+            });
+            res.redirect('/');
+        });  
+    },
 }

@@ -43,9 +43,17 @@
           <div class="menu__name">alert</div>
           <div class="menu__contents">
             <ul class="inner">
-            <% for (var i=0;  i < notifications.length; i++) { %>
-              <li href="/requested-match"><a href="/requested-match"><%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.</a></li>
-            <% } %>
+              <% for (var i=0; i < notifications.length; i++) { %>
+                <% if (notifications[i].requesttype=='요청' ) { %>
+                  <li href="/requested-match"><a href="/requested-match">
+                      <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
+                  </a></li>
+                <% } else if (notifications[i].requesttype=='수락' ) { %>
+                  <li href="/requested-match"><a href="/requested-match">
+                    <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
+                </a></li>
+                <% } %>
+              <% } %>
             </ul>
           </div>
         </li>
