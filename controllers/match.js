@@ -1,7 +1,8 @@
 const path = require("path");
-const model = require("../models/Match");
+const match = require("../models/Match");
+const notif = require("../models/Notification");
 const findMatch = require("../modules/findMatch");
-const { match } = require("assert");
+//const { match } = require("assert");
 const jwt = require('jsonwebtoken');
 const { create } = require("domain");
 const secretKey = require('../config/secretkey').secretKey;
@@ -50,7 +51,7 @@ module.exports = {
     },
 
     insertMatch : (req,res) => {
-
+        console.log("이거요");
         console.log(req.myMatch);
         var home_userid = req.user_id;
         var match_date = req.myMatch.date;
@@ -64,11 +65,19 @@ module.exports = {
         const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
         const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
 
-        //nomatch 페이지에서 등록하기 누를 경우 실행할 것
-        model.insertMatch(home_userid, match_date,match_place,match_time_start,match_time_end, created,function( result ) { 
+        
+        match.insertMatch(home_userid, match_date, match_place, match_time_start, match_time_end, created, function (result) {
             res.redirect('/complete');
-        });  
+        });
     },
 
+    match_request : (req,res) => {
+        request_userid = req.user_id;
 
+        
+        notif.insertNotification(match_id, receive_userid, request_userid, "요청", function(notiID){
+            res.redirect('/complete');
+        });
+    },
+    
 }
