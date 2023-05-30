@@ -34,6 +34,8 @@ router.post('/signup', signup.signup);
 router.post('/match-making', cookieJwtAuth,match.match_making);
 router.post('/request', cookieJwtAuth,match.match_request);
 router.post('/complete', cookieJwtAuth,match.insertMatch);
+router.post('/match-accept', cookieJwtAuth,match.match_accept);
+router.post('/match-reject', cookieJwtAuth,match.match_reject);
 
 
 module.exports = router;

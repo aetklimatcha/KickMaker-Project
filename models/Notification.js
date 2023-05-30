@@ -68,7 +68,15 @@ module.exports = {
 
             callback(rows);
         })
+    },
+
+    //Notification 정보 삭제
+    DeleteNotification_matchid: function (match_id, callback) {
+        mysql.query(`DELETE FROM Notification WHERE match_id=${match_id}`, (err, rows) => {
+            if (err) throw err;
+
+        })
     }
 
 
-    }
+}

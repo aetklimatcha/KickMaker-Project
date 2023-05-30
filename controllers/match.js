@@ -106,32 +106,59 @@ module.exports = {
         //matchtable away_userid에 id넣기
         //matchtime 넣기
         //matchplace 바꾸기
-
-        // {
-        //   home_userid: '2',
-        //   match_id: '16',
-        //   match_date: '2023-05-18',
-        //   match_place: '강동구,강북구',
-        //   overlap_start: '12:14',
-        //   teamname: 'FC강동'
-        // }
-        match_id = req.body.match_id;
-        request_userid = req.user_id;
-        receive_userid = req.body.home_userid;
-        request_teamname = req.body.teamname;
-        match_date = req.body.match_date
-        overlap_start = req.body.overlap_start
-        match_place = req.body.match_place //얘 하나일 때 배열로 넣기?
+    
+    // [
+    // {
+    //  notif_id: 10,
+    //  match_id: 16,
+    //  date: '2023-05-18',
+    //  RQuserid : 1,
+    //  RQteamname: 'FC도봉',
+    //  RQplace: '강동구',
+    //  RQstart: '16:14',
+    //  OGplace: '강동구,강북구',
+    //  OGstart: '12:14:00',
+    //  OGend: '16:16:00'
+    // }
+    // ]
+    
+    const data = req.body;
         
 
-        //notif 테이블에다가 match_date부터 match_place, overlap_start도 넣어서 
-        
-        team.getOneTeam(request_userid, function (result) {
-            request_teamname = result.teamname;
-            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function (notiID) {
-                res.redirect('/');
+        notif.DeleteNotification_matchid(match_id, function () {
+            match.updateMatch_accept(data, function (result) {
+                team.getOneTeam(req.user_id, function (result) {
+                    request_teamname = result.teamname;
+                    notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", function (notiID) {
+                        res.redirect('/');
+                    });
+                });
             });
         })
+    },
+
+    match_reject : (req,res) => {
+        //여기서 할 일 
+        //noti 알림 삭제
+    
+    // [
+    // {
+    //  notif_id: 10,
+    //  match_id: 16,
+    //  date: '2023-05-18',
+    //  RQuserid : 1,
+    //  RQteamname: 'FC도봉',
+    //  RQplace: '강동구',
+    //  RQstart: '16:14',
+    //  OGplace: '강동구,강북구',
+    //  OGstart: '12:14:00',
+    //  OGend: '16:16:00'
+    // }
+    // ]
+
+        notif.DeleteNotification(req.body.notif_id, function () {
+            res.redirect('/match-request');
+        });
     },
 
 }
