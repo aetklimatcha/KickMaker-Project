@@ -61,15 +61,6 @@
         </div>
         <% for (var i=0;  i < findTeams.length; i++) { %>
           <% var data = findTeams[i]; %>
-<<<<<<< HEAD
-        <div>
-          <div class="match_date"><%= findTeams[i].match_date %></div>
-          <div class="match_place"><%= findTeams[i].match_place %></div>
-          <div class="overlap_time"><%= findTeams[i].overlap_start %></div>
-          <form id="requestMatch" method="post" action="/request"></form>
-          <div class="teamname"><%= findTeams[i].teamname %></div>
-          <div class="request_match">
-=======
           <div class="request_match">
             <form id="requestMatch" method="post" action="/request">
 
@@ -87,7 +78,6 @@
               <div class="teamname" name="teamname"><%= findTeams[i].teamname %></div>
 
 
->>>>>>> 9afe7eec3473bb9e28b15505edbc1a132bc12a57
               <button class="enter fade-in" type="submit">
 
                 경기 요청
