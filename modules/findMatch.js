@@ -32,7 +32,7 @@ module.exports = {
         AND match_time_end >= '${info.starttime}';`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
-            var results = placeMatch(info.place, result);
+            var results = idplaceMatch(info.user_id,info.place, result);
             enterTeaminfo(results,(matchData)=>{
                 matchAvailability = (results.length === 0) ? false : true;
                 results = matchData;
@@ -73,7 +73,7 @@ function enterTeaminfo(matchData, callback) {
 
 
 //기존에 있던 array 배열의 장소에서, user_place의 장소와 겹치는 부분을 찾아서 반환해라! 아니면 없다고 보내라! 
-function placeMatch (user_place, matchData) {
+function idplaceMatch (user_id, user_place, matchData) {
     if (typeof(user_place)=='string') {
         sepnum = 1;
         var user_place = [user_place];
@@ -97,7 +97,8 @@ function placeMatch (user_place, matchData) {
                 del = false;                     
             }
             //venue[i]에 user_place값이 없는경우 
-            else { 
+            if (user_id == matchData[i].home_userid){ 
+                del = true;
             }
         }
         if(del == false) {
