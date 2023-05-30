@@ -15,6 +15,7 @@ const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 
 //ejs 파일들 연결 페이지
 router.get('/', cookieJwtAuth,main.mainview);
+router.get('/match/:id', cookieJwtAuth,main.matchview);
 router.get('/match-list',cookieJwtAuth, main.match_listview);
 router.get('/match-making', cookieJwtAuth,main.match_makingview);
 router.get('/noMatch',cookieJwtAuth, main.noMatchview);

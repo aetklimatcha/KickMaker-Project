@@ -41,8 +41,8 @@ module.exports = {
     },
 
     //home_userid로 경기번호 조회, '성립 경기만' (My match 전용)
-    getmatchedhome_id: function (home_userid, callback) {
-        const querystring = `SELECT * FROM Matches Where home_userid= ${home_userid} AND establishment='성립';`;
+    getmymatch: function (userid, callback) {
+        const querystring = `SELECT * FROM Matches Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
         mysql.query(querystring, function (error, result) {
             if (error) throw error;
             if (result.length) {

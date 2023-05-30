@@ -26,22 +26,23 @@ module.exports = {
         });
     },
 
-    testview: (req, res) => {
-        if (req.user_id.length) {
-            console.log(req.user_id);
-        } else {
-            console.log("없당");
-        }
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
+    matchview: (req, res) => {
+        console.log(req.query.id)
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/test.ejs'), {
-                    title: "testtitle",
-                    loginTeam: loginresult,
-                    notifications: notifications,
+                match.getmatch_id(req.query.id, function (matchdata) {
+                    model.getOneTeam(matchdata.home_userid, function (hometeam) {
+                        model.getOneTeam(matchdata.away_userid, function (awayteam) {
+                            res.render(path.join(__dirname + '/../views/match.ejs'), {
+                                loginTeam: loginresult,
+                                notifications: notifications,
+                                matchdata: matchdata,
+                                hometeam: hometeam,
+                                awayteam: awayteam,
+                            });
+                        })
+                    });
                 });
-                //console.log(result);
             });
         });
     },
@@ -139,7 +140,7 @@ module.exports = {
     my_matchview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
-                match.getmatchedhome_id(req.user_id, function (matches) {
+                match.getmymatch(req.user_id, function (matches) {
                     res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                         loginTeam: loginresult,
                         notifications: notifications,
