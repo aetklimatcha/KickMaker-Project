@@ -63,12 +63,12 @@
 } */
 
 .matchedInfo__card .teamname,
-.matchedInfo__card .overlap_time {
+.matchedInfo__card .overlap_start {
   width: 15%;
   text-align: center;
 }
 
-/* .matchedInfo__card .overlap_time {
+/* .matchedInfo__card .overlap_start {
   width: 15%;
   text-align: center;
 } */
@@ -102,7 +102,7 @@
 
 
 .matchedInfo__card .request_match .teamname,
-.matchedInfo__card .request_match .overlap_time {
+.matchedInfo__card .request_match .overlap_start {
   display: inline-block;
   padding: 15px 0;
   text-align: center;
