@@ -1,4 +1,5 @@
 const path = require("path");
+const team = require("../models/Team")
 const match = require("../models/Match");
 const notif = require("../models/Notification");
 const findMatch = require("../modules/findMatch");
@@ -65,22 +66,33 @@ module.exports = {
         const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
         const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
 
-        
         match.insertMatch(home_userid, match_date, match_place, match_time_start, match_time_end, created, function (result) {
             res.redirect('/complete');
         });
     },
 
     match_request : (req,res) => {
+
+        // {
+        //   home_userid: '2',
+        //   match_id: '16',
+        //   match_date: '2023-05-18',
+        //   match_place: '강동구,강북구',
+        //   overlap_start: '12:14',
+        //   teamname: 'FC강동'
+        // }
+        match_id = req.body.match_id;
         request_userid = req.user_id;
-        console.log("넘어오는것");
-        console.log(req.body);
-        //밑에 매개변수 넘겨줄것
+        receive_userid = req.body.home_userid;
+        request_teamname = req.body.teamname;
         
-        notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function(notiID){
-            console.log("알림등록"+notiID);
-            res.redirect('/');
-        });
+        team.getOneTeam(request_userid, function (result) {
+            request_teamname = result.teamname;
+            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function (notiID) {
+                console.log("알림등록" + notiID);
+                res.redirect('/');
+            });
+        })
     },
-    
+
 }
