@@ -1,6 +1,7 @@
 const path = require("path");
 const model = require("../models/Team");
 const match = require("../models/Match");
+const notif = require("../models/Notification");
 
 require('dotenv').config();
 
@@ -9,17 +10,20 @@ module.exports = {
     mainview : (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
-        if(req.user_id) {
+        if (req.user_id) {
             isLogin = true;
         } else if (!req.user_id) {
             isLogin = false;
         }
-        model.getOneTeam(req.user_id, function( loginresult ) {
-            res.render(path.join(__dirname + '/../views/main.ejs'), {
-                isLogin: isLogin,
-                loginTeam: loginresult
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            console.log(notifications);
+            model.getOneTeam(req.user_id, function (loginresult) {
+                res.render(path.join(__dirname + '/../views/main.ejs'), {
+                    isLogin: isLogin,
+                    loginTeam: loginresult,
+                    notifications: notifications
+                });
             });
-            //console.log(result);
         });
     },
 
