@@ -73,6 +73,9 @@ h1 {
   font-size: 14px;
   margin-bottom: 5px;
 }
+.profile{
+  margin-top:60px;
+}
 
 /* Donut chart styles */
 .donut-chart {
