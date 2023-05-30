@@ -22,6 +22,7 @@ router.get('/matched', cookieJwtAuth,main.matchedview);
 router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
 router.get('/complete',cookieJwtAuth, main.completeview);
+router.get('/team-info', cookieJwtAuth,main.team_infoview);
 
 
 router.post('/tomain', cookieJwtAuth,main.tomain);
