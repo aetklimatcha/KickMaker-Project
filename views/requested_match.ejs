@@ -68,28 +68,29 @@ OGend: 내가 등록한 시간 끝
   </header>
 
     <section class="matched">
-      <h1>요청받은 경기들</h1>
+      <h1>요청받은 경기 목록</h1>
       <div class="matchedInfo__card">
         <div class="top">
-          <div class="match_date">날짜</div>
-          <div class="match_place">장소</div>
-          <div class="overlap_start"> 시작 시간</div>
-          <div class="overlap_end"> 시작 시간</div>
-          <div class="teamname">팀명</div>
-          <div class="request_match">경기 수락</div>
+          <div class="date">날짜</div>
+          <div class="RQplace">장소</div>
+          <div class="RQstart">시작 시간</div>
+          <div class="RQteamname">팀명</div>
+          <div class="accept_match">경기 수락</div>
         </div>
         <% for (var i=0;  i < matchinfo.length; i++) { %>
           <% if (matchinfo[i].requesttype != '요청'){continue;}; %>
           <% var data = matchinfo[i]; %>
-          <div class="request_match">
+          <div class="accept">
             <form id="requestMatch" method="post" action="/match-accept">
-              <div class="match_date"><%= matchinfo[i].date %></div>
-              <div class="match_place"><%= matchinfo[i].RQplace %></div>
-              <div class="overlap_time"><%= matchinfo[i].RQstart %></div>
-              <div class="teamname"><%= matchinfo[i].RQteamname %></div>
-              <div class="teamname"><%= matchinfo[i].OGplace %></div>
-              <div class="overlap_time"><%= matchinfo[i].OGstart %></div>
-              <div class="overlap_time"><%= matchinfo[i].OGend %></div>
+              <input type="hidden" name="notif_id" value="<%= matchinfo[i].notif_id %>">
+              <input type="hidden" name="match_id" value="<%= matchinfo[i].match_id %>">
+              <input type="hidden" name="RQuserid" value="<%= matchinfo[i].RQuserid %>">
+              <input type="hidden" name="RQstart" value="<%= matchinfo[i].RQstart %>">
+              <input type="hidden" name="RQplace" value="<%= matchinfo[i].RQplace %>">
+              <div class="date"><%= matchinfo[i].date %></div>
+              <div class="RQplace"><%= matchinfo[i].RQplace %></div>
+              <div class="RQstart"><%= matchinfo[i].RQstart %></div>
+              <div class="RQteamname"><%= matchinfo[i].RQteamname %></div>
 
               <!-- action /match-accept로 수정했어요!
               경기 수락 버튼 시 notif_id , match_id , RQuserid, RQstart, RQplace 다시 넘어오게 해주세요! (다 넘어와도 상관은 없음)
