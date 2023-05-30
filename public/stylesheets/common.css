@@ -14,8 +14,6 @@ img {
   margin: 0 auto;
   position: relative;
 }
-
-
 header {
   width: 100%;
   background-color: #f6f5f0;
@@ -24,21 +22,25 @@ header {
   top: 0;
   z-index: 9;
 }
-
 header > .inner {
   height: 50px;
 }
 header .logo {
-  height: 30px;
+  border-style: none;
+}
+header form {
+  /* display: none; */
+  height: 0;
+}
+header .logo img{
+  width: 80px;
   display: flex;
-  font-size: 20px;
-  padding: 11px 16px;
-  color: #656565;
-  top: 10px;
+  /* padding: 10px; */
   position: absolute;
   bottom: 0;
   left: 0;
   margin: auto;
+  cursor: pointer;
 }
 header .signinBtn {
   color: #656565;
