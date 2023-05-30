@@ -225,7 +225,6 @@ module.exports = {
 
                         if (counter === notifications.length) {
                             // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
-                            console.log(updatedNotifications);
                             res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
                                 loginTeam: loginresult,
                                 notifications: notifications, 

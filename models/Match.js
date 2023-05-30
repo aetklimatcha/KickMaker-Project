@@ -64,7 +64,7 @@ module.exports = {
 
     //매치 정보 수정
     updateMatch: function (data, callback) {
-        var querystring = `UPDATE Matches SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}', WHERE match_id=${data.match_id}`;
+        var querystring = `UPDATE Matches SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}' WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
@@ -75,10 +75,9 @@ module.exports = {
 
     // 경기 수락 시 매치 정보 수정
     updateMatch_accept: function (data, callback) {
-        var querystring = `UPDATE Matches SET away_userid=${data.RQuserid}, match_time='${data.RQstart}', match_place='${data.RQplace}',establishment='성립', WHERE match_id=${data.match_id}`;
+        var querystring = `UPDATE Matches SET away_userid=${data.RQuserid}, match_time='${data.RQstart}', match_place='${data.RQplace}',establishment='성립' WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if (err) throw err;
-            console.log(rows);
 
             callback(rows);
         })

@@ -103,32 +103,25 @@ module.exports = {
         })
     },
 
-    match_accept : (req,res) => {
+    match_accept: (req, res) => {
         //여기서 할 일 
         //noti 알림 삭제
         //matchtable away_userid에 id넣기
         //matchtime 넣기
         //matchplace 바꾸기
-    
-    // [
-    // {
-    //  notif_id: 10,
-    //  match_id: 16,
-    //  date: '2023-05-18',
-    //  RQuserid : 1,
-    //  RQteamname: 'FC도봉',
-    //  RQplace: '강동구',
-    //  RQstart: '16:14',
-    //  OGplace: '강동구,강북구',
-    //  OGstart: '12:14:00',
-    //  OGend: '16:16:00'
-    // }
-    // ]
-    
-    const data = req.body;
-        
 
-        notif.DeleteNotification_matchid(match_id, function () {
+        // {
+        //   notif_id: '6',
+        //   match_id: '97',
+        //   RQuserid: '15',
+        //   RQstart: '13:00',
+        //   RQplace: '강남구'
+        // }
+        console.log(req.body);
+        const data = req.body;
+
+
+        notif.DeleteNotification_matchid(data.match_id, function (result) {
             match.updateMatch_accept(data, function (result) {
                 team.getOneTeam(req.user_id, function (result) {
                     request_teamname = result.teamname;

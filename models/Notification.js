@@ -44,7 +44,6 @@ module.exports = {
         const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid,request_teamname, requesttype ) VALUES ( ${match_id}, ${receive_userid}, ${request_userid},'${request_teamname}', '${requesttype}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
-            console.log( rows ); 
             callback(rows.insertId);
         });
     },
@@ -74,7 +73,7 @@ module.exports = {
     DeleteNotification_matchid: function (match_id, callback) {
         mysql.query(`DELETE FROM Notification WHERE match_id=${match_id}`, (err, rows) => {
             if (err) throw err;
-
+            callback(rows)
         })
     }
 
