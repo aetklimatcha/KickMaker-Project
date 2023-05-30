@@ -182,67 +182,6 @@ module.exports = {
             });
         });
     },
-
-    // requested_matchview: (req, res) => {
-    //     model.getOneTeam(req.user_id, function (loginresult) {
-    //         notif.getnotif_userid(req.user_id, function (notifications) {
-    //             var notifications = notifications;
-    //             //let count = 0;
-    //             for (var i = 0; i < notifications.length; i++) {
-    //                 match.getmatch_id(notifications[i].match_id, function (OG) {
-    //                     console.log(JSON.stringify(OG.match_date).split("T")[0]+'"')
-    //                     notifications[i].OGdate = JSON.stringify(OG.match_date).split("T")[0]+'"';
-    //                     notifications[i].OGplace = OG.match_place;
-    //                     notifications[i].OGstart = OG.match_time_start;
-    //                     notifications[i].OGend = OG.match_time_end;
-    //                     console.log(notifications);
-    //                 });
-    //             }
-
-    //             res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
-    //                 loginTeam: loginresult,
-    //                 notifications: notifications,
-    //             });
-    //         });
-    //     });
-    // },
-
-    // requested_matchview: (req, res) => {
-    //     model.getOneTeam(req.user_id, function (loginresult) {
-    //         notif.getnotif_userid(req.user_id, function (notifications) {
-    //             let count = 0;
-    //             const updatedNotifications = []; // 수정된 notifications를 저장할 배열
-    
-    //             notifications.forEach(function (notification, i) {
-    //                 match.getmatch_id(notification.match_id, function (OG) {
-    //                     const updatedNotification = {
-    //                         notif_id : notification.notif_id,
-    //                         match_id : notification.match_id,
-    //                         date: JSON.stringify(OG.match_date).split("T")[0] + '"',
-    //                         RQplace : notification.match_place,
-    //                         RQstart : notification.overlap_start,
-    //                         //RQend : ,
-    //                         OGplace: OG.match_place,
-    //                         OGstart: OG.match_time_start,
-    //                         OGend: OG.match_time_end,
-    //                     };
-    //                     updatedNotifications[i] = updatedNotification;
-    //                     count++;
-    //                 });
-    //                 console.log(i);
-    //             });
-    
-    //             // 위의 비동기 작업이 모두 완료된 후에 렌더링 및 응답 처리를 수행
-    //             Promise.all(updatedNotifications).then(function () {
-    //                 console.log("끝 렌더");
-    //                 res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
-    //                     loginTeam: loginresult,
-    //                     notifications: updatedNotifications,
-    //                 });
-    //             });
-    //         });
-    //     });
-    // },
     
     requested_matchview: (req, res) => {
         model.getOneTeam(req.user_id, function (loginresult) {
@@ -286,7 +225,20 @@ module.exports = {
             });
         });
     },
-    
+   
+    registered_matchview: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                match.gethome_id(req.user_id, function (result) {
+                    res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
+                        loginTeam: loginresult,
+                        notifications: notifications,
+                        Matches: result,
+                    });
+                });
+            });
+        });
+    },
 
 
     tomain: (req, res) => {

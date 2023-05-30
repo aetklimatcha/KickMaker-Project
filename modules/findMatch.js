@@ -1,6 +1,7 @@
 const { response } = require("express");
 const mysql = require("../config/mysql");
 const match = require("../controllers/match");
+const rebatch = require("./rebatch");
 
 module.exports = {
 
@@ -9,7 +10,10 @@ module.exports = {
 
     findMatch : function (info, callback) {
 
-        // info = {
+        // // info = {
+        //     user_id: req.user_id,
+        //     win_score : user.win_score,
+        //     manner_score : user.manner_score,
         //     place:match_place,
         //     date:gameDate,
         //     starttime:match_time_start,
@@ -32,27 +36,15 @@ module.exports = {
             enterTeaminfo(results,(matchData)=>{
                 matchAvailability = (results.length === 0) ? false : true;
                 results = matchData;
-                callback(results, matchAvailability);
+
+                rebatch.rebatch(info, results, (final)=>{
+                    callback(final, matchAvailability);
+                });               
             });
             
         })             
     }
 }
-
-// function enterTeaminfo(matchData, callback) {
-//     for (let i = 0; i < matchData.length; i++) {
-//         user_id = matchData[i].home_userid;
-//         console.log(user_id);
-//         const querystring = `SELECT teamname FROM Team Where user_id= ${user_id} limit 1;`;
-//         mysql.query(querystring, function (error, result) {
-//             if (result.length) {
-//                 matchData[i].teamname = result[0].teamname;
-//             }
-//             console.log('함수중');
-//         })
-//     }
-//     callback(matchData);
-// }
 
 function enterTeaminfo(matchData, callback) {
     let count = 0; // 완료된 콜백 함수 수를 추적하기 위한 변수
@@ -61,10 +53,12 @@ function enterTeaminfo(matchData, callback) {
     }
     for (let i = 0; i < matchData.length; i++) {
         user_id = matchData[i].home_userid;
-        const querystring = `SELECT teamname FROM Team WHERE user_id = ${user_id} LIMIT 1;`;
+        const querystring = `SELECT teamname, win_score, manner_score FROM Team WHERE user_id = ${user_id} LIMIT 1;`;
         mysql.query(querystring, function (error, result) {
             if (result.length) {
                 matchData[i].teamname = result[0].teamname;
+                matchData[i].win_score = result[0].win_score;
+                matchData[i].manner_score = result[0].manner_score;
             }
             count++; // 콜백 함수 완료 카운트 증가
             if (count === matchData.length) {

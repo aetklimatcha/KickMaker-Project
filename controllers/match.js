@@ -19,12 +19,16 @@ module.exports = {
         var match_time_start = req.body.gameStartTime;
         var match_time_end = req.body.gameEndTime;
 
-        var info = {
-            place:match_place,
-            date:gameDate,
-            starttime:match_time_start,
-            endtime:match_time_end
-        };
+        team.getOneTeam(req.user_id , (user)=>{
+            var info = {
+                user_id: req.user_id,
+                win_score : user.win_score,
+                manner_score : user.manner_score,
+                place:match_place,
+                date:gameDate,
+                starttime:match_time_start,
+                endtime:match_time_end
+            };
 
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
             //results : 경기 가능 팀들의 {id,가능장소,겹치는시간}
@@ -49,11 +53,10 @@ module.exports = {
                 console.log("매치있음");
             }
         });
+    })
     },
 
     insertMatch : (req,res) => {
-        console.log("이거요");
-        console.log(req.myMatch);
         var home_userid = req.user_id;
         var match_date = req.myMatch.date;
         var match_place = req.myMatch.place;
