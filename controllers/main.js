@@ -197,6 +197,7 @@ module.exports = {
                         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
                         const updatedNotification = {
                             notif_id : notification.notif_id,
+                            requesttype : notification.requesttype,
                             match_id : notification.match_id,
                             date: formattedDate,
                             RQuserid : notification.request_userid,
