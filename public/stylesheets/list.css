@@ -23,11 +23,10 @@
   color: #555;
   border-top: 2px solid #000;
 }
-.matchedInfo__card p {
+/* .matchedInfo__card p {
   font-size: 24px;
   
-}
-
+} */
 .matchedInfo__card > div {
   border-bottom: 1px solid #ddd;
   font-size: 0;
@@ -48,17 +47,14 @@
   font-size: 1.4rem;
 }
 
+
 .matchedInfo__card > div.top > div {
   font-weight: 600;
 }
 
-.matchedInfo__card .match_id {
-  width: 15%;
-  text-align: center;
-}
-
-.matchedInfo__card .match_place {
-  width: 15%;
+.matchedInfo__card .match_place, 
+.matchedInfo__card .match_date {
+  width: 25%;
   text-align: center;
 }
 
@@ -66,23 +62,58 @@
   text-align: center;
 } */
 
-.matchedInfo__card .match_date {
-  width: 20%;
-  text-align: center;
-}
-
+.matchedInfo__card .teamname,
 .matchedInfo__card .overlap_time {
   width: 15%;
   text-align: center;
 }
 
-.matchedInfo__card .teamname {
+/* .matchedInfo__card .overlap_time {
+  width: 15%;
+  text-align: center;
+} */
+
+/* .matchedInfo__card .teamname {
   width: 20%;
+  text-align: center;
+} */
+.
+
+.matchedInfo__card .request_match {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
+  width: 10%;
+
+
+}
+
+.matchedInfo__card .request_match .match_place,
+.matchedInfo__card .request_match .match_date {
+  display: inline-block;
+  padding: 15px 0;
+  height: 100%;
+  text-align: center;
+  font-size: 1.4rem;
+  width: 25%;
   text-align: center;
 }
 
-.matchedInfo__card .request_match {
+
+.matchedInfo__card .request_match .teamname,
+.matchedInfo__card .request_match .overlap_time {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
   width: 15%;
+  text-align: center;
+}
+
+.matchedInfo__card .request_match .enter {
+  width: 10%;
+  margin: 10px;
   text-align: center;
 }
 
