@@ -28,12 +28,13 @@ module.exports = {
 
     //receive_userid로 팀 알림 조회
     getnotif_userid: function (receive_userid, callback) {
+        if (receive_userid == undefined) {
+            callback(null);
+        }
         const querystring = `SELECT * FROM Notification Where receive_userid= ${receive_userid};`;
         mysql.query(querystring, function (error, result) {
-            mysql.query(querystring, function (error, result) {
-                if ( error ) throw error;
-                callback(result);
-            })
+            if (error) throw error;
+            callback(result);
         })
     },
 
