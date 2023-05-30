@@ -27,12 +27,12 @@ module.exports = {
     },
 
     //Notification에 정보(경기번호, 팀아이디, 경기장소) 삽입
-    insertNotification: function ( match_id, userid, match_place ) {
-        const querystring = `INSERT INTO Notification ( match_id, userid, match_place ) VALUES ( '${match_id}', '${userid}', '${match_place}');`;
+    insertNotification: function ( match_id, receive_userid, request_userid, requesttype, callback ) {
+        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid, requesttype ) VALUES ( '${match_id}', '${receive_userid}', '${request_userid}', ${requesttype});`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows ); 
-        callback(rows.insertNotification);
+            callback(rows.insertId);
         });
     },
 
@@ -55,18 +55,7 @@ module.exports = {
 
             callback(rows);
         })
-    },
-
-    //login_demo - insert Team 테스트 코드
-    insertTeamtest: function ( id, password, callback ) {
-        const querystring = `INSERT INTO Team (id, password) VALUES ('${id}', '${password}');`;
-        mysql.query(querystring, function (err, rows) {
-            if ( err ) console.log("errorrr");
-            //console.log(rows);
-            callback(rows.insertId);
-        });
     }
-
 
 
     }

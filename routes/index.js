@@ -30,6 +30,7 @@ router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', signup.signup);
 router.post('/match-making', cookieJwtAuth,match.match_making);
+router.post('/request', cookieJwtAuth,match.match_request);
 router.post('/complete', cookieJwtAuth,match.insertMatch);
 //규빈 테스트용 페이지
 
