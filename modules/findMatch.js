@@ -25,7 +25,7 @@ module.exports = {
         DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
         TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
         TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
-        home_userid
+        home_userid, establishment
         FROM Matches
         WHERE match_date = '${info.date}'
         AND match_time_start <= '${info.endtime}'
@@ -98,6 +98,9 @@ function idplaceMatch (user_id, user_place, matchData) {
             }
             //venue[i]에 user_place값이 없는경우 
             if (user_id == matchData[i].home_userid){ 
+                del = true;
+            }
+            if (matchData[i].establishment == '성립'){ 
                 del = true;
             }
         }

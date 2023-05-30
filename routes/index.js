@@ -22,6 +22,7 @@ router.get('/matched', cookieJwtAuth,main.matchedview);
 router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
 router.get('/complete',cookieJwtAuth, main.completeview);
+router.get('/my-match', cookieJwtAuth,main.my_matchview);
 router.get('/team-info', cookieJwtAuth,main.team_infoview);
 router.get('/edit-team', cookieJwtAuth,main.edit_teamview);
 //등록한 경기 정보

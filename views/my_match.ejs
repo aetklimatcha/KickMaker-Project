@@ -21,27 +21,28 @@
   <title>matched</title>
 </head>
 <body>
-  <!-- 넘어오는 정보 형식: findTeams 배열
-    [
+  <!-- 넘어오는 정보 형식: matches 배열
+[
   {
-    match_id: 매치 아이디,
-    match_date: 매치날짜,
-    match_place: [ '겹치는 구1', '겹치는 구2' ],
-    overlap_start: '겹치는 시간의 시작',
-    overlap_end: '겹치는 시간의 끝',
-    home_userid: 개최 팀의 pk,
-    teamname: '팀명'
-  },
- {
-   match_id: 55,
-   match_place: [ '강동구' ],
-   match_date: '2023-05-18',
-   overlap_start: '13:16:00',
-   overlap_end: '16:00',
-   home_userid: 9,
-   teamname: 'FC마마'
-}
+    match_id: 101,
+    home_userid: 2,
+    away_userid: 11,
+    match_date: 2023-05-29T15:00:00.000Z,
+    match_time: '10:50',
+    match_place: '동대문구',
+    match_time_start: '08:53:00',
+    match_time_end: '14:53:00',
+    created: 2023-05-30T02:54:12.000Z,
+    updated: null,
+    establishment: '성립'
+  }
 ]
+
+성립된 배열 없는 경우 matches null값으로 넘어옴
+
+매치 상세보기 페이지 만들거면
+href="/match/<%=match_id%>"
+태그로 넘어가도록 한번 해주세요..!
 -->
 
 <!--HEADER-->
@@ -59,22 +60,25 @@
           <div class="overlap_end"> 시작 시간</div>
           <div class="edit_match">경기 수정</div>
         </div>
-        <% for (var i=0;  i < findTeams.length; i++) { %>
-          <% var data = findTeams[i]; %>
-          <div class="edit_match">
-            <form id="editMatch" method="post" action="/request">
+        <% if (!matches) { %>
+          <p>성립된 매치 없어유</p>
+        <% } else { %>
+          <% for (var i=0;  i < matches.length; i++) { %>
+            <% var data = matches[i]; %>
+            <div class="edit_match">
+              <form id="editMatch" method="post" action="/request">
 
-              <div class="match_date"><%= findTeams[i].match_date %></div>
-              <div class="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_start"><%= findTeams[i].overlap_start %></div>
-              <div class="overlap_end"><%= findTeams[i].overlap_end %></div>
+                <div class="match_date"><%= matches[i].match_date %></div>
+                <div class="match_place"><%= matches[i].match_place %></div>
+                <div class="overlap_start"><%= matches[i].overlap_start %></div>
+                <div class="overlap_end"><%= matches[i].overlap_end %></div>
 
-
-              <button class="enter fade-in" type="submit">
-                경기 수정
-              </button>
-            </form>
-          </div>
+                <button class="enter fade-in" type="submit">
+                  경기 수정
+                </button>
+              </form>
+            </div>
+        <%  } %>
       <%  } %>
     </section>
 </body>
