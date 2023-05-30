@@ -53,7 +53,13 @@
 }
 
 .matchedInfo__card .match_place, 
-.matchedInfo__card .match_date {
+.matchedInfo__card .RQplace, 
+.matchedInfo__card .match_date{
+  width: 25%;
+  text-align: center;
+}
+
+.matchedInfo__card .date {
   width: 25%;
   text-align: center;
 }
@@ -63,7 +69,9 @@
 } */
 
 .matchedInfo__card .teamname,
-.matchedInfo__card .overlap_start {
+.matchedInfo__card .overlap_start,
+.matchedInfo__card .RQteamname,
+.matchedInfo__card .RQstart{
   width: 15%;
   text-align: center;
 }
@@ -77,9 +85,10 @@
   width: 20%;
   text-align: center;
 } */
-.
 
-.matchedInfo__card .request_match {
+
+.matchedInfo__card .request_match,
+.matchedInfo__card .accept_match {
   display: inline-block;
   padding: 15px 0;
   text-align: center;
@@ -89,6 +98,8 @@
 
 }
 
+.matchedInfo__card .accept .RQplace,
+.matchedInfo__card .accept .date,
 .matchedInfo__card .request_match .match_place,
 .matchedInfo__card .request_match .match_date {
   display: inline-block;
@@ -102,6 +113,8 @@
 
 
 .matchedInfo__card .request_match .teamname,
+.matchedInfo__card .accept .RQteamname,
+.matchedInfo__card .accept .RQstart,
 .matchedInfo__card .request_match .overlap_start {
   display: inline-block;
   padding: 15px 0;
@@ -110,8 +123,18 @@
   width: 15%;
   text-align: center;
 }
+.matchedInfo__card.accept .RQteamname,
+.matchedInfo__card.accept .RQstart {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
+  width: 15%;
+  text-align: center;
+}
 
-.matchedInfo__card .request_match .enter {
+.matchedInfo__card .request_match .enter,
+.matchedInfo__card .accept .enter {
   width: 10%;
   margin: 10px;
   text-align: center;
