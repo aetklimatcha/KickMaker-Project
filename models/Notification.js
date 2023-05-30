@@ -12,7 +12,7 @@ module.exports = {
         })
     },
 
-    //notif_id로 팀 로고 조회
+    //notif_id로 팀 알림 조회
     getnotif_id: function (notif_id, callback) {
         const querystring = `SELECT * FROM Notification Where notif_id= ${notif_id} limit 1;`;
         mysql.query(querystring, function (error, result) {
@@ -26,9 +26,21 @@ module.exports = {
         })
     },
 
+    //receive_userid로 팀 알림 조회
+    getnotif_userid: function (receive_userid, callback) {
+        if (receive_userid == undefined) {
+            callback(null);
+        }
+        const querystring = `SELECT * FROM Notification Where receive_userid= ${receive_userid};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            callback(result);
+        })
+    },
+
     //Notification에 정보(경기번호, 팀아이디, 경기장소) 삽입
-    insertNotification: function ( match_id, receive_userid, request_userid, requesttype, callback ) {
-        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid, requesttype ) VALUES ( '${match_id}', '${receive_userid}', '${request_userid}', ${requesttype});`;
+    insertNotification: function ( match_id, receive_userid, request_userid,request_teamname, requesttype, callback ) {
+        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid,request_teamname, requesttype ) VALUES ( '${match_id}', '${receive_userid}', '${request_userid}','${request_teamname}', ${requesttype});`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows ); 

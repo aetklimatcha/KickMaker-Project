@@ -73,10 +73,13 @@ module.exports = {
 
     match_request : (req,res) => {
         request_userid = req.user_id;
-
+        console.log("넘어오는것");
+        console.log(req.body);
+        //밑에 매개변수 넘겨줄것
         
-        notif.insertNotification(match_id, receive_userid, request_userid, "요청", function(notiID){
-            res.redirect('/complete');
+        notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function(notiID){
+            console.log("알림등록"+notiID);
+            res.redirect('/');
         });
     },
     

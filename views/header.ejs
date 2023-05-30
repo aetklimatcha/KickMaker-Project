@@ -29,12 +29,23 @@
           </div>
         </li>
         <li class="menu">
+          <!--배열명 : notifications 
+          [
+            {
+              notif_id: 1,
+              match_id: 16,
+              receive_userid: 2,
+              request_userid: 10,
+              request_teamname: 'FC바바'
+              requesttype: '요청'
+            }
+          ] -->
           <div class="menu__name">alert</div>
           <div class="menu__contents">
             <ul class="inner">
-                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
-                  <li>[${축구팀}]팀이 경기를 요청하였습니다.</li>
+            <% for (var i=0;  i < notifications.length; i++) { %>
+              <li><%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.</li>
+            <% } %>
             </ul>
           </div>
         </li>
