@@ -51,16 +51,32 @@
 
     <section class="matched">
       <h1>매치된 경기들</h1>
-      <% for (var i=0;  i < findTeams.length; i++) { %>
-      <% var data = findTeams[i]; %>
       <div class="matchedInfo__card">
-        <p><%= findTeams[i].match_id %></p>
-        <p><%= findTeams[i].match_date %></p>
-        <p><%= findTeams[i].match_place %></p>
-        <p><%= findTeams[i].overlap_start %></p>
-      </div>
+        <div class="top">
+          <div class="match_id">매치 아이디</div>
+          <div class="match_date">날짜</div>
+          <div class="match_place">장소</div>
+          <div class="overlap_time">시간</div>
+          <div class="teamname">팀명</div>
+          <div class="request_match">경기 요청</div>
+        </div>
+        <% for (var i=0;  i < findTeams.length; i++) { %>
+          <% var data = findTeams[i]; %>
+        <div>
+          <div class="match_id"><%= findTeams[i].match_id %></div>
+          <div class="match_date"><%= findTeams[i].match_date %></div>
+          <div class="match_place"><%= findTeams[i].match_place %></div>
+          <div class="overlap_time"><%= findTeams[i].overlap_start %></div>
+          <div class="teamname"><%= findTeams[i].teamname %></div>
+          <div class="request_match">
+            <form id="requestMatch" method="post" action="/complete">
+              <button class="enter fade-in" type="submit">
+                경기 요청
+              </button>
+            </form>
+          </div>
+        </div>
       <%  } %>
     </section>
-
 </body>
 </html>
