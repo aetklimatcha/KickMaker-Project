@@ -126,13 +126,25 @@ module.exports = {
     },
 
     team_infoview: (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/team_info.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
+                });
+            });
+        });
+    },
+
+    my_matchview: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                match.getmatchedhome_id(req.user_id, function (matches) {
+                    res.render(path.join(__dirname + '/../views/my_match.ejs'), {
+                        loginTeam: loginresult,
+                        notifications: notifications,
+                        matches: matches,
+                    });
                 });
             });
         });
@@ -150,8 +162,6 @@ module.exports = {
     },
 
     signinview: (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/signin.ejs'), {

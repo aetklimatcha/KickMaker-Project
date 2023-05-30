@@ -35,6 +35,19 @@ module.exports = {
             if (result.length) {
                 callback(result);
             } else {
+                callback("없음");
+            }
+        })
+    },
+
+    //home_userid로 경기번호 조회, '성립 경기만' (My match 전용)
+    getmatchedhome_id: function (home_userid, callback) {
+        const querystring = `SELECT * FROM Matches Where home_userid= ${home_userid} AND establishment='성립';`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result);
+            } else {
                 callback(null);
             }
         })
@@ -62,7 +75,7 @@ module.exports = {
 
     // 경기 수락 시 매치 정보 수정
     updateMatch_accept: function (data, callback) {
-        var querystring = `UPDATE Matches SET away_userid=${data.RQuserid}, match_time='${data.RQstart}', match_place='${data.RQplace}', WHERE match_id=${data.match_id}`;
+        var querystring = `UPDATE Matches SET away_userid=${data.RQuserid}, match_time='${data.RQstart}', match_place='${data.RQplace}',establishment='성립', WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if (err) throw err;
             console.log(rows);
