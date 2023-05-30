@@ -18,7 +18,7 @@
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <title>matched</title>
+  <title>request</title>
 </head>
 <body>
   <!-- 넘어오는 정보 형식: findTeams 배열
@@ -50,28 +50,27 @@
   </header>
 
     <section class="matched">
-      <h1>매치된 경기들</h1>
+      <h1>요청받은 경기들</h1>
       <div class="matchedInfo__card">
         <div class="top">
           <div class="match_date">날짜</div>
           <div class="match_place">장소</div>
           <div class="overlap_start"> 시작 시간</div>
           <div class="overlap_end"> 시작 시간</div>
-          <div class="edit_match">경기 수정</div>
+          <div class="teamname">팀명</div>
+          <div class="request_match">경기 수락</div>
         </div>
         <% for (var i=0;  i < findTeams.length; i++) { %>
           <% var data = findTeams[i]; %>
-          <div class="edit_match">
-            <form id="editMatch" method="post" action="/request">
-
+          <div class="request_match">
+            <form id="requestMatch" method="post" action="/complete">
               <div class="match_date"><%= findTeams[i].match_date %></div>
               <div class="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_start"><%= findTeams[i].overlap_start %></div>
-              <div class="overlap_end"><%= findTeams[i].overlap_end %></div>
-
+              <div class="overlap_time"><%= findTeams[i].overlap_start %></div>
+              <div class="teamname"><%= findTeams[i].teamname %></div>
 
               <button class="enter fade-in" type="submit">
-                경기 수정
+                경기 요청
               </button>
             </form>
           </div>
