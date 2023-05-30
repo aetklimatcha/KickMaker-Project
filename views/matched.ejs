@@ -55,7 +55,7 @@
         <div class="top">
           <div class="match_date">날짜</div>
           <div class="match_place">장소</div>
-          <div class="overlap_time"> 시작 시간</div>
+          <div class="overlap_start"> 시작 시간</div>
           <div class="teamname">팀명</div>
           <div class="request_match">경기 요청</div>
         </div>
@@ -68,13 +68,13 @@
               <input type="hidden" name="match_id" value="<%= findTeams[i].match_id %>">
               <input type="hidden" name="match_date" value="<%= findTeams[i].match_date %>">
               <input type="hidden" name="match_place" value="<%= findTeams[i].match_place %>">
-              <input type="hidden" name="overlap_time" value="<%= findTeams[i].overlap_time %>">
+              <input type="hidden" name="overlap_start" value="<%= findTeams[i].overlap_start %>">
               <input type="hidden" name="teamname" value="<%= findTeams[i].teamname %>">
 
 
               <div class="match_date" name="match_date"><%= findTeams[i].match_date %></div>
               <div class="match_place" name="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_time" name="overlap_time"><%= findTeams[i].overlap_start %></div>
+              <div class="overlap_start" name="overlap_start"><%= findTeams[i].overlap_start %></div>
               <div class="teamname" name="teamname"><%= findTeams[i].teamname %></div>
 
 
