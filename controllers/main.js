@@ -27,12 +27,19 @@ module.exports = {
     },
 
     matchview: (req, res) => {
-        console.log(req.query.id)
+        console.log(req.params.id)
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
-                match.getmatch_id(req.query.id, function (matchdata) {
+                match.getmatch_id(req.params.id, function (matchdata) {
                     model.getOneTeam(matchdata.home_userid, function (hometeam) {
                         model.getOneTeam(matchdata.away_userid, function (awayteam) {
+                            console.log('matchdata');
+                            console.log(matchdata);
+                            console.log('hometeam');
+                            console.log(hometeam);
+                            console.log('awayteam');
+                            console.log(awayteam);
+
                             res.render(path.join(__dirname + '/../views/match.ejs'), {
                                 loginTeam: loginresult,
                                 notifications: notifications,
