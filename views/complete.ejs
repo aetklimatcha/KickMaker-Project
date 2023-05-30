@@ -6,11 +6,42 @@
   endtime: '21:07'
 } -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/match_making.css">
+</head>
 <body>
-    <p>잘 됐어욤</p>
-</body>
+<!--HEADER-->
+    <!--HEADER-->
+    <header>
+      <%- include ("./header.ejs") %>
+    </header>
+    
+  <section class="match_making">
+    <h1>경기 등록 완료</h1>
+    <div class="match_making__card">
+      <h2>등록한 경기 정보</h2>
+      <div class="registerdMatch">경기 일자 : <%=myMatch.date%></div>
+      <div class="registerdMatch">경기 시간 : <%=myMatch.starttime%> ~ <%=myMatch.endtime%></div>
+      <div class="registerdMatch">경기 장소 : <%=myMatch.place%></div>
+      <form method="post" action="/tomain">
+        <input type="submit" value="메인 페이지로" />
+    </form>
 
-<!-- post랑 action 이거로 해주세요 -->
-<form method="post" action="/tomain">
-    <input type="submit" value="메인으로" />
-</form>
+      
+    </div>
+  </section>
+  
+</body>
+</html>
