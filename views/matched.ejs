@@ -64,12 +64,22 @@
           <div class="request_match">
             <form id="requestMatch" method="post" action="/request">
 
-              <div class="match_date"><%= findTeams[i].match_date %></div>
-              <div class="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_time"><%= findTeams[i].overlap_start %></div>
-              <div class="teamname"><%= findTeams[i].teamname %></div>
+              <input type="hidden" name="home_userid" value="<%= findTeams[i].home_userid %>">
+              <input type="hidden" name="match_id" value="<%= findTeams[i].match_id %>">
+              <input type="hidden" name="match_date" value="<%= findTeams[i].match_date %>">
+              <input type="hidden" name="match_place" value="<%= findTeams[i].match_place %>">
+              <input type="hidden" name="overlap_time" value="<%= findTeams[i].overlap_time %>">
+              <input type="hidden" name="teamname" value="<%= findTeams[i].teamname %>">
+
+
+              <div class="match_date" name="match_date"><%= findTeams[i].match_date %></div>
+              <div class="match_place" name="match_place"><%= findTeams[i].match_place %></div>
+              <div class="overlap_time" name="overlap_time"><%= findTeams[i].overlap_start %></div>
+              <div class="teamname" name="teamname"><%= findTeams[i].teamname %></div>
+
 
               <button class="enter fade-in" type="submit">
+
                 경기 요청
               </button>
             </form>
