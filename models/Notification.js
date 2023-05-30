@@ -30,12 +30,13 @@ module.exports = {
     getnotif_userid: function (receive_userid, callback) {
         if (receive_userid == undefined) {
             callback(null);
+        } else {
+            const querystring = `SELECT * FROM Notification Where receive_userid= ${receive_userid};`;
+            mysql.query(querystring, function (error, result) {
+                if (error) throw error;
+                callback(result);
+            })
         }
-        const querystring = `SELECT * FROM Notification Where receive_userid= ${receive_userid};`;
-        mysql.query(querystring, function (error, result) {
-            if (error) throw error;
-            callback(result);
-        })
     },
 
     //Notification에 정보(경기번호, 팀아이디, 경기장소) 삽입
