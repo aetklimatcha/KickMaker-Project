@@ -40,11 +40,11 @@ module.exports = {
     },
 
     //Notification에 정보(경기번호, 팀아이디, 경기장소) 삽입
-    insertNotification: function ( match_id, receive_userid, request_userid,request_teamname,match_date,overlap_start ,match_place, requesttype, callback ) {
-        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid,request_teamname,match_date,overlap_start ,match_place, requesttype ) VALUES ( ${match_id}, ${receive_userid}, ${request_userid},'${request_teamname}','${match_date}', '${overlap_start}','${match_place}','${requesttype}');`;
+    insertNotification: function ( match_id, receive_userid, request_userid,request_teamname,requesttype,match_date,overlap_start ,match_place, callback ) {
+        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid,request_teamname,requesttype,match_date,overlap_start ,match_place ) VALUES ( ${match_id}, ${receive_userid}, ${request_userid},'${request_teamname}','${requesttype}','${match_date}', '${overlap_start}','${match_place}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
-            callback(rows.insertId);
+            callback("1");
         });
     },
 

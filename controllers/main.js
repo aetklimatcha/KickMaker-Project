@@ -211,6 +211,7 @@ module.exports = {
     
                 notifications.forEach(function (notification, i) {
                     match.getmatch_id(notification.match_id, function (OG) {
+                        console.log(OG.match_date);
                         const date = new Date(OG.match_date);
                         //const formattedDate = date.toISOString().split("T")[0];
                         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
