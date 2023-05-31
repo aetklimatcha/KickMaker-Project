@@ -100,22 +100,21 @@
 
 .matchedInfo__card .accept .RQplace,
 .matchedInfo__card .accept .date,
-.matchedInfo__card .request_match .match_place,
-.matchedInfo__card .request_match .match_date {
+.matchedInfo__card .requestedMatch .match_place,
+.matchedInfo__card .requestedMatch .match_date {
   display: inline-block;
   padding: 15px 0;
   height: 100%;
-  text-align: center;
   font-size: 1.4rem;
   width: 25%;
   text-align: center;
 }
 
 
-.matchedInfo__card .request_match .teamname,
+.matchedInfo__card .requestedMatch .teamname,
 .matchedInfo__card .accept .RQteamname,
 .matchedInfo__card .accept .RQstart,
-.matchedInfo__card .request_match .overlap_start {
+.matchedInfo__card .requestedMatch .overlap_start {
   display: inline-block;
   padding: 15px 0;
   text-align: center;
@@ -133,7 +132,7 @@
   text-align: center;
 }
 
-.matchedInfo__card .request_match .enter,
+.matchedInfo__card .requestedMatch .enter,
 .matchedInfo__card .accept .enter {
   width: 10%;
   margin: 10px;
