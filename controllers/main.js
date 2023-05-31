@@ -60,6 +60,7 @@ module.exports = {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 match.getAllMatch(function (result) {
+                    console.log(result);
                     res.render(path.join(__dirname + '/../views/match_list.ejs'), {
                         loginTeam: loginresult,
                         Team: result,
