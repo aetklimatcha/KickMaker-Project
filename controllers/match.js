@@ -112,20 +112,23 @@ module.exports = {
 
         // {
         //   notif_id: '6',
+        //  date: ~,
         //   match_id: '97',
         //   RQuserid: '15',
         //   RQstart: '13:00',
         //   RQplace: '강남구'
         // }
+        console.log("매치수락시")
         console.log(req.body);
         const data = req.body;
+        console.log(data.RQplace);
 
 
         notif.DeleteNotification_matchid(data.match_id, function (result) {
             match.updateMatch_accept(data, function (result) {
                 team.getOneTeam(req.user_id, function (result) {
                     request_teamname = result.teamname;
-                    notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", function (notiID) {
+                    notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname,req.date,"수락", function (notiID) {
                         res.redirect('/');
                     });
                 });
