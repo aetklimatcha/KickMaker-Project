@@ -97,7 +97,7 @@ module.exports = {
         
         team.getOneTeam(request_userid, function (result) {
             request_teamname = result.teamname;
-            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname, "요청", function (notiID) {
+            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname,match_date,overlap_start ,match_place, "요청", function (notiID) {
                 res.redirect('/');
             });
         })
