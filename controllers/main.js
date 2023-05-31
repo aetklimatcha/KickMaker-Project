@@ -16,6 +16,7 @@ module.exports = {
             isLogin = false;
         }
         notif.getnotif_userid(req.user_id, function (notifications) {
+            console.log(notifications);
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/main.ejs'), {
                     isLogin: isLogin,
