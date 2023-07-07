@@ -261,6 +261,18 @@ module.exports = {
         });
     },
 
+// test 페이지
+maptestview: (req, res) => {
+    notif.getnotif_userid(req.user_id, function (notifications) {
+        model.getOneTeam(req.user_id, function (loginresult) {
+            res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+                loginTeam: loginresult,
+                notifications: notifications,
+            });
+        });
+    });
+},
+
 
     tomain: (req, res) => {
         res.cookie('findMatchestoken', null, {
