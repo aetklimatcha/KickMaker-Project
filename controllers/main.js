@@ -2,6 +2,7 @@ const path = require("path");
 const model = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
+const review = require("../models/TeamReview");
 
 require('dotenv').config();
 
@@ -164,6 +165,17 @@ module.exports = {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
+                    loginTeam: loginresult,
+                    notifications: notifications,
+                });
+            });
+        });
+    },
+
+    team_reviewview: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
                 });

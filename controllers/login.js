@@ -1,5 +1,6 @@
 const path = require("path");
 const model = require("../models/Team");
+const review = require("../models/TeamReview");
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 const options = require('../config/secretkey').options;
@@ -61,6 +62,13 @@ module.exports= {
                 maxAge: 0,
             });
             res.redirect('/');
+        });  
+    },
+    team_review : (req, res) => {
+        review.insertTeamReview(function( result ) {
+            res.render(path.join(__dirname + '/../views/team-review.ejs'), {
+            });
+            //console.log(result);
         });  
     },
 }
