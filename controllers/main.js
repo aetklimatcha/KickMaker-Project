@@ -1,10 +1,12 @@
+require("dotenv").config({ path: "./config/.env" });
+
 const path = require("path");
 const model = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
 const review = require("../models/TeamReview");
 
-require('dotenv').config();
+
 
 module.exports = {
 
@@ -280,6 +282,7 @@ maptestview: (req, res) => {
             res.render(path.join(__dirname + '/../views/maptest.ejs'), {
                 loginTeam: loginresult,
                 notifications: notifications,
+                MAP_KEY: process.env.MAP_KEY
             });
         });
     });
