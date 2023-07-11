@@ -33,8 +33,6 @@ app.use(routes);
 // app.disable('etag');
 // const options = { etag : false };
 
-
-
 // 서버
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
