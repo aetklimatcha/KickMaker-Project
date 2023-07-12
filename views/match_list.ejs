@@ -1,52 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>경기 둘러보기</title>
-  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../public/stylesheets/common.css">
-  <link rel="stylesheet" href="../public/stylesheets/match_list.css">
-  <script src="../public/javascripts/match_list.js"></script>
-</head>
-<body>
-    <!--HEADER-->
-    <!--HEADER-->
-    <header>
-      <%- include ("./header.ejs") %>
-    </header>
-  <div class ="container">
-  <div class="inner">
-      <div class="notice_board">
-          <!-- title 열 -->
-<!--             <ul class="board_row title_row ">
-              <li class="w70">번호</li>
-              <li class="w500">제목</li>
-              <li class="w120">작성자</li>
-              <li class="w100">작성일</li>
-              <li class="w100">조회</li>
-              <li class="w100">좋아요</li>
-          </ul> -->
-          <!-- 게시글 추가로 들어오는 위치 -->
-      </div>
-
-      <!-- 페이지 블럭 -->
-      <div class="pagination">
-          <button class="before_move" onclick="before()">이전</button>
-          <div class="block">
-              <!-- 블럭 추가로 들어오는 위치 -->
-          </div>
-          <button class="next_move" onclick="next()">다음</button>
-      </div>
-  </div>
-</div>
-
-</body>
-</html>
-
-
 <!-- 배열 명 Team 
   establishment가 '미성립'인 애들 사용
 ]
@@ -90,3 +41,63 @@
     establishment: '미성립'
   }
 ] -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/list.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="../public/javascripts/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>match_list</title>
+</head>
+<body>
+<!--HEADER-->
+  <header>
+    <%- include ("./header.ejs") %>
+  </header>
+
+    <section class="Team">
+      <h1>등록된 경기 목록</h1>
+      <div class="matchedInfo__card">
+        <div class="top">
+          <div class="match_date">날짜</div>
+          <div class="match_place">장소</div>
+          <div class="match_time_start">경기 시작 시간</div>
+          <div class="match_time_end">경기 종료 시간</div>
+          <div class="request_match">경기 요청하기</div>
+        </div>
+        <% for (var i=0;  i < Team.length; i++) { %>
+          <% if (Team[i].establishment != '성립'){continue;}; %>
+          <% var data = Team[i]; %>
+          <div class="edit">
+              <input type="hidden" name="match_date" value="<%= Team[i].match_date %>">
+              <input type="hidden" name="match_place" value="<%= Team[i].match_place %>">
+              <input type="hidden" name="match_time_start" value="<%= Team[i].match_time_start %>">
+              <input type="hidden" name="match_time_end" value="<%= Team[i].match_time_end %>">
+              <div class="match_date"><%= Team[i].match_date %></div>
+              <div class="match_place"><%= Team[i].match_place %></div>
+              <div class="match_time_start"><%= Team[i].match_time_start %></div>
+              <div class="match_time_end"><%= Team[i].match_time_end %></div>
+              <div class="match_edit" onclick="location.href=('/edit-match')">
+                수정하기
+              </div>
+            </form>
+          </div>
+      <%  } %>
+    </section>
+</body>
+</html>
