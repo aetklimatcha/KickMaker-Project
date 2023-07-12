@@ -9,26 +9,25 @@
   <ul class="main-menu">
       <% if(loginTeam){ %>
         <li class="menu">
-          <div class="menu__name">My match</div>
-          <div class="menu__contents">
-            <ul class="inner">
-                <li>${경기날짜} ${상대팀명}팀과의 경기</li>
-            </ul>
-          </div>
-        </li>
-        <li class="menu">
           <div class="menu__name">My page</div>
           <div class="menu__contents">
             <ul class="inner">
-                <li>등록한 경기 정보</li>
+                <li>
+                  <a href="/registered-match">등록한 경기 정보</a>
+                </li>
+                <li>
+                  <a href="/my-match">매칭된 경기 정보</a>
+                </li>
                 <li> 
                   <a href="/team-info">팀 정보</a>
                   <!-- 팀 정보 -->
                 </li>
-                <li> 
+                <!-- 경기 후기 -->
+                <!-- 
+                  <li> 
                   <a href="/team-review">후기 작성</a>
-                  <!--경기 후기 -->
                 </li>
+                -->
             </ul>
           </div>
         </li>
