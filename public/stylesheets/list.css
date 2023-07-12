@@ -1,4 +1,5 @@
-.matched {
+.matched,
+.Matches {
   height: 100vh;
   background-image: url("../images/soccer.jpg");
   background-repeat: no-repeat;
@@ -7,7 +8,8 @@
   background-size: cover;
 }
 
-.matched h1 {
+.matched h1,
+.Matches h1 {
   color: #fff;
   font-size: 30px;
   font-weight: 700;
@@ -53,13 +55,9 @@
 }
 
 .matchedInfo__card .match_place, 
-.matchedInfo__card .RQplace, 
-.matchedInfo__card .match_date{
-  width: 25%;
-  text-align: center;
-}
-
-.matchedInfo__card .date {
+.matchedInfo__card .RQplace,
+.matchedInfo__card .date, 
+.matchedInfo__card .match_date {
   width: 25%;
   text-align: center;
 }
@@ -70,9 +68,12 @@
 
 .matchedInfo__card .teamname,
 .matchedInfo__card .overlap_start,
+.matchedInfo__card .match_time_start,
+.matchedInfo__card .match_time_end,
+.matchedInfo__card .teamname,
 .matchedInfo__card .RQteamname,
 .matchedInfo__card .RQstart{
-  width: 15%;
+  width:17%;
   text-align: center;
 }
 
@@ -88,22 +89,26 @@
 
 
 .matchedInfo__card .request_match,
+.matchedInfo__card .edit_match,
+/* .match_edit, */
 .matchedInfo__card .accept_match {
   display: inline-block;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1.4rem;
-  width: 10%;
+  padding:15px 0;
+  text-align:center;
+  font-size:1.4rem;
+  width: 16%;
 
 
 }
 
 .matchedInfo__card .accept .RQplace,
 .matchedInfo__card .accept .date,
+.matchedInfo__card .edit .match_date,
+.matchedInfo__card .edit .match_place,
 .matchedInfo__card .requestedMatch .match_place,
 .matchedInfo__card .requestedMatch .match_date {
   display: inline-block;
-  padding: 15px 0;
+  padding:15px 0;
   height: 100%;
   font-size: 1.4rem;
   width: 25%;
@@ -114,24 +119,16 @@
 .matchedInfo__card .requestedMatch .teamname,
 .matchedInfo__card .accept .RQteamname,
 .matchedInfo__card .accept .RQstart,
+.matchedInfo__card .edit .match_time_end,
+.matchedInfo__card .edit .match_time_start,
 .matchedInfo__card .requestedMatch .overlap_start {
   display: inline-block;
   padding: 15px 0;
   text-align: center;
   font-size: 1.4rem;
-  width: 15%;
+  width:17%;
   text-align: center;
 }
-.matchedInfo__card.accept .RQteamname,
-.matchedInfo__card.accept .RQstart {
-  display: inline-block;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1.4rem;
-  width: 15%;
-  text-align: center;
-}
-
 .matchedInfo__card .requestedMatch .enter,
 .matchedInfo__card .accept .enter {
   width: 10%;
@@ -139,3 +136,15 @@
   text-align: center;
 }
 
+.match_edit{
+  background-color: #666;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  width: 10%;
+}

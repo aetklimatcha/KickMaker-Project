@@ -1,0 +1,70 @@
+<!-- 객체명 : myMatch
+{
+  place: [ '동대문구', '성동구', '은평구' ],
+  date: '2023-05-26',
+  starttime: '10:07',
+  endtime: '21:07'
+} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/match_making.css">
+  <link rel="stylesheet" href="../public/stylesheets/team_info.css">
+
+</head>
+<body>
+<!--HEADER-->
+    <!--HEADER-->
+    <header>
+      <%- include ("./header.ejs") %>
+    </header>
+    
+<section class="team_info">
+  <div class="team_info_wrap">
+    <div class="team_info_left">
+    <h1>경기 정보 확정하기</h1>
+    <body class="team01">
+      <section>
+        <article class="profile">
+          <div class="registerdMatch">경기 일자 : <%=myMatch.date%></div>
+          <div class="registerdMatch">경기 시간 : <%=myMatch.starttime%> ~ <%=myMatch.endtime%></div>
+          <div class="registerdMatch">경기 장소 : <%=myMatch.place%></div>
+        </article>
+      </section>
+    </div>
+    <div class="team_info_right">
+      <section>
+        <div id="map" style="width:500px;height:400px;"></div>
+          <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= MAP_KEY %>"></script>
+          <script>
+              var container = document.getElementById('map'); 
+              var options = { 
+                  center: new kakao.maps.LatLng(37.60219, 126.95533), 
+                  level: 3 
+              };
+      
+              var map = new kakao.maps.Map(container, options);
+          </script><br>
+          <form method="post" action="/tomain">
+            <input type="submit" value="메인 페이지로" />
+          </form>
+      </section>
+    </div>
+  </div>
+</section>
+
+ 
+  
+</body>
+</html>
