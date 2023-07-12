@@ -156,7 +156,7 @@ module.exports = {
                     res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                         loginTeam: loginresult,
                         notifications: notifications,
-                        matches: matches,
+                        Matches: matches,
                     });
                 });
             });
