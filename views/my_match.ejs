@@ -18,7 +18,7 @@
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <title>matched</title>
+  <title>my_match 진행 예정 또는 진행된 경기 리스트</title>
 </head>
 <body>
 <!--HEADER-->
@@ -26,7 +26,28 @@
     <%- include ("./header.ejs") %>
   </header>
 
-    <section class="matched">
+  <section class="my_match">
+    <h1>경기 예정/종료 리스트</h1>
+    <div class="matchedInfo__card">
+      <div class="status">
+        <!-- 경기 예정, 종료 표시 -->
+
+      </div>
+      <div class="top">
+        <div class="match_date">날짜</div>
+        <div class="match_place">장소</div>
+        <div class="overlap_start"> 시작 시간</div>
+        <div class="teamname">팀명</div>
+      </div>
+      <div class="review">
+        <!-- 경기 종료시 리뷰 버튼 활성화, 예정시 비활성화 -->
+      </div>
+    </div>
+
+
+  </section>
+
+    <!-- <section class="matched">
       <h1>매치된 경기들</h1>
       <div class="matchedInfo__card">
         <div class="top">
@@ -56,6 +77,6 @@
             </div>
         <%  } %>
       <%  } %>
-    </section>
+    </section> -->
 </body>
 </html>
