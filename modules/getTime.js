@@ -24,6 +24,14 @@ module.exports = {
         const nowdate = `${year}${month}${day}`;
         
         return nowdate;
-    }
+    },
 
+    getTime: () => {
+        const hours = kr_curr.getHours().toString().padStart(2, '0');
+        const minutes = kr_curr.getMinutes().toString().padStart(2, '0');
+        
+        const nowtime = `${hours}${minutes}`;
+
+        return nowtime;
+    }
 }

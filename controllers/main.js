@@ -6,6 +6,8 @@ const match = require("../models/Match");
 const notif = require("../models/Notification");
 const review = require("../models/TeamReview");
 
+const weather = require("../modules/getWeather");
+
 
 
 module.exports = {
@@ -284,6 +286,7 @@ maptestview: (req, res) => {
                 notifications: notifications,
                 MAP_KEY: process.env.MAP_KEY
             });
+            weather.weatherAPI('20230715','0330',37,127);
         });
     });
 },
