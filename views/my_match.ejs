@@ -26,57 +26,60 @@
     <%- include ("./header.ejs") %>
   </header>
 
-  <section class="my_match">
+  <section class="Matches">
     <h1>경기 예정/종료 리스트</h1>
     <div class="matchedInfo__card">
-      <div class="status">
-        <!-- 경기 예정, 종료 표시 -->
-
-      </div>
       <div class="top">
+        <div class="status">경기 상태</div>
         <div class="match_date">날짜</div>
         <div class="match_place">장소</div>
-        <div class="overlap_start"> 시작 시간</div>
+        <div class="match_time"> 시작 시간</div>
         <div class="teamname">팀명</div>
+        <div class="review">리뷰</div>
       </div>
-      <div class="review">
-        <!-- 경기 종료시 리뷰 버튼 활성화, 예정시 비활성화 -->
-      </div>
+
+      <% for (var i=0; i < Matches.length; i++) {%>
+        <% if (Matches[i].establishment != '성립') { %>
+          <div>진행 예정/종료된 경기가 없습니다.</div> 
+        <% } else { %>
+            <% var data = Matches[i]; %>
+            <div class="myMatch">
+              <form id="myMatch" method="post" action="/request">
+                <% let today = new Date(); %>
+                <% let matchDate = new Date('Matches[i].match_date Matches[i].match_time'); %>
+                <% if (today < matchDate) { %>
+                  <div class="status_before">경기 예정</div>
+                <% } else { %> 
+                  <div class="status_after">경기 종료</div>
+                <% } %> 
+                
+                <div class="match_date"><%= Matches[i].match_date %></div>
+                <div class="match_place"><%= Matches[i].match_place %></div>
+                <div class="match_time"><%= Matches[i].match_time %></div>
+                <!-- match_time 나중에 상대팀명으로 바꾸기 -->
+                <div class="match_time"><%= Matches[i].match_time%></div>
+
+                <% if (today < matchDate) { %>
+                <button class="cancelBtn enter fade-in" type="submit">
+                  경기 취소
+                </button>
+
+                <% } else { %> 
+                  <div class="reviewBtn">
+                    <a href="/team-review">경기 후기</a>
+                  </div>
+                <% } %> 
+    
+    
+              </form>
+            </div>
+
+        <%  } %>
+      <%  } %>
+
     </div>
 
 
   </section>
-
-    <!-- <section class="matched">
-      <h1>매치된 경기들</h1>
-      <div class="matchedInfo__card">
-        <div class="top">
-          <div class="match_date">날짜</div>
-          <div class="match_place">장소</div>
-          <div class="match_time_start"> 시작 시간</div>
-          <div class="match_time_end"> 종료 시간</div>
-          <div class="edit_match">경기 수정</div>
-        </div>
-        <% if (!matches) { %>
-          <div>성립된 매치가 없습니다</div>
-        <% } else { %>
-          <% for (var i=0;  i < matches.length; i++) { %>
-            <% var data = matches[i]; %>
-            <div class="edit_match">
-              <form id="editMatch" method="post" action="/request">
-
-                <div class="match_date"><%= matches[i].match_date %></div>
-                <div class="match_place"><%= matches[i].match_place %></div>
-                <div class="overlap_start"><%= matches[i].overlap_start %></div>
-                <div class="overlap_end"><%= matches[i].overlap_end %></div>
-
-                <button class="enter fade-in" type="submit">
-                  경기 수정
-                </button>
-              </form>
-            </div>
-        <%  } %>
-      <%  } %>
-    </section> -->
 </body>
 </html>
