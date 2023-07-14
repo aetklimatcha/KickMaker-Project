@@ -17,7 +17,7 @@ module.exports = {
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
         var match_time_start = req.body.gameStartTime;
-        var match_time_end = req.body.gameEndTime;
+        //var match_time_end = req.body.gameEndTime;
 
         team.getOneTeam(req.user_id , (user)=>{
             var info = {
@@ -70,7 +70,7 @@ module.exports = {
         const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
 
         match.insertMatch(home_userid, match_date, match_place, match_time_start, match_time_end, created, function (result) {
-            res.redirect('/complete');
+            res.redirect('/confirm-place');
         });
     },
 
