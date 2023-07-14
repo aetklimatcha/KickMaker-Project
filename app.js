@@ -12,13 +12,14 @@ const routes = require("./routes/index.js");
 var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
+const multer = require('multer');
 
-//var sanitizeHtml = require('sanitize-html');
-// var compression = require('compression')
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+
 //정적파일 서비스하는 모듈? (css 안됐을때 씀)
 app.use(express.static(__dirname));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
