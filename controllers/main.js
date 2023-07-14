@@ -8,8 +8,6 @@ const review = require("../models/TeamReview");
 
 const weather = require("../modules/getWeather");
 
-
-
 module.exports = {
 
     mainview: (req, res) => {
@@ -218,14 +216,14 @@ module.exports = {
             });
         });
     },
-    
+
     requested_matchview: (req, res) => {
         model.getOneTeam(req.user_id, function (loginresult) {
             notif.getnotif_userid(req.user_id, function (notifications) {
                 // let count = 0;
                 const updatedNotifications = []; // 수정된 notifications를 저장할 배열
                 let counter = 0; // 완료된 비동기 작업의 수를 추적하는 카운터 변수
-    
+
                 notifications.forEach(function (notification, i) {
                     match.getmatch_id(notification.match_id, function (OG) {
                         console.log(OG.match_date);
@@ -233,14 +231,14 @@ module.exports = {
                         //const formattedDate = date.toISOString().split("T")[0];
                         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
                         const updatedNotification = {
-                            notif_id : notification.notif_id,
-                            requesttype : notification.requesttype,
-                            match_id : notification.match_id,
+                            notif_id: notification.notif_id,
+                            requesttype: notification.requesttype,
+                            match_id: notification.match_id,
                             date: formattedDate,
-                            RQuserid : notification.request_userid,
-                            RQteamname : notification.request_teamname,
-                            RQplace : notification.match_place,
-                            RQstart : notification.overlap_start,
+                            RQuserid: notification.request_userid,
+                            RQteamname: notification.request_teamname,
+                            RQplace: notification.match_place,
+                            RQstart: notification.overlap_start,
                             //RQend : ,
                             OGplace: OG.match_place,
                             OGstart: OG.match_time_start,
@@ -253,8 +251,8 @@ module.exports = {
                             // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
                             res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
                                 loginTeam: loginresult,
-                                notifications: notifications, 
-                                matchinfo : updatedNotifications,
+                                notifications: notifications,
+                                matchinfo: updatedNotifications,
                             });
                         }
                     });
@@ -262,7 +260,7 @@ module.exports = {
             });
         });
     },
-   
+
     registered_matchview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
@@ -277,19 +275,52 @@ module.exports = {
         });
     },
 
-// test 페이지
-maptestview: (req, res) => {
-    notif.getnotif_userid(req.user_id, function (notifications) {
-        model.getOneTeam(req.user_id, function (loginresult) {
-            res.render(path.join(__dirname + '/../views/maptest.ejs'), {
-                loginTeam: loginresult,
-                notifications: notifications,
-                MAP_KEY: process.env.MAP_KEY
+    // // test 페이지
+    // maptestview: (req, res) => {
+    //     notif.getnotif_userid(req.user_id, function (notifications) {
+    //         model.getOneTeam(req.user_id, function (loginresult) {
+    //             var day = '20230715'
+    //             var time = '1530'
+    //             var x = 37;
+    //             var y = 127;
+    //             var gameweather = weather.weatherAPI(day, time, x, y);
+
+    //             res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+    //                 loginTeam: loginresult,
+    //                 notifications: notifications,
+    //                 MAP_KEY: process.env.MAP_KEY,
+    //                 weather: gameweather,
+    //             });
+    //         });
+    //     });
+    // },
+
+    // test 페이지
+    maptestview: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                var day = '20230715'
+                var time = '1530'
+                var x = 37;
+                var y = 127;
+                weather.weatherAPI(day, time, x, y)
+                .then(gameweather => {
+                    console.log(gameweather);
+                    res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+                        loginTeam: loginresult,
+                        notifications: notifications,
+                        MAP_KEY: process.env.MAP_KEY,
+                        weather: gameweather,
+                    });
+                })
+                .catch(error => {
+                    // 에러 처리 로직
+                });
+            
             });
-            weather.weatherAPI('20230715','0330',37,127);
         });
-    });
-},
+    },
+
 
 
     tomain: (req, res) => {

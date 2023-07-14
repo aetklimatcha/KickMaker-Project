@@ -17,5 +17,27 @@
 
         var map = new kakao.maps.Map(container, options);
     </script>
+
+<!-- {
+        fcstDate: '20230715',
+        fcstTime: '0300',
+        TMP: '24',
+        POP: '30',
+        PCP: '강수없음'
+    } -->
+
+
+    <% if (weather == 'DateOverError'){  %>
+        <p>3일 이내의 날씨만 알림이 가능합니다.</p>
+    <% } else if (weather == 'ApiError') { %>
+        <p>날씨정보를 받아오는 데에 오류가 발생하였습니다.</p>
+    <% } else { %>
+    <p>선택지역의</p>
+    <p>날짜:<%= weather.fcstDate %> </p>
+    <p>시간:<%= weather.fcstTime %> </p>
+    <p>기온:<%= weather.TMP %> °C</p>
+    <p>강수확률:<%= weather.POP %> %</p>
+    <p>강수량:<%= weather.PCP %> mm</p>
+    <% } %>
 </body>
 </html>
