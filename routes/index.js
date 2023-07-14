@@ -10,6 +10,7 @@ const signup = require("../controllers/signup");
 const match = require("../controllers/match");
 
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
+const { uploadMiddleware } = require('../middleware/uploadMiddleware');
 
 
 
@@ -33,6 +34,10 @@ router.get('/registered-match', cookieJwtAuth,main.registered_matchview);
 router.get('/requested-match', cookieJwtAuth,main.requested_matchview);
 //test page
 router.get('/maptest', cookieJwtAuth,main.maptestview);
+router.post('/upload', uploadMiddleware ,(req, res) => {
+    console.log(req.file);
+    res.redirect('/maptest');
+});
 
 
 router.post('/tomain', cookieJwtAuth,main.tomain);

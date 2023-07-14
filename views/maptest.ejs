@@ -39,5 +39,10 @@
     <p>강수확률:<%= weather.POP %> %</p>
     <p>강수량:<%= weather.PCP %> mm</p>
     <% } %>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="myFile" />
+        <button type="submit">Upload</button>
+    </form>
 </body>
 </html>

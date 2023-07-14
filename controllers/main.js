@@ -19,7 +19,6 @@ module.exports = {
             isLogin = false;
         }
         notif.getnotif_userid(req.user_id, function (notifications) {
-            console.log(notifications);
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/main.ejs'), {
                     isLogin: isLogin,
@@ -31,18 +30,11 @@ module.exports = {
     },
 
     matchview: (req, res) => {
-        console.log(req.params.id)
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 match.getmatch_id(req.params.id, function (matchdata) {
                     model.getOneTeam(matchdata.home_userid, function (hometeam) {
                         model.getOneTeam(matchdata.away_userid, function (awayteam) {
-                            console.log('matchdata');
-                            console.log(matchdata);
-                            console.log('hometeam');
-                            console.log(hometeam);
-                            console.log('awayteam');
-                            console.log(awayteam);
 
                             res.render(path.join(__dirname + '/../views/match.ejs'), {
                                 loginTeam: loginresult,
@@ -64,7 +56,6 @@ module.exports = {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 match.getAllMatch(function (result) {
-                    console.log(result);
                     res.render(path.join(__dirname + '/../views/match_list.ejs'), {
                         loginTeam: loginresult,
                         Team: result,
@@ -104,7 +95,6 @@ module.exports = {
                         Team: result,
                         notifications: notifications,
                     });
-                    //console.log(result);
                 });
             });
         });
@@ -126,7 +116,6 @@ module.exports = {
 
     confirm_placeview: (req, res) => {
         result = req.myMatch;
-        console.log(result);
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
@@ -211,7 +200,6 @@ module.exports = {
                         Team: result,
                         notifications: notifications,
                     });
-                    //console.log(result);
                 });
             });
         });
@@ -226,7 +214,6 @@ module.exports = {
 
                 notifications.forEach(function (notification, i) {
                     match.getmatch_id(notification.match_id, function (OG) {
-                        console.log(OG.match_date);
                         const date = new Date(OG.match_date);
                         //const formattedDate = date.toISOString().split("T")[0];
                         const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;

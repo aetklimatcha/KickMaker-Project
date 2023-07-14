@@ -60,7 +60,6 @@ module.exports = {
     weatherAPI: (gamedate, gametime, inputx, inputy) => {
         nx = latLngToGrid(inputx, inputy).x;
         ny = latLngToGrid(inputx, inputy).y;
-        console.log(nx,ny);
         return new Promise((resolve, reject) => {
 
             pageNo = checkpageNo(gamedate, gametime);
