@@ -22,7 +22,7 @@ router.get('/noMatch',cookieJwtAuth, main.noMatchview);
 router.get('/matched', cookieJwtAuth,main.matchedview);
 router.get('/signin',cookieJwtAuth, main.signinview)
 router.get('/signup',cookieJwtAuth, main.signupview);
-router.get('/complete',cookieJwtAuth, main.completeview);
+router.get('/confirm-place',cookieJwtAuth, main.confirm_placeview);
 router.get('/my-match', cookieJwtAuth,main.my_matchview);
 router.get('/team-info', cookieJwtAuth,main.team_infoview);
 router.get('/edit-team', cookieJwtAuth,main.edit_teamview);
@@ -43,7 +43,7 @@ router.post('/edit-team', cookieJwtAuth,login.edit_team);
 router.post('/team-review', cookieJwtAuth,login.team_review);
 router.post('/match-making', cookieJwtAuth,match.match_making);
 router.post('/request', cookieJwtAuth,match.match_request);
-router.post('/complete', cookieJwtAuth,match.insertMatch);
+router.post('/confirm-place', cookieJwtAuth,match.insertMatch);
 router.post('/match-accept', cookieJwtAuth,match.match_accept);
 router.post('/match-reject', cookieJwtAuth,match.match_reject);
 

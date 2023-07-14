@@ -126,12 +126,12 @@ module.exports = {
         });
     },
 
-    completeview: (req, res) => {
+    confirm_placeview: (req, res) => {
         result = req.myMatch;
         console.log(result);
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/complete.ejs'), {
+                res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
                     loginTeam: loginresult,
                     myMatch: result,
                     notifications: notifications,
