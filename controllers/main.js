@@ -299,14 +299,15 @@ module.exports = {
     maptestview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
-                var day = '20230715'
+                var day = '20230716'
                 var time = '1530'
-                var x = 37;
-                var y = 127;
+                var x = 37.65316703684802;
+                var y = 127.04835428199415;
                 weather.weatherAPI(day, time, x, y)
                 .then(gameweather => {
-                    console.log(gameweather);
                     res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+                        x: x,
+                        y: y,
                         loginTeam: loginresult,
                         notifications: notifications,
                         MAP_KEY: process.env.MAP_KEY,

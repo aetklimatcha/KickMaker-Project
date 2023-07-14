@@ -1,5 +1,6 @@
 require("dotenv").config({ path: __dirname+"/../config/.env" });
 const getTime = require("../modules/getTime")
+const latLngToGrid = require("../modules/latLngToGrid")
 
 weather_key = process.env.WEATHER_KEY;
 //발표시각이 02시10분이므로 03시 00분에 base_date 갱신
@@ -56,7 +57,10 @@ const http = require('http');
 
 module.exports = {
 
-    weatherAPI: (gamedate, gametime, nx, ny) => {
+    weatherAPI: (gamedate, gametime, inputx, inputy) => {
+        nx = latLngToGrid(inputx, inputy).x;
+        ny = latLngToGrid(inputx, inputy).y;
+        console.log(nx,ny);
         return new Promise((resolve, reject) => {
 
             pageNo = checkpageNo(gamedate, gametime);
