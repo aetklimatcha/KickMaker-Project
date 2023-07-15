@@ -31,7 +31,7 @@
       <form action="/edit-team" method="post">
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
           아이디<br>
-          <input type="text" name="id" value=""><br>
+          <input type="text" name="id" value="<%= loginTeam.id %>"><br>
           비밀번호<br> 
           <input type="password" name="password" value=""><br>
           팀이름<br>
