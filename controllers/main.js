@@ -110,7 +110,7 @@ module.exports = {
                     findTeams: result,
                     notifications: notifications,
                 });
-            });
+            });firm
         });
     },
 
