@@ -14,6 +14,8 @@
   
   <link rel="stylesheet" href="../public/stylesheets/common.css">
   <link rel="stylesheet" href="../public/stylesheets/list.css">
+  <link rel="stylesheet" href="../public/stylesheets/my_match.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -56,8 +58,12 @@
                 <div class="match_date"><%= Matches[i].match_date %></div>
                 <div class="match_place"><%= Matches[i].match_place %></div>
                 <div class="match_time"><%= Matches[i].match_time %></div>
-                <!-- match_time 나중에 상대팀명으로 바꾸기 -->
-                <div class="match_time"><%= Matches[i].match_time%></div>
+                <!-- DB team이랑 연결되면 다시 확인 -->
+                  <% let away_userid = Matches[i].away_userid; %>
+                  <% let away_teamName = 'Team[away_userid].teamname'; %>
+                <div class="match_time">
+                  <%= away_teamName %>
+                </div>
 
                 <% if (today < matchDate) { %>
                 <button class="cancelBtn enter fade-in" type="submit">
