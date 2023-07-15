@@ -65,9 +65,9 @@ module.exports= {
         });  
     },
     team_review : (req, res) => {
-        review.insertTeamReview(function( result ) {
-            res.render(path.join(__dirname + '/../views/team-review.ejs'), {
-            });
+
+        review.insertTeamReview(req.match_id,req.user_id,req.result,req.manner_rate, function( result ) {
+            res.redirect('/team-review')
             //console.log(result);
         });  
     },
