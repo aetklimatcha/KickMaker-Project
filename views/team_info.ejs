@@ -29,11 +29,11 @@
       <body class="team01">
         <section>
           <article class="profile">
-            <!-- <% if (loginTeam && loginTeam.image_data) { %>
-              <img src="<%= loginTeam.logo_image %>" alt="팀 로고 이미지">
+            <% if (loginTeam && loginTeam.logo_image) { %>
+              <img src="../files/<%= loginTeam.logo_image %>" alt="팀 로고 이미지">
             <% } else { %> 
               <img src="testno.jpg" alt="팀 로고 이미지가 없음">
-            <% } %> -->
+            <% } %>
             <!--teamname-->
             <p>팀 이름:<% if(loginTeam){ %>
               <%= loginTeam.teamname %>
