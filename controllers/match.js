@@ -17,7 +17,7 @@ module.exports = {
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
         var match_time_start = req.body.gameStartTime;
-        //var match_time_end = req.body.gameEndTime;
+        var match_time_end = req.body.gameEndTime;
 
         team.getOneTeam(req.user_id , (user)=>{
             var info = {
