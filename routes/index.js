@@ -44,7 +44,7 @@ router.post('/upload', uploadMiddleware ,(req, res) => {
 router.post('/tomain', cookieJwtAuth,main.tomain);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
-router.post('/signup', signup.signup);
+router.post('/signup', uploadMiddleware,signup.signup);
 router.post('/edit-team', cookieJwtAuth,login.edit_team);
 router.post('/team-review', cookieJwtAuth,login.team_review);
 router.post('/match-making', cookieJwtAuth,match.match_making);
