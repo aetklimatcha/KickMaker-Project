@@ -27,6 +27,7 @@ router.get('/confirm-place',cookieJwtAuth, main.confirm_placeview);
 router.get('/my-match', cookieJwtAuth,main.my_matchview);
 router.get('/team-info', cookieJwtAuth,main.team_infoview);
 router.get('/edit-team', cookieJwtAuth,main.edit_teamview);
+router.get('/edit-match', cookieJwtAuth,main.edit_matchview);
 //후기 작성
 router.get('/team-review', cookieJwtAuth,main.team_reviewview);
 //등록한 경기 정보
