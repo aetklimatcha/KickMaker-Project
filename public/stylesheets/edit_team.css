@@ -1,5 +1,6 @@
 .editTeam {
-  height: 100vh;
+  margin-top: 50px;
+  padding: 50px 0 240px;
   background-image: url("../images/soccer.jpg");
   background-repeat: no-repeat;
   background-position: center;
@@ -11,16 +12,25 @@
   font-size: 30px;
   font-weight: 700;
   text-align: center;
-  padding: 100px 0 0 0;
+  margin-bottom: 24px;
+
 }
 .editTeam__card {
   width: 500px;
-  margin: 100px auto;
+  margin: 0 auto;
   border-radius: 6px;
   background-color: #f6f5f0;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 } 
+.editTeam__card p {
+  color: #555;
+  font-size: 15px;
+  margin: 10px 4px;
+  /* font-weight: 700; */
+  /* text-align: center; */
+  /* margin-bottom: 24px; */
+}
 .editTeam__card form {
   padding: 30px 22px;
 }
@@ -35,16 +45,12 @@
   font-size: 14px
 }
 .editTeam__card form [type="submit"] {
+  margin-top: 70px;
   background-color: #666;
   border: none;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-}
-.editTeam__card form p {
-  font-size: 12px;
-  color: #006633;
-  text-align: center;
 }
 .editTeam__card .actions {
   display: flex;
