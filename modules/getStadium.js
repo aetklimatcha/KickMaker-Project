@@ -13,66 +13,42 @@
 // 	//console.log('Reponse received', body);
 // });
 
-var request = require('request');
+const http = require('http');
+const fetch = require('node-fetch');
 
-var apiKey = '6f5152534578787a34387652696373'; // 인증키 값
-var url1 = `http://openAPI.seoul.go.kr:8088/${apiKey}/xml/ListPublicReservationSport/1/10/축구장`;
-var url2 = `http://openAPI.seoul.go.kr:8088/${apiKey}/xml/ListPublicReservationSport/1/10/다목적경기장`;
+// 자바스크립트 코드 시작
+function latLngToGrid(x, y) {
+    // latLngToGrid 함수의 구현
+    // 이 함수는 예시로 작성되었으며 실제 구현이 필요합니다.
+}
 
-request({
-    url: url1,
-    method: 'GET'
-}, function (error, response, body) {
-    if (error) {
-        console.error('Error:', error);
-        return;
-    }
+// 자바스크립트 코드 계속 ...
 
-    console.log('Status:', response.statusCode);
-    console.log('Body:', body);
+const apiKey = '6f5152534578787a34387652696373'; // 인증키 값
+const url1 = `http://openAPI.seoul.go.kr:8088/${apiKey}/xml/ListPublicReservationSport/1/10/축구장`;
+const url2 = `http://openAPI.seoul.go.kr:8088/${apiKey}/xml/ListPublicReservationSport/1/10/다목적경기장`;
 
-    // 원하는 동작을 추가로 구현할 수 있습니다.
-    // 예를 들어, 응답 본문을 JSON으로 파싱하여 특정 데이터에 접근할 수도 있습니다.
-    // var data = JSON.parse(body);
-    // console.log('Data:', data);
+// http 모듈을 사용하여 GET 요청 보내기
+http.get(url1, (res) => {
+    let body = '';
+    
+    res.on('data', (chunk) => {
+        body += chunk;
+    });
+
+    res.on('end', () => {
+        console.log('Response Body:', body);
+
+        // 원하는 동작을 추가로 구현할 수 있습니다.
+        // 예를 들어, 응답 본문을 파싱하여 특정 데이터에 접근할 수도 있습니다.
+        // const data = new DOMParser().parseFromString(body, 'application/xml');
+        // console.log('Data:', data);
+    });
+})
+.on('error', (error) => {
+    console.error('Error:', error);
 });
 
+// 기타 필요한 함수와 코드를 작성합니다.
 
-const http = require('http');
-
-function checkpageNo(PLACENM) {
-    return -1; // 예시로 -1을 반환하도록 설정하였습니다.
-}
-
-function createRequestUrl(PLACENM, x, y) {
-    return ''; // 예시로 빈 문자열을 반환하도록 설정하였습니다.
-}
-
-function createComment(PLACENM, json) {
-    return ''; // 예시로 빈 문자열을 반환하도록 설정하였습니다.
-}
-
-module.exports = {
-    stadiumAPI: (PLACENM, x, y) => {
-        nx = latLngToGrid(x, y).x;
-        ny = latLngToGrid(x, y).y;
-        return new Promise((resolve, reject) => {
-            pageNo = checkpageNo(PLACENM);
-            if (pageNo === -1)
-                resolve('DateOverError'); //3일 이후의 날씨 요구시 발생 에러 (DateOverError)
-
-            const url = createRequestUrl(PLACENM, x, y);
-            http.get(url, (res) => {
-                var json = "";
-                res.on("data", (chunk) => {
-                    json += chunk;
-                });
-                res.on("end", () => {
-                    var result = createComment(PLACENM, JSON.parse(json));
-                    console.log(result === -1 ? 'ApiError' : result);
-                    //resolve(result);   //정상 객체 전송
-                });
-            });
-        });
-    }
-};
+// 자바스크립트 코드 끝

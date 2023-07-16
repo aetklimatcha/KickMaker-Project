@@ -36,7 +36,7 @@
         <div class="match_place">장소</div>
         <div class="match_time"> 시작 시간</div>
         <div class="teamname">팀명</div>
-        <div class="review">리뷰</div>
+        <div class="review">경기 취소/리뷰</div>
       </div>
 
       <% if (Matches == null) { %>
@@ -61,7 +61,7 @@
                   <!-- DB team이랑 연결되면 다시 확인 -->
                     <% let away_userid = Matches[i].away_userid; %>
                     <% let away_teamName = 'Team[away_userid].teamname'; %>
-                  <div class="match_time">
+                  <div class="teamname">
                     <%= away_teamName %>
                   </div>
 
