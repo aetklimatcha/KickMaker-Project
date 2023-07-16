@@ -174,6 +174,18 @@ module.exports = {
         });
     },
 
+    edit_matchview: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                res.render(path.join(__dirname + '/../views/edit_match.ejs'), {
+                    loginTeam: loginresult,
+                    notifications: notifications,
+                });
+            });
+        });
+    },
+
+
     signinview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
