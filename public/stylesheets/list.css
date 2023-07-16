@@ -1,3 +1,10 @@
+.Matches .matchedInfo__card .comment {
+  color: #2c2a29;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  padding: 50px;
+}
 .matched,
 .Matches {
   height: 100vh;
@@ -149,6 +156,8 @@
   width: 10%;
 }
 
+/*my-match에서 사용*/
+
 .matchedInfo__card .myMatch .match_date,
 .matchedInfo__card .myMatch .match_place,
 .matchedInfo__card .myMatch .match_time,
@@ -163,7 +172,18 @@
 
 .matchedInfo__card .myMatch .cancelBtn a,
 .matchedInfo__card .myMatch .reviewBtn a {
-  background-color: #666;
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+}
+
+.matchedInfo__card .myMatch .cancelBtn,
+.matchedInfo__card .myMatch .reviewBtn {
+  /* background-color: #666;
   border: none;
   color: #fff;
   font-size: 20px;
@@ -172,5 +192,36 @@
   padding: 10px;
   text-align: center;
   line-height: 50px;
-  width: 10%;
+  width: 10%; */
+
+  display: inline-block;
+  background-color: #666;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
+  line-height: 50px;
+  width: 100px;
+  border-radius: 20px;
+}
+
+
+.myMatch .status_before {
+  display: inline-block;
+  color: #669900;
+  padding:15px 0;
+  height: 100%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.myMatch .status_after {
+  display: inline-block;
+  color: #656565;
+  padding:15px 0;
+  height: 100%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
 }

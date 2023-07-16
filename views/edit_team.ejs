@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입</title>
+  <title>회원 정보 수정</title>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../public/stylesheets/common.css">
-  <link rel="stylesheet" href="../public/stylesheets/signup.css">
+  <!-- <link rel="stylesheet" href="../public/stylesheets/signup.css"> -->
+  <link rel="stylesheet" href="../public/stylesheets/edit_team.css">
 </head>
 <body>
   <!--HEADER-->
@@ -23,11 +24,8 @@
   <!-- 다시 post로 넘기는 변수들 db의 변수이름하고 똑같이해서 넘겨주세요 -->
   
   <section class="editTeam">
-    <pre>
-
-      <p>
-      <h1>회원정보 수정</h1>
-    <div class="signup__card">
+    <h1>회원정보 수정</h1>
+    <div class="editTeam__card">
       <form action="/edit-team" method="post">
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
           팀 로고 사진<br>
@@ -40,9 +38,9 @@
           아이디<br>
           <input type="text" name="id" value="<%= loginTeam.id %>"><br>
           비밀번호<br> 
-          <input type="password" name="password" value=""><br>
+          <input type="password" name="password" value="<%= loginTeam.password %>"><br>
           팀이름<br>
-          <input type="text" name="teamname" value="" ><br>
+          <input type="text" name="teamname" value="<%= loginTeam.%>" ><br>
           팀대표자명<br>
           <input type="text" name="represent_name" value="" ><br>
           연락처<br>
@@ -53,8 +51,6 @@
           <br><input type="submit" value="수정 완료"></input><br>
       </form>
       </div>
-      </p>
-    </pre>
   </section>
   
 </body>

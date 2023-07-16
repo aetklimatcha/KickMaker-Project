@@ -19,16 +19,13 @@
     
   <!-- 후기 수정 섹션 -->
   <section class="teamReview">
-    <pre>
-
-      <p>
-      <h1>경기 후기작성</h1>
+    <h1>경기 후기작성</h1>
     <div class="signup__card">
       <form action="/team-review" method="post">
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
-          매치 아이디<br>
+          <p>매치 정보</p>
           <input type="text" name="match_id" value=""><br>
-          win or lose ?<br>
+          <p>win or lose ?</p>
           <input type="text" name="result" value=""><br>
           매너 점수<br>
                         <select name="manner_rate">
@@ -43,8 +40,7 @@
           <br><input type="submit" value="작성 완료"></input><br>
       </form>
       </div>
-      </p>
-    </pre>
+
   </section>
   
 </body>
