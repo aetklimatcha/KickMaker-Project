@@ -38,7 +38,7 @@ module.exports = {
 
     //TeamReview 정보 수정
     updateTeamReview: function (data, callback) {
-        var querystring = `UPDATE TeamReview SET match_id='${data.match_id}', user_id='${data.userid}', result='${data.result}', manner_rate='${data.manner_rate}'`;
+        var querystring = `UPDATE TeamReview SET match_id='${data.match_id}', user_id='${data.user_id}', result='${data.result}', manner_rate='${data.manner_rate}'`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
