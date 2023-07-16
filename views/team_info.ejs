@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta http-epuiv="X-UA-Compatible" content="ie=edge" />
   <title>match_making</title>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
@@ -35,28 +35,32 @@
               <img src="testno.jpg" alt="팀 로고 이미지가 없음">
             <% } %>
             <!--teamname-->
-            <p>팀 이름:<% if(loginTeam){ %>
+            <p class="content">팀 이름:</p>
+            <p><% if(loginTeam){ %>
               <%= loginTeam.teamname %>
               <% } else { %> 
               testno
               <% } %></p></br>
             
               <!--user_id-->
-            <p>아이디:<% if(loginTeam){ %>
+            <p class="content">아이디:</p>
+            <p><% if(loginTeam){ %>
                 <%= loginTeam.id %>
                 <% } else { %> 
                 testno
                 <% } %></p></br>
             
             <!--대표자명-->
-            <p>대표자명:<% if(loginTeam){ %>
+            <p class="content">대표자명:</p>
+            <p><% if(loginTeam){ %>
                 <%= loginTeam.represent_name %>
                 <% } else { %> 
                 testno
                 <% } %></p></br>
 
             <!--대표자 연락처-->
-            <p>대표자 연락처:<% if(loginTeam){ %>
+            <p class="content">대표자 연락처:</p>
+            <p><% if(loginTeam){ %>
                 <%= loginTeam.hp %>
                 <% } else { %> 
                 testno
