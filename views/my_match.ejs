@@ -58,11 +58,7 @@
                   <div class="match_place"><%= Matches[i].match_place %></div>
                   <div class="match_time"><%= Matches[i].match_time %></div>
                   <!-- DB team이랑 연결되면 다시 확인 -->
-                    <% let away_userid = Matches[i].away_userid; %>
-                    <% let away_teamName = 'Team[away_userid].teamname'; %>
-                  <div class="teamname">
-                    <%= away_teamName %>
-                  </div>
+                  <div class="teamname"></div>
 
                   <% if (today < matchDate) { %>
                   <button class="cancelBtn enter fade-in" type="submit">
