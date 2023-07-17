@@ -10,26 +10,38 @@ module.exports = {
 
     findMatch : function (info, callback) {
 
-        // // info = {
+        //info = 홈페이지에서 넘어온 data (내가 찾는 중)
+        
+
+        // var info = {
         //     user_id: req.user_id,
         //     win_score : user.win_score,
         //     manner_score : user.manner_score,
         //     place:match_place,
         //     date:gameDate,
-        //     starttime:match_time_start,
-        //     endtime:match_time_end
+        //     time:match_time
         // };
+
+        // const querystring = 
+        // `SELECT match_id, match_place, 
+        // DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
+        // TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
+        // TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
+        // home_userid, establishment
+        // FROM Matches
+        // WHERE match_date = '${info.date}'
+        // AND match_time_start <= '${info.endtime}'
+        // AND match_time_end >= '${info.starttime}';`
 
         const querystring = 
         `SELECT match_id, match_place, 
         DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
-        TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
-        TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
+        TIME_FORMAT('${info.time}','%H:%i') as match_time,
         home_userid, establishment
         FROM Matches
         WHERE match_date = '${info.date}'
-        AND match_time_start <= '${info.endtime}'
-        AND match_time_end >= '${info.starttime}';`;
+        AND match_time = '${info.time}';`
+
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             var results = idplaceMatch(info.user_id,info.place, result);

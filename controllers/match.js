@@ -16,8 +16,7 @@ module.exports = {
         
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
-        var match_time_start = req.body.gameStartTime;
-        var match_time_end = req.body.gameEndTime;
+        var match_time = req.body.gameTime;
 
         team.getOneTeam(req.user_id , (user)=>{
             var info = {
@@ -26,8 +25,7 @@ module.exports = {
                 manner_score : user.manner_score,
                 place:match_place,
                 date:gameDate,
-                starttime:match_time_start,
-                endtime:match_time_end
+                time:match_time
             };
 
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
@@ -60,8 +58,7 @@ module.exports = {
         var home_userid = req.user_id;
         var match_date = req.myMatch.date;
         var match_place = req.myMatch.place;
-        var match_time_start = req.myMatch.starttime;
-        var match_time_end = req.myMatch.endtime;
+        var match_time = req.myMatch.gametime;
 
         const now = new Date(); // 현재 시간
         const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
@@ -69,7 +66,7 @@ module.exports = {
         const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
         const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
 
-        match.insertMatch(home_userid, match_date, match_place, match_time_start, match_time_end, created, function (result) {
+        match.insertMatch(home_userid, match_date, match_place, match_time, created, function (result) {
             res.redirect('/confirm-place');
         });
     },
