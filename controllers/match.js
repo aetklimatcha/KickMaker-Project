@@ -16,8 +16,9 @@ module.exports = {
         
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
-        var match_time = req.body.gameTime;
+        var gameTime = req.body.gameTime;
 
+        //매치메이킹 정보와 신청자의 정보 조합
         team.getOneTeam(req.user_id , (user)=>{
             var info = {
                 user_id: req.user_id,
@@ -25,7 +26,7 @@ module.exports = {
                 manner_score : user.manner_score,
                 place:match_place,
                 date:gameDate,
-                time:match_time
+                time:gameTime
             };
 
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
