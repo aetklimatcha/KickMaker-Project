@@ -46,7 +46,6 @@ module.exports = {
         mysql.query(querystring, function (error, result) {
             if (error) throw error;
             if (result.length) {
-                //console.log(result[1].match_date);
                 callback(result);
             } else {
                 callback(null);
