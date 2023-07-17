@@ -47,8 +47,8 @@ module.exports = {
             console.log(userid)
             if (error) throw error;
             if (result.length) {
-                console.log("!")
-                console.log(result);
+                // console.log("!")
+                // console.log(result);
                 callback(result);
             } else {
                 console.log("no")

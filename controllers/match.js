@@ -13,6 +13,8 @@ require('dotenv').config();
 module.exports = {
 
     match_making : (req, res) => {
+
+        console.log(req.body);
         
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;

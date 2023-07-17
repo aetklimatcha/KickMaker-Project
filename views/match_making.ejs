@@ -53,6 +53,7 @@
         <label><input id="gameLocation"  type="radio" name="district" value="중구"> 중구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="중랑구"> 중랑구</label>
       </br></br>
+      <div id="selected-time-blocks"></div>
       <input type="submit" value="경기 정보 등록"></input>
   </form>
 
@@ -73,6 +74,7 @@
           timeBlock.innerHTML = hour + ':' + minute + ' ' + period;
           timeBlock.onclick = function() {
               toggleTimeBlock(this);
+              updateSelectedTimeBlocks();
           };
 
           var hour24 = hour;
@@ -81,6 +83,7 @@
           } 
           var value = hour24 + ':' + minute;
           timeBlock.setAttribute('value', value);
+          timeBlock.setAttribute('name', 'gameTime');
           return timeBlock;
       }
 
@@ -95,6 +98,20 @@
                   timeBlockContainer.appendChild(timeBlock);
               }
           }
+      }
+
+      function updateSelectedTimeBlocks() {
+          var selectedBlocks = document.querySelectorAll('.time-block.selected');
+          var selectedTimeBlocksContainer = document.getElementById('selected-time-blocks');
+          selectedTimeBlocksContainer.innerHTML = '';
+
+          selectedBlocks.forEach(function(block) {
+              var hiddenInput = document.createElement('input');
+              hiddenInput.type = 'hidden';
+              hiddenInput.value = block.getAttribute('value');
+              hiddenInput.name = block.getAttribute('name');
+              selectedTimeBlocksContainer.appendChild(hiddenInput);
+          });
       }
 
       appendTimeBlocks('time-block-container', 6, 23);
