@@ -44,10 +44,14 @@ module.exports = {
     getmymatch: function (userid, callback) {
         const querystring = `SELECT * FROM Matches Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
         mysql.query(querystring, function (error, result) {
+            console.log(userid)
             if (error) throw error;
             if (result.length) {
+                console.log("!")
+                console.log(result);
                 callback(result);
             } else {
+                console.log("no")
                 callback(null);
             }
         })
