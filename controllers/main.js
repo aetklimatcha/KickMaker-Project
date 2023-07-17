@@ -61,7 +61,6 @@ module.exports = {
                             matches[i].away_teamname = model.getOneTeam(matches[i].away_userid, function (team) { team.teamname })
                         }
                     }
-                    console.log(matches);
                     res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                         loginTeam: loginresult,
                         notifications: notifications,
@@ -99,9 +98,6 @@ module.exports = {
                     matches[i].away_teamname = awayTeam.teamname;
                 }
             }
-
-            console.log(matches);
-
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: loginresult,
                 notifications: notifications,
@@ -186,6 +182,7 @@ module.exports = {
                     loginTeam: loginresult,
                     myMatch: result,
                     notifications: notifications,
+                    MAP_KEY: process.env.MAP_KEY,
                 });
             });
         });
@@ -216,7 +213,9 @@ module.exports = {
     team_reviewview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
+                console.log(req);
                 res.render(path.join(__dirname + '/../views/team_review.ejs'), {
+                    pageId: req.params.pageId,
                     loginTeam: loginresult,
                     notifications: notifications,
                 });
