@@ -31,29 +31,28 @@
         <label><input id="gameLocation"  type="radio" name="district" value="강동구"> 강동구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="강북구"> 강북구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="강서구"> 강서구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="관악구"> 관악구</label></br>
+        <label><input id="gameLocation"  type="radio" name="district" value="관악구"> 관악구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="광진구"> 광진구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="구로구"> 구로구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="금천구"> 금천구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="노원구"> 노원구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="도봉구"> 도봉구</label></br>
+        <label><input id="gameLocation"  type="radio" name="district" value="노원구"> 노원구</label><br>
+        <label><input id="gameLocation"  type="radio" name="district" value="도봉구"> 도봉구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="동대문구"> 동대문구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="동작구"> 동작구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="마포구"> 마포구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="서대문구"> 서대문구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="서초구"> 서초구</label></br>
+        <label><input id="gameLocation"  type="radio" name="district" value="서초구"> 서초구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="성동구"> 성동구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="성북구"> 성북구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="송파구"> 송파구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="송파구"> 송파구</label><br>
         <label><input id="gameLocation"  type="radio" name="district" value="양천구"> 양천구</label>
-        <label><input id="gameLocation"  type="radio" name="district" value="영등포구"> 영등포구</label></br>
+        <label><input id="gameLocation"  type="radio" name="district" value="영등포구"> 영등포구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="용산구"> 용산구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="은평구"> 은평구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="종로구"> 종로구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="중구"> 중구</label>
         <label><input id="gameLocation"  type="radio" name="district" value="중랑구"> 중랑구</label>
       </br></br>
-      
       <input type="submit" value="경기 정보 등록"></input>
   </form>
 
@@ -75,6 +74,13 @@
           timeBlock.onclick = function() {
               toggleTimeBlock(this);
           };
+
+          var hour24 = hour;
+          if (period === 'PM' && hour !== 12) {
+            hour24 = hour + 12;
+          } 
+          var value = hour24 + ':' + minute;
+          timeBlock.setAttribute('value', value);
           return timeBlock;
       }
 
@@ -91,7 +97,7 @@
           }
       }
 
-      appendTimeBlocks('time-block-container', 6, 22);
+      appendTimeBlocks('time-block-container', 6, 23);
   </script>
 </body>
 </html>
