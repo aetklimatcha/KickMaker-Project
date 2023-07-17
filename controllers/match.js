@@ -16,8 +16,7 @@ module.exports = {
         
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
-        var match_time_start = req.body.gameStartTime;
-        var match_time_end = req.body.gameEndTime;
+        var match_time = req.body.gameTime;
 
         team.getOneTeam(req.user_id , (user)=>{
             var info = {
@@ -26,8 +25,7 @@ module.exports = {
                 manner_score : user.manner_score,
                 place:match_place,
                 date:gameDate,
-                starttime:match_time_start,
-                endtime:match_time_end
+                time:match_time
             };
 
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
