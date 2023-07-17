@@ -50,6 +50,70 @@ module.exports = {
         });
     },
 
+    my_match2view: (req, res) => {
+        notif.getnotif_userid(req.user_id, function (notifications) {
+            model.getOneTeam(req.user_id, function (loginresult) {
+                match.getmymatch(req.user_id, function (matches) {
+
+                    if (matches != null) {
+                        for (var i = 0; i < matches.length; i++) {
+                            matches[i].home_teamname = model.getOneTeam(matches[i].home_userid, function (team) { team.teamname })
+                            matches[i].away_teamname = model.getOneTeam(matches[i].away_userid, function (team) { team.teamname })
+                        }
+                    }
+                    console.log(matches);
+                    res.render(path.join(__dirname + '/../views/my_match.ejs'), {
+                        loginTeam: loginresult,
+                        notifications: notifications,
+                        Matches: matches,
+                    });
+                });
+            });
+        });
+    },
+
+    my_matchview: async (req, res) => {
+        try {
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
+            });
+
+            const loginresult = await new Promise((resolve) => {
+                model.getOneTeam(req.user_id, resolve);
+            });
+
+            const matches = await new Promise((resolve) => {
+                match.getmymatch(req.user_id, resolve);
+            });
+
+            if (matches != null) {
+                for (let i = 0; i < matches.length; i++) {
+                    const homeTeam = await new Promise((resolve) => {
+                        model.getOneTeam(matches[i].home_userid, resolve);
+                    });
+                    matches[i].home_teamname = homeTeam.teamname;
+
+                    const awayTeam = await new Promise((resolve) => {
+                        model.getOneTeam(matches[i].away_userid, resolve);
+                    });
+                    matches[i].away_teamname = awayTeam.teamname;
+                }
+            }
+
+            console.log(matches);
+
+            res.render(path.join(__dirname + '/../views/my_match.ejs'), {
+                loginTeam: loginresult,
+                notifications: notifications,
+                Matches: matches,
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
+    },
+
+
     match_listview: (req, res) => {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
@@ -110,7 +174,7 @@ module.exports = {
                     findTeams: result,
                     notifications: notifications,
                 });
-            });firm
+            });
         });
     },
 
@@ -133,20 +197,6 @@ module.exports = {
                 res.render(path.join(__dirname + '/../views/team_info.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
-                });
-            });
-        });
-    },
-
-    my_matchview: (req, res) => {
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
-                match.getmymatch(req.user_id, function (matches) {
-                    res.render(path.join(__dirname + '/../views/my_match.ejs'), {
-                        loginTeam: loginresult,
-                        notifications: notifications,
-                        Matches: matches,
-                    });
                 });
             });
         });
@@ -303,20 +353,20 @@ module.exports = {
                 var x = 37.65316703684802;
                 var y = 127.04835428199415;
                 weather.weatherAPI(day, time, x, y)
-                .then(gameweather => {
-                    res.render(path.join(__dirname + '/../views/maptest.ejs'), {
-                        x: x,
-                        y: y,
-                        loginTeam: loginresult,
-                        notifications: notifications,
-                        MAP_KEY: process.env.MAP_KEY,
-                        weather: gameweather,
+                    .then(gameweather => {
+                        res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+                            x: x,
+                            y: y,
+                            loginTeam: loginresult,
+                            notifications: notifications,
+                            MAP_KEY: process.env.MAP_KEY,
+                            weather: gameweather,
+                        });
+                    })
+                    .catch(error => {
+                        // 에러 처리 로직
                     });
-                })
-                .catch(error => {
-                    // 에러 처리 로직
-                });
-            
+
             });
         });
     },
