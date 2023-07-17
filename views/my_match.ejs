@@ -43,7 +43,7 @@
         <div class="comment"> 진행 예정/종료된 경기가 없습니다.</div> 
       <% } else { %>
         <% for (var i=0; i < Matches.length; i++) {%>
-          <% if (Matches[i].establishment != '성립') { %>
+          <% if (Matches[i].establishment == '성립') { %>
               <% var data = Matches[i]; %>
               <div class="myMatch">
                 <form id="myMatch" method="post" action="/request">

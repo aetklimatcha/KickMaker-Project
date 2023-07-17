@@ -66,9 +66,9 @@ module.exports= {
     },
     team_review : (req, res) => {
 
-        review.insertTeamReview(req.match_id,req.user_id,req.result,req.manner_rate, function( result ) {
-            res.redirect('/team-review')
-            //console.log(result);
+        review.insertTeamReview(req.match_id,req.user_id,req.body.result,req.body.manner_rate, function( result ) {
+            console.log(req.body);
+            res.redirect('/team-review');
         });  
     },
 }

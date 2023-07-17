@@ -30,8 +30,7 @@ module.exports = {
     insertTeamReview: function ( match_id, user_id, result, manner_rate, callback ) {
         const querystring = `INSERT INTO TeamReview ( match_id, user_id, result, manner_rate ) VALUES ( '${match_id}', '${user_id}', '${result}', '${manner_rate}');`;
         mysql.query(querystring, (err, rows) => {
-            if ( err ) throw err;
-            console.log( rows ); 
+            if ( err ) throw err; 
         callback(rows.insertTeamReview);
         });
     },
