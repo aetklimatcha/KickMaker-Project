@@ -79,6 +79,9 @@ establishment가 미성립인 row들만 뽑아 쓰기
           <div class="edit_match">수정하기</div>
         </div>
 
+        <% if (Matches == null) { %>
+          <div class="comment"> 등록한 경기가 없습니다.</div> 
+        <% } else { %> 
           <% for (var i=0;  i < Matches.length; i++) { %>
             <% if (Matches[i].establishment != '성립'){ %>
               <% var data = Matches[i]; %>
@@ -96,11 +99,11 @@ establishment가 미성립인 row들만 뽑아 쓰기
                   </div>
                 </form>
               </div>
-              <% } else { %>  
-              <div class="comment"> 등록한 경기가 없습니다.</div> 
-          <%  } %>
-      <%  } %>
-        
+            <% } %>
+          <% } %> 
+        <% } %> 
+
+
     </section>
 </body>
 </html>
