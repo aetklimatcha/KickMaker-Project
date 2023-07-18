@@ -281,6 +281,7 @@ module.exports = {
                             requesttype: notification.requesttype,
                             match_id: notification.match_id,
                             date: formattedDate,
+                            time: notification.match_time,
                             RQuserid: notification.request_userid,
                             RQteamname: notification.request_teamname,
                             RQplace: notification.match_place,
@@ -294,6 +295,7 @@ module.exports = {
                         counter++;
 
                         if (counter === notifications.length) {
+                            console.log(updatedNotifications)
                             // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
                             res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
                                 loginTeam: loginresult,

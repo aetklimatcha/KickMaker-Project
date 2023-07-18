@@ -14,6 +14,7 @@ module.exports = {
 
     match_making : (req, res) => {
 
+        console.log("req.body at match_making")
         console.log(req.body);
         
         var match_place = req.body.district;       
@@ -34,16 +35,20 @@ module.exports = {
         findMatch.findMatch(info, (matchData, matchAvailability)=>{
             //results : 경기 가능 팀들의 {id,가능장소,겹치는시간}
             //matchAvailability : 경기할 팀 여부 true: 있음, false: 없음
+
             //매치가 없는 경우
+            //등록하려던 정보 담아 토큰으로 넘김
             if (matchAvailability==false) {
                 //payload = JSON.parse(JSON.stringify(info));
                 payload = JSON.stringify(info);
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('myMatchtoken',token);
+
                 res.redirect('/noMatch');
-                console.log("매치없음");
+                console.log("매치없음 at findmatch at match.js");
 
             //매치가 있는 경우
+            //찾은 매치 정보들 담아 토큰으로 넘김 (수정 필요!! 토큰 크기 과다)
             } else if (matchAvailability==true) {
                 //payload = JSON.parse(JSON.stringify(matchData));
                 // console.log(matchData);
@@ -51,7 +56,7 @@ module.exports = {
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('findMatchestoken',token);
                 res.redirect('/matched');
-                console.log("매치있음");
+                console.log("매치있음 at findmatch at match.js");
             }
         });
     })
@@ -61,7 +66,7 @@ module.exports = {
         var home_userid = req.user_id;
         var match_date = req.myMatch.date;
         var match_place = req.myMatch.place;
-        var match_time = req.myMatch.gametime;
+        var match_time = req.myMatch.time;
 
         const now = new Date(); // 현재 시간
         const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
@@ -118,11 +123,9 @@ module.exports = {
         //   RQstart: '13:00',
         //   RQplace: '강남구'
         // }
-        console.log("매치수락시")
+        console.log("매치수락시 req.body at match_accept at match.js")
         console.log(req.body);
         const data = req.body;
-        console.log(data.RQplace);
-
 
         notif.DeleteNotification_matchid(data.match_id, function (result) {
             match.updateMatch_accept(data, function (result) {

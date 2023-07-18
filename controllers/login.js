@@ -28,12 +28,12 @@ module.exports= {
         //실패시 실패알람코드 추가필요
         function login_fail () {
             var string = 'fail';
+            console.log("login 실패 at login.js")
             res.redirect('/signin/?value='+string);
         }
 
         function login_success () {
             token = jwt.sign(payload,secretKey,options);  
-            console.log(token);
             res.cookie('usertoken',token)
             res.redirect('/')
         }
@@ -56,7 +56,6 @@ module.exports= {
         //   profile_pic: ''
         // }
 
-        console.log(req.body);
         model.updateTeam(req.body, req.user_id,function( result ) {
             res.cookie('usertoken', null, {
                 maxAge: 0,
