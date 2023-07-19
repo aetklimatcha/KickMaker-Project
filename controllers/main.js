@@ -1,9 +1,10 @@
 require("dotenv").config({ path: "./config/.env" });
 
 const path = require("path");
-const model = require("../models/Team");
+const team = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
+const review = require("../models/TeamReview");
 
 const weather = require("../modules/getWeather");
 
@@ -18,7 +19,7 @@ module.exports = {
             isLogin = false;
         }
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/main.ejs'), {
                     isLogin: isLogin,
                     loginTeam: loginresult,
@@ -30,10 +31,10 @@ module.exports = {
 
     matchview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 match.getmatch_id(req.params.id, function (matchdata) {
-                    model.getOneTeam(matchdata.home_userid, function (hometeam) {
-                        model.getOneTeam(matchdata.away_userid, function (awayteam) {
+                    team.getOneTeam(matchdata.home_userid, function (hometeam) {
+                        team.getOneTeam(matchdata.away_userid, function (awayteam) {
 
                             res.render(path.join(__dirname + '/../views/match.ejs'), {
                                 loginTeam: loginresult,
@@ -51,13 +52,13 @@ module.exports = {
 
     my_match2view: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 match.getmymatch(req.user_id, function (matches) {
 
                     if (matches != null) {
                         for (var i = 0; i < matches.length; i++) {
-                            matches[i].home_teamname = model.getOneTeam(matches[i].home_userid, function (team) { team.teamname })
-                            matches[i].away_teamname = model.getOneTeam(matches[i].away_userid, function (team) { team.teamname })
+                            matches[i].home_teamname = team.getOneTeam(matches[i].home_userid, function (team) { team.teamname })
+                            matches[i].away_teamname = team.getOneTeam(matches[i].away_userid, function (team) { team.teamname })
                         }
                     }
                     res.render(path.join(__dirname + '/../views/my_match.ejs'), {
@@ -77,7 +78,7 @@ module.exports = {
             });
 
             const loginresult = await new Promise((resolve) => {
-                model.getOneTeam(req.user_id, resolve);
+                team.getOneTeam(req.user_id, resolve);
             });
 
             const matches = await new Promise((resolve) => {
@@ -87,12 +88,12 @@ module.exports = {
             if (matches != null) {
                 for (let i = 0; i < matches.length; i++) {
                     const homeTeam = await new Promise((resolve) => {
-                        model.getOneTeam(matches[i].home_userid, resolve);
+                        team.getOneTeam(matches[i].home_userid, resolve);
                     });
                     matches[i].home_teamname = homeTeam.teamname;
 
                     const awayTeam = await new Promise((resolve) => {
-                        model.getOneTeam(matches[i].away_userid, resolve);
+                        team.getOneTeam(matches[i].away_userid, resolve);
                     });
                     matches[i].away_teamname = awayTeam.teamname;
                 }
@@ -113,7 +114,7 @@ module.exports = {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 match.getAllMatch(function (result) {
                     res.render(path.join(__dirname + '/../views/match_list.ejs'), {
                         loginTeam: loginresult,
@@ -132,7 +133,7 @@ module.exports = {
             res.redirect('/signin')
         } else {
             notif.getnotif_userid(req.user_id, function (notifications) {
-                model.getOneTeam(req.user_id, function (loginresult) {
+                team.getOneTeam(req.user_id, function (loginresult) {
                     res.render(path.join(__dirname + '/../views/match_making.ejs'), {
                         title: "testtitle",
                         loginTeam: loginresult,
@@ -147,8 +148,8 @@ module.exports = {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
-                model.getAllTeam(function (result) {
+            team.getOneTeam(req.user_id, function (loginresult) {
+                team.getAllTeam(function (result) {
                     res.render(path.join(__dirname + '/../views/noMatch.ejs'), {
                         loginTeam: loginresult,
                         Team: result,
@@ -163,7 +164,7 @@ module.exports = {
 
         result = req.findMatches;
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/matched.ejs'), {
                     loginTeam: loginresult,
                     findTeams: result,
@@ -176,7 +177,7 @@ module.exports = {
     confirm_placeview: (req, res) => {
         result = req.myMatch;
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
                     loginTeam: loginresult,
                     myMatch: result,
@@ -189,7 +190,7 @@ module.exports = {
 
     team_infoview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/team_info.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
@@ -202,7 +203,7 @@ module.exports = {
 
 
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
@@ -212,21 +213,42 @@ module.exports = {
         });
     },
 
-    team_reviewview: (req, res) => {
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/team_review.ejs'), {
-                    pageId: req.params.pageId,
-                    loginTeam: loginresult,
-                    notifications: notifications,
-                });
-            });
+    team_reviewview: async (req, res) => {
+        const notifications = await new Promise((resolve) => {
+            notif.getnotif_userid(req.user_id, resolve);
         });
+
+        const loginresult = await new Promise((resolve) => {
+            team.getOneTeam(req.user_id, resolve);
+        });
+
+        //1. pageId(match_id)로 조회, home과 away에 userid 있나 조회 후 없으면 '권한 없습니다' return
+        const review_match_info = await new Promise((resolve) => {
+            match.getmatch_id(req.params.pageId, resolve);
+        });
+
+        if (review_match_info.home_userid !== req.user_id && review_match_info.away_userid !== req.user_id) {
+            // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.write("<script>alert('권한이 없습니다')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+            return; 
+        }
+
+        //2. review 조회, 이미 있으면 작성했습니다 return, 
+
+        else {
+            res.render(path.join(__dirname + '/../views/team_review.ejs'), {
+                pageId: req.params.pageId,
+                loginTeam: loginresult,
+                notifications: notifications,
+            });
+        }
     },
 
     edit_matchview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/edit_match.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
@@ -238,7 +260,7 @@ module.exports = {
 
     signinview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/signin.ejs'), {
                     loginTeam: loginresult,
                     notifications: notifications,
@@ -255,8 +277,8 @@ module.exports = {
         //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
         //index.ejs 렌더링 및 변수 ejs에 넘기기
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
-                model.getAllTeam(function (result) {
+            team.getOneTeam(req.user_id, function (loginresult) {
+                team.getAllTeam(function (result) {
                     res.render(path.join(__dirname + '/../views/signup.ejs'), {
                         loginTeam: loginresult,
                         Team: result,
@@ -268,7 +290,7 @@ module.exports = {
     },
 
     requested_matchview: (req, res) => {
-        model.getOneTeam(req.user_id, function (loginresult) {
+        team.getOneTeam(req.user_id, function (loginresult) {
             notif.getnotif_userid(req.user_id, function (notifications) {
                 // let count = 0;
                 const updatedNotifications = []; // 수정된 notifications를 저장할 배열
@@ -314,7 +336,7 @@ module.exports = {
 
     registered_matchview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 match.gethome_id(req.user_id, function (result) {
                     res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
                         loginTeam: loginresult,
@@ -329,7 +351,7 @@ module.exports = {
     // // test 페이지
     // maptestview: (req, res) => {
     //     notif.getnotif_userid(req.user_id, function (notifications) {
-    //         model.getOneTeam(req.user_id, function (loginresult) {
+    //         team.getOneTeam(req.user_id, function (loginresult) {
     //             var day = '20230715'
     //             var time = '1530'
     //             var x = 37;
@@ -349,7 +371,7 @@ module.exports = {
     // test 페이지
     maptestview: (req, res) => {
         notif.getnotif_userid(req.user_id, function (notifications) {
-            model.getOneTeam(req.user_id, function (loginresult) {
+            team.getOneTeam(req.user_id, function (loginresult) {
                 var day = '20230716'
                 var time = '1530'
                 var x = 37.65316703684802;

@@ -80,7 +80,7 @@ module.exports= {
 
     team_review : (req, res) => {
 
-        review.insertTeamReview(req.params.pageId,req.user_id,req.body.result,req.body.manner_rate, function( result ) {
+        review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function( result ) {
             res.redirect('/my-match');
         });  
     },
