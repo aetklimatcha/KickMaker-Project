@@ -1,5 +1,5 @@
 const path = require("path");
-const model = require("../models/Team");
+const team = require("../models/Team");
 const review = require("../models/TeamReview");
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
@@ -7,7 +7,7 @@ const options = require('../config/secretkey').options;
 
 module.exports= {
     loginview : (req, res) => {
-        model.getAllTeam(function( result ) {
+        team.getAllTeam(function( result ) {
             res.render(path.join(__dirname + '/../views/signin.ejs'), {
                 title: "testtitle",
                 Team: result
@@ -17,7 +17,7 @@ module.exports= {
     },
 
     login_process : (req, res) => {
-        model.getLoginTeam(req.body.id,req.body.password,function( result ) {
+        team.getLoginTeam(req.body.id,req.body.password,function( result ) {
             if(result==null){
                 login_fail();
             } else {
@@ -56,13 +56,28 @@ module.exports= {
         //   profile_pic: ''
         // }
 
-        model.updateTeam(req.body, req.user_id,function( result ) {
+        if (req.file.filename != null) {
+            var new_image = req.file.filename;
+            var old_image;
+            team.getOneTeam(req.user_id, function(result) {
+                old_image = result.logo_image;
+            })
+            
+        }
+
+        
+
+        team.updateTeam(req.body, req.user_id,function( result ) {
+            console.log(new_image);
+            console.log(old_image);
             res.cookie('usertoken', null, {
                 maxAge: 0,
             });
             res.redirect('/');
-        });  
+        });
     },
+
+
     team_review : (req, res) => {
 
         review.insertTeamReview(req.params.pageId,req.user_id,req.body.result,req.body.manner_rate, function( result ) {
