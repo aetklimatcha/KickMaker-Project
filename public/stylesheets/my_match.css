@@ -1,0 +1,116 @@
+.Matches .matchedInfo__card .comment {
+  color: #2c2a29;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  padding: 50px;
+}
+
+.Matches h1 {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  padding: 100px 0 0 0;
+}
+
+.matchedInfo__card {
+  width: 70%;
+  margin: 100px auto;
+  background-color: #f6f5f0;
+  box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+  color: #555;
+  border-top: 2px solid #000;
+}
+
+.matchedInfo__card > div {
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
+}
+
+.matchedInfo__card > div.top {
+  border-bottom: 1px solid #999;
+}
+
+.matchedInfo__card > div:last-child {
+  border-bottom: 1px solid #000;
+}
+
+.matchedInfo__card > div > div {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.matchedInfo__card > div.top > div {
+  font-weight: 600;
+}
+
+.matchedInfo__card .top .status,
+.matchedInfo__card .top .match_date,
+.matchedInfo__card .top .match_place,
+.matchedInfo__card .top .match_time,
+.matchedInfo__card .top .teamname,
+.matchedInfo__card .top .review {
+  display: inline-block;
+  padding:15px 0;
+  height: 100%;
+  font-size: 1.4rem;
+  width: 16.6%;
+  text-align: center;
+}
+
+.myMatch {
+  height: 80px;
+}
+.myMatch .status_before {
+  display: inline-block;
+  color: #669900;
+  height: 22.4px;
+  margin: 29.245px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 16.6%;
+  text-align: center;
+}
+
+.myMatch .status_after {
+  display: inline-block;
+  color: #656565;
+  height: 22.4px;
+  margin: 29.245px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 16.6%;
+  text-align: center;
+}
+
+
+.myMatch .match_date,
+.myMatch .match_place,
+.myMatch .match_time,
+.myMatch .teamname {
+  display: inline-block;
+  height: 22.4px;
+  font-size: 1.4rem;
+  width: 16.6%;
+  text-align: center;
+}
+
+.matchedInfo__card .myMatch .cancelBtn,
+.matchedInfo__card .myMatch .reviewBtn {
+  display: inline-block;
+  background: #666;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+  width: 16.6%;
+  border-radius: 20px;
+}
+
+

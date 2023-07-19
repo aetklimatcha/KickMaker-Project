@@ -4,7 +4,14 @@ a {
 }
 body {
   font-family: 'Nanum Gothic', sans-serif;
+  height: 100vh;
+  background-image: url("../images/soccer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
 .logo img {
   /* 인라인 요소는 베이스라인 아래 공간이 있기 때문에 블록 요소로 바꿔 없애줌.*/
   display: block;
