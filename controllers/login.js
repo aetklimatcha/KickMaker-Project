@@ -46,39 +46,54 @@ module.exports= {
         res.redirect('/')
     },
     
-    edit_team :(req, res) => {
-        // {
-        //   id: 'dobong3344',
-        //   password: '11123',
-        //   teamname: 'daf',
-        //   represent_name: 'zzz',
-        //   hp: '123',
-        //   profile_pic: ''
-        // }
+    edit_team : async (req, res) => {
+        try {
+    // {
+    // id: 'gangdong',
+    // password: '2222',
+    // teamname: 'FC강동',
+    // represent_name: '허이구',
+    // hp: '010-2222-2222'
+    // }
 
         if (req.file.filename != null) {
+            console.log(1)
             var new_image = req.file.filename;
             var old_image;
-            team.getOneTeam(req.user_id, function(result) {
-                old_image = result.logo_image;
-            })
+            const result = await new Promise((resolve)=>{
+                team.getOneTeam(req.user_id, resolve);
+            });
+
+            // team.getOneTeam(req.user_id, function(result){
+            //     old_image = result.logo_image;
+            // });
             
+            old_image = result.logo_image;
         }
 
-        
+        console.log(new_image);
+        console.log(old_image);
 
-        team.updateTeam(req.body, req.user_id,function( result ) {
-            console.log(new_image);
-            console.log(old_image);
-            res.cookie('usertoken', null, {
-                maxAge: 0,
-            });
-            res.redirect('/');
-        });
+        res.redirect('/edit-team');
+
+        // team.updateTeam(req.body, req.user_id,function( result ) {
+        //     console.log(new_image);
+        //     console.log(old_image);
+        //     res.cookie('usertoken', null, {
+        //         maxAge: 0,
+        //     });
+        //     res.redirect('/');
+        // });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
 
     team_review : (req, res) => {
+
+        // 아무래도 승률은 진짜 아니야!!!!!!!
 
         review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function( result ) {
             res.redirect('/my-match');

@@ -22,9 +22,10 @@ module.exports = {
                 if ( error ) throw error;
                 if(result.length) {
                     callback(result[0]);
+                } else {
+                    // 결과가 없을 시 
+                    callback(null);
                 }
-                // 결과가 없을 시 
-                //result({kind: "not_found"}, null);
             })
         }
     },
@@ -55,9 +56,7 @@ module.exports = {
     },
 
     //팀 정보 수정
-    updateTeam: function (data, user_id,callback) {
-
-
+    updateTeam: function (data, user_id, callback) {
 
         var querystring = `UPDATE Team SET id='${data.id}', password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}', logo_image='${data.logo_image}' WHERE user_id=${user_id}`;
         mysql.query(querystring, (err, rows) => {
@@ -77,6 +76,18 @@ module.exports = {
             callback(rows);
         })
     },
+
+    updateAfterMatch: function (data, user_id,callback) {
+
+        var querystring = `UPDATE Team SET totalMatches = totalMatches+1,  WHERE user_id=${user_id}`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
+            console.log( rows );
+
+            callback(rows);
+        })
+    },
+
 
     //login_demo - insert Team 테스트 코드
     insertTeamtest: function ( id, password, callback ) {
