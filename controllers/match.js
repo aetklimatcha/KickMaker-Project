@@ -108,6 +108,15 @@ module.exports = {
         })
     },
 
+    cancel_match : (req, res) => {
+        //로그인 사용자와 검증필요? 혹은 이중검증?
+
+        match.DeleteMatch(req.body.match_id , function(result) {
+            console.log('at cancel_match : '+ result)
+            res.redirect('/');
+        })
+    },
+
     match_accept: (req, res) => {
         //여기서 할 일 
         //noti 알림 삭제

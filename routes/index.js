@@ -5,7 +5,7 @@ const req = require('http');
 const res = require('express');
 const connection = require('../config/mysql');
 const main = require('../controllers/main');
-const login = require('../controllers/login')
+const login = require('../controllers/login');
 const signup = require("../controllers/signup");
 const match = require("../controllers/match");
 
@@ -46,13 +46,14 @@ router.post('/tomain', cookieJwtAuth,main.tomain);
 router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', uploadMiddleware,signup.signup);
-router.post('/edit-team', cookieJwtAuth,login.edit_team);
+router.post('/edit-team', cookieJwtAuth, uploadMiddleware, login.edit_team);
 router.post('/team-review/:pageId', cookieJwtAuth,login.team_review);
 router.post('/match-making', cookieJwtAuth,match.match_making);
 router.post('/request', cookieJwtAuth,match.match_request);
 router.post('/confirm-place', cookieJwtAuth,match.insertMatch);
 router.post('/match-accept', cookieJwtAuth,match.match_accept);
 router.post('/match-reject', cookieJwtAuth,match.match_reject);
+router.post('/cancel-match', cookieJwtAuth,match.cancel_match);
 
 
 module.exports = router;

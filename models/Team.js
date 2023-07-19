@@ -56,7 +56,10 @@ module.exports = {
 
     //팀 정보 수정
     updateTeam: function (data, user_id,callback) {
-        var querystring = `UPDATE Team SET id='${data.id}', password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}' WHERE user_id=${user_id}`;
+
+
+
+        var querystring = `UPDATE Team SET id='${data.id}', password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}', logo_image='${data.logo_image}' WHERE user_id=${user_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );

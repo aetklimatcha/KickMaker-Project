@@ -199,6 +199,8 @@ module.exports = {
     },
 
     edit_teamview: (req, res) => {
+
+
         notif.getnotif_userid(req.user_id, function (notifications) {
             model.getOneTeam(req.user_id, function (loginresult) {
                 res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
@@ -206,6 +208,7 @@ module.exports = {
                     notifications: notifications,
                 });
             });
+
         });
     },
 
