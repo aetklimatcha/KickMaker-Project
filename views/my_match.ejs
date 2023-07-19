@@ -39,6 +39,7 @@
         <div class="review">경기 취소/리뷰</div>
       </div>
 
+
       <% if (Matches == null) { %>
         <div class="comment"> 진행 예정/종료된 경기가 없습니다.</div> 
       <% } else { %>
@@ -48,8 +49,19 @@
               <div class="myMatch">
                 <form id="myMatch" method="post" action="/request">
                   <% let today = new Date(); %>
-                  <% let matchDate = new Date('Matches[i].match_date Matches[i].match_time'); %>
-                  <% if (today < matchDate) { %>
+                  <% let year = today.getFullYear(); %>
+                  <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>
+                  <% let day = ('0' + today.getDate()).slice(-2); %>
+                  <% let hours = ('0' + today.getHours()).slice(-2); %>
+                  <% let minutes = ('0' + today.getMinutes()).slice(-2); %>
+                  <% let seconds = ('0' + today.getSeconds()).slice(-2); %>
+                  
+                  <% let dateString = year + '-' + month  + '-' + day; %>
+                  <% let timeString = hours + ':' + minutes  + ':' + seconds; %>
+
+                  <% let now = new Date(dateString + ' ' + timeString); %>
+                  <% let matchDate = new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
+                  <% if (now < matchDate) { %>
                     <div class="status_before">경기 예정</div>
                   <% } else { %> 
                     <div class="status_after">경기 종료</div>
@@ -73,7 +85,6 @@
     
               </form>
             </div>
-            <p><%= matchDate %>o</p>
             <%  } %>
         <%  } %>
 
