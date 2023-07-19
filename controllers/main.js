@@ -227,7 +227,27 @@ module.exports = {
             match.getmatch_id(req.params.pageId, resolve);
         });
 
-        if (review_match_info.home_userid !== req.user_id && review_match_info.away_userid !== req.user_id) {
+        var review_info = await new Promise((resolve) => {
+            review.getreview_matchid(req.params.pageId, resolve);
+        });
+        
+        // const review_info = await new Promise((resolve) => {
+        //     review.getreview_matchid(req.params.pageId, (result, secondArg) => {
+        //         resolve({ result, secondArg });
+        //     });
+        // });
+        
+
+        var reviewWritten = false;
+
+        for (var i = 0; i<review_info.length; i++) {
+            if (req.user_id == review_info[i].user_id) {
+                reviewWritten = true;
+            }
+        }
+
+
+        if (review_match_info.home_userid != req.user_id && review_match_info.away_userid != req.user_id) {
             // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
             res.write("<script>alert('권한이 없습니다')</script>");
             res.write("<script>window.location=\"/\"</script>");
@@ -235,14 +255,21 @@ module.exports = {
             return; 
         }
 
-        //2. review 조회, 이미 있으면 작성했습니다 return, 
+
+        //2. (match_id로) review 조회, 이미 있으면 작성했습니다 return, 
+        else if (reviewWritten){
+            res.write("<script>alert('이미 리뷰를 작성하셨습니다.')</script>");
+            res.write("<script>window.location=\"/my-match\"</script>");
+            res.end();
+            return;
+        }
 
         else {
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: loginresult,
                 notifications: notifications,
-            });
+            })
         }
     },
 
