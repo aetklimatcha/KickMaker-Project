@@ -187,18 +187,29 @@ module.exports = {
         });
     },
 
-    confirm_placeview: (req, res) => {
-        result = req.myMatch;
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
-                    loginTeam: loginresult,
-                    myMatch: result,
-                    notifications: notifications,
-                    MAP_KEY: process.env.MAP_KEY,
-                });
+    confirm_placeview: async (req, res) => {
+        try {
+            result = req.myMatch;
+
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
             });
-        });
+
+            const loginresult = await new Promise((resolve) => {
+                team.getOneTeam(req.user_id, resolve);
+            });
+
+            res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
+                loginTeam: loginresult,
+                myMatch: result,
+                notifications: notifications,
+                MAP_KEY: process.env.MAP_KEY,
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     team_infoview: (req, res) => {
@@ -282,6 +293,7 @@ module.exports = {
                 pageId: req.params.pageId,
                 loginTeam: loginresult,
                 notifications: notifications,
+                Match: review_match_info,
             })
         }
     },
