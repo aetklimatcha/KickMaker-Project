@@ -200,11 +200,25 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
 
+            const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
+            console.log(stadiums);
+            
+            var nx = 126.95518930412466;
+            var ny = 37.602181608910584;
+
+            if(req.param('nx') != undefined) {
+                nx = req.param('nx');
+                ny = req.param('ny');
+            }
+
             res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
                 loginTeam: loginresult,
                 myMatch: result,
                 notifications: notifications,
                 MAP_KEY: process.env.MAP_KEY,
+                stadium: stadiums,
+                nx: nx,
+                ny: ny,
             });
 
         } catch (error) {
@@ -438,10 +452,8 @@ module.exports = {
             var x = 37.65316703684802;
             var y = 127.04835428199415;
     
-            const result = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
-    
-            var a = result; // 결과 배열을 변수 a에 저장합니다.
-    
+            const result = await stadium('서초구'); // stadium 함수의 결과를 기다립니다
+            console.log(result);
             const gameweather = await weather.weatherAPI(day, time, x, y); // weatherAPI 함수의 결과를 기다립니다.
     
             res.render(path.join(__dirname + '/../views/maptest.ejs'), {
@@ -451,7 +463,7 @@ module.exports = {
                 notifications: notifications,
                 MAP_KEY: process.env.MAP_KEY,
                 weather: gameweather,
-                stadiumResult: a, // 결과 배열을 전달합니다.
+                stadiumResult: result, // 결과 배열을 전달합니다.
             });
         } catch (error) {
             console.error(error); // 에러 처리
