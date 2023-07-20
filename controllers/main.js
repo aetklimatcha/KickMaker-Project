@@ -7,6 +7,7 @@ const notif = require("../models/Notification");
 const review = require("../models/TeamReview");
 
 const weather = require("../modules/getWeather");
+const stadium = require("../modules/getStadium");
 
 module.exports = {
 
@@ -422,30 +423,39 @@ module.exports = {
     // },
 
     // test 페이지
-    maptestview: (req, res) => {
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                var day = '20230716'
-                var time = '1530'
-                var x = 37.65316703684802;
-                var y = 127.04835428199415;
-                weather.weatherAPI(day, time, x, y)
-                    .then(gameweather => {
-                        res.render(path.join(__dirname + '/../views/maptest.ejs'), {
-                            x: x,
-                            y: y,
-                            loginTeam: loginresult,
-                            notifications: notifications,
-                            MAP_KEY: process.env.MAP_KEY,
-                            weather: gameweather,
-                        });
-                    })
-                    .catch(error => {
-                        // 에러 처리 로직
-                    });
-
+    maptestview: async (req, res) => {
+        try {
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
             });
-        });
+    
+            const loginresult = await new Promise((resolve) => {
+                team.getOneTeam(req.user_id, resolve);
+            });
+    
+            var day = '20230716'
+            var time = '1530'
+            var x = 37.65316703684802;
+            var y = 127.04835428199415;
+    
+            const result = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
+    
+            var a = result; // 결과 배열을 변수 a에 저장합니다.
+    
+            const gameweather = await weather.weatherAPI(day, time, x, y); // weatherAPI 함수의 결과를 기다립니다.
+    
+            res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+                x: x,
+                y: y,
+                loginTeam: loginresult,
+                notifications: notifications,
+                MAP_KEY: process.env.MAP_KEY,
+                weather: gameweather,
+                stadiumResult: a, // 결과 배열을 전달합니다.
+            });
+        } catch (error) {
+            console.error(error); // 에러 처리
+        }
     },
 
 

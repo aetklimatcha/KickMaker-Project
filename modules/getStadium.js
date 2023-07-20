@@ -1,22 +1,46 @@
 require("dotenv").config({ path: __dirname + "/../config/.env" });
+const axios = require('axios');
 const http = require('http');
 
 stadium_key = process.env.STADIUM_KEY;
 // STADIUM_KEY=6f5152534578787a34387652696373
 
 
-function createComment(json) {
+function createComment(json, location) {
     var result = [];
     var route = json.ListPublicReservationSport.row;
 
     var cnt = 0;
-    for (var i = 0; i<route.length; i++) {
-        if(route[i].SVCSTATNM == '접수중'){
-            result[cnt] = route[i].SVCNM;
+
+    for (var i = 0; i < route.length; i++) {
+        if ((route[i].SVCSTATNM === '접수중' || route[i].SVCSTATNM === '안내중') && route[i].AREANM === location) {
+            const newObj = {
+                name: route[i].PLACENM,
+                type: route[i].MINCLASSNM,
+                nx: route[i].X,
+                ny: route[i].Y,
+                url: route[i].SVCURL,
+                tel: route[i].TELNO
+            };
+    
+            // result 배열에 같은 name을 가진 객체가 있는지 확인
+            if (result.some(item => item.name === newObj.name)) {
+                continue;
+            }
+
+            // let isDuplicate = false;
+            // for (var j = 0; j < result.length; j++) {
+            //     if (result[j].name === newObj.name) {
+            //         isDuplicate = true;
+            //         break;
+            //     }
+            // }
+    
+            result[cnt] = newObj;
             cnt++;
         }
     }
-
+    
 
     // console.log(json.ListPublicReservationSport.row[0]) 
         // 실행시
@@ -52,30 +76,23 @@ function createComment(json) {
 }
 
 function getStadium(location) {
+    const url1 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/538/축구장`;
+    const url2 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/538/다목적경기장`;
 
-    const url1 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/10/축구장`;
-    const url2 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/10/다목적경기장`;
-
-    // http 모듈을 사용하여 GET 요청 보내기
-
-    return new Promise((resolve, reject) => {
-
-        http.get(url1, (res) => {
-            var json = "";
-
-            res.on("data", (chunk) => {
-                json += chunk;
-            });
-
-            res.on("end", () => {
-                var result = createComment(JSON.parse(json));
-                console.log(result);
-                // resolve(result == -1 ? 'ApiError' : result);
-            })
-        })
+    // 두 개의 GET 요청을 Promise.all로 동시에 처리
+    return Promise.all([
+        axios.get(url1).then(response => createComment(response.data, location)),
+        axios.get(url2).then(response => createComment(response.data, location))
+    ])
+    .then(([soccer_result, util_result]) => {
+        // 두 결과 배열을 합치기
+        const result = [...soccer_result, ...util_result];
+        return result;
     })
+    .catch(error => {
+        console.error('데이터 가져오기 오류:', error);
+        throw new Error('ApiError');
+    });
 }
 
 module.exports = getStadium;
-
-getStadium(1);

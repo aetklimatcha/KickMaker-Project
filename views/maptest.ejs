@@ -39,6 +39,8 @@
     <p>강수량:<%= weather.PCP %> mm</p>
     <% } %>
 
+    <p><%= stadiumResult[0].name %></p>
+
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <input type="file" name="myFile" />
         <input type="text" name="id" placeholder="아이디를 입력하세요" ><br>
