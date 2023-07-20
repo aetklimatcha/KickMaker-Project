@@ -73,9 +73,9 @@
                   <div class="teamname"><%= Matches[i].teamname %></div>
 
                   <% if (today < matchDate) { %>
-                  <button class="cancelBtn enter fade-in" type="submit">
-                    경기 취소
-                  </button>
+                    <div class="cancelBtn" onclick="location.href='/cacel-match/<%= Matches[i].match_id %>'">
+                      경기 취소
+                    </div>
 
                   <% } else { %> 
                     <div class="reviewBtn" onclick="location.href='/team-review/<%= Matches[i].match_id %>'">
