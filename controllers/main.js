@@ -366,6 +366,7 @@ module.exports = {
         notif.getnotif_userid(req.user_id, function (notifications) {
             team.getOneTeam(req.user_id, function (loginresult) {
                 match.gethome_id(req.user_id, function (result) {
+                    console.log(result);
                     res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
                         loginTeam: loginresult,
                         notifications: notifications,
