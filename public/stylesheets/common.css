@@ -16,6 +16,21 @@ body {
   /* 인라인 요소는 베이스라인 아래 공간이 있기 때문에 블록 요소로 바꿔 없애줌.*/
   display: block;
 }
+.welcome {
+  font-family: Arial, sans-serif;
+  width: 15vw;
+  position: absolute;
+  left: 81px;
+  display: inline;
+  font-size: 15px;
+  color: #2c2a29;
+  padding: 16.5px 30px;
+}
+.welcome .wcTeamname {
+  font-size: 17px;
+  font-weight: 700;
+  color:#669900;
+}
 .inner {
   width: 1100px;
   margin: 0 auto;
