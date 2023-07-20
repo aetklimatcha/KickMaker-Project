@@ -86,12 +86,12 @@
           <div class="edit">
               <input type="hidden" name="match_date" value="<%= Team[i].match_date %>">
               <input type="hidden" name="match_place" value="<%= Team[i].match_place %>">
-              <input type="hidden" name="match_time_start" value="<%= Team[i].match_time_start %>">
-              <input type="hidden" name="match_time_end" value="<%= Team[i].match_time_end %>">
+              <input type="hidden" name="match_time_start" value="<%= Team[i].match_time  %>">
+              <input type="hidden" name="match_time_end" value="<%= Team[i].match_time %>">
               <div class="match_date"><%= Team[i].match_date %></div>
               <div class="match_place"><%= Team[i].match_place %></div>
-              <div class="match_time_start"><%= Team[i].match_time_start %></div>
-              <div class="match_time_end"><%= Team[i].match_time_end %></div>
+              <div class="match_time_start"><%= Team[i].match_time %></div>
+              <div class="match_time_end"></div>
               <button class="enter fade-in" type="submit">
                 경기 요청
               </button>

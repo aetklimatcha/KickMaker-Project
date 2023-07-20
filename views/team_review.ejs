@@ -23,7 +23,11 @@
       <form action="/team-review/<%= pageId %>" method="post">
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
           <p>매치 정보</p>
-          <div class></div>
+          <div class="matchInfo">
+            경기팀: <%= %>
+            경기 일자: <%=  %>
+            경기 장소: <%=  %>
+          </div>
             <!-- matches 정보 넣기 -->
           <!-- <input type="text" name="match_id" value=""><br> -->
 
