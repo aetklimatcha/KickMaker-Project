@@ -93,10 +93,49 @@ module.exports= {
 
     team_review : (req, res) => {
 
-        // 아무래도 승률은 진짜 아니야!!!!!!!
+        var result = new Object();
 
-        review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function( result ) {
-            res.redirect('/my-match');
-        });  
+        // team에다가 +3 +1 +0 반영하기, 매너점수 반영하기 
+        // { result: '승리', manner_rate: '나쁨' }
+        switch (req.body.result) {
+            case '승리':
+                result.winpoint = 3;
+                result.result = `win = win+1 `
+                break;
+            case '무승부':
+                result.winpoint = 1;
+                result.result = `draw = draw+1 `
+                break;
+            case '패배':
+                result.winpoint = 0;
+                result.result = `lose = lose+1 `
+                break;
+        } 
+
+        switch (req.body.manner_rate) {
+            case '매우 좋음':
+                result.mannerpoint = 2;
+                break;
+            case '좋음':
+                result.mannerpoint = 1;
+                break;
+            case '보통':
+                result.mannerpoint = 0;
+                break;
+            case '나쁨':
+                result.mannerpoint = -1;
+                break;
+            case '매우 나쁨':
+                result.mannerpoint = -2;
+                break;
+        }
+        console.log(req.body);
+        console.log(result);
+
+        team.updateAfterMatch(result, req.user_id, function(back) {
+            review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function( result ) {
+                res.redirect('/my-match');
+            });  
+        });
     },
 }

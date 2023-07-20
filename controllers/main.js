@@ -98,6 +98,7 @@ module.exports = {
                     matches[i].away_teamname = awayTeam.teamname;
                 }
             }
+            
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: loginresult,
                 notifications: notifications,
