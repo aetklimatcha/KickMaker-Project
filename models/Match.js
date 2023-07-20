@@ -34,7 +34,7 @@ module.exports = {
             if (result.length) {
                 callback(result);
             } else {
-                callback("없음");
+                callback(null);
             }
         })
     },
