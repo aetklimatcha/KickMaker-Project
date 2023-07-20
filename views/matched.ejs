@@ -32,14 +32,14 @@
     home_userid: 개최 팀의 pk,
     teamname: '팀명'
   },
- {
-   match_id: 55,
-   match_place: [ '강동구' ],
-   match_date: '2023-05-18',
-   overlap_start: '13:16:00',
-   overlap_end: '16:00',
-   home_userid: 9,
-   teamname: 'FC마마'
+  {
+    match_id: 55,
+    match_place: [ '강동구' ],
+    match_date: '2023-05-18',
+    overlap_start: '13:16:00',
+    overlap_end: '16:00',
+    home_userid: 9,
+    teamname: 'FC마마'
 }
 ]
 -->
@@ -68,13 +68,13 @@
               <input type="hidden" name="match_id" value="<%= findTeams[i].match_id %>">
               <input type="hidden" name="match_date" value="<%= findTeams[i].match_date %>">
               <input type="hidden" name="match_place" value="<%= findTeams[i].match_place %>">
-              <input type="hidden" name="overlap_start" value="<%= findTeams[i].overlap_start %>">
+              <input type="hidden" name="match_time" value="<%= findTeams[i].match_time %>">
               <input type="hidden" name="teamname" value="<%= findTeams[i].teamname %>">
 
 
               <div class="match_date" name="match_date"><%= findTeams[i].match_date %></div>
               <div class="match_place" name="match_place"><%= findTeams[i].match_place %></div>
-              <div class="overlap_start" name="overlap_start"><%= findTeams[i].overlap_start %></div>
+              <div class="overlap_start" name="match_time"><%= findTeams[i].match_time %></div>
               <div class="teamname" name="teamname"><%= findTeams[i].teamname %></div>
 
 
