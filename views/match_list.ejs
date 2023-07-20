@@ -82,14 +82,17 @@
         </div>
 
         <% for (var i=0;  i < Team.length; i++) { %>
-          <% if (Team[i].establishment != '성립'){continue;}; %>
+          <!-- '성립'된 부분은 pass(continue)하고 '미성립'만 렌더링 -->
+          <% if (Team[i].establishment == '성립'){continue;}; %> 
           <% var data = Team[i]; %>
           <div class="edit">
             <form action="/request" method="post">
+              <input type="hidden" name="match_id" value="<%= Team[i].match_id %>">
+              <input type="hidden" name="home_userid" value="<%= Team[i].home_userid %>">
               <input type="hidden" name="match_date" value="<%= Team[i].match_date %>">
+              <input type="hidden" name="teamname" value="<%= Team[i].home_teamname %>">
               <input type="hidden" name="match_place" value="<%= Team[i].match_place %>">
-              <input type="hidden" name="match_time_start" value="<%= Team[i].match_time  %>">
-              <input type="hidden" name="match_time_end" value="<%= Team[i].match_time %>">
+              <input type="hidden" name="match_time" value="<%= Team[i].match_time  %>">
               <div class="match_date"><%= Team[i].match_date %></div>
               <div class="match_place"><%= Team[i].match_place %></div>
               <div class="match_time_start"><%= Team[i].match_time %></div>

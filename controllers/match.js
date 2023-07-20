@@ -86,15 +86,15 @@ module.exports = {
         //   match_id: '16',
         //   match_date: '2023-05-18',
         //   match_place: '강동구,강북구',
-        //   overlap_start: '12:14',
+        //   match_time: '12:14',
         //   teamname: 'FC강동'
         // }
         match_id = req.body.match_id;
-        request_userid = req.user_id;
+        request_userid = req.user_id; //cookie에서 로그인 사용자
         receive_userid = req.body.home_userid;
         request_teamname = req.body.teamname;
         match_date = req.body.match_date
-        overlap_start = req.body.overlap_start
+        match_time = req.body.match_time
         match_place = req.body.match_place //얘 하나일 때 배열로 넣기?
         
 
@@ -102,10 +102,10 @@ module.exports = {
         
         team.getOneTeam(request_userid, function (result) {
             request_teamname = result.teamname;
-            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname,"요청",match_date,overlap_start ,match_place, function (notiID) {
+            notif.insertNotification(match_id, receive_userid, request_userid, request_teamname,"요청",match_date, match_time, match_place, function (notiID) {
                 res.redirect('/');
             });
-        })
+        });
     },
 
     cancel_match : (req, res) => {
