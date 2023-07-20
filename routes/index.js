@@ -35,6 +35,7 @@ router.get('/registered-match', cookieJwtAuth,main.registered_matchview);
 router.get('/requested-match', cookieJwtAuth,main.requested_matchview);
 //test page
 router.get('/maptest', cookieJwtAuth,main.maptestview);
+
 router.post('/upload', uploadMiddleware ,(req, res) => {
     console.log(req);
     console.log(req.file);
