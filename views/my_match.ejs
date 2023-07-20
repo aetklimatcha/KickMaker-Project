@@ -70,8 +70,11 @@
                   <div class="match_place"><%= Matches[i].match_place %></div>
                   <div class="match_time"><%= Matches[i].match_time %></div>
                   <!-- DB team이랑 연결되면 다시 확인 -->
-                  <div class="teamname"><%= Matches[i].teamname %></div>
-
+                  <% if (loginTeam.teamname == Matches[i].away_teamname) { %>
+                    <div class="teamname"><%= Matches[i].home_teamname %></div>
+                  <% } else { %>
+                    <div class="teamname"><%= Matches[i].away_teamname %></div>
+                  <% } %>
                   <% if (today < matchDate) { %>
                   <button class="cancelBtn enter fade-in" type="submit">
                     경기 취소
