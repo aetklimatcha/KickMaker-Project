@@ -40,46 +40,35 @@
       </div>
 
       <% if (Matches == null) { %>
-        <div class="comment"> 진행 예정/종료된 경기가 없습니다.</div> 
+        <div class="comment">진행 예정/종료된 경기가 없습니다.</div> 
       <% } else { %>
-        <% for (var i=0; i < Matches.length; i++) {%>
-          <% if (Matches[i].establishment == '성립') { %>
-              <% var data = Matches[i]; %>
-              <div class="myMatch">
+        <% for (var i = 0; i < Matches.length; i++) { %>
+          <% if (Matches[i].establishment === '성립') { %>
+            <div class="myMatch">
+              <form id="cancelForm<%= Matches[i].match_id %>" method="POST" action="/cancel-match">
+                <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
                 <% let today = new Date(); %>
-                <% let year = today.getFullYear(); %>
-                <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>
-                <% let day = ('0' + today.getDate()).slice(-2); %>
-                <% let hours = ('0' + today.getHours()).slice(-2); %>
-                <% let minutes = ('0' + today.getMinutes()).slice(-2); %>
-                <% let seconds = ('0' + today.getSeconds()).slice(-2); %>
-                
-                <% let dateString = year + '-' + month  + '-' + day; %>
-                <% let timeString = hours + ':' + minutes  + ':' + seconds; %>
-
-                <% let now = new Date(dateString + ' ' + timeString); %>
                 <% let matchDate = new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
-                <div class="status<% if (now < matchDate) { %> before<% } else { %> after<% } %>">
-                  <% if (now < matchDate) { %>
-                    경기 예정
-                  <% } else { %> 
-                    경기 종료
-                  <% } %> 
-                </div>
+                <% if (today < matchDate) { %>
+                  <div class="status_before">경기 예정</div>
+                <% } else { %>
+                  <div class="status_after">경기 종료</div>
+                <% } %>
                 <div class="match_date"><%= Matches[i].match_date %></div>
                 <div class="match_place"><%= Matches[i].match_place %></div>
                 <div class="match_time"><%= Matches[i].match_time %></div>
                 <div class="teamname"><%= Matches[i].teamname %></div>
-                <% if (now < matchDate) { %>
+                <% if (today < matchDate) { %>
                   <div class="cancelBtn" onclick="submitForm('<%= Matches[i].match_id %>')">
                     경기 취소
                   </div>
-                <% } else { %> 
+                <% } else { %>
                   <div class="reviewBtn" onclick="location.href='/team-review/<%= Matches[i].match_id %>'">
                     경기 후기
                   </div>
-                <% } %> 
-              </div>
+                <% } %>
+              </form>
+            </div>
           <% } %>
         <% } %>
       <% } %>
@@ -87,17 +76,7 @@
 
     <script>
       function submitForm(matchId) {
-        var form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/cancel-match';
-
-        var matchIdInput = document.createElement('input');
-        matchIdInput.type = 'hidden';
-        matchIdInput.name = 'match_id';
-        matchIdInput.value = matchId;
-
-        form.appendChild(matchIdInput);
-        document.body.appendChild(form);
+        var form = document.getElementById('cancelForm' + matchId);
         form.submit();
       }
     </script>
