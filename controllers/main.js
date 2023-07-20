@@ -111,20 +111,32 @@ module.exports = {
     },
 
 
-    match_listview: (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                match.getAllMatch(function (result) {
-                    res.render(path.join(__dirname + '/../views/match_list.ejs'), {
-                        loginTeam: loginresult,
-                        Team: result,
-                        notifications: notifications,
-                    });
-                });
+    match_listview: async (req, res) => {
+        try {
+            //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
+            //index.ejs 렌더링 및 변수 ejs에 넘기기
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
             });
-        });
+
+            const loginresult = await new Promise((resolve) => {
+                team.getOneTeam(req.user_id, resolve);
+            });
+
+            var result = await new Promise((resolve) => {
+                match.getAllMatch(resolve)
+            });
+
+            res.render(path.join(__dirname + '/../views/match_list.ejs'), {
+                loginTeam: loginresult,
+                Team: result,
+                notifications: notifications,
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     match_makingview: (req, res) => {
