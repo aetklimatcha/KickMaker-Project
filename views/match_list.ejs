@@ -80,10 +80,12 @@
           <div class="match_time_end">경기 종료 시간</div>
           <div class="request_match">경기 요청하기</div>
         </div>
+
         <% for (var i=0;  i < Team.length; i++) { %>
           <% if (Team[i].establishment != '성립'){continue;}; %>
           <% var data = Team[i]; %>
           <div class="edit">
+            <form action="/request" method="post">
               <input type="hidden" name="match_date" value="<%= Team[i].match_date %>">
               <input type="hidden" name="match_place" value="<%= Team[i].match_place %>">
               <input type="hidden" name="match_time_start" value="<%= Team[i].match_time  %>">
