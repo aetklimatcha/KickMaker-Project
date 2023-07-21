@@ -200,6 +200,8 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
 
+            //기본값 서초구로 설정해놨음!!!!!!!!!!
+            
             const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
             console.log(stadiums);
             
@@ -304,11 +306,13 @@ module.exports = {
         }
 
         else {
+            var opponent_id = req.user_id == review_match_info.home_userid ? review_match_info.home_userid : review_match_info.away_userid;
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: loginresult,
                 notifications: notifications,
                 Match: review_match_info,
+                opponent_id: opponent_id,
             })
         }
     },

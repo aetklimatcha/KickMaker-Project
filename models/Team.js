@@ -79,7 +79,7 @@ module.exports = {
 
     updateAfterMatch: function (data, user_id,callback) {
 
-        var querystring = `UPDATE Team SET totalMatches = totalMatches+1, win_score = win_score+${data.winpoint},manner_score = manner_score + ${data.mannerpoint},`+ data.result+`WHERE user_id=${user_id}`;
+        var querystring = `UPDATE Team SET `+ data.result +`WHERE user_id=${user_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );

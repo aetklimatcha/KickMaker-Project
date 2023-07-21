@@ -95,51 +95,51 @@ module.exports= {
     },
 
 
-    team_review : (req, res) => {
+    team_review: (req, res) => {
 
         var result = new Object();
+        var manner = new Object();
 
         // team에다가 +3 +1 +0 반영하기, 매너점수 반영하기 
         // { result: '승리', manner_rate: '나쁨' }
         switch (req.body.result) {
             case '승리':
-                result.winpoint = 3;
-                result.result = `win = win+1 `
+                result.result = `totalMatches = totalMatches+1, win_score = win_score+3, win = win+1 `
                 break;
             case '무승부':
-                result.winpoint = 1;
-                result.result = `draw = draw+1 `
+                result.result = `totalMatches = totalMatches+1, win_score = win_score+1, draw = draw+1 `
                 break;
             case '패배':
-                result.winpoint = 0;
-                result.result = `lose = lose+1 `
+                result.result = `totalMatches = totalMatches+1, win_score = win_score+0, lose = lose+1 `
                 break;
-        } 
+        }
 
         switch (req.body.manner_rate) {
             case '매우 좋음':
-                result.mannerpoint = 2;
+                manner.result = `manner_score = manner_score + 2 `;
                 break;
             case '좋음':
-                result.mannerpoint = 1;
+                manner.result = `manner_score = manner_score + 1 `;
                 break;
             case '보통':
-                result.mannerpoint = 0;
+                manner.result = `manner_score = manner_score + 0 `;
                 break;
             case '나쁨':
-                result.mannerpoint = -1;
+                manner.result = `manner_score = manner_score - 1 `;
                 break;
             case '매우 나쁨':
-                result.mannerpoint = -2;
+                manner.result = `manner_score = manner_score - 2 `;
                 break;
         }
-        console.log(req.body);
+        console.log(req.body.opponent_id);
         console.log(result);
-
-        team.updateAfterMatch(result, req.user_id, function(back) {
-            review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function( result ) {
-                res.redirect('/my-match');
-            });  
+        //req.params.pageId로 상대 정보 가져오고, 그 아이디에 
+        team.updateAfterMatch(manner, req.body.opponent_id, function (back2) {
+            team.updateAfterMatch(result, req.user_id, function (back) {
+                review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function (result) {
+                    res.redirect('/my-match');
+                });
+            });
         });
     },
 }
