@@ -46,12 +46,13 @@
               </div>
               <div class="registerdMatch">경기 장소 : <%=myMatch.place%>
               </div>
-              <!-- ------------------수정필요 -->
-              <form method="post" action="/confirm-place">
-                <!-- ----------------------- -->
+
               <% if (stadium.length != 0) { %> 
                 <% for (var i=0; i< stadium.length; i++) { %>
               <button class="btn btn-dark btn-block" onclick="location.href='/confirm-place/?nx=<%= stadium[i].nx %>&ny=<%= stadium[i].ny %>'"><%= stadium[i].name %></button>
+                            <!-- ------------------수정필요 -->
+                            <form method="post" action="/confirm-place">
+                              <!-- ----------------------- -->
               <input type="hidden" name="stadium" value="<%= stadium[i].name %>" />
                   <% } %>
               <% } %>

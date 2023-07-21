@@ -380,7 +380,7 @@ module.exports = {
                             time: notification.match_time,
                             RQuserid: notification.request_userid,
                             RQteamname: notification.request_teamname,
-                            RQplace: notification.match_place,
+                            place: notification.match_place,
                             RQstart: notification.overlap_start,
                             //RQend : ,
                             OGplace: OG.match_place,
