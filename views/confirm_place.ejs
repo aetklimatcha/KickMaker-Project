@@ -46,10 +46,13 @@
               </div>
               <div class="registerdMatch">경기 장소 : <%=myMatch.place%>
               </div>
-              
+              <!-- ------------------수정필요 -->
+              <form method="post" action="/confirm-place">
+                <!-- ----------------------- -->
               <% if (stadium.length != 0) { %> 
                 <% for (var i=0; i< stadium.length; i++) { %>
               <button class="btn btn-dark btn-block" onclick="location.href='/confirm-place/?nx=<%= stadium[i].nx %>&ny=<%= stadium[i].ny %>'"><%= stadium[i].name %></button>
+              <input type="hidden" name="stadium" value="<%= stadium[i].name %>" />
                   <% } %>
               <% } %>
             </article>
@@ -75,6 +78,15 @@
             var map = new kakao.maps.Map(container, options);
             marker.setMap(map);
           </script><br>
+
+
+
+
+            <input type="hidden" name="nx" value="<%= nx %>" />
+            <input type="hidden" name="ny" value="<%= ny %>" />
+            <input type="submit" value="경기 확정" />
+          </form>
+
           <form method="post" action="/tomain">
             <input type="submit" value="메인 페이지로" />
           </form>
