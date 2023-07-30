@@ -451,8 +451,8 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
     
-            var day = '20230716'
-            var time = '1530'
+            var day = '20230731'
+            var time = '0100'
             var x = 37.65316703684802;
             var y = 127.04835428199415;
     
