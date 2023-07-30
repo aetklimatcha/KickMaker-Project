@@ -1,5 +1,7 @@
 # capstone
 
+팀 호두과자
+
 nodejs 설치할것
 
 터미널(프로젝트 위치에서)에서 다음 명령어하여 expressjs설치(처음만)
@@ -16,4 +18,3 @@ http://localhost:3000/
 서버 종료.
 
 pm2 stop app.js
-
