@@ -27,10 +27,10 @@ module.exports= {
             }
         });        
         //실패시 실패알람코드 추가필요
-        function login_fail () {
-            var string = 'fail';
-            console.log("login 실패 at login.js")
-            res.redirect('/signin/?value='+string);
+        function login_fail () {   
+            res.write("<script>alert('로그인에 실패하였습니다.')</script>");
+            res.write("<script>window.location=\"/signin\"</script>");
+            res.end();
         }
 
         function login_success () {
