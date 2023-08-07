@@ -39,6 +39,18 @@ module.exports = {
         })
     },
 
+    getrecentmatch : function (callback) {
+        const querystring = 
+        `SELECT *
+        FROM Matches
+        ORDER BY match_id DESC
+        LIMIT 5;`;
+        mysql.query(querystring, function (error, result) {
+            if ( error ) throw error;
+            callback(result);
+        })
+    },
+
     //home_userid로 경기번호 조회, '성립 경기만' (My match 전용)
     getmymatch: function (userid, callback) {
         // SELECT match_id, match_place,

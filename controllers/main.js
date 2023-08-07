@@ -31,10 +31,15 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
 
+            const recentmatch = await new Promise((resolve) => {
+                match.getrecentmatch(resolve);
+            });
+            console.log(recentmatch);
             res.render(path.join(__dirname + '/../views/main.ejs'), {
                 isLogin: isLogin,
                 loginTeam: loginresult,
-                notifications: notifications
+                notifications: notifications,
+                recentmatch : recentmatch
             });
 
         } catch (error) {
