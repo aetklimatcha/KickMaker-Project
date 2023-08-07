@@ -61,6 +61,7 @@ function extractWeatherInfoByDateTime (gametime, json) {
 module.exports = {
 
     weatherAPI: (gamedate, gametime, inputx, inputy) => {
+
         const nx = latLngToGrid(inputx, inputy).x;
         const ny = latLngToGrid(inputx, inputy).y;
         const pageNo = checkpageNo(gamedate, gametime);

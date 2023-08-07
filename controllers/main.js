@@ -11,65 +11,71 @@ const stadium = require("../modules/getStadium");
 
 module.exports = {
 
-    mainview: (req, res) => {
-        //상대경로 사용할 것 (팀원들 각자 디렉토리 다르니 절대경로 안돼)
-        //index.ejs 렌더링 및 변수 ejs에 넘기기
-        if (req.user_id) {
-            isLogin = true;
-        } else if (!req.user_id) {
-            isLogin = false;
+    mainview: async (req, res) => {
+
+        // if (req.user_id) {
+        //     isLogin = true;
+        // } else if (!req.user_id) {
+        //     isLogin = false;
+        // }
+
+        const isLogin = !!req.user_id;
+
+
+        try {
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
+            });
+
+            const loginresult = await new Promise((resolve) => {
+                team.getOneTeam(req.user_id, resolve);
+            });
+
+            res.render(path.join(__dirname + '/../views/main.ejs'), {
+                isLogin: isLogin,
+                loginTeam: loginresult,
+                notifications: notifications
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
         }
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                res.render(path.join(__dirname + '/../views/main.ejs'), {
-                    isLogin: isLogin,
-                    loginTeam: loginresult,
-                    notifications: notifications
-                });
-            });
-        });
     },
 
-    matchview: (req, res) => {
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                match.getmatch_id(req.params.id, function (matchdata) {
-                    team.getOneTeam(matchdata.home_userid, function (hometeam) {
-                        team.getOneTeam(matchdata.away_userid, function (awayteam) {
-
-                            res.render(path.join(__dirname + '/../views/match.ejs'), {
-                                loginTeam: loginresult,
-                                notifications: notifications,
-                                matchdata: matchdata,
-                                hometeam: hometeam,
-                                awayteam: awayteam,
-                            });
-                        })
-                    });
-                });
+    matchview: async (req, res) => {
+        try {
+            const notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
             });
-        });
-    },
 
-    my_match2view: (req, res) => {
-        notif.getnotif_userid(req.user_id, function (notifications) {
-            team.getOneTeam(req.user_id, function (loginresult) {
-                match.getmymatch(req.user_id, function (matches) {
-
-                    if (matches != null) {
-                        for (var i = 0; i < matches.length; i++) {
-                            matches[i].home_teamname = team.getOneTeam(matches[i].home_userid, function (team) { team.teamname })
-                            matches[i].away_teamname = team.getOneTeam(matches[i].away_userid, function (team) { team.teamname })
-                        }
-                    }
-                    res.render(path.join(__dirname + '/../views/my_match.ejs'), {
-                        loginTeam: loginresult,
-                        notifications: notifications,
-                        Matches: matches,
-                    });
-                });
+            const loginresult = await new Promise((resolve) => {
+                team.getOneTeam(req.user_id, resolve);
             });
-        });
+
+            const matchdata = await new Promise((resolve) => {
+                match.getmatch_id(req.params.id, resolve);
+            });
+
+            const hometeam = await new Promise((resolve) => {
+                team.getOneTeam(matchdata.home_userid, resolve);
+            });
+
+            const awayteam = await new Promise((resolve) => {
+                team.getOneTeam(matchdata.away_userid, resolve);
+            });
+
+            res.render(path.join(__dirname + '/../views/match.ejs'), {
+                loginTeam: loginresult,
+                notifications: notifications,
+                matchdata: matchdata,
+                hometeam: hometeam,
+                awayteam: awayteam,
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     my_matchview: async (req, res) => {
@@ -86,6 +92,7 @@ module.exports = {
                 match.getmymatch(req.user_id, resolve);
             });
 
+            //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정)
             if (matches != null) {
                 for (let i = 0; i < matches.length; i++) {
                     const homeTeam = await new Promise((resolve) => {
@@ -97,6 +104,17 @@ module.exports = {
                         team.getOneTeam(matches[i].away_userid, resolve);
                     });
                     matches[i].away_teamname = awayTeam.teamname;
+
+                    var day = matches[i].match_date.replace(/-/g,'');
+                    var timeArray = matches[i].match_time.split(':')
+                    var time = timeArray[0] + timeArray[1];
+                    var x = matches[i].nx;
+                    var y = matches[i].ny;
+
+                    const gameweather = await weather.weatherAPI(day, time, y, x);
+
+                    matches[i].weather = gameweather;
+                    console.log(matches[i]);
                 }
             }
             
@@ -451,8 +469,8 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
     
-            var day = '20230731'
-            var time = '0100'
+            var day = '20230809';
+            var time = '1000';
             var x = 37.65316703684802;
             var y = 127.04835428199415;
     
