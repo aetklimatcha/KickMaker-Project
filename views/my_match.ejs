@@ -21,6 +21,41 @@
 
   <title>my_match 진행 예정 또는 진행된 경기 리스트</title>
 </head>
+
+<!--
+------------------------------- 
+  ejs 가이드
+matches 배열
+[
+{
+     match_id: 86,
+     home_userid: 9,
+     away_userid: 2,
+     match_date: '2023-08-08',
+     match_time: '10:00:00',
+     match_place: '강서구',
+     created: 2023-05-29T15:00:00.000Z,
+     updated: null,
+     establishment: '성립',
+     stadium: '잠원한강공원>축구장,방배배수지체육공원,반포',
+     nx: 127.017,
+     ny: 37.5256,
+     home_teamname: 'FC마마',
+     away_teamname: 'FC강동',
+
+     weather: {
+       fcstDate: '20230808',
+       fcstTime: '1000',
+       TMP: '31',
+       POP: '0',
+       PCP: '강수없음'
+     }
+}
+]
+(TMP: 기온, POP: 강수확률, PCP: 강수량)
+----------------------------------------- 
+-->
+
 <body>
 <!--HEADER-->
   <header>
