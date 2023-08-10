@@ -63,8 +63,8 @@ module.exports = {
         Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
         mysql.query(querystring, function (error, result) {
             console.log('at getmymatch '+userid)
-            if (error) throw error;
-            if (result.length) {
+            // if (error) throw error;
+            if (result) {
                 // console.log("!")
                 // console.log(result);
                 callback(result);

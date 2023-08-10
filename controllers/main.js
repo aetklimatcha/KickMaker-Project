@@ -9,6 +9,7 @@ const notif = require("../models/Notification");
 const review = require("../models/TeamReview");
 const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
+const { log } = require("console");
 
 module.exports = {
 
@@ -93,10 +94,12 @@ module.exports = {
             const loginresult = await new Promise((resolve) => {
                 team.getOneTeam(req.user_id, resolve);
             });
-
+            
             const matches = await new Promise((resolve) => {
                 match.getmymatch(req.user_id, resolve);
             });
+            
+            if (matches==null) throw 'error';
 
             //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정)
             if (matches != null) {
@@ -131,6 +134,8 @@ module.exports = {
             });
         } catch (error) {
             console.error(error);
+            res.write("<script>alert('권한이 없습니다')</script>");
+            res.write("<script>window.location=\"/\"</script>");
             // Handle error response
         }
     },
