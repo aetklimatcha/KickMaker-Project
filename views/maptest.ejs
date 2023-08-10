@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="map" style="width:500px;height:400px;"></div>
@@ -40,17 +41,46 @@
     <% } %>
     <% } %>
 
-    <p><%= stadiumResult[0].name %></p>
-    <div>
-        <form action="/upload" method="POST">
-            <p>날짜</p>
-            <input type="text" name="day" placeholder="20230811" ><br>
-            <p>시간</p>
-            <input type="text" name="time" placeholder="1000" ><br>
-            <input type="text" name="id" value="43">
+    <p>
+        <%= stadiumResult[0].name %>
+    </p>
+    <div id="weatherResult"></div>
 
-            <button type="submit">Upload</button>
-        </form>
+    <br>
+    <h3>*두 개 다 채워서 넣기, 지난 날짜 안됌, 3일 이내만 가능(아직) </h3>
+        <p>날짜</p>
+        <input type="text" id="day" placeholder="20230811"><br>
+        <p>시간</p>
+        <input type="text" id="time" placeholder="1000"><br>
+    <button onclick="getWeather()">날씨 조회</button>
+
+    <script>
+        function displayWeather(weather) {
+            const resultDiv = document.getElementById('weatherResult');
+            resultDiv.innerHTML = `
+                <p>날짜: ${weather.fcstDate}</p>
+                <p>시간: ${weather.fcstTime}</p>
+                <p>기온: ${weather.TMP} °C</p>
+                <p>강수확률: ${weather.POP} %</p>
+                <p>강수량: ${weather.PCP}</p>
+                <br><p>원본 양식</p><br>
+                <p>${JSON.stringify(weather)}</p>
+            `;
+        }
+
+        function getWeather() {
+            const day = document.getElementById('day').value;
+            const time = document.getElementById('time').value;
+            axios.post('/upload', { day, time })
+                .then(response => {
+                    displayWeather(response.data);
+                })
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                });
+        }
+    </script>
+    
     </div>
-</body>
+    </body>
 </html>

@@ -509,13 +509,7 @@ module.exports = {
         var y = 127.04835428199415;
         const gameweather = day ? await weather.weatherAPI(day, time, x, y) : null; // weatherAPI 함수의 결과를 기다립니다.
         
-        res.render(path.join(__dirname + '/../views/maptest.ejs'), {
-            x: x,
-            y: y,
-            MAP_KEY: process.env.MAP_KEY,
-            weather: gameweather,
-            stadiumResult: result, // 결과 배열을 전달합니다.
-        });
+        res.json(gameweather);
 
     },
 
