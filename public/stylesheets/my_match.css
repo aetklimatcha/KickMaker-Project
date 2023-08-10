@@ -51,18 +51,19 @@
 .matchedInfo__card .top .match_date,
 .matchedInfo__card .top .match_place,
 .matchedInfo__card .top .match_time,
+.matchedInfo__card .top .weather,
 .matchedInfo__card .top .teamname,
 .matchedInfo__card .top .review {
   display: inline-block;
   padding:15px 0;
   height: 100%;
   font-size: 1.4rem;
-  width: 16.6%;
+  width: 14%;
   text-align: center;
 }
 
-.myMatch {
-  height: 80px;
+#cancelForm {
+  height: 85px;
 }
 .myMatch .status_before {
   display: inline-block;
@@ -71,7 +72,7 @@
   margin: 29.245px 0;
   font-size: 1.4rem;
   font-weight: 700;
-  width: 16.6%;
+  width: 14%;
   text-align: center;
 }
 
@@ -82,7 +83,7 @@
   margin: 29.245px 0;
   font-size: 1.4rem;
   font-weight: 700;
-  width: 16.6%;
+  width: 14%;
   text-align: center;
 }
 
@@ -90,13 +91,45 @@
 .myMatch .match_date,
 .myMatch .match_place,
 .myMatch .match_time,
+.myMatch .weather,
 .myMatch .teamname {
   display: inline-block;
   height: 22.4px;
   font-size: 1.4rem;
-  width: 16.6%;
+  width: 14%;
   text-align: center;
 }
+.myMatch .fa-solid {
+  display: inline-block;
+  margin: 20px 0;
+  font-size: 2.5rem;
+  width: 7%;
+  text-align: center;
+}
+.myMatch .weather_info_tmp {
+  display: inline-block;
+  height: 22.4px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 7%;
+  text-align: center;
+}
+.myMatch .weather_info_pcp {
+  display: inline-block;
+  height: 22.4px;
+  font-size: 1.4rem;
+  width: 7%;
+  text-align: center;
+}
+.myMatch .weather_info_pcp .TMP {
+  font-weight: 700;
+  margin-top: 22px;
+}
+.myMatch .weather_info_pcp .PCP {
+  font-size: 1.1rem;
+  margin-top: 2px;
+}
+
 
 .matchedInfo__card .myMatch .cancelBtn,
 .matchedInfo__card .myMatch .reviewBtn {
@@ -109,7 +142,7 @@
   cursor: pointer;
   text-align: center;
   line-height: 50px;
-  width: 16.6%;
+  width: 14%;
   border-radius: 20px;
 }
 

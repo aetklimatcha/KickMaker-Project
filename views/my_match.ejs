@@ -20,6 +20,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>my_match 진행 예정 또는 진행된 경기 리스트</title>
+
+  <script src="https://kit.fontawesome.com/4f68cb86b6.js" crossorigin="anonymous"></script>
 </head>
 
 <!--
@@ -28,31 +30,32 @@
 matches 배열
 [
 {
-     match_id: 86,
-     home_userid: 9,
-     away_userid: 2,
-     match_date: '2023-08-08',
-     match_time: '10:00:00',
-     match_place: '강서구',
-     created: 2023-05-29T15:00:00.000Z,
-     updated: null,
-     establishment: '성립',
-     stadium: '잠원한강공원>축구장,방배배수지체육공원,반포',
-     nx: 127.017,
-     ny: 37.5256,
-     home_teamname: 'FC마마',
-     away_teamname: 'FC강동',
+      match_id: 86,
+      home_userid: 9,
+      away_userid: 2,
+      match_date: '2023-08-08',
+      match_time: '10:00:00',
+      match_place: '강서구',
+      created: 2023-05-29T15:00:00.000Z,
+      updated: null,
+      establishment: '성립',
+      stadium: '잠원한강공원>축구장,방배배수지체육공원,반포',
+      nx: 127.017,
+      ny: 37.5256,
+      home_teamname: 'FC마마',
+      away_teamname: 'FC강동',
 
-     weather: {
-       fcstDate: '20230808',
-       fcstTime: '1000',
-       TMP: '31',
-       POP: '0',
-       PCP: '강수없음'
-     }
+      weather: {
+        fcstDate: '20230808',
+        fcstTime: '1000',
+        TMP: '31',
+        POP: '0',
+        PCP: '강수없음'
+      }
 }
 ]
 (TMP: 기온, POP: 강수확률, PCP: 강수량)
+(강수확률이 있어도 강수량 정보는 없을 수도 있음)
 
 *아직 예보 안뜬 경우
  weather: 'DateOverError'
@@ -77,6 +80,7 @@ weather: 'ApiError'
         <div class="match_date">날짜</div>
         <div class="match_place">장소</div>
         <div class="match_time"> 시작 시간</div>
+        <div class="weather">날씨</div>
         <div class="teamname">팀명</div>
         <div class="review">경기 취소/리뷰</div>
       </div>
@@ -110,6 +114,35 @@ weather: 'ApiError'
                 <div class="match_date"><%= Matches[i].match_date %></div>
                 <div class="match_place"><%= Matches[i].match_place %></div>
                 <div class="match_time"><%= Matches[i].match_time %></div>
+                
+                <% if (Matches[i].weather == 'DateOverError') { %>
+                  <div class="weather"> 날씨 정보 없음 </div>
+                <% } else { %>
+                    <% if ( Matches[i].weather.POP === '0' ) { %>
+                        <i class="fa-solid fa-sun"></i>
+                        <div class="weather_info_tmp">
+                          <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        </div>
+                    <!-- 강수확률O & 강수량 정보X -->
+                    <% } else if (Matches[i].weather.POP !== '0' && Matches[i].weather.PCP === '강수없음') { %>
+                        <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        <div class="weather_info_tmp">
+                          <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        </div>
+
+                    <!-- 강수확률O & 강수량 정보O -->
+                    <% } else if ( Matches[i].weather.POP !== '0' && Matches[i].weather.PCP !== '강수없음' ){ %>
+                      <i class="fa-solid fa-cloud-showers-heavy"></i>
+                      <div class="weather_info_pcp">
+                        <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        <div class="PCP"> <%= Matches[i].weather.PCP %></div>
+                      </div>
+                    <% } %>
+                <% } %>
+                  
+                
+                
+
                   <% if (loginTeam.teamname == Matches[i].away_teamname) { %>
                     <div class="teamname"><%= Matches[i].home_teamname %></div>
                   <% } else { %>
