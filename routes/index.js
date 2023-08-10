@@ -34,14 +34,10 @@ router.get('/team-review/:pageId', cookieJwtAuth,main.team_reviewview);
 //등록한 경기 정보
 router.get('/registered-match', cookieJwtAuth,main.registered_matchview);
 router.get('/requested-match', cookieJwtAuth,main.requested_matchview);
+
 //test page
 router.get('/maptest', cookieJwtAuth,main.maptestview);
-
-router.post('/upload', uploadMiddleware ,(req, res) => {
-    console.log(req);
-    console.log(req.file);
-    res.redirect('/maptest');
-});
+router.post('/upload',main.upload);
 
 
 router.post('/tomain', cookieJwtAuth,main.tomain);

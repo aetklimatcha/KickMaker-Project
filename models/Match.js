@@ -20,7 +20,7 @@ module.exports = {
             if(result.length) {
                 callback(result[0]);
             } else if (result.length == 0){
-                console.log("엥 이번호로 경기 조회 안돼"+match_id);
+                console.log("엥 이번호로 경기 조회 안돼 매치번호: "+match_id);
                 callback(null);
             }
         })

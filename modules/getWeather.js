@@ -70,7 +70,6 @@ module.exports = {
 
             if (pageNo == -1)
                 resolve('DateOverError');   //3일 이후의 날씨 요구시 발생 에러 (DateOverError)
-
             http.get(url, (res) => {
                 let json = "";
 
@@ -79,7 +78,12 @@ module.exports = {
                 });
 
                 res.on("end", () => {
-                    const result = extractWeatherInfoByDateTime(gametime, JSON.parse(json));
+                    try {
+                        parsedData = JSON.parse(json);
+                    } catch (err) {
+                        resolve('ApiError');
+                    }
+                    const result = extractWeatherInfoByDateTime(gametime, parsedData);
                     resolve(result == -1 ? 'ApiError' : result);
                 });
             });

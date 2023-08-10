@@ -1,11 +1,12 @@
 require("dotenv").config({ path: "./config/.env" });
 
 const path = require("path");
+const axios = require('axios');
+
 const team = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
 const review = require("../models/TeamReview");
-
 const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
 
@@ -34,7 +35,7 @@ module.exports = {
             const recentmatch = await new Promise((resolve) => {
                 match.getrecentmatch(resolve);
             });
-            console.log(recentmatch);
+
             res.render(path.join(__dirname + '/../views/main.ejs'), {
                 isLogin: isLogin,
                 loginTeam: loginresult,
@@ -474,15 +475,16 @@ module.exports = {
                 team.getOneTeam(req.user_id, resolve);
             });
     
-            var day = '20230809';
-            var time = '1000';
+            var day = req.body.day;
+            var time = req.body.time;
             var x = 37.65316703684802;
             var y = 127.04835428199415;
     
             const result = await stadium('서초구'); // stadium 함수의 결과를 기다립니다
-            console.log(result);
-            const gameweather = await weather.weatherAPI(day, time, x, y); // weatherAPI 함수의 결과를 기다립니다.
-    
+
+            
+            const gameweather = day ? await weather.weatherAPI(day, time, x, y) : null; // weatherAPI 함수의 결과를 기다립니다.
+        
             res.render(path.join(__dirname + '/../views/maptest.ejs'), {
                 x: x,
                 y: y,
@@ -497,7 +499,25 @@ module.exports = {
         }
     },
 
+    upload: async (req, res) => {
+        console.log(req.body);
 
+        const result = await stadium('서초구');
+        var day = req.body.day;
+        var time = req.body.time;
+        var x = 37.65316703684802;
+        var y = 127.04835428199415;
+        const gameweather = day ? await weather.weatherAPI(day, time, x, y) : null; // weatherAPI 함수의 결과를 기다립니다.
+        
+        res.render(path.join(__dirname + '/../views/maptest.ejs'), {
+            x: x,
+            y: y,
+            MAP_KEY: process.env.MAP_KEY,
+            weather: gameweather,
+            stadiumResult: result, // 결과 배열을 전달합니다.
+        });
+
+    },
 
     tomain: (req, res) => {
         res.cookie('findMatchestoken', null, {
