@@ -3,6 +3,25 @@ const mysql = require("../config/mysql");
 
 module.exports = {
 
+    getNotifAndTeamInfo: function (user_id, callback) {
+        if (user_id == undefined) {
+            callback("0");
+        } else {
+            const querystring = `
+            SELECT N.*, T.*
+            FROM Notification AS N
+            RIGHT JOIN Team AS T 
+            ON N.receive_userid = T.user_id
+            WHERE T.user_id = ${user_id}
+            LIMIT 1
+            `;
+            mysql.query(querystring, function (error, result) {
+                if (error) throw error;
+                callback(result[0]);  // 결과가 없을 경우 null이 반환됩니다.
+            });
+        }
+    },
+
     //Team 전체 조회
     getAllTeam : function (callback) {
         const querystring = `Select * from Team;`;
