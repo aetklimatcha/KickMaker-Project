@@ -93,10 +93,9 @@ module.exports = {
                     const gameweather = await weather.weatherAPI(day, time, y, x);
 
                     matches[i].weather = gameweather;
-                    console.log(matches[i]);
                 }
             }
-
+            console.log(matches);
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,

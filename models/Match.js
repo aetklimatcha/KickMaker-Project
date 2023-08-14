@@ -46,8 +46,12 @@ module.exports = {
         ORDER BY match_id DESC
         LIMIT 5;`;
         mysql.query(querystring, function (error, result) {
-            if ( error ) throw error;
-            callback(result);
+            try {
+                callback(result);
+            } catch (error) {
+                console.error(error);
+                callback(null);
+            }
         })
     },
 
@@ -62,7 +66,7 @@ module.exports = {
         FROM Matches 
         Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
         mysql.query(querystring, function (error, result) {
-            console.log('at getmymatch '+userid)
+            console.log('at getmymatch '+ userid)
             // if (error) throw error;
             if (result) {
                 // console.log("!")
