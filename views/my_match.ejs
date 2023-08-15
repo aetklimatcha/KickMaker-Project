@@ -146,7 +146,7 @@ weather: 'ApiError'
                   <% if (loginTeam.teamname == Matches[i].away_teamname) { %>
                     <div class="teamname"><%= Matches[i].home_teamname %></div>
                   <% } else { %>
-                  <div class="teamname"><%= Matches[i].away_teamname %></div>
+                    <div class="teamname"><%= Matches[i].away_teamname %></div>
                   <% } %>
                 <% if (today < matchDate) { %>
                   <div class="cancelBtn" onclick="submitForm('<%= Matches[i].match_id %>')">
