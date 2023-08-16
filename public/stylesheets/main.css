@@ -42,7 +42,8 @@
   box-sizing: border-box;
   display: block;
 }
-.logo.fade-in,
+img.fade-in,
+p.fade-in,
 .matchingBtn.fade-in {
   opacity: 0;
 }
