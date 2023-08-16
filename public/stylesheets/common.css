@@ -47,11 +47,12 @@ header > .inner {
   height: 50px;
 }
 header .logo {
-  border-style: none;
+  border: 0;
+  background-color: transparent;
 }
 header form {
   /* display: none; */
-  height: 0;
+  /* height: 0; */
 }
 header .logo img{
   width: 80px;
@@ -64,13 +65,14 @@ header .logo img{
   cursor: pointer;
 }
 header .signinBtn {
-  color: #656565;
-  padding: 20px;
+  color: #2c2a29;
+  padding: 13px;
+  font-weight: 700;
   display: block;
-  font-size: 12px;
+  font-size: 15px;
 }
 header .signinBtn:hover {
-  color: #669900;
+  color: #D8FFE5;
 }
 
 header .main-menu {
