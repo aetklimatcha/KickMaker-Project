@@ -1,11 +1,17 @@
 .main{
   height: 100vh;
   position: relative;
-  background-image: url("../images/soccer.webp");
+  /* background-image: url("../images/soccer.webp"); */
+  background-image: url("../images/킥메이커메인.webp");
   background-repeat:repeat-y;
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
+}
+.banner {
+  background-image: url("../images/킥메이커메인.webp");
+  /* margin-top: 50px; */
+  background-position: center;
 }
 .main .inner {
   width: 100vh;
