@@ -7,12 +7,12 @@
     </button>
   </form>
   <% if (loginTeam) { %>
-  <span class="welcome">
+  <div class="welcome">
     welcome!
     <span class="wcTeamname">
       <%= loginTeam.teamname %>
     </span>
-  </span>
+  </div>
   <% } %>
   <ul class="main-menu">
       <% if(loginTeam){ %>
@@ -51,7 +51,9 @@
               requesttype: '요청'
             }
           ] -->
-          <div class="menu__name">alert</div>
+          <div class="menu__name">
+            notifications
+          </div>
           <div class="menu__contents">
             <ul class="inner">
               <% for (var i=0; i < notifications.length; i++) { %>
