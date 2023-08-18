@@ -9,6 +9,7 @@ const main = require('../controllers/main');
 const login = require('../controllers/login');
 const signup = require("../controllers/signup");
 const match = require("../controllers/match");
+const review = require("../controllers/review");
 
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 const { uploadMiddleware } = require('../middleware/uploadMiddleware');
@@ -46,7 +47,7 @@ router.post('/login',login.login_process);
 router.post('/logout',login.logout);
 router.post('/signup', uploadMiddleware,signup.signup);
 router.post('/edit-team', cookieJwtAuth,header, uploadMiddleware, login.edit_team);
-router.post('/team-review/:pageId', cookieJwtAuth,header,login.team_review);
+router.post('/team-review/:pageId', cookieJwtAuth,header,review.team_review);
 router.post('/match-making', cookieJwtAuth,header,match.match_making);
 router.post('/request', cookieJwtAuth,header,match.match_request);
 router.post('/confirm-place', cookieJwtAuth,header,match.insertMatch);

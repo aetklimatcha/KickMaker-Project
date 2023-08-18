@@ -20,12 +20,11 @@ function updateElo(playerRating, opponentRating, result) {
     return newRating;
 }
 
-function matchTeams(team1, team2) {
+function matchTeams(team1, team2, matchresult) {
     const team1Rating = team1;
     const team2Rating = team2;
-    const result = 0;
-    const team1NewRating = updateElo(team1Rating, team2Rating, result);
-    const team2NewRating = updateElo(team2Rating, team1Rating, !result);
+    const team1NewRating = updateElo(team1Rating, team2Rating, matchresult);
+    const team2NewRating = updateElo(team2Rating, team1Rating, 1-matchresult);
 
     team1 = Math.round(team1NewRating);
     team2 = Math.round(team2NewRating);
