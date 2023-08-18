@@ -29,5 +29,9 @@
     "pm2": "^4.2.3",
     "sanitize-html": "^2.10.0",
     "uuid4": "^2.0.3"
+  },
+  "devDependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

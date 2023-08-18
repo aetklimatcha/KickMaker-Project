@@ -19,19 +19,24 @@ const { setUTF8Encoding } = require('./middleware/setUTF8Encoding');
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-//정적파일 서비스하는 모듈? (css 안됐을때 씀)
+
+
+//정적파일 서비스하는 모듈? (css 안됐을때 씀
 app.use(express.static(__dirname));
 
+//swagger
+const { swaggerUi, specs } = require("./swagger/swagger");
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.use(setUTF8Encoding);
 
 //router 폴더 연결
 app.use(cookieParser());
 app.use(routes);
-
 
 //304 발생 해결
 // app.set("etag", false);

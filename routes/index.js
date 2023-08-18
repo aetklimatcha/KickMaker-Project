@@ -18,6 +18,33 @@ const { header } = require('../middleware/header');
 
 
 //ejs 파일들 연결 페이지
+/**
+ * @swagger
+ * paths:
+ *  /:
+ *    get:
+ *      summary: "메인 페이지 조회"
+ *      description: "서버에 데이터를 보내지 않고 Get방식으로 요청"
+ *      tags: [메인]
+ *      responses:
+ *        "200":
+ *          description: 전체 유저 정보
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                    ok:
+ *                      type: boolean
+ *                    users:
+ *                      type: object
+ *                      example:
+ *                          [
+ *                            { "id": 1, "name": "유저1" },
+ *                            { "id": 2, "name": "유저2" },
+ *                            { "id": 3, "name": "유저3" },
+ *                          ]
+ */
 router.get('/', cookieJwtAuth,header,main.mainview);
 router.get('/match/:id', cookieJwtAuth,header,main.matchview);
 router.get('/match-list',cookieJwtAuth,header, main.match_listview);
