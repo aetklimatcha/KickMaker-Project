@@ -5,13 +5,11 @@ a {
 body {
   font-family: 'Nanum Gothic', sans-serif;
   height: 100vh;
-  background-image: url("../images/soccer.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
 }
-
 .logo img {
   /* 인라인 요소는 베이스라인 아래 공간이 있기 때문에 블록 요소로 바꿔 없애줌.*/
   display: block;
@@ -21,15 +19,16 @@ body {
   width: 15vw;
   position: absolute;
   left: 81px;
-  display: inline;
   font-size: 15px;
   color: #2c2a29;
-  padding: 16.5px 30px;
+  /* padding: 16.5px 30px; */
+  margin: 10px 20px 10px 20px;
+
 }
 .welcome .wcTeamname {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
-  color:#669900;
+  color:#D8FFE5;
 }
 .inner {
   width: 1100px;
@@ -38,8 +37,6 @@ body {
 }
 header {
   width: 100%;
-  background-color: #f6f5f0;
-  border-bottom: 1px solid #c8c8c8;
   position: fixed;
   top: 0;
   z-index: 9;
@@ -48,16 +45,15 @@ header > .inner {
   height: 50px;
 }
 header .logo {
-  border-style: none;
+  border: 0;
+  background-color: transparent;
 }
 header form {
-  /* display: none; */
-  height: 0;
+
 }
 header .logo img{
   width: 80px;
   display: flex;
-  /* padding: 10px; */
   position: absolute;
   bottom: 0;
   left: 0;
@@ -65,13 +61,14 @@ header .logo img{
   cursor: pointer;
 }
 header .signinBtn {
-  color: #656565;
-  padding: 20px;
+  color: #2c2a29;
+  padding: 13px;
+  font-weight: 700;
   display: block;
-  font-size: 12px;
+  font-size: 15px;
 }
 header .signinBtn:hover {
-  color: #669900;
+  color: #D8FFE5;
 }
 
 header .main-menu {
@@ -86,45 +83,58 @@ header .main-menu .menu {
 }
 
 
-header .main-menu .menu .menu__name {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
-  padding: 20px;
+header .main-menu .menu .menu__name,
+header .main-menu .menu .menu__name i {
+  color: #2c2a29;
+  margin: 25px 20px 10px 20px;
+  font-weight: 700;
   display: block;
-  color: #656565;
+  font-size: 15px;
+  cursor: pointer;
 }
 header .main-menu .menu:hover .menu__name{
-  background-color: #2c2a29;
+
 }
 header .main-menu .menu .menu__name:hover {
-  color: #f6f5f0;
-}
-/* header .main-menu .menu .menu__name a {
-  color: #656565;
-}
-header .main-menu .menu .menu__name a:hover {
-  color: #669900;
-} */
+  color: #D8FFE5;
 
+}
+
+header .main-menu .menu input {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
 
 header .main-menu .menu [type="submit"] {
-  border: none;
-  font-size: 12px;
-  color: #f6f5f0;
-  background-color: #2c2a29;
+  color: #2c2a29;
+  margin: 25px 20px 10px 20px;
+  font-weight: 700;
+  display: block;
+  font-size: 15px;
   cursor: pointer;
-  padding: 20px;
-  margin: 0 20px;
+}
+header .main-menu .menu [type="submit"]:hover {
+  color: #D8FFE5;
+
 }
 
 
 header .main-menu .menu .menu__contents {
-  width: 35vw;
-  position: fixed;
-  right: 0;
+  width: auto;
+  /* position: fixed;
+  right: 150px; */
   display: none;
   background-color: #2c2a29;
+  border-radius: 15px 0px 0px 15px;
+  height:auto;
+  padding:0px;
+  /* margin: 10px 0px 0px 0px; */
+  border:0px;
+  position:absolute;
+  z-index:200;
 }
+
 header .main-menu .menu:hover .menu__contents {
   display: block;
 }
@@ -134,17 +144,17 @@ header .main-menu .menu .menu__contents > ul {
 }
 header .main-menu .menu .menu__contents ul > li {
   display: flex;
-  padding: 20px;
-  font-size: 12px;
+  padding: 22px;
+  font-size: 13px;
   color: #999;
   cursor: pointer;
 }
 header .main-menu .menu .menu__contents ul > li:hover {
-  color: #669900;
+  color: #D8FFE5;
 }
 header .main-menu .menu .menu__contents ul > li a {
   color: #999;
 }
 header .main-menu .menu .menu__contents ul > li a:hover {
-  color: #669900;
+  color: #D8FFE5;
 }
