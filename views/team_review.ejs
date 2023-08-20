@@ -23,16 +23,21 @@
     <div class="teamReview__card">
       <form action="/team-review/<%= pageId %>" method="post">
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
-          <p>매치 정보</p>
+          <p class="title">매치 정보</p>
           <div class="matchInfo">
-            경기팀:<%= Match.away_teamname %>
-            경기 일자: <%= Match.match_date %>
-            경기 장소: <%= Match.stadium %>
+            <% if (loginTeam.teamname == Match.away_teamname) { %>
+              <p>경기팀: <%= Match.home_teamname %></p><br>
+            <% } else { %>
+              <p>경기팀: <%= Match.away_teamname %></p><br>
+            <% } %>
+            <!-- 경기팀:<%= Match.away_teamname %> <br> -->
+            <p>경기 일자: <%= Match.match_date %></p><br>
+            <p>경기 장소: <%= Match.stadium %> </p><br>
           </div>
             <!-- matches 정보 넣기 -->
           <!-- <input type="text" name="match_id" value=""><br> -->
 
-          <p>경기 결과</p>
+          <p class="title">경기 결과</p>
           <!-- <input type="text" name="result" value=""><br> -->
           <fieldset>
             <label>
@@ -49,7 +54,7 @@
             </label>
           </fieldset>
 
-          <p>상대팀 경기 매너 평가</p>
+          <p class="title">상대팀 경기 매너 평가</p>
             <fieldset>
               <label>
                 <input type="radio" name="manner_rate" value="매우 나쁨" />
