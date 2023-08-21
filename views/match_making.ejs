@@ -15,70 +15,106 @@
 
 </head>
 <body>
-<!--HEADER-->
-    <!--HEADER-->
-    <header>
-      <%- include ("./header.ejs") %>
-    </header>
-    
-  <section class="match_making">
-    <h1>매칭 정보 입력</h1>
-    <div class="match_making__card">
-      <form action="/match-making" method="post">
-        <label for="gameDate" class="option__title">경기 가능한 날짜를 선택해주세요.</label><br /><br />
-          <input type="date" id="gameDate" name="gameDate"><br /><br />
-        <label for="gameStartTime" class="option__title">경기 가능한 시간을 선택해주세요:</label></br></br>
-            <input
-              type="time"
-              id="gameStartTime"
-              name="gameStartTime"
-              min="00:00"
-              max="23:59"
-              />
-        <label for="gameEndTime" class="option__title">~</label>
-            <input
-              type="time"
-              id="gameEndTime"
-              name="gameEndTime"
-              min="00:00"
-              max="23:59"
-            /><br /><br />
-            
+  <header>
+    <%- include ("./header.ejs") %>
+  </header>
 
-          <!-- 다른 시, 군 항목들을 추가할 수 있습니다. -->
-        <label for="gameLocation" class="option__title"  >경기 가능한 구를 선택해주세요:</label></br></br>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="강남구"> 강남구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="강동구"> 강동구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="강북구"> 강북구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="강서구"> 강서구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="관악구"> 관악구</label></br>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="광진구"> 광진구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="구로구"> 구로구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="금천구"> 금천구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="노원구"> 노원구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="도봉구"> 도봉구</label></br>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="동대문구"> 동대문구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="동작구"> 동작구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="마포구"> 마포구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="서대문구"> 서대문구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="서초구"> 서초구</label></br>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="성동구"> 성동구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="성북구"> 성북구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="송파구"> 송파구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="양천구"> 양천구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="영등포구"> 영등포구</label></br>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="용산구"> 용산구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="은평구"> 은평구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="종로구"> 종로구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="중구"> 중구</label>
-        <label><input id="gameLocation"  type="checkbox" name="district" value="중랑구"> 중랑구</label>
+<section class="match_making">
+  <div class="match_making__card">
+  <form action="/match-making" method="post">
+    <label for="gameDate" class="option__title">경기 가능한 날짜를 선택해주세요.</label><br /><br />
+      <input type="date" id="gameDate" name="gameDate"><br /><br />
+    <label for="gameTime" class="option__title">경기 가능한 시간을 선택해주세요.</label><br /><br />
+      <div id="time-block-container"></div><br><br>
+      <label for="gameLocation" class="option__title"  >경기 가능한 구를 선택해주세요:</label></br></br>
+        <label><input id="gameLocation"  type="radio" name="district" value="강남구"> 강남구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="강동구"> 강동구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="강북구"> 강북구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="강서구"> 강서구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="관악구"> 관악구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="광진구"> 광진구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="구로구"> 구로구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="금천구"> 금천구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="노원구"> 노원구</label><br>
+        <label><input id="gameLocation"  type="radio" name="district" value="도봉구"> 도봉구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="동대문구"> 동대문구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="동작구"> 동작구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="마포구"> 마포구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="서대문구"> 서대문구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="서초구"> 서초구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="성동구"> 성동구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="성북구"> 성북구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="송파구"> 송파구</label><br>
+        <label><input id="gameLocation"  type="radio" name="district" value="양천구"> 양천구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="영등포구"> 영등포구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="용산구"> 용산구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="은평구"> 은평구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="종로구"> 종로구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="중구"> 중구</label>
+        <label><input id="gameLocation"  type="radio" name="district" value="중랑구"> 중랑구</label>
       </br></br>
-      
+      <div id="selected-time-blocks"></div>
       <input type="submit" value="경기 정보 등록"></input>
-      </form>
-    </div>
-    
-  </section>
-  
+  </form>
+
+  <script>//시간 목록 띄우기
+      function toggleTimeBlock(element) {
+          var selectedBlocks = document.querySelectorAll('.time-block.selected');
+          selectedBlocks.forEach(function(block) {
+              if (block !== element) {
+                  block.classList.remove('selected');
+              }
+          });
+          element.classList.toggle('selected');
+      }
+
+      function createTimeBlock(hour, minute, period) {
+          var timeBlock = document.createElement('div');
+          timeBlock.className = 'time-block';
+          timeBlock.innerHTML = hour + ':' + minute + ' ' + period;
+          timeBlock.onclick = function() {
+              toggleTimeBlock(this);
+              updateSelectedTimeBlocks();
+          };
+
+          var hour24 = hour;
+          if (period === 'PM' && hour !== 12) {
+            hour24 = hour + 12;
+          } 
+          var value = hour24 + ':' + minute;
+          timeBlock.setAttribute('value', value);
+          timeBlock.setAttribute('name', 'gameTime');
+          return timeBlock;
+      }
+
+      function appendTimeBlocks(container, startTime, endTime) {
+          var timeBlockContainer = document.getElementById(container);
+          for (var hour = startTime; hour <= endTime; hour++) {
+              for (var minute = 0; minute <= 30; minute += 30) {
+                  var period = (hour < 12) ? 'AM' : 'PM';
+                  var formattedHour = (hour % 12 === 0) ? 12 : hour % 12;
+                  var formattedMinute = (minute === 0) ? '00' : minute;
+                  var timeBlock = createTimeBlock(formattedHour, formattedMinute, period);
+                  timeBlockContainer.appendChild(timeBlock);
+              }
+          }
+      }
+
+      function updateSelectedTimeBlocks() {
+          var selectedBlocks = document.querySelectorAll('.time-block.selected');
+          var selectedTimeBlocksContainer = document.getElementById('selected-time-blocks');
+          selectedTimeBlocksContainer.innerHTML = '';
+
+          selectedBlocks.forEach(function(block) {
+              var hiddenInput = document.createElement('input');
+              hiddenInput.type = 'hidden';
+              hiddenInput.value = block.getAttribute('value');
+              hiddenInput.name = block.getAttribute('name');
+              selectedTimeBlocksContainer.appendChild(hiddenInput);
+          });
+      }
+
+      appendTimeBlocks('time-block-container', 6, 23);
+  </script>
 </body>
 </html>

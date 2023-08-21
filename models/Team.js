@@ -3,6 +3,25 @@ const mysql = require("../config/mysql");
 
 module.exports = {
 
+    getNotifAndTeamInfo: function (user_id, callback) {
+        if (user_id == undefined) {
+            callback("0");
+        } else {
+            const querystring = `
+            SELECT N.*, T.*
+            FROM Notification AS N
+            RIGHT JOIN Team AS T 
+            ON N.receive_userid = T.user_id
+            WHERE T.user_id = ${user_id}
+            LIMIT 1
+            `;
+            mysql.query(querystring, function (error, result) {
+                if (error) throw error;
+                callback(result[0]);  // 결과가 없을 경우 null이 반환됩니다.
+            });
+        }
+    },
+
     //Team 전체 조회
     getAllTeam : function (callback) {
         const querystring = `Select * from Team;`;
@@ -22,9 +41,10 @@ module.exports = {
                 if ( error ) throw error;
                 if(result.length) {
                     callback(result[0]);
+                } else {
+                    // 결과가 없을 시 
+                    callback(null);
                 }
-                // 결과가 없을 시 
-                //result({kind: "not_found"}, null);
             })
         }
     },
@@ -55,8 +75,9 @@ module.exports = {
     },
 
     //팀 정보 수정
-    updateTeam: function (data, callback) {
-        var querystring = `UPDATE Team SET password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}' WHERE user_id=${data.id}`;
+    updateTeam: function (data, user_id, callback) {
+
+        var querystring = `UPDATE Team SET id='${data.id}', password='${data.password}', teamname='${data.teamname}', represent_name='${data.represent_name}', hp='${data.hp}', logo_image='${data.logo_image}' WHERE user_id=${user_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
@@ -74,6 +95,18 @@ module.exports = {
             callback(rows);
         })
     },
+
+    updateAfterMatch: function (data, user_id,callback) {
+
+        var querystring = `UPDATE Team SET `+ data.result +`WHERE user_id=${user_id}`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
+            console.log( rows );
+
+            callback(rows);
+        })
+    },
+
 
     //login_demo - insert Team 테스트 코드
     insertTeamtest: function ( id, password, callback ) {

@@ -1,13 +1,13 @@
-.matched {
-  height: 100vh;
-  background-image: url("../images/soccer.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
+.Matches .matchedInfo__card .comment {
+  color: #2c2a29;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  padding: 50px;
 }
 
-.matched h1 {
+.matched h1,
+.Matches h1 {
   color: #fff;
   font-size: 30px;
   font-weight: 700;
@@ -15,14 +15,141 @@
   padding: 100px 0 0 0;
 }
 .matchedInfo__card {
-  width: 500px;
+  width: 70%;
   margin: 100px auto;
-  border-radius: 6px;
+  /* border-radius: 6px; */
   background-color: #f6f5f0;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
+  border-top: 2px solid #000;
 }
-.matchedInfo__card p {
+/* .matchedInfo__card p {
   font-size: 24px;
   
+} */
+.matchedInfo__card > div {
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
 }
+
+.matchedInfo__card > div.top {
+  border-bottom: 1px solid #999;
+}
+
+.matchedInfo__card > div:last-child {
+  border-bottom: 1px solid #000;
+}
+
+.matchedInfo__card > div > div {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+
+.matchedInfo__card > div.top > div {
+  font-weight: 600;
+}
+
+.matchedInfo__card .match_place, 
+.matchedInfo__card .RQplace,
+.matchedInfo__card .date, 
+.matchedInfo__card .match_date {
+  width: 25%;
+  text-align: center;
+}
+
+/* .matchedInfo__card .top .match_place {
+  text-align: center;
+} */
+
+.matchedInfo__card .teamname,
+.matchedInfo__card .overlap_start,
+.matchedInfo__card .match_time_start,
+.matchedInfo__card .match_time_end,
+.matchedInfo__card .teamname,
+.matchedInfo__card .RQteamname,
+.matchedInfo__card .RQstart{
+  width:17%;
+  text-align: center;
+}
+
+/* .matchedInfo__card .overlap_start {
+  width: 15%;
+  text-align: center;
+} */
+
+/* .matchedInfo__card .teamname {
+  width: 20%;
+  text-align: center;
+} */
+
+
+.matchedInfo__card .request_match,
+.matchedInfo__card .edit_match,
+/* .match_edit, */
+.matchedInfo__card .accept_match {
+  display: inline-block;
+  padding:15px 0;
+  text-align:center;
+  font-size:1.4rem;
+  width: 16%;
+
+
+}
+
+.matchedInfo__card .accept .RQplace,
+.matchedInfo__card .accept .date,
+.matchedInfo__card .edit .match_date,
+.matchedInfo__card .edit .match_place,
+.matchedInfo__card .requestedMatch .match_place,
+.matchedInfo__card .requestedMatch .match_date {
+  display: inline-block;
+  padding:15px 0;
+  height: 100%;
+  font-size: 1.4rem;
+  width: 25%;
+  text-align: center;
+}
+
+
+.matchedInfo__card .requestedMatch .teamname,
+.matchedInfo__card .accept .RQteamname,
+.matchedInfo__card .accept .RQstart,
+.matchedInfo__card .edit .match_time_end,
+.matchedInfo__card .edit .match_time_start,
+.matchedInfo__card .requestedMatch .overlap_start {
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 1.4rem;
+  width:17%;
+  text-align: center;
+}
+.matchedInfo__card .requestedMatch .enter,
+.matchedInfo__card .accept .enter {
+  width: 10%;
+  margin: 10px;
+  text-align: center;
+}
+
+.match_edit{
+  line-height: 50px;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  padding: 20px;
+  width: 15%;
+}
+.match_edit .content {
+  width: 120px;
+  border-radius: 15px;
+  font-size: 18px;
+  background-color: #666;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 30px;
+}
+

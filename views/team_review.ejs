@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>후기 작성</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/team_review.css">
+  
+</head>
+<body>
+  <!--HEADER-->
+    <header>
+      <%- include ("./header.ejs") %>
+    </header>
+    
+  <!-- 후기 수정 섹션 -->
+  <section class="teamReview">
+    <h1>경기 후기작성</h1>
+    <div class="teamReview__card">
+      <form action="/team-review/<%= pageId %>" method="post">
+          <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
+          <p class="title">매치 정보</p>
+          <div class="matchInfo">
+            <% if (loginTeam.teamname == Match.away_teamname) { %>
+              <p>경기팀: <%= Match.home_teamname %></p><br>
+            <% } else { %>
+              <p>경기팀: <%= Match.away_teamname %></p><br>
+            <% } %>
+            <!-- 경기팀:<%= Match.away_teamname %> <br> -->
+            <p>경기 일자: <%= Match.match_date %></p><br>
+            <p>경기 장소: <%= Match.stadium %> </p><br>
+          </div>
+            <!-- matches 정보 넣기 -->
+          <!-- <input type="text" name="match_id" value=""><br> -->
+
+          <p class="title">경기 결과</p>
+          <!-- <input type="text" name="result" value=""><br> -->
+          <fieldset>
+            <label>
+              <input type="radio" name="result" value="패배" />
+              <span>패배</span>
+            </label>
+            <label>
+              <input type="radio" name="result" value="무승부" />
+              <span>무승부</span>
+            </label>
+            <label>
+              <input type="radio" name="result" value="승리" />
+              <span>승리</span>
+            </label>
+          </fieldset>
+
+          <p class="title">상대팀 경기 매너 평가</p>
+            <fieldset>
+              <label>
+                <input type="radio" name="manner_rate" value="매우 나쁨" />
+                <span>매우 나쁨</span>
+              </label>
+              <label>
+                <input type="radio" name="manner_rate" value="나쁨" />
+                <span>나쁨</span>
+              </label>
+              <label>
+                <input type="radio" name="manner_rate" value="보통" />
+                <span>보통</span>
+              </label>
+              <label>
+                <input type="radio" name="manner_rate" value="좋음" />
+                <span>좋음</span>
+              </label>
+              <label>
+                <input type="radio" name="manner_rate" value="매우 좋음" />
+                <span>매우 좋음</span>
+              </label>
+            </fieldset>
+            <input type="hidden" name="opponent_id" value="<%= opponent_id %>" />
+          <!-- 팀 로고 사진<br>
+          <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br> -->
+          <br>
+          <br><input type="submit" value="작성 완료"></input><br>
+      </form>
+      </div>
+  </section>
+  
+</body>
+</html>

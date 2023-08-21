@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <!-- <link rel="stylesheet" href="../public/stylesheets/common.css"> -->
   <link rel="stylesheet" href="../public/stylesheets/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
@@ -22,6 +22,44 @@
 
 
   <title>KICKMATCH</title>
+
+<!-- 최근 등록 매치 렌더링 가이드
+- 최근 등록된 순으로 5개
+- 가장 최근 등록된 매치가 첫번째
+  recentmatch 배열
+  [
+  {
+    match_id: 180,
+    home_userid: 2,
+    away_userid: null,
+    match_date: '2023-07-11',
+    match_time: '13:00:00',
+    match_place: '강북구',
+    created: 2023-07-29T15:00:00.000Z,
+    updated: null,
+    establishment: '미성립',
+    stadium: '잠원한강공원>축구장,방배배수지체육공원,반포종합운동장,우면체육시설',
+    nx: 127.017,
+    ny: 37.5256
+  },
+      ~~생략~~
+  {
+    match_id: 168,
+    home_userid: 38,
+    away_userid: null,
+    match_date: '2023-07-27',
+    match_time: '06:00:00',
+    match_place: '강북구',
+    created: 2023-07-19T15:00:00.000Z,
+    updated: null,
+    establishment: '미성립',
+    stadium: null,
+    nx: null,
+    ny: null
+  }
+] -->
+
+
 
 </head>
 <body>
@@ -32,6 +70,10 @@
 
     <div class="main">
       <div class="inner">
+        <div class="logo">
+          <img class="fade-in" src="../public/images/로고.png" alt="KICKMAKER">
+          <p class="fade-in" >킥메이커와 함께 효율적인 경기 매칭을 경험해보세요</p>
+        </div>
         <div class="matchingBtn fade-in" onclick="location.href=('/match-making')">
           매칭 시작하기
         </div>

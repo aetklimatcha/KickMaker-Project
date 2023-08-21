@@ -18,7 +18,7 @@
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <title>Document</title>
+  <title>matched</title>
 </head>
 <body>
   <!-- 넘어오는 정보 형식: findTeams 배열
@@ -32,14 +32,14 @@
     home_userid: 개최 팀의 pk,
     teamname: '팀명'
   },
- {
-   match_id: 55,
-   match_place: [ '강동구' ],
-   match_date: '2023-05-18',
-   overlap_start: '13:16:00',
-   overlap_end: '16:00',
-   home_userid: 9,
-   teamname: 'FC마마'
+  {
+    match_id: 55,
+    match_place: [ '강동구' ],
+    match_date: '2023-05-18',
+    overlap_start: '13:16:00',
+    overlap_end: '16:00',
+    home_userid: 9,
+    teamname: 'FC마마'
 }
 ]
 -->
@@ -51,16 +51,39 @@
 
     <section class="matched">
       <h1>매치된 경기들</h1>
-      <% for (var i=0;  i < findTeams.length; i++) { %>
-      <% var data = findTeams[i]; %>
       <div class="matchedInfo__card">
-        <p><%= findTeams[i].match_id %></p>
-        <p><%= findTeams[i].match_date %></p>
-        <p><%= findTeams[i].match_place %></p>
-        <p><%= findTeams[i].overlap_start %></p>
-      </div>
+        <div class="top">
+          <div class="match_date">날짜</div>
+          <div class="match_place">장소</div>
+          <div class="overlap_start"> 시작 시간</div>
+          <div class="teamname">팀명</div>
+          <div class="request_match">경기 요청</div>
+        </div>
+        <% for (var i=0;  i < findTeams.length; i++) { %>
+          <% var data = findTeams[i]; %>
+          <div class="requestedMatch">
+            <form id="requestMatch" method="post" action="/request">
+
+              <input type="hidden" name="home_userid" value="<%= findTeams[i].home_userid %>">
+              <input type="hidden" name="match_id" value="<%= findTeams[i].match_id %>">
+              <input type="hidden" name="match_date" value="<%= findTeams[i].match_date %>">
+              <input type="hidden" name="match_place" value="<%= findTeams[i].match_place %>">
+              <input type="hidden" name="match_time" value="<%= findTeams[i].match_time %>">
+              <input type="hidden" name="teamname" value="<%= findTeams[i].teamname %>">
+
+              <div class="match_date" name="match_date"><%= findTeams[i].match_date %></div>
+              <div class="match_place" name="match_place"><%= findTeams[i].match_place %></div>
+              <div class="overlap_start" name="match_time"><%= findTeams[i].match_time %></div>
+              <div class="teamname" name="teamname"><%= findTeams[i].teamname %></div>
+
+
+              <button class="enter fade-in" type="submit">
+
+                경기 요청
+              </button>
+            </form>
+          </div>
       <%  } %>
     </section>
-
 </body>
 </html>

@@ -12,7 +12,7 @@ module.exports = {
         })
     },
 
-    //notif_id로 팀 로고 조회
+    //notif_id로 팀 알림 조회
     getnotif_id: function (notif_id, callback) {
         const querystring = `SELECT * FROM Notification Where notif_id= ${notif_id} limit 1;`;
         mysql.query(querystring, function (error, result) {
@@ -26,13 +26,25 @@ module.exports = {
         })
     },
 
+    //receive_userid로 팀 알림 조회
+    getnotif_userid: function (receive_userid, callback) {
+        if (receive_userid == undefined) {
+            callback("0");
+        } else {
+            const querystring = `SELECT * FROM Notification Where receive_userid= ${receive_userid};`;
+            mysql.query(querystring, function (error, result) {
+                if (error) throw error;
+                callback(result);
+            })
+        }
+    },
+
     //Notification에 정보(경기번호, 팀아이디, 경기장소) 삽입
-    insertNotification: function ( match_id, userid, match_place ) {
-        const querystring = `INSERT INTO Notification ( match_id, userid, match_place ) VALUES ( '${match_id}', '${userid}', '${match_place}');`;
+    insertNotification: function ( match_id, receive_userid, request_userid, request_teamname, requesttype, match_date, match_time,match_place, callback ) {
+        const querystring = `INSERT INTO Notification ( match_id, receive_userid, request_userid,request_teamname,requesttype,match_date,match_time ,match_place ) VALUES ( ${match_id}, ${receive_userid}, ${request_userid},'${request_teamname}','${requesttype}','${match_date}', '${match_time}','${match_place}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
-            console.log( rows ); 
-        callback(rows.insertNotification);
+            callback("1");
         });
     },
 
@@ -57,16 +69,13 @@ module.exports = {
         })
     },
 
-    //login_demo - insert Team 테스트 코드
-    insertTeamtest: function ( id, password, callback ) {
-        const querystring = `INSERT INTO Team (id, password) VALUES ('${id}', '${password}');`;
-        mysql.query(querystring, function (err, rows) {
-            if ( err ) console.log("errorrr");
-            //console.log(rows);
-            callback(rows.insertId);
-        });
+    //Notification 정보 삭제
+    DeleteNotification_matchid: function (match_id, callback) {
+        mysql.query(`DELETE FROM Notification WHERE match_id=${match_id}`, (err, rows) => {
+            if (err) throw err;
+            callback(rows)
+        })
     }
 
 
-
-    }
+}
