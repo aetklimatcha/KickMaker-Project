@@ -18,17 +18,70 @@ module.exports = {
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found Match: ", result[0]);
                 callback(result[0]);
+            } else if (result.length == 0){
+                console.log("엥 이번호로 경기 조회 안돼 매치번호: "+match_id);
+                callback(null);
             }
-            //결과가 없을 시 
-            result({kind: "not_found"}, null);
         })
     },
 
-    //Match 메이킹시에 팀 삽입
-    insertMatch: function ( home_userid, match_date, match_place, match_time_start, match_time_end, created, callback ) {
-        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, match_time_start, match_time_end, created) VALUES ( '${home_userid}', '${match_date}','${match_place}','${match_time_start}','${match_time_end}','${created}');`;
+    //home_userid로 경기번호 조회
+    gethome_id: function (home_userid, callback) {
+        const querystring = `SELECT * FROM Matches Where home_userid= ${home_userid};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result);
+            } else {
+                callback(null);
+            }
+        })
+    },
+
+    getrecentmatch : function (callback) {
+        const querystring = 
+        `SELECT *
+        FROM Matches
+        ORDER BY match_id DESC
+        LIMIT 5;`;
+        mysql.query(querystring, function (error, result) {
+            try {
+                callback(result);
+            } catch (error) {
+                console.error(error);
+                callback(null);
+            }
+        })
+    },
+
+    //home_userid로 경기번호 조회, '성립 경기만' (My match 전용)
+    getmymatch: function (userid, callback) {
+        // SELECT match_id, match_place,
+        // DATE_FORMAT(match_date,'%Y%m%d') AS match_date, 
+        // DATE_FORMAT(match_time,'%H%i') AS match_time,
+        // establishment, stadium, home_userid, away_userid
+        const querystring = 
+        `SELECT *
+        FROM Matches 
+        Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
+        mysql.query(querystring, function (error, result) {
+            console.log('at getmymatch '+ userid)
+            // if (error) throw error;
+            if (result) {
+                // console.log("!")
+                // console.log(result);
+                callback(result);
+            } else {
+                console.log("no")
+                callback(null);
+            }
+        })
+    },
+
+    //Match 메이킹시에 매치 삽입
+    insertMatch: function ( home_userid, match_date, match_place, match_time, created, stadium, nx, ny, callback ) {
+        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, match_time, created, stadium, nx, ny) VALUES ( '${home_userid}', '${match_date}','${match_place}','${match_time}','${created}', '${stadium}', '${nx}' , '${ny}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
         callback(rows.insertId);
@@ -37,10 +90,20 @@ module.exports = {
 
     //매치 정보 수정
     updateMatch: function (data, callback) {
-        var querystring = `UPDATE Matches SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}', WHERE match_id=${data.match_id}`;
+        var querystring = `UPDATE Matches SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}' WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
+
+            callback(rows);
+        })
+    },
+
+    // 경기 수락 시 매치 정보 수정
+    updateMatch_accept: function (data, callback) {
+        var querystring = `UPDATE Matches SET away_userid=${data.RQuserid}, establishment='성립' WHERE match_id=${data.match_id}`;
+        mysql.query(querystring, (err, rows) => {
+            if (err) throw err;
 
             callback(rows);
         })

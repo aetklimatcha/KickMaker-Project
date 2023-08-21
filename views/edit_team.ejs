@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입</title>
+  <title>회원정보 수정</title>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="../public/stylesheets/common.css">
-  <link rel="stylesheet" href="../public/stylesheets/signup.css">
+  <!-- <link rel="stylesheet" href="../public/stylesheets/signup.css"> -->
+  <link rel="stylesheet" href="../public/stylesheets/edit_team.css">
 </head>
 <body>
   <!--HEADER-->
@@ -18,32 +19,38 @@
     </header>
     
   <!-- 회원정보 수정 섹션 -->
-  <section class="editTeam">
-    <pre>
+  <!-- team-info하고 똑같은 방식으로 로그인된 팀 정보 넘어감 -->
 
-      <p>
+  <!-- 다시 post로 넘기는 변수들 db의 변수이름하고 똑같이해서 넘겨주세요 -->
+  
+  <section class="editTeam">
       <h1>회원정보 수정</h1>
-    <div class="signup__card">
-      <form action="/signup" method="post">
-          <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
-          아이디<br>
-          <input type="text" name="id" value="" ><br>
-          비밀번호<br> 
-          <input type="password" name="password" value=""><br>
-          팀이름<br>
-          <input type="text" name="teamname" value="" ><br>
-          팀대표자명<br>
-          <input type="text" name="represent_name" value="" ><br>
-          연락처<br>
-          <input type="text" name="hp" value=""><br>
-          팀 로고 사진<br>
-          <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br>
-          <br>
-          <br><input type="submit" value="수정 완료"></input><br>
-      </form>
-      </div>
-      </p>
-    </pre>
+        <div class="editTeam__card">
+          <form action="/edit-team" method="post" enctype="multipart/form-data">
+              <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
+              <p>팀 로고 사진</p>
+              <input
+                type="file"
+                id="profile_pic"
+                name="myFile"
+                accept="image/*"
+              />
+              <p>아이디</p>
+              <input type="text" name="id" value="<%= loginTeam.id %>">
+              <p>비밀번호</p>
+              <input type="password" name="password" value="">
+              <p>팀이름</p>
+              <input type="text" name="teamname" value="<%= loginTeam.teamname %>" >
+              <p>팀대표자명</p>
+              <input type="text" name="represent_name" value="<%= loginTeam.represent_name %>" >
+              <p>연락처</p>
+              <input type="text" name="hp" value="<%= loginTeam.hp%>">
+              <!-- 팀 로고 사진<br>
+              <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br> -->
+              
+              <input type="submit" value="수정 완료"></input>
+          </form>
+        </div>
   </section>
   
 </body>

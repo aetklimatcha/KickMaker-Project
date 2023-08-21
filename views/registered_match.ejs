@@ -1,0 +1,109 @@
+<!-- 
+
+Matches 배열 넘어감
+
+Matches 테이블에서 내가 등록한 경기들 넘어감
+establishment가 미성립인 row들만 뽑아 쓰기
+
+[
+{
+    match_id: 85,
+    home_userid: 2,
+    away_userid: null,
+    match_date: 2023-05-01T15:00:00.000Z,
+    match_time: null,
+    match_place: '노원구,서대문구',
+    match_time_start: '14:29:00',
+    match_time_end: '16:29:00',
+    created: 2023-05-29T18:41:19.000Z,
+    updated: null,
+    establishment: '미성립'
+},
+{
+    match_id: 87,
+    home_userid: 2,
+    away_userid: null,
+    match_date: 2023-05-18T15:00:00.000Z,
+    match_time: null,
+    match_place: '강동구,강서구',
+    match_time_start: '01:50:00',
+    match_time_end: '20:50:00',
+    created: 2023-05-29T19:50:54.000Z,
+    updated: null,
+    match_date: 2023-05-29T15:00:00.000Z,
+    match_time: '10:50:00',
+    match_place: '동대문구',
+    match_time_start: '08:53:00',
+    match_time_end: '14:53:00',
+    created: 2023-05-30T02:54:12.000Z,
+    updated: null,
+    establishment: '성립'
+}
+] -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/list.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="../public/javascripts/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>registered</title>
+</head>
+<body>
+<!--HEADER-->
+  <header>
+    <%- include ("./header.ejs") %>
+  </header>
+
+    <section class="Matches">
+      <h1>등록한 경기 목록</h1>
+      <div class="matchedInfo__card">
+        <div class="top">
+          <div class="match_date">날짜</div>
+          <div class="match_place">장소</div>
+          <div class="match_time_start">경기 시작 시간</div>
+          <div class="match_time_end">경기 종료 시간</div>
+          <div class="edit_match">수정하기</div>
+        </div>
+
+        <% if (Matches == null) { %>
+          <div class="comment"> 등록한 경기가 없습니다.</div> 
+        <% } else { %> 
+          <% for (var i=0;  i < Matches.length; i++) { %>
+            <% if (Matches[i].establishment != '성립'){ %>
+              <% var data = Matches[i]; %>
+              <div class="edit">
+                  <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
+                  <input type="hidden" name="match_place" value="<%= Matches[i].match_place %>">
+                  <input type="hidden" name="match_time_start" value="<%= Matches[i].match_time_start %>">
+                  <input type="hidden" name="match_time_end" value="<%= Matches[i].match_time_end %>">
+                  <div class="match_date"><%= Matches[i].match_date %></div>
+                  <div class="match_place"><%= Matches[i].match_place %></div>
+                  <div class="match_time_start"><%= Matches[i].match_time %></div>
+                  <div class="match_time_end"></div>
+                  <div class="match_edit"onclick="location.href=('/edit-match')">
+                    <div class="content">수정하기</div> 
+                  </div>
+                </form>
+              </div>
+            <% } %> 
+          <% } %> 
+        <% } %> 
+
+
+    </section>
+</body>
+</html>

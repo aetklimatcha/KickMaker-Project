@@ -2,7 +2,7 @@
 .team_info {
   margin-top: 5px;
   padding: 100px 0 240px;
-  background-image: url("../images/soccer.jpg");
+  /* background-image: url("../images/soccer.webp"); */
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -27,12 +27,16 @@
 
 }
 .team_info_left .profile p{
+  display: inline-block;
   list-style: none;
-  margin-top: 10px;
   margin-bottom: 1em;
-  text-align: left; 
-  left: 0;
+  /* text-align: left; 
+  left: 0; */
 }
+.team_info_left .profile p.content {
+  font-weight: 700;
+}
+
 .team_info_right {
   width: 340px;
   padding: 30px;
@@ -59,11 +63,13 @@ h1 {
   font-weight: bold;
   margin-bottom: 10px;
 }
-.team01 img {
+.team01 .profile img {
+  display: block;
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
+  margin: 30px auto;
 }
 .team_profile ul {
   list-style: none;
@@ -72,6 +78,9 @@ h1 {
 .team_profile li {
   font-size: 14px;
   margin-bottom: 5px;
+}
+.profile{
+  /* margin-top: 20px; */
 }
 
 /* Donut chart styles */
@@ -112,7 +121,7 @@ section a.btnView {
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-  margin: 0 auto;
+  margin: 20px auto 0;
   text-align: center;
   line-height: 50px;
 }

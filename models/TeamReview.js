@@ -18,27 +18,38 @@ module.exports = {
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             if(result.length) {
-                console.log("found TeamReview: ", result[0]);
                 callback(result[0]);
             }
             // 결과가 없을 시 
-            result({kind: "not_found"}, null);
+            callback({kind: "not_found"});
         })
     },
 
+        //review_id로 팀 로고 조회
+        getreview_matchid: function (match_id, callback) {
+            const querystring = `SELECT * FROM TeamReview Where match_id= ${match_id};`;
+            mysql.query(querystring, function (error, result) {
+                if ( error ) throw error;
+                if(result.length) {
+                    callback(result);
+                }
+                // 결과가 없을 시 
+                callback({kind: "not_found"});
+            })
+        },
+
     //TeamReview에 정보(경기번호, 팀아이디, 경기결과, 매너평점) 삽입
-    insertTeamReview: function ( match_id, userid, result, manner_rate, callback ) {
-        const querystring = `INSERT INTO TeamReview ( match_id, userid, result, manner_rate ) VALUES ( '${match_id}', '${userid}', '${result}', '${manner_rate}');`;
+    insertTeamReview: function ( match_id, user_id, result, manner_rate, callback ) {
+        const querystring = `INSERT INTO TeamReview ( match_id, user_id, result, manner_rate ) VALUES ( '${match_id}', '${user_id}', '${result}', '${manner_rate}');`;
         mysql.query(querystring, (err, rows) => {
-            if ( err ) throw err;
-            console.log( rows ); 
+            if ( err ) throw err; 
         callback(rows.insertTeamReview);
         });
     },
 
     //TeamReview 정보 수정
     updateTeamReview: function (data, callback) {
-        var querystring = `UPDATE TeamReview SET match_id='${data.match_id}', userid='${data.userid}', result='${data.result}', manner_rate='${data.manner_rate}'`;
+        var querystring = `UPDATE TeamReview SET match_id='${data.match_id}', user_id='${data.user_id}', result='${data.result}', manner_rate='${data.manner_rate}'`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../public/stylesheets/common.css">
+  <link rel="stylesheet" href="../public/stylesheets/my_match.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="../public/javascripts/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <title>my_match 진행 예정 또는 진행된 경기 리스트</title>
+
+  <script src="https://kit.fontawesome.com/4f68cb86b6.js" crossorigin="anonymous"></script>
+</head>
+
+<!--
+------------------------------- 
+  ejs 가이드
+matches 배열
+[
+{
+      match_id: 86,
+      home_userid: 9,
+      away_userid: 2,
+      match_date: '2023-08-08',
+      match_time: '10:00:00',
+      match_place: '강서구',
+      created: 2023-05-29T15:00:00.000Z,
+      updated: null,
+      establishment: '성립',
+      stadium: '잠원한강공원>축구장,방배배수지체육공원,반포',
+      nx: 127.017,
+      ny: 37.5256,
+      home_teamname: 'FC마마',
+      away_teamname: 'FC강동',
+
+      weather: {
+        fcstDate: '20230808',
+        fcstTime: '1000',
+        TMP: '31',
+        POP: '0',
+        PCP: '강수없음'
+      }
+}
+]
+(TMP: 기온, POP: 강수확률, PCP: 강수량)
+(강수확률이 있어도 강수량 정보는 없을 수도 있음)
+
+*아직 예보 안뜬 경우
+ weather: 'DateOverError'
+
+ *기타 에러 (API 문제 있는 경우)
+weather: 'ApiError'
+
+----------------------------------------- 
+-->
+
+<body>
+<!--HEADER-->
+  <header>
+    <%- include ("./header.ejs") %>
+  </header>
+
+  <section class="Matches">
+    <h1>경기 예정/종료 리스트</h1>
+    <div class="matchedInfo__card">
+      <div class="top">
+        <div class="status">경기 상태</div>
+        <div class="match_date">날짜</div>
+        <div class="match_place">장소</div>
+        <div class="match_time"> 시작 시간</div>
+        <div class="weather">날씨</div>
+        <div class="teamname">팀명</div>
+        <div class="review">경기 취소/리뷰</div>
+      </div>
+
+      <% if (Matches == null) { %>
+        <div class="comment">진행 예정/종료된 경기가 없습니다.</div> 
+      <% } else { %>
+        <% for (var i = 0; i < Matches.length; i++) { %>
+          <% if (Matches[i].establishment === '성립') { %>
+            <div class="myMatch">
+              <form id="cancelForm<%= Matches[i].match_id %>" method="POST" action="/cancel-match">
+                <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
+                <% let today = new Date(); %>
+                <% let year = today.getFullYear(); %>
+                <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>
+                <% let day = ('0' + today.getDate()).slice(-2); %>
+                <% let hours = ('0' + today.getHours()).slice(-2); %>
+                <% let minutes = ('0' + today.getMinutes()).slice(-2); %>
+                <% let seconds = ('0' + today.getSeconds()).slice(-2); %>
+                
+                <% let dateString = year + '-' + month  + '-' + day; %>
+                <% let timeString = hours + ':' + minutes  + ':' + seconds; %>
+
+                <% let now = new Date(dateString + ' ' + timeString); %>
+                <% let matchDate = new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
+                <% if (now < matchDate) { %>
+                <div class="status_before">경기 예정</div>
+                <% } else { %>
+                  <div class="status_after">경기 종료</div>
+                <% } %>
+                <div class="match_date"><%= Matches[i].match_date %></div>
+                <div class="match_place"><%= Matches[i].match_place %></div>
+                <div class="match_time"><%= Matches[i].match_time %></div>
+                
+                <% if (Matches[i].weather == 'DateOverError') { %>
+                  <div class="weather"> 날씨 정보 없음 </div>
+                <% } else { %>
+                    <% if ( Matches[i].weather.POP === '0' ) { %>
+                        <i class="fa-solid fa-sun"></i>
+                        <div class="weather_info_tmp">
+                          <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        </div>
+                    <!-- 강수확률O & 강수량 정보X -->
+                    <% } else if (Matches[i].weather.POP !== '0' && Matches[i].weather.PCP === '강수없음') { %>
+                        <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        <div class="weather_info_tmp">
+                          <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        </div>
+
+                    <!-- 강수확률O & 강수량 정보O -->
+                    <% } else if ( Matches[i].weather.POP !== '0' && Matches[i].weather.PCP !== '강수없음' ){ %>
+                      <i class="fa-solid fa-cloud-showers-heavy"></i>
+                      <div class="weather_info_pcp">
+                        <div class="TMP"><%= Matches[i].weather.TMP %>°C </div>
+                        <div class="PCP"> <%= Matches[i].weather.PCP %></div>
+                      </div>
+                    <% } %>
+                <% } %>
+                  
+                
+                
+
+                  <% if (loginTeam.teamname == Matches[i].away_teamname) { %>
+                    <div class="teamname"><%= Matches[i].home_teamname %></div>
+                  <% } else { %>
+                    <div class="teamname"><%= Matches[i].away_teamname %></div>
+                  <% } %>
+                <% if (today < matchDate) { %>
+                  <div class="cancelBtn" onclick="submitForm('<%= Matches[i].match_id %>')">
+                    경기 취소
+                  </div>
+                <% } else { %>
+                  <div class="reviewBtn" onclick="location.href='/team-review/<%= Matches[i].match_id %>'">
+                    경기 후기
+                  </div>
+                <% } %>
+              </form>
+            </div>
+          <% } %>
+        <% } %>
+      <% } %>
+    </div>
+
+    <script>
+      function submitForm(matchId) {
+        var form = document.getElementById('cancelForm' + matchId);
+        form.submit();
+      }
+    </script>
+  </section>
+</body>
+</html>

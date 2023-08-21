@@ -1,6 +1,7 @@
 const { response } = require("express");
 const mysql = require("../config/mysql");
 const match = require("../controllers/match");
+const rebatch = require("./rebatch");
 
 module.exports = {
 
@@ -9,50 +10,58 @@ module.exports = {
 
     findMatch : function (info, callback) {
 
-        // info = {
+        //info = 홈페이지에서 넘어온 data (내가 찾는 중)
+        
+
+        // var info = {
+        //     user_id: req.user_id,
+        //     win_score : user.win_score,
+        //     manner_score : user.manner_score,
         //     place:match_place,
         //     date:gameDate,
-        //     starttime:match_time_start,
-        //     endtime:match_time_end
+        //     time:match_time
         // };
+
+        // const querystring = 
+        // `SELECT match_id, match_place, 
+        // DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
+        // TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
+        // TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
+        // home_userid, establishment
+        // FROM Matches
+        // WHERE match_date = '${info.date}'
+        // AND match_time_start <= '${info.endtime}'
+        // AND match_time_end >= '${info.starttime}';`
 
         const querystring = 
         `SELECT match_id, match_place, 
         DATE_FORMAT(match_date, '%Y-%m-%d') as match_date, 
-        TIME_FORMAT(GREATEST(match_time_start, '${info.starttime}'),'%H:%i') AS overlap_start,
-        TIME_FORMAT(LEAST(match_time_end, '${info.endtime}'),'%H:%i') AS overlap_end,
-        home_userid
+        TIME_FORMAT('${info.time}','%H:%i') as match_time,
+        home_userid, establishment
         FROM Matches
         WHERE match_date = '${info.date}'
-        AND match_time_start <= '${info.endtime}'
-        AND match_time_end >= '${info.starttime}';`;
+        AND match_time = '${info.time}';`
+
         mysql.query(querystring, function (error, result) {
+            console.log('info at findmatch')
+            console.log(info);
+            console.log('시간찾기 at findmatch')
+            console.log(result);
             if ( error ) throw error;
-            var results = placeMatch(info.place, result);
+            var results = idplaceMatch(info.user_id,info.place, result);
             enterTeaminfo(results,(matchData)=>{
                 matchAvailability = (results.length === 0) ? false : true;
                 results = matchData;
-                callback(results, matchAvailability);
+
+                //rebatch : 승률과 매너 가까운 순 나열
+                rebatch.rebatch(info, results, (final)=>{
+                    callback(final, matchAvailability);
+                });               
             });
             
         })             
     }
 }
-
-// function enterTeaminfo(matchData, callback) {
-//     for (let i = 0; i < matchData.length; i++) {
-//         user_id = matchData[i].home_userid;
-//         console.log(user_id);
-//         const querystring = `SELECT teamname FROM Team Where user_id= ${user_id} limit 1;`;
-//         mysql.query(querystring, function (error, result) {
-//             if (result.length) {
-//                 matchData[i].teamname = result[0].teamname;
-//             }
-//             console.log('함수중');
-//         })
-//     }
-//     callback(matchData);
-// }
 
 function enterTeaminfo(matchData, callback) {
     let count = 0; // 완료된 콜백 함수 수를 추적하기 위한 변수
@@ -61,11 +70,12 @@ function enterTeaminfo(matchData, callback) {
     }
     for (let i = 0; i < matchData.length; i++) {
         user_id = matchData[i].home_userid;
-        console.log(user_id);
-        const querystring = `SELECT teamname FROM Team WHERE user_id = ${user_id} LIMIT 1;`;
+        const querystring = `SELECT teamname, win_score, manner_score FROM Team WHERE user_id = ${user_id} LIMIT 1;`;
         mysql.query(querystring, function (error, result) {
             if (result.length) {
                 matchData[i].teamname = result[0].teamname;
+                matchData[i].win_score = result[0].win_score;
+                matchData[i].manner_score = result[0].manner_score;
             }
             count++; // 콜백 함수 완료 카운트 증가
             if (count === matchData.length) {
@@ -80,7 +90,7 @@ function enterTeaminfo(matchData, callback) {
 
 
 //기존에 있던 array 배열의 장소에서, user_place의 장소와 겹치는 부분을 찾아서 반환해라! 아니면 없다고 보내라! 
-function placeMatch (user_place, matchData) {
+function idplaceMatch (user_id, user_place, matchData) {
     if (typeof(user_place)=='string') {
         sepnum = 1;
         var user_place = [user_place];
@@ -104,7 +114,11 @@ function placeMatch (user_place, matchData) {
                 del = false;                     
             }
             //venue[i]에 user_place값이 없는경우 
-            else { 
+            if (user_id == matchData[i].home_userid){ 
+                del = true;
+            }
+            if (matchData[i].establishment == '성립'){ 
+                del = true;
             }
         }
         if(del == false) {
