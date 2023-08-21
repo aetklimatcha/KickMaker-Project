@@ -20,6 +20,10 @@ app.set('views', __dirname + '/views');
 //정적파일 서비스하는 모듈? (css 안됐을때 씀)
 app.use(express.static(__dirname));
 
+//swagger
+const { swaggerUi, specs } = require("./lib/swagger.js");
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
