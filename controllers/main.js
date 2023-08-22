@@ -113,12 +113,12 @@ module.exports = {
         try {
 
             var result = await new Promise((resolve) => {
-                match.getAllMatch(resolve)
+                match.getAllnoMatch(resolve)
             });
-
+            console.log(result)
             res.render(path.join(__dirname + '/../views/match_list.ejs'), {
                 loginTeam: req.header.loginresult,
-                Team: result,
+                Matches: result,
                 notifications: req.header.notifications,
             });
 
@@ -140,13 +140,9 @@ module.exports = {
     },
 
     noMatchview: async (req, res) => {
-        const result = await new Promise((resolve) => {
-            team.getAllTeam(resolve);
-        });
 
         res.render(path.join(__dirname + '/../views/noMatch.ejs'), {
             loginTeam: req.header.loginresult,
-            Team: result,
             notifications: req.header.notifications,
         });
     },
@@ -167,7 +163,7 @@ module.exports = {
             //기본값 서초구로 설정해놨음!!!!!!!!!!
 
             const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
-            console.log(stadiums);
+            console.log(result);
 
             var nx = 126.95518930412466;
             var ny = 37.602181608910584;
@@ -263,6 +259,7 @@ module.exports = {
             // console.log (review_match_info);
             // console.log ('opponent_id:');
             // console.log (opponent_id);
+
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: req.header.loginresult,
@@ -323,11 +320,6 @@ module.exports = {
                     RQuserid: notification.request_userid,
                     RQteamname: notification.request_teamname,
                     place: notification.match_place,
-                    RQstart: notification.overlap_start,
-                    //RQend : ,
-                    OGplace: OG.match_place,
-                    OGstart: OG.match_time_start,
-                    OGend: OG.match_time_end,
                 };
                 updatedNotifications[i] = updatedNotification;
                 counter++;
@@ -349,7 +341,7 @@ module.exports = {
         const result = await new Promise((resolve) => {
             match.gethome_id(req.user_id, resolve);
         });
-
+        console.log(result)
         res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
             loginTeam: req.header.loginresult,
             notifications: req.header.notifications,

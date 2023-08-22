@@ -13,9 +13,6 @@ require('dotenv').config();
 module.exports = {
 
     match_making : (req, res) => {
-
-        console.log("req.body at match_making")
-        console.log(req.body);
         
         var match_place = req.body.district;       
         var gameDate = req.body.gameDate;
@@ -44,7 +41,7 @@ module.exports = {
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('myMatchtoken',token);
 
-                res.redirect('/noMatch');
+                res.redirect('/matching/noMatch');
                 console.log("매치없음 at findmatch at match.js");
 
             //매치가 있는 경우
@@ -55,7 +52,7 @@ module.exports = {
                 payload = JSON.stringify(matchData);
                 token = jwt.sign(payload,secretKey,options);
                 res.cookie('findMatchestoken',token);
-                res.redirect('/matched');
+                res.redirect('/matching/matched');
                 console.log("매치있음 at findmatch at match.js");
             }
         });
@@ -103,7 +100,7 @@ module.exports = {
         
 
         //notif 테이블에다가 match_date부터 match_place, overlap_start도 넣어서 
-        
+        console.log(req.body)
         team.getOneTeam(request_userid, function (result) {
             request_teamname = result.teamname;
             notif.insertNotification(match_id, receive_userid, request_userid, request_teamname,"요청",match_date, match_time, match_place, function (notiID) {
@@ -136,8 +133,6 @@ module.exports = {
         //   RQstart: '13:00',
         //   RQplace: '강남구'
         // }
-        console.log("매치수락시 req.body at match_accept at match.js")
-        console.log(req.body);
         const data = req.body;
 
         notif.DeleteNotification_matchid(data.match_id, function (result) {
@@ -172,7 +167,7 @@ module.exports = {
     // ]
 
         notif.DeleteNotification(req.body.notif_id, function () {
-            res.redirect('/match-request');
+            res.redirect('/requested-match');
         });
     },
 
