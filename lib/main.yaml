@@ -1,0 +1,160 @@
+tags:
+  - name: Main
+    description: 메인페이지 및 로그인 관련
+
+  - name: Team
+    description: 팀 관련
+
+  - name: Game
+    description: 경기 관련
+
+  - name: Matching
+    description: 경기 매칭 과정
+
+
+components:
+  schemas:
+
+    Team:
+      required:
+        - user_id
+        - id
+        - password
+      type: object
+      properties:
+        user_id:
+          type: int
+          example: 2
+        id:
+          type: varchar(500)
+          example: gangdong
+        password:
+          type: varchar(500)
+          example: 2222
+        teamname:
+          type: varchar(500)
+          example: FC강동
+        represent_name:
+          type: varchar(500)
+          example: 허이구
+        hp:
+          type: varchar(500)
+          example: 010-2222-2222
+        win_score:
+          type: int
+          example: 1496
+        manner_score:
+          type: int
+          example: 45
+        totalMatches:
+          type: int
+          example: 9
+        win:
+          type: int
+          example: 5
+        draw:
+          type: int
+          example: 2
+        lose:
+          type: int
+          example: 2
+        logo_image:
+          type: varchar(500)
+          example: default.jpg
+
+
+    Matches:
+      required:
+        - match_id
+      type: object
+      properties:
+        match_id:
+          type: int
+          example: 86
+        home_userid:
+          type: int
+          example: 9
+        away_userid:
+          type: int
+          example: 2
+        match_date:
+          type: varchar(255)
+          example: 2023-08-08
+        match_time:
+          type: time
+          example: 10:00:00
+        match_place:
+          type: varchar(500)
+          example: 강서구
+        created:
+          type: date
+          example: 2023-05-30
+        updated:
+          type: date
+          example: NULL
+        establishment:
+          type: varchar(255)
+          example: 성립
+        stadium:
+          type: varchar(255)
+          example: 잠원한강공원>축구장,방배배수지체육공원,반포
+        nx:
+          type: float
+          example: 127.017
+        ny:
+          type: float
+          example: 37.5256
+
+    Notification:
+      required:
+        - notif_id
+      type: object
+      properties:
+        notif_id:
+          type: int
+          example: 53
+        match_id:
+          type: int
+          example: 176
+        receive_userid:
+          type: int
+          example: 6
+        request_userid:
+          type: int
+          example: 41
+        request_teamname:
+          type: varchar(255)
+          example: qwer 
+        requesttype:
+          type: varchar(500)
+          example: 수락 
+        match_date:
+          type: varchar(500)
+          example: 2023-08-01 
+        match_time:
+          type: varchar(500)
+          example: 13:30    
+        match_place:
+          type: varchar(500)
+          example: 서초구                                  
+
+    TeamReview:
+      required:
+        - review_id
+      type: object
+      properties:
+        review_id:
+          type: int
+          example: 56
+        match_id:
+          type: int
+          example: 164
+        user_id:
+          type: int
+          example: 38
+        result:
+          type: varchar(255)
+          example: 승리  
+        manner_rate:
+          type: varchar(255)
+          example: 좋음           

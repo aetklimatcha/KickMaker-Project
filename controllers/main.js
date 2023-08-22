@@ -11,6 +11,7 @@ const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
 const { log } = require("console");
 
+
 module.exports = {
 
     mainview: async (req, res) => {
@@ -27,7 +28,6 @@ module.exports = {
                 notifications: req.header.notifications,
                 recentmatch: recentmatch
             });
-
 
         } catch (error) {
             console.error(error);
@@ -95,6 +95,7 @@ module.exports = {
                     matches[i].weather = gameweather;
                 }
             }
+            console.log(matches);
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -252,6 +253,16 @@ module.exports = {
 
         else {
             var opponent_id = req.user_id == review_match_info.home_userid ? review_match_info.home_userid : review_match_info.away_userid;
+            // console.log ('pageId:');
+            // console.log (req.params.pageId);
+            // console.log ('loginTeam:');
+            // console.log (req.header.loginresult);
+            // console.log ('notifications:');
+            // console.log (req.header.loginresult);
+            // console.log ('Match:');
+            // console.log (review_match_info);
+            // console.log ('opponent_id:');
+            // console.log (opponent_id);
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: req.header.loginresult,
