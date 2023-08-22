@@ -11,6 +11,7 @@ const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
 const { log } = require("console");
 
+
 module.exports = {
 
     mainview: async (req, res) => {
@@ -27,7 +28,6 @@ module.exports = {
                 notifications: req.header.notifications,
                 recentmatch: recentmatch
             });
-
 
         } catch (error) {
             console.error(error);
@@ -95,6 +95,7 @@ module.exports = {
                     matches[i].weather = gameweather;
                 }
             }
+            console.log(matches);
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -206,14 +207,6 @@ module.exports = {
         });
     },
 
-    /**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *        type: object
- *        required:
- */
     team_reviewview: async (req, res) => {
 
         //1. pageId(match_id)로 조회, home과 away에 userid 있나 조회 후 없으면 '권한 없습니다' return

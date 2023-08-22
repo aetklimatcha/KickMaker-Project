@@ -28,6 +28,10 @@ app.use(express.static(__dirname));
 const { swaggerUi, specs } = require("./lib/swagger.js");
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
+// const swaggerUi = require("swagger-ui-express");
+// const swaggerFile = require("./lib/swagger-output.json");
+// app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
