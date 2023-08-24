@@ -100,7 +100,6 @@ module.exports = {
         
 
         //notif 테이블에다가 match_date부터 match_place, overlap_start도 넣어서 
-        console.log(req.body)
         team.getOneTeam(request_userid, function (result) {
             request_teamname = result.teamname;
             notif.insertNotification(match_id, receive_userid, request_userid, request_teamname,"요청",match_date, match_time, match_place, function (notiID) {
