@@ -242,7 +242,7 @@ module.exports = {
         //2. (match_id로) review 조회, 이미 있으면 작성했습니다 return, 
         else if (reviewWritten) {
             res.write("<script>alert('이미 리뷰를 작성하셨습니다.')</script>");
-            res.write("<script>window.location=\"/my-match\"</script>");
+            res.write("<script>window.location=\"/team/my-match\"</script>");
             res.end();
             return;
         }

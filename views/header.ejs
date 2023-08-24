@@ -21,13 +21,13 @@
           <div class="menu__contents">
             <ul class="inner">
                 <li>
-                  <a href="/registered-match">등록한 경기 정보</a>
+                  <a href="/game/registered-match">등록한 경기 정보</a>
                 </li>
                 <li>
-                  <a href="/my-match">매칭된 경기 정보</a>
+                  <a href="/game/my-match">매칭된 경기 정보</a>
                 </li>
                 <li> 
-                  <a href="/team-info">팀 정보</a>
+                  <a href="/team/team-info">팀 정보</a>
                   <!-- 팀 정보 -->
                 </li>
                 <!-- 경기 후기 -->
@@ -58,11 +58,11 @@
             <ul class="inner">
               <% for (var i=0; i < notifications.length; i++) { %>
                 <% if (notifications[i].requesttype=='요청' ) { %>
-                  <li href="/requested-match"><a href="/requested-match">
+                  <li href="/requested-match"><a href="/game/requested-match">
                       <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
                   </a></li>
                 <% } else if (notifications[i].requesttype=='수락' ) { %>
-                  <li href="/requested-match"><a href="/requested-match">
+                  <li href="/requested-match"><a href="/game/requested-match">
                     <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
                 </a></li>
                 <% } %>

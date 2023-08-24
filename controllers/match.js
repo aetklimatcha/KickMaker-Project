@@ -76,7 +76,7 @@ module.exports = {
         const created = koreaNow.toISOString().replace('T', ' ').substr(0, 19);
 
         match.insertMatch(home_userid, match_date, match_place, match_time, created, stadium, nx, ny, function (result) {
-            res.redirect('/registered-match');
+            res.redirect('/game/registered-match');
         });
     },
 
@@ -167,7 +167,7 @@ module.exports = {
     // ]
 
         notif.DeleteNotification(req.body.notif_id, function () {
-            res.redirect('/requested-match');
+            res.redirect('/game/requested-match');
         });
     },
 

@@ -86,7 +86,7 @@
           <% if (Matches[i].establishment == '성립'){continue;}; %> 
           <% var data = Matches[i]; %>
           <div class="edit">
-            <form action="/request" method="post">
+            <form action="/matching/request" method="post">
               <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
               <input type="hidden" name="home_userid" value="<%= Matches[i].home_userid %>">
               <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
