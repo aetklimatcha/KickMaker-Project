@@ -1,0 +1,61 @@
+<section class="team_info">
+    <div class="team_info_wrap">
+      <div class="team_info_left">
+        <h1>경기 정보 확정하기</h1>
+
+        <form id="stadiumForm" method="post" action="/matching/confirm-place">
+          <% if (stadium.length != 0) { %>
+            <% for (var i = 0; i < stadium.length; i++) { %>
+              <button type="button" class="btn btn-dark btn-block"
+                onclick="loadStadium('<%= stadium[i].name %>', <%= stadium[i].nx %>, <%= stadium[i].ny %>)">
+                <%= stadium[i].name %>
+              </button>
+            <% } %>
+          <% } %>
+        </form>
+      </div>
+      <div class="team_info_right">
+        <section>
+          <div id="map" style="width:500px;height:400px;"></div>
+          <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= MAP_KEY %>"></script>
+          <script>
+            var map;
+
+            function loadStadium(name, nx, ny) {
+              // Update form data
+              document.querySelector('#stadiumForm input[name="nx"]').value = nx;
+              document.querySelector('#stadiumForm input[name="ny"]').value = ny;
+
+              // Reload the map with the selected stadium
+              var markerPosition = new kakao.maps.LatLng(ny, nx);
+              var marker = new kakao.maps.Marker({
+                position: markerPosition
+              });
+
+              if (!map) {
+                var container = document.getElementById('map');
+                var options = {
+                  center: markerPosition,
+                  level: 3
+                };
+                map = new kakao.maps.Map(container, options);
+              }
+
+              marker.setMap(map);
+            }
+          </script>
+
+          <input type="hidden" name="stadium" value="" />
+          <input type="submit" value="경기 확정" />
+          </form>
+
+          <form method="post" action="/tomain">
+            <input type="submit" value="메인 페이지로" />
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
