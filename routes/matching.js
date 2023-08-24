@@ -115,7 +115,7 @@ router.get('/noMatch',cookieJwtAuth,header, main.noMatchview);
  *             schema:
  *               type: object
  *               properties:
- *                   Matches:
+ *                   findTeams:
  *                     example:
  *                         - match_id: 163
  *                           match_place: ['서초구']
