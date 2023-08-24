@@ -163,14 +163,13 @@ module.exports = {
             //기본값 서초구로 설정해놨음!!!!!!!!!!
 
             const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
-            console.log(result);
 
             var nx = 126.95518930412466;
             var ny = 37.602181608910584;
 
-            if (req.param('nx') != undefined) {
-                nx = req.param('nx');
-                ny = req.param('ny');
+            if (req.query.nx != undefined) {
+                nx = req.query.nx;
+                ny = req.query.ny;
             }
 
             res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
@@ -341,7 +340,6 @@ module.exports = {
         const result = await new Promise((resolve) => {
             match.gethome_id(req.user_id, resolve);
         });
-        console.log(result)
         res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
             loginTeam: req.header.loginresult,
             notifications: req.header.notifications,

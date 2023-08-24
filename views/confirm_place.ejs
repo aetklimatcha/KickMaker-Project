@@ -47,45 +47,49 @@
               <div class="registerdMatch">경기 장소 : <%=myMatch.place%>
               </div>
 
-              <% if (stadium.length != 0) { %> 
+              <% if (stadium.length !=0) { %>
                 <% for (var i=0; i< stadium.length; i++) { %>
-              <button class="btn btn-dark btn-block" onclick="location.href='/matching/confirm-place/?nx=<%= stadium[i].nx %>&ny=<%= stadium[i].ny %>'"><%= stadium[i].name %></button>
-                            <!-- ------------------수정필요 -->
-                            <form method="post" action="/matching/confirm-place">
-                              <!-- ----------------------- -->
-              <input type="hidden" name="stadium" value="<%= stadium[i].name %>" />
+                  <button class="btn btn-dark btn-block"
+                    onclick="loadStadium('<%= stadium[i].name %>', <%= stadium[i].nx %>, <%= stadium[i].ny %>)">
+                    <%= stadium[i].name %>
+                  </button>
                   <% } %>
-              <% } %>
+                    <% } %>
             </article>
           </section>
+          <form method="post" action="/matching/confirm-place">
+            <input type="hidden" id="selectedStadium" name="stadium" value="" />
       </div>
       <div class="team_info_right">
         <section>
           <div id="map" style="width:500px;height:400px;"></div>
           <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= MAP_KEY %>"></script>
           <script>
+            function loadStadium(name, nx, ny) {
+              document.querySelector('#selectedStadium').value = name;
 
-            var markerPosition  = new kakao.maps.LatLng(<%= ny %> , <%= nx %>); 
-            var marker = new kakao.maps.Marker({
-              position: markerPosition
-            });
+              var markerPosition = new kakao.maps.LatLng(ny , nx);
+              var marker = new kakao.maps.Marker({
+                position: markerPosition
+              });
 
-            var container = document.getElementById('map');
-            var options = {
-              center: new kakao.maps.LatLng(<%= ny %>, <%= nx %>),
-              level: 3
-            };
+              var container = document.getElementById('map');
+              var options = {
+                center: new kakao.maps.LatLng(ny, nx),
+                level: 3
+              };
 
-            var map = new kakao.maps.Map(container, options);
-            marker.setMap(map);
+              var map = new kakao.maps.Map(container, options);
+              marker.setMap(map);
+            }
           </script><br>
 
 
 
 
-            <input type="hidden" name="nx" value="<%= nx %>" />
-            <input type="hidden" name="ny" value="<%= ny %>" />
-            <input type="submit" value="경기 확정" />
+          <input type="hidden" name="nx" value="<%= nx %>" />
+          <input type="hidden" name="ny" value="<%= ny %>" />
+          <input type="submit" value="경기 확정" />
           </form>
 
           <form method="post" action="/tomain">
