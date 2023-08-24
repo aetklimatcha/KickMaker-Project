@@ -91,7 +91,7 @@ weather: 'ApiError'
         <% for (var i = 0; i < Matches.length; i++) { %>
           <% if (Matches[i].establishment === '성립') { %>
             <div class="myMatch">
-              <form id="cancelForm<%= Matches[i].match_id %>" method="POST" action="/cancel-match">
+              <form id="cancelForm<%= Matches[i].match_id %>" method="POST" action="/game/cancel-match">
                 <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
                 <% let today = new Date(); %>
                 <% let year = today.getFullYear(); %>
@@ -153,7 +153,7 @@ weather: 'ApiError'
                     경기 취소
                   </div>
                 <% } else { %>
-                  <div class="reviewBtn" onclick="location.href='/team-review/<%= Matches[i].match_id %>'">
+                  <div class="reviewBtn" onclick="location.href='/game/team-review/<%= Matches[i].match_id %>'">
                     경기 후기
                   </div>
                 <% } %>

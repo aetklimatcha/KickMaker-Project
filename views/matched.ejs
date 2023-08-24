@@ -62,7 +62,7 @@
         <% for (var i=0;  i < findTeams.length; i++) { %>
           <% var data = findTeams[i]; %>
           <div class="requestedMatch">
-            <form id="requestMatch" method="post" action="/request">
+            <form id="requestMatch" method="post" action="/matching/request">
 
               <input type="hidden" name="home_userid" value="<%= findTeams[i].home_userid %>">
               <input type="hidden" name="match_id" value="<%= findTeams[i].match_id %>">

@@ -81,7 +81,7 @@ OGend: 내가 등록한 시간 끝
           <% if (matchinfo[i].requesttype != '요청'){continue;}; %>
           <% var data = matchinfo[i]; %>
           <div class="accept">
-            <form id="requestMatch" method="post" action="/match-accept">
+            <form id="requestMatch" method="post" action="/game/match-accept">
               <input type="hidden" name="notif_id" value="<%= matchinfo[i].notif_id %>">
               <input type="hidden" name="date" value="<%= matchinfo[i].date %>">
               <input type="hidden" name="match_id" value="<%= matchinfo[i].match_id %>">

@@ -49,9 +49,9 @@
 
               <% if (stadium.length != 0) { %> 
                 <% for (var i=0; i< stadium.length; i++) { %>
-              <button class="btn btn-dark btn-block" onclick="location.href='/confirm-place/?nx=<%= stadium[i].nx %>&ny=<%= stadium[i].ny %>'"><%= stadium[i].name %></button>
+              <button class="btn btn-dark btn-block" onclick="location.href='/matching/confirm-place/?nx=<%= stadium[i].nx %>&ny=<%= stadium[i].ny %>'"><%= stadium[i].name %></button>
                             <!-- ------------------수정필요 -->
-                            <form method="post" action="/confirm-place">
+                            <form method="post" action="/matching/confirm-place">
                               <!-- ----------------------- -->
               <input type="hidden" name="stadium" value="<%= stadium[i].name %>" />
                   <% } %>

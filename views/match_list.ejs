@@ -1,4 +1,4 @@
-<!-- 배열 명 Team 
+<!-- 배열 명 Matches 
   establishment가 '미성립'인 애들 사용
 ]
 {
@@ -81,21 +81,21 @@
           <div class="request_match">경기 요청하기</div>
         </div>
 
-        <% for (var i=0;  i < Team.length; i++) { %>
+        <% for (var i=0;  i < Matches.length; i++) { %>
           <!-- '성립'된 부분은 pass(continue)하고 '미성립'만 렌더링 -->
-          <% if (Team[i].establishment == '성립'){continue;}; %> 
-          <% var data = Team[i]; %>
+          <% if (Matches[i].establishment == '성립'){continue;}; %> 
+          <% var data = Matches[i]; %>
           <div class="edit">
-            <form action="/request" method="post">
-              <input type="hidden" name="match_id" value="<%= Team[i].match_id %>">
-              <input type="hidden" name="home_userid" value="<%= Team[i].home_userid %>">
-              <input type="hidden" name="match_date" value="<%= Team[i].match_date %>">
-              <input type="hidden" name="teamname" value="<%= Team[i].home_teamname %>">
-              <input type="hidden" name="match_place" value="<%= Team[i].match_place %>">
-              <input type="hidden" name="match_time" value="<%= Team[i].match_time  %>">
-              <div class="match_date"><%= Team[i].match_date %></div>
-              <div class="match_place"><%= Team[i].match_place %></div>
-              <div class="match_time_start"><%= Team[i].match_time %></div>
+            <form action="/matching/request" method="post">
+              <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
+              <input type="hidden" name="home_userid" value="<%= Matches[i].home_userid %>">
+              <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
+              <input type="hidden" name="teamname" value="<%= Matches[i].home_teamname %>">
+              <input type="hidden" name="match_place" value="<%= Matches[i].match_place %>">
+              <input type="hidden" name="match_time" value="<%= Matches[i].match_time  %>">
+              <div class="match_date"><%= Matches[i].match_date %></div>
+              <div class="match_place"><%= Matches[i].match_place %></div>
+              <div class="match_time_start"><%= Matches[i].match_time %></div>
               <div class="match_time_end"></div>
               <button class="enter fade-in" type="submit">
                 경기 요청

@@ -66,7 +66,7 @@ module.exports = {
 
         var results = await new Promise((resolve) => {
             teamreview.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, resolve)
-            res.redirect('/my-match');
+            res.redirect('/game/my-match');
         });
 
         // review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function (result) {

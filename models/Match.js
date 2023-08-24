@@ -12,6 +12,14 @@ module.exports = {
         })
     },
 
+    getAllnoMatch : function (callback) {
+        const querystring = `Select * from Matches where establishment = '미성립';`;
+        mysql.query(querystring, function (error, result) {
+            if ( error ) throw error;
+            callback(result);
+        })
+    },
+
     //match_id로 경기번호 조회
     getmatch_id: function (match_id, callback) {
         const querystring = `SELECT * FROM Matches Where match_id= ${match_id} limit 1;`;
