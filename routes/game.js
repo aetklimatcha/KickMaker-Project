@@ -14,7 +14,7 @@ router.get('/match/:id', cookieJwtAuth,header,main.matchview);
 
 /**
 @swagger
- * /registered-match:
+ * /game/registered-match:
  *   get:
  *     summary: "등록한 경기 페이지 조회"
  *     description: "등록한 경기 페이지"
@@ -47,7 +47,7 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
 /**
 @swagger
  * paths:
- *  /my-match:
+ *  /game/my-match:
  *    get:
  *      summary: "진행 예정/종료된 경기 목록 조회"
  *      description: "진행 예정/종료된 경기 목록 조회"
@@ -103,7 +103,7 @@ router.get('/my-match', cookieJwtAuth,header,main.my_matchview);
 
 /**
 @swagger
- * /requested-match:
+ * /game/requested-match:
  *   get:
  *     summary: "요청받은 경기 목록 페이지 조회"
  *     description: "요청받은 경기 목록"
@@ -134,7 +134,7 @@ router.get('/requested-match', cookieJwtAuth,header,main.requested_matchview);
 /**
  * @swagger
  * paths:
- *  /edit-match:
+ *  /game/edit-match:
  *    get:
  *      summary: "매치 정보 편집 페이지"
  *      description: "매치 정보 편집 페이지"
@@ -157,7 +157,7 @@ router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
 /**
  * @swagger
  * paths:
- *  /team-review/:pageId:
+ *  /game/team-review/:pageId:
  *    get:
  *      summary: "리뷰 작성 페이지"
  *      description: "리뷰 작성 페이지"
@@ -232,7 +232,7 @@ router.post('/team-review/:pageId', cookieJwtAuth,header,review.team_review);
 /**
  * @swagger
  * paths:
- *  /match-accept:
+ *  /game/match-accept:
  *    post:
  *      summary: "매치 요청 수락"
  *      description: "매치 요청 수락"
@@ -275,7 +275,7 @@ router.post('/match-accept', cookieJwtAuth,header,match.match_accept);
 /**
  * @swagger
  * paths:
- *  /match-reject:
+ *  /game/match-reject:
  *    post:
  *      summary: "매치 요청 거절"
  *      description: "매치 요청 거절"
@@ -303,7 +303,7 @@ router.post('/match-reject', cookieJwtAuth,header,match.match_reject);
 /**
  * @swagger
  * paths:
- *  /cancel-match:
+ *  /game/cancel-match:
  *    post:
  *      summary: "매치 삭제"
  *      description: "매치 삭제"

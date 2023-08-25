@@ -14,7 +14,7 @@ const signup = require("../controllers/signup");
 /**
  * @swagger
  * paths:
- *  /signup:
+ *  /team/signup:
  *    get:
  *      summary: "팀 정보 페이지"
  *      description: "팀 정보 페이지"
@@ -36,7 +36,7 @@ router.get('/team-info', cookieJwtAuth,header,main.team_infoview);
 /**
  * @swagger
  * paths:
- *  /edit-team:
+ *  /team/edit-team:
  *    get:
  *      summary: "팀 정보 편집 페이지"
  *      description: "팀 정보 편집 페이지"
