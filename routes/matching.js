@@ -11,7 +11,7 @@ const match = require("../controllers/match");
 
 /**
 @swagger
- * /match-list:
+ * /matching/match-list:
  *   get:
  *     summary: "등록된 미성립 경기 목록 페이지 조회"
  *     description: "등록된 미성립 경기 목록 페이지 조회"
@@ -44,7 +44,7 @@ router.get('/match-list',cookieJwtAuth,header, main.match_listview);
 /**
  * @swagger
  * paths:
- *  /match-making:
+ *  /matching/match-making:
  *    get:
  *      summary: "경기 정보 작성 페이지"
  *      description: "경기 정보 작성 페이지"
@@ -89,7 +89,7 @@ router.post('/match-making', cookieJwtAuth,header,match.match_making);
 
 /**
 @swagger
- * /noMatch:
+ * /matching/noMatch:
  *   get:
  *     summary: "매칭 할 수 있는 팀 없는 경우 페이지 조회"
  *     description: "매칭 할 수 있는 팀 없는 경우 페이지 조회"
@@ -102,7 +102,7 @@ router.get('/noMatch',cookieJwtAuth,header, main.noMatchview);
 
 /**
 @swagger
- * /matched:
+ * /matching/matched:
  *   get:
  *     summary: "매칭된 경기 목록 페이지 조회"
  *     description: "매칭된 경기 목록 페이지 조회"
@@ -131,22 +131,11 @@ router.get('/matched', cookieJwtAuth,header,main.matchedview);
 
 /**
 @swagger
- * /confirm-place:
+ * /matching/confirm-place:
  *   get:
  *     summary: "장소 선정 페이지 조회"
  *     description: "장소 선정 페이지 조회"
  *     tags: [Matching]
- *     parameters:
- *          - name: nx
- *            description: 경기장의 x 좌표를 받음
- *            required: false
- *            schema:
- *              type: float
- *          - name: ny
- *            description: 경기장의 y 좌표를 받음
- *            required: false
- *            schema:
- *              type: float
  *     responses:
  *       "200":
  *         description: 헤더 생략, MAP_KEY = kakaomap키, stadium = 해당 지역의 경기장 목록 배열, myMatch = 매치메이킹 입력 정보 배열
@@ -213,7 +202,7 @@ router.post('/confirm-place', cookieJwtAuth,header,match.insertMatch);
 
 /**
 @swagger
- * /request:
+ * /matching/request:
  *   post:
  *      summary: "해당 경기 등록 팀에게 경기 요청"
  *      description: "해당 경기 등록 팀에게 경기 요청"
