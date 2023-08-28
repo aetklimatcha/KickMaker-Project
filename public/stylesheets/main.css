@@ -162,7 +162,7 @@ header .main-menu .menu .menu__contents ul > li a:hover {
 .main{
   height: 100vh;
   position: relative;
-  background-image: url("../images/메인배경.webp");
+  background-image: url("../images/main_background.webp");
   background-repeat:repeat-y;
   background-position: center;
   background-attachment: fixed;
