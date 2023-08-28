@@ -14,7 +14,7 @@ router.get('/match/:id', cookieJwtAuth,header,main.matchview);
 
 /**
 @swagger
- * /registered-match:
+ * /game/registered-match:
  *   get:
  *     summary: "등록한 경기 페이지 조회"
  *     description: "등록한 경기 페이지"
@@ -47,7 +47,7 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
 /**
 @swagger
  * paths:
- *  /my-match:
+ *  /game/my-match:
  *    get:
  *      summary: "진행 예정/종료된 경기 목록 조회"
  *      description: "진행 예정/종료된 경기 목록 조회"
@@ -55,6 +55,10 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
  *      responses:
  *       "200":
  *         description: 헤더 생략, Matches 배열 반환
+ *           <br><br> o 중기예보 통보문에서 구름의 양에 따라 하늘상태를 3단계(맑음, 구름많음, 흐림)으로 표현, 현상에 따라 비, 눈, 비/눈, 소나기 로 표현하고 있으며, 이를 종합하여 함께 사용하고 있음
+ *           <br><br> -맑음
+ *           <br><br> -구름많음, 구름많고 비, 구름많고 눈, 구름많고 비/눈, 구름많고 소나기
+ *           <br><br> -흐림, 흐리고 비, 흐리고 눈, 흐리고 비/눈, 흐리고 소나기
  *         content:
  *           application/json:
  *             schema:
@@ -62,21 +66,9 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
  *               properties:
  *                   Matches:
  *                     example:
- *                       - match_id: 180
- *                         home_userid: 2
- *                         away_userid: 38
- *                         match_date: '2023-08-10'
- *                         match_time: '23:00:00'
- *                         match_place: 강북구
- *                         created: 2023-07-29T15:00:00.000Z
- *                         updated: null
- *                         establishment: 성립
- *                         stadium: 잠원한강공원>축구장,방배배수지체육공원,반포종합운동장,우면체육시설
- *                         nx: 127.017
- *                         ny: 37.5256
- *                         home_teamname: FC강동
- *                         away_teamname: teamname
- *                         weather: DateOverError
+ *             examples:
+ *              단기예보(3일 이내 경기):
+ *                  value:
  *                       - match_id: 181
  *                         home_userid: 2
  *                         away_userid: 38
@@ -98,12 +90,49 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
  *                           TMP: '27'
  *                           POP: '60'
  *                           PCP: 1.0mm
- */
+ *              중기예보(10일 이내 경기):
+ *                  value:
+ *                       - match_id: 181
+ *                         home_userid: 2
+ *                         away_userid: 38
+ *                         match_date: '2023-08-24'
+ *                         match_time: '11:00:00'
+ *                         match_place: 서초구
+ *                         created: 2023-08-19T15:00:00.000Z
+ *                         updated: null
+ *                         establishment: 성립
+ *                         stadium: 잠원한강공원>축구장,방배배수지체육공원,
+ *                         nx: 127.017
+ *                         ny: 37.5256
+ *                         home_teamname: FC강동
+ *                         away_teamname: teamname
+ *                         weather:
+ *                           POP: '60'
+ *                           INFO: '흐리고 비'
+ *                          
+ *              경기지났거나 먼경우(10일 이상):
+ *                  value:
+ *                       - match_id: 180
+ *                         home_userid: 2
+ *                         away_userid: 38
+ *                         match_date: '2023-08-10'
+ *                         match_time: '23:00:00'
+ *                         match_place: 강북구
+ *                         created: 2023-07-29T15:00:00.000Z
+ *                         updated: null
+ *                         establishment: 성립
+ *                         stadium: 잠원한강공원>축구장,방배배수지체육공원,반포종합운동장,우면체육시설
+ *                         nx: 127.017
+ *                         ny: 37.5256
+ *                         home_teamname: FC강동
+ *                         away_teamname: teamname
+ *                         weather: DateOverError
+ */ 
 router.get('/my-match', cookieJwtAuth,header,main.my_matchview);
 
 /**
 @swagger
- * /requested-match:
+ * /game/requested-match:
  *   get:
  *     summary: "요청받은 경기 목록 페이지 조회"
  *     description: "요청받은 경기 목록"
@@ -134,7 +163,7 @@ router.get('/requested-match', cookieJwtAuth,header,main.requested_matchview);
 /**
  * @swagger
  * paths:
- *  /edit-match:
+ *  /game/edit-match:
  *    get:
  *      summary: "매치 정보 편집 페이지"
  *      description: "매치 정보 편집 페이지"
@@ -157,7 +186,7 @@ router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
 /**
  * @swagger
  * paths:
- *  /team-review/:pageId:
+ *  /game/team-review/:pageId:
  *    get:
  *      summary: "리뷰 작성 페이지"
  *      description: "리뷰 작성 페이지"
@@ -232,7 +261,7 @@ router.post('/team-review/:pageId', cookieJwtAuth,header,review.team_review);
 /**
  * @swagger
  * paths:
- *  /match-accept:
+ *  /game/match-accept:
  *    post:
  *      summary: "매치 요청 수락"
  *      description: "매치 요청 수락"
@@ -275,7 +304,7 @@ router.post('/match-accept', cookieJwtAuth,header,match.match_accept);
 /**
  * @swagger
  * paths:
- *  /match-reject:
+ *  /game/match-reject:
  *    post:
  *      summary: "매치 요청 거절"
  *      description: "매치 요청 거절"
@@ -303,7 +332,7 @@ router.post('/match-reject', cookieJwtAuth,header,match.match_reject);
 /**
  * @swagger
  * paths:
- *  /cancel-match:
+ *  /game/cancel-match:
  *    post:
  *      summary: "매치 삭제"
  *      description: "매치 삭제"
