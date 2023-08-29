@@ -12,7 +12,7 @@ const my_number = process.env.MY_NUM;
 
 function uploadfile(imagename) {
     return new Promise((resolve, reject) => {
-    const imageFilePath = path.join(__dirname, '../files', `${imagename}.jpg`);
+    const imageFilePath = path.join(__dirname, '../files', `${imagename}`);
     const imageBuffer = fs.readFileSync(imageFilePath);
     const base64Image = imageBuffer.toString('base64');
 
@@ -130,4 +130,6 @@ async function sendMessage(receive_hp, imagename) {
     }
 }
 
-// sendMessage()
+sendMessage('01092181929','qr.png')
+
+module.exports = sendMessage;

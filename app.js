@@ -16,14 +16,17 @@ const multer = require('multer');
 
 const { setUTF8Encoding } = require('./middleware/setUTF8Encoding');
 
+const genQRcode = require("./modules/genQRcode");
+genQRcode();
+
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 
 
 //정적파일 서비스하는 모듈? (css 안됐을때 씀
-app.use(express.static(__dirname));
-// app.use(express.static('public'));
+// app.use(express.static(__dirname));
+app.use(express.static('public'));
 
 //swagger
 const { swaggerUi, specs } = require("./lib/swagger.js");
