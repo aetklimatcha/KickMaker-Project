@@ -350,6 +350,8 @@ router.post('/match-reject', cookieJwtAuth,header,match.match_reject);
  *          userExample:
  *              value: {
  *                  match_id: 54,    
+ *                  home_userid: 2, 
+ *                  away_userid: 3
  *                     } 
  *      responses:
  *       "200":

@@ -12,7 +12,7 @@ const my_number = process.env.MY_NUM;
 
 function uploadfile(imagename) {
     return new Promise((resolve, reject) => {
-    const imageFilePath = path.join(__dirname, '../files', `${imagename}`);
+    const imageFilePath = path.join(__dirname, '../files/QRcode', `${imagename}.jpg`);
     const imageBuffer = fs.readFileSync(imageFilePath);
     const base64Image = imageBuffer.toString('base64');
 
@@ -126,10 +126,9 @@ async function sendMessage(receive_hp, imagename) {
             console.log(err);
         })
     } catch (err) {
+        console.log('아예 메시지 발송 에러')
         console.log(err);
     }
 }
-
-sendMessage('01092181929','qr.png')
 
 module.exports = sendMessage;

@@ -93,6 +93,8 @@ weather: 'ApiError'
             <div class="myMatch">
               <form id="cancelForm<%= Matches[i].match_id %>" method="POST" action="/game/cancel-match">
                 <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
+                <input type="hidden" name="home_userid" value="<%= Matches[i].home_userid %>">
+                <input type="hidden" name="away_userid" value="<%= Matches[i].away_userid %>">
                 <% let today = new Date(); %>
                 <% let year = today.getFullYear(); %>
                 <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>

@@ -108,42 +108,86 @@ module.exports = {
         });
     },
 
-    cancel_match : (req, res) => {
+    cancel_match: (req, res) => {
         //로그인 사용자와 검증필요? 혹은 이중검증?
+        var data = req.body;
+        //메시지 전송 스케줄러 등록
 
-        match.DeleteMatch(req.body.match_id , function(result) {
-            console.log('at cancel_match : '+ result)
-            res.redirect('/');
-        })
+        const messageScheduler = require("../modules/messageScheduler");
+        messageScheduler.cancelReservation(data.match_id);
+
+        // match.DeleteMatch(req.body.match_id, function (result) {
+        //     console.log('at cancel_match : ' + result)
+        //     res.redirect('/');
+        // })
     },
 
-    match_accept: (req, res) => {
+    match_accept: async (req, res) => {
+        try {
         //여기서 할 일 
         //noti 알림 삭제
         //matchtable away_userid에 id넣기
         //matchtime 넣기
         //matchplace 바꾸기
 
-        // {
-        //   notif_id: '6',
-        //  date: ~,
-        //   match_id: '97',
-        //   RQuserid: '15',
-        //   RQstart: '13:00',
-        //   RQplace: '강남구'
-        // }
-        const data = req.body;
+            // {
+            //   notif_id: '6',
+            //  date: ~,
+            //   match_id: '97',
+            //   RQuserid: '15',
+            //   RQstart: '13:00',
+            //   RQplace: '강남구'
+            // }
+            const data = req.body;
 
-        notif.DeleteNotification_matchid(data.match_id, function (result) {
-            match.updateMatch_accept(data, function (result) {
-                team.getOneTeam(req.user_id, function (result) {
-                    request_teamname = result.teamname;
-                    notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname,"수락", data.date , data.time, data.place , function (notiID) {
-                        res.redirect('/');
-                    });
-                });
+            //비동기 처리 만들것!
+            const matchTeams = await new Promise((resolve) => {
+                team.getTwoTeam(req.user_id, data.RQuserid, resolve);
             });
-        })
+            
+            if (matchTeams[0].user_id == req.user_id)
+                var loginteam = matchTeams[0];
+            else if (matchTeams[1].user_id == req.user_id)
+                var loginteam = matchTeams[1];
+
+            const delNotifResult = await new Promise((resolve) => {
+                notif.DeleteNotification_matchid(data.match_id, resolve);
+            });
+
+            request_teamname = loginteam.teamname;
+            const notiID = await new Promise((resolve) => {
+                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
+                res.redirect('/');
+            });
+
+            const updateMatchResult = await new Promise((resolve) => {
+                match.updateMatch_accept(data, resolve);
+            });
+
+            var matchTeamObj = {
+                team1 : {
+                    id : matchTeams[0].user_id,
+                    hp : (matchTeams[0].hp).replace(/-/g, '')
+                },
+                team2 : {
+                    id : matchTeams[1].user_id,
+                    hp : (matchTeams[1].hp).replace(/-/g, ''),
+                }
+            }
+
+            var matchTime = new Date(data.date+' '+data.time);
+            matchTime.setMinutes(matchTime.getMinutes() - 60);
+
+            //메시지 전송 스케줄러 등록
+            const messageScheduler = require("../modules/messageScheduler");
+            console.log('match에서 확인')
+            console.log(data);
+            console.log(matchTime);
+            messageScheduler.messageReservation(data.match_id, matchTeamObj, matchTime);
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     match_reject : (req,res) => {

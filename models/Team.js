@@ -49,6 +49,19 @@ module.exports = {
         }
     },
 
+    getTwoTeam: function (user_id1, user_id2, callback) {
+        const querystring = `SELECT * FROM Team Where user_id = ${user_id1} or user_id = ${user_id2} LIMIT 0,100;`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result);
+            } else {
+                // 결과가 없을 시 
+                callback(null);
+            }
+        })
+    },
+
         //id password로 단일 TEam 조회 (로그인)
     getLoginTeam: function (id,password, callback) {
         const querystring = `SELECT * FROM Team Where id= '${id}' and password = '${password}';`;
