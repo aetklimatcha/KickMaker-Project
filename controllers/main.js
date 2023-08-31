@@ -295,9 +295,23 @@ module.exports = {
     },
 
     edit_matchview: async (req, res) => {
+
+        const edit_match_info = await new Promise((resolve) => {
+            match.getmatch_id(req.params.pageId, resolve);
+        });
+
+        if (edit_match_info.home_userid != req.user_id) {
+            // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.write("<script>alert('권한이 없습니다')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+            return;
+        }
+
         res.render(path.join(__dirname + '/../views/edit_match.ejs'), {
             loginTeam: req.header.loginresult,
             notifications: req.header.notifications,
+            Match: edit_match_info
         });
     },
 

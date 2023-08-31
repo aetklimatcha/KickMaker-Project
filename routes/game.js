@@ -163,25 +163,37 @@ router.get('/requested-match', cookieJwtAuth,header,main.requested_matchview);
 /**
  * @swagger
  * paths:
- *  /game/edit-match:
+ *  /game/edit-match/:pageId:
  *    get:
  *      summary: "매치 정보 편집 페이지"
  *      description: "매치 정보 편집 페이지"
  *      tags: [Game]
  *      responses:
  *       "200":
- *         description: 헤더
+ *         description: 헤더 생략
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                   loginTeam:
- *                     $ref: '#/components/schemas/Team'
- *                   notifications:
- *                     $ref: '#/components/schemas/Notification'
+ *                   Match:
+ *                      example: 
+ *                           {
+ *                           match_id: 165,
+ *                           home_userid: 2,
+ *                           away_userid: null,
+ *                           match_date: '2023-07-05',
+ *                           match_time: '06:00:00',
+ *                           match_place: '성동구',
+ *                           created: 2023-07-18T15:00:00.000Z,
+ *                           updated: null,
+ *                           establishment: '미성립',
+ *                           stadium: '어딘가운동장',
+ *                           nx: null,
+ *                           ny: null
+ *                           }                     
  */
-router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
+router.get('/edit-match/:pageId', cookieJwtAuth,header,main.edit_matchview);
 
 /**
  * @swagger
