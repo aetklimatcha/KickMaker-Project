@@ -230,6 +230,8 @@ module.exports = {
     },
 
     team_reviewview: async (req, res) => {
+        const messageCrypt = require('../modules/messageCrypt');
+        const queryId = messageCrypt.decryptString(req.query.id);
 
         //1. pageId(match_id)로 조회, home과 away에 userid 있나 조회 후 없으면 '권한 없습니다' return
         const review_match_info = await new Promise((resolve) => {
@@ -240,13 +242,6 @@ module.exports = {
             review.getreview_matchid(req.params.pageId, resolve);
         });
 
-        // const review_info = await new Promise((resolve) => {
-        //     review.getreview_matchid(req.params.pageId, (result, secondArg) => {
-        //         resolve({ result, secondArg });
-        //     });
-        // });
-
-
         var reviewWritten = false;
 
         for (var i = 0; i < review_info.length; i++) {
@@ -255,16 +250,18 @@ module.exports = {
             }
         }
 
-
-        if (review_match_info.home_userid != req.user_id && review_match_info.away_userid != req.user_id) {
+        //0. 로그인 하지 않았을 때
+        if (req.user_id == null) {
+            res.redirect('/signin')
+        }
+        //1. 자신의 qr로 들어온 것이 아닐때
+        else if (queryId != req.user_id) {
             // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
             res.write("<script>alert('권한이 없습니다')</script>");
             res.write("<script>window.location=\"/\"</script>");
             res.end();
             return;
         }
-
-
         //2. (match_id로) review 조회, 이미 있으면 작성했습니다 return, 
         else if (reviewWritten) {
             res.write("<script>alert('이미 리뷰를 작성하셨습니다.')</script>");
@@ -274,14 +271,25 @@ module.exports = {
         }
 
         else {
-            var opponent_id = req.user_id == review_match_info.home_userid ? review_match_info.home_userid : review_match_info.away_userid;
+            var opponent_id = (req.user_id == review_match_info.home_userid) ? review_match_info.away_userid : review_match_info.home_userid;
+        
+            var matchTeams = await new Promise((resolve) => {
+                team.getTwoTeam( opponent_id,req.user_id, resolve);
+            });
+
+            // 로그인 유저팀과, 상대팀 구분
+            var userTeam = matchTeams.find(team => team.user_id == req.user_id);
+            var opponentTeam = matchTeams.find(team => team.user_id != req.user_id);
+
+            //Match로 한번에 넘기기 위해서 담음
+            review_match_info.userTeam = userTeam;
+            review_match_info.opponentTeam = opponentTeam;
 
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
                 Match: review_match_info,
-                opponent_id: opponent_id,
             })
         }
     },

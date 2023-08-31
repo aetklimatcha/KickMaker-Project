@@ -197,17 +197,21 @@ router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
  *            required: true
  *            schema:
  *              type: integer
+ *          - name: Id
+ *            description: qr로 전송된 암호화된 user_id를 받음 (알파벳 대칭)
+ *            required: true
+ *            schema:
+ *              type: string
  *      responses:
  *       "200":
- *         description: 헤더 제외, opponent_id = 상대방의 userid, Match = pageId의 매치 정보
+ *         description: 헤더 제외, Match = pageId의 매치 정보
+ *                      <br><br> http://localhost:3000/game/team-review/125?id=C 와 같은 링크로 접속 필요
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                   pageId:
- *                      type: integer
- *                   opponent_id:
  *                      type: integer
  *                   Match:
  *                     example:
@@ -223,6 +227,36 @@ router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
  *                           stadium: 잠원한강공원>축구장,방배배수지체육공원,
  *                           nx: 127.017
  *                           ny: 37.5256
+ *                           userTeam: {
+ *                               user_id: 2,
+ *                               id: 'gangdong',
+ *                               password: '2222',
+ *                               teamname: 'FC강동',
+ *                               represent_name: '허이구',
+ *                               hp: '010-5289-1929',
+ *                               win_score: 1496,
+ *                               manner_score: 45,
+ *                               totalMatches: 9,
+ *                               win: 5,
+ *                               draw: 2,
+ *                               lose: 2,
+ *                               logo_image: 'default.jpg'
+ *                           }
+ *                           opponentTeam: {
+ *                               user_id: 3,
+ *                               id: 'seocho',
+ *                               password: '3333',
+ *                               teamname: 'FC서초',
+ *                               represent_name: '박삼',
+ *                               hp: '010-5289-1939',
+ *                               win_score: 1750,
+ *                               manner_score: 20,
+ *                               totalMatches: 0,
+ *                               win: 0,
+ *                               draw: 0,
+ *                               lose: 0,
+ *                               logo_image: 'default.jpg'
+ *                           }
  *       "매치 외 사용자":
  *         description: 권한이 없습니다 팝업 후 메인 리다이렉션
  *       "기작성시":

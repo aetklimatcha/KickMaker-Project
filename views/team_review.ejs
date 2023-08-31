@@ -25,11 +25,7 @@
           <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
           <p class="title">매치 정보</p>
           <div class="matchInfo">
-            <% if (loginTeam.teamname == Match.away_teamname) { %>
-              <p>경기팀: <%= Match.home_teamname %></p><br>
-            <% } else { %>
-              <p>경기팀: <%= Match.away_teamname %></p><br>
-            <% } %>
+            <p>경기팀: <%= Match.opponentTeam.teamname %></p><br>
             <!-- 경기팀:<%= Match.away_teamname %> <br> -->
             <p>경기 일자: <%= Match.match_date %></p><br>
             <p>경기 장소: <%= Match.stadium %> </p><br>
@@ -37,20 +33,20 @@
             <!-- matches 정보 넣기 -->
           <!-- <input type="text" name="match_id" value=""><br> -->
 
-          <p class="title">경기 결과</p>
+          <p class="title">경기 승리 팀</p>
           <!-- <input type="text" name="result" value=""><br> -->
           <fieldset>
             <label>
-              <input type="radio" name="result" value="패배" />
-              <span>패배</span>
+              <input type="radio" name="result" value="<%= Match.userTeam.user_id %>" />
+              <span><%= Match.userTeam.teamname %></span>
             </label>
             <label>
               <input type="radio" name="result" value="무승부" />
               <span>무승부</span>
             </label>
             <label>
-              <input type="radio" name="result" value="승리" />
-              <span>승리</span>
+              <input type="radio" name="result" value="<%= Match.opponentTeam.user_id %>" />
+              <span><%= Match.opponentTeam.teamname %></span>
             </label>
           </fieldset>
 
@@ -77,7 +73,7 @@
                 <span>매우 좋음</span>
               </label>
             </fieldset>
-            <input type="hidden" name="opponent_id" value="<%= opponent_id %>" />
+            <input type="hidden" name="opponent_id" value="<%= Match.opponentTeam.user_id %>" />
           <!-- 팀 로고 사진<br>
           <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br> -->
           <br>

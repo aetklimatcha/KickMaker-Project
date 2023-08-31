@@ -15,6 +15,8 @@ module.exports = {
 
     // 간단한 문자열을 숫자로 복호화하는 함수
     decryptString: function (encryptedString) {
+        if (encryptedString == null)
+            return null;
         const mapping = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9 };
         let decryptedNumber = '';
 

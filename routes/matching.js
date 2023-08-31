@@ -214,7 +214,6 @@ router.get('/matched', cookieJwtAuth,header,main.matchedview);
 router.get('/confirm-place',cookieJwtAuth,header, main.confirm_placeview);
 router.post('/confirm-place', cookieJwtAuth,header,match.insertMatch);
 
-
 /**
 @swagger
  * /matching/request:
