@@ -26,17 +26,35 @@ module.exports = {
     getAllTeam : function (callback) {
         const querystring = `Select * from Team;`;
         mysql.query(querystring, function (error, result) {
-            if ( error ) throw error;
+            if (error) throw error;
+            callback(result);
+        })
+    },
+
+    //Team 전체 조회
+    getQueryTeam: function (idArray, callback) {
+
+        var addQuery = ' WHERE ' ;
+        idArray.forEach((id, idx) => {
+            addQuery += ' user_id = '
+            addQuery += id;
+            if (idx != idArray.length-1)
+                addQuery += ' OR '
+        });
+
+        const querystring = `Select * from Team ${addQuery};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
             callback(result);
         })
     },
 
     //user_id로 단일 TEam 조회
     getOneTeam: function (user_id, callback) {
-        if(user_id == null){
+        if (user_id == null){
             callback(null);
         }else {
-            const querystring = `SELECT * FROM Team Where user_id= ${user_id} limit 1;`;
+            const querystring = `SELECT * FROM Team WHERE user_id= ${user_id} limit 1;`;
             mysql.query(querystring, function (error, result) {
                 if ( error ) throw error;
                 if(result.length) {

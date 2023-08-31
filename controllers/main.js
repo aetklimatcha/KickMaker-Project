@@ -112,13 +112,40 @@ module.exports = {
     match_listview: async (req, res) => {
         try {
 
-            var result = await new Promise((resolve) => {
-                match.getAllnoMatch(resolve)
+            var allNomatches = await new Promise((resolve) => {
+                match.getAllnoMatch(req.user_id ,resolve)
             });
-            console.log(result)
+
+            var homeUserIdArray = []
+            allNomatches.forEach(match => {
+                homeUserIdArray.push(match.home_userid);
+            })
+
+            // const homeTeamPromises = allNomatches.forEach(async match => {
+            //     var hometeaminfo = await new Promise((resolve) => {
+            //         team.getOneTeam(match.home_userid, resolve)
+            //         console.log('ms')
+            //     });
+            //     match.hometeamInfo = hometeaminfo;
+            //     console.log('for')
+            // })
+
+            const hometeaminfo = await new Promise((resolve) => {
+                team.getQueryTeam(homeUserIdArray, resolve);
+            });
+
+            const homeTeamPromises = allNomatches.map(async match => {
+                var foundTeam = hometeaminfo.find(team => team.user_id == match.home_userid);
+                match.hometeamInfo = foundTeam;
+            });
+
+
+            await Promise.all(homeTeamPromises);
+            
+            console.log(allNomatches)
             res.render(path.join(__dirname + '/../views/match_list.ejs'), {
                 loginTeam: req.header.loginresult,
-                Matches: result,
+                Matches: allNomatches,
                 notifications: req.header.notifications,
             });
 

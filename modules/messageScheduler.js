@@ -45,7 +45,7 @@ module.exports = {
             schedule.scheduleJob(matchId.toString(), matchTime, async function () {
                 for (const team in matchTeamObj) {
                     let teamid = matchTeamObj[team].id;
-                    let teamhp = matchTeamObj[team].hp;
+                    let teamhp = matchTeamObj[team].opponent_hp;
                     //전송되는것
                     let teamkey = matchTeamObj[team].key;
                     let url = `http://localhost:3000/game/team-review/${matchId}?id=${teamkey}`

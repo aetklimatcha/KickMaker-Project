@@ -12,8 +12,8 @@ module.exports = {
         })
     },
 
-    getAllnoMatch : function (callback) {
-        const querystring = `Select * from Matches where establishment = '미성립';`;
+    getAllnoMatch : function (userid, callback) {
+        const querystring = `Select * from Matches where establishment = '미성립' AND home_userid != ${userid};`;
         mysql.query(querystring, function (error, result) {
             if ( error ) throw error;
             callback(result);

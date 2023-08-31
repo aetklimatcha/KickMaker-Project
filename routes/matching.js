@@ -28,16 +28,31 @@ const match = require("../controllers/match");
  *                     example:
  *                         - match_id: 181
  *                           home_userid: 2
- *                           away_userid: 38
+ *                           away_userid: null
  *                           match_date: '2023-08-20'
  *                           match_time: '11:00:00'
  *                           match_place: 서초구
  *                           created: 2023-08-19T15:00:00.000Z
  *                           updated: null
  *                           establishment: 미성립
- *                           stadium: 잠원한강공원>축구장,방배배수지체육공원,
+ *                           stadium: 잠원한강공원>축구장,방배배수지체육공원
  *                           nx: 127.017
  *                           ny: 37.5256
+ *                           hometeamInfo: {
+ *                              user_id: 2,
+ *                              id: 'gogo',
+ *                              password: '4444',
+ *                              teamname: 'teamname',
+ *                              represent_name: 'me',
+ *                              hp: '010-3376-3935',
+ *                              win_score: 1000,
+ *                              manner_score: 51,
+ *                              totalMatches: 2,
+ *                              win: 1,
+ *                              draw: 1,
+ *                              lose: 0,
+ *                              logo_image: 'fa4c3f1b-6c0d-4780-9e74-2c7c483013f7.jpg'
+ *                             }
  */
 router.get('/match-list',cookieJwtAuth,header, main.match_listview);
 

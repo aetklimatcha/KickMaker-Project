@@ -167,11 +167,11 @@ module.exports = {
             var matchTeamObj = {
                 team1 : {
                     id : matchTeams[0].user_id,
-                    hp : (matchTeams[0].hp).replace(/-/g, '')
+                    opponent_hp : (matchTeams[0].hp).replace(/-/g, '')
                 },
                 team2 : {
                     id : matchTeams[1].user_id,
-                    hp : (matchTeams[1].hp).replace(/-/g, ''),
+                    opponent_hp : (matchTeams[1].hp).replace(/-/g, ''),
                 }
             }
 
