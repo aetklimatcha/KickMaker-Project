@@ -2,55 +2,28 @@ const mysql = require("../config/mysql");
 const schedule = require('node-schedule');
 const genQRcode = require('./genQRcode');
 const sendMessage = require('./sendMessage');
+const messageCrypt = require('./messageCrypt');
 
 module.exports = {
-
-    // 숫자를 간단한 문자열로 암호화하는 함수
-    encryptNumber: function (number) {
-        const mapping = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-        const numberString = number.toString();
-        let encryptedString = '';
-
-        for (let i = 0; i < numberString.length; i++) {
-            const digit = parseInt(numberString[i], 10);
-            encryptedString += mapping[digit];
-        }
-
-        return encryptedString;
-    },
-
-    // 간단한 문자열을 숫자로 복호화하는 함수
-    decryptString: function (encryptedString) {
-        const mapping = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9 };
-        let decryptedNumber = '';
-
-        for (let i = 0; i < encryptedString.length; i++) {
-            const char = encryptedString[i];
-            decryptedNumber += mapping[char];
-        }
-
-        return parseInt(decryptedNumber, 10);
-    },
 
     messageReservation: function (matchId, matchTeamObj, matchTime) {
         try {
             // 넘어온 2개의 팀 객체에 user_id를 암호화하여 key로 삽입
             for (const team in matchTeamObj) {
-                let teamid = matchTeamObj[team].id;
-                //상대팀거 보내는거로 바꿔!(hp, 암호url 다!)
-                let encryptedData = this.encryptNumber(teamid);
+                let opponent_id = matchTeamObj[team].opponent_id;
+                let encryptedData = messageCrypt.encryptNumber(opponent_id);
                 matchTeamObj[team].key = encryptedData;
             }
 
             schedule.scheduleJob(matchId.toString(), matchTime, async function () {
                 for (const team in matchTeamObj) {
-                    let teamid = matchTeamObj[team].id;
-                    let teamhp = matchTeamObj[team].opponent_hp;
+                    let opponent_id = matchTeamObj[team].opponent_id;
+                    let teamhp = matchTeamObj[team].hp;
                     //전송되는것
                     let teamkey = matchTeamObj[team].key;
                     let url = `http://localhost:3000/game/team-review/${matchId}?id=${teamkey}`
-                    var QR = await genQRcode(teamid, url);
-                    var SM = await sendMessage(teamhp, teamid);
+                    var QR = await genQRcode(matchId, opponent_id, url);
+                    // var SM = await sendMessage(teamhp, opponent_id);
                     console.log('스케줄러 실행 완료');
                 }
             })

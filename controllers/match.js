@@ -124,12 +124,6 @@ module.exports = {
 
     match_accept: async (req, res) => {
         try {
-        //여기서 할 일 
-        //noti 알림 삭제
-        //matchtable away_userid에 id넣기
-        //matchtime 넣기
-        //matchplace 바꾸기
-
             // {
             //   notif_id: '6',
             //  date: ~,
@@ -150,15 +144,15 @@ module.exports = {
             else if (matchTeams[1].user_id == req.user_id)
                 var loginteam = matchTeams[1];
 
-            const delNotifResult = await new Promise((resolve) => {
-                notif.DeleteNotification_matchid(data.match_id, resolve);
-            });
+            // const delNotifResult = await new Promise((resolve) => {
+            //     notif.DeleteNotification_matchid(data.match_id, resolve);
+            // });
 
-            request_teamname = loginteam.teamname;
-            const notiID = await new Promise((resolve) => {
-                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
-                res.redirect('/');
-            });
+            // request_teamname = loginteam.teamname;
+            // const notiID = await new Promise((resolve) => {
+            //     notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
+            //     res.redirect('/');
+            // });
 
             const updateMatchResult = await new Promise((resolve) => {
                 match.updateMatch_accept(data, resolve);
@@ -166,12 +160,12 @@ module.exports = {
 
             var matchTeamObj = {
                 team1 : {
-                    id : matchTeams[0].user_id,
-                    opponent_hp : (matchTeams[0].hp).replace(/-/g, '')
+                    opponent_id : matchTeams[1].user_id,
+                    hp : (matchTeams[0].hp).replace(/-/g, '')
                 },
                 team2 : {
-                    id : matchTeams[1].user_id,
-                    opponent_hp : (matchTeams[1].hp).replace(/-/g, ''),
+                    opponent_id : matchTeams[0].user_id,
+                    hp : (matchTeams[1].hp).replace(/-/g, ''),
                 }
             }
 
