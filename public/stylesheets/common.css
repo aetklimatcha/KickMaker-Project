@@ -39,7 +39,7 @@ header {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 9;
+  z-index: 2;
 }
 header > .inner {
   height: 50px;
