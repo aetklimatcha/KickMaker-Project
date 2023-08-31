@@ -186,7 +186,7 @@ router.get('/edit-match', cookieJwtAuth,header,main.edit_matchview);
 /**
  * @swagger
  * paths:
- *  /game/team-review/:pageId:
+ *  /game/team-review/:pageId?id={id}:
  *    get:
  *      summary: "리뷰 작성 페이지"
  *      description: "리뷰 작성 페이지"
