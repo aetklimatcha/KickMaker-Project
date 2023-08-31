@@ -275,16 +275,6 @@ module.exports = {
 
         else {
             var opponent_id = req.user_id == review_match_info.home_userid ? review_match_info.home_userid : review_match_info.away_userid;
-            // console.log ('pageId:');
-            // console.log (req.params.pageId);
-            // console.log ('loginTeam:');
-            // console.log (req.header.loginresult);
-            // console.log ('notifications:');
-            // console.log (req.header.loginresult);
-            // console.log ('Match:');
-            // console.log (review_match_info);
-            // console.log ('opponent_id:');
-            // console.log (opponent_id);
 
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,

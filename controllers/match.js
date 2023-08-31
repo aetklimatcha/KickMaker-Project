@@ -144,15 +144,15 @@ module.exports = {
             else if (matchTeams[1].user_id == req.user_id)
                 var loginteam = matchTeams[1];
 
-            // const delNotifResult = await new Promise((resolve) => {
-            //     notif.DeleteNotification_matchid(data.match_id, resolve);
-            // });
+            const delNotifResult = await new Promise((resolve) => {
+                notif.DeleteNotification_matchid(data.match_id, resolve);
+            });
 
-            // request_teamname = loginteam.teamname;
-            // const notiID = await new Promise((resolve) => {
-            //     notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
-            //     res.redirect('/');
-            // });
+            request_teamname = loginteam.teamname;
+            const notiID = await new Promise((resolve) => {
+                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
+                res.redirect('/');
+            });
 
             const updateMatchResult = await new Promise((resolve) => {
                 match.updateMatch_accept(data, resolve);
