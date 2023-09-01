@@ -16,9 +16,8 @@ module.exports = {
 
         // team에다가 승점 반영하기, 매너점수 반영하기 
         // { result: '승리', manner_rate: '나쁨' }
-        a = 1500
-        b = 1400
         switch (req.body.result) {
+            //
             case '승리':
                 bonusPoints = elo.changeScore(a, b, 1);
                 console.log(bonusPoints);
@@ -53,21 +52,22 @@ module.exports = {
                 manner.result = `manner_score = manner_score - 2 `;
                 break;
         }
-        //req.params.pageId로 상대 정보 가져오고, 그 아이디에 
+        
+        // //opponent에게 매너정보 담기
+        // var back2 = await new Promise((resolve) => {
+        //     team.updateAfterMatch(manner, req.body.opponent_id, resolve)
+        // });
 
-        var back2 = await new Promise((resolve) => {
-            team.updateAfterMatch(manner, req.body.opponent_id, resolve)
-        });
+        // //user에게 결과 정보 담기
+        // var back = await new Promise((resolve) => {
+        //     console.log(result)
+        //     team.updateAfterMatch(result, req.user_id, resolve)
+        // });
 
-        var back = await new Promise((resolve) => {
-            console.log(result)
-            team.updateAfterMatch(result, req.user_id, resolve)
-        });
-
-        var results = await new Promise((resolve) => {
-            teamreview.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, resolve)
-            res.redirect('/game/my-match');
-        });
+        // var results = await new Promise((resolve) => {
+        //     teamreview.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, resolve)
+        //     res.redirect('/game/my-match');
+        // });
 
         // review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function (result) {
         //     res.redirect('/my-match');
