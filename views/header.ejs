@@ -21,10 +21,16 @@
           <div class="menu__contents">
             <ul class="inner">
                 <li>
-                  <a href="/game/registered-match">등록한 경기 정보</a>
+                  <a href="/game/registered-match">등록한 경기</a>
                 </li>
                 <li>
-                  <a href="/game/my-match">매칭된 경기 정보</a>
+                  <a href="/game/my-match">매칭된 경기</a>
+                </li>
+                <li>
+                  <a href="/game/requested-match">요청된 경기</a>
+                </li>
+                <li>
+                  <a href="/game/">요청한 경기</a>
                 </li>
                 <li> 
                   <a href="/team/team-info">팀 정보</a>
@@ -56,15 +62,22 @@
           </div>
           <div class="menu__contents">
             <ul class="inner">
+              <li>
+              <a href="/game/requested-match"> 까꿍</a> 
+              </li>
               <% for (var i=0; i < notifications.length; i++) { %>
-                <% if (notifications[i].requesttype=='요청' ) { %>
-                  <li href="/requested-match"><a href="/game/requested-match">
-                      <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
-                  </a></li>
-                <% } else if (notifications[i].requesttype=='수락' ) { %>
-                  <li href="/requested-match"><a href="/game/requested-match">
+                <% if (notifications[i].requesttype == '요청' ) { %>
+                  <li>
+                    <a href="/game/requested-match">
+                      <%= notification[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
+                    </a>
+                  </li>
+                <% } else if (notifications[i].requesttype == '수락' ) { %>
+                  <li>
+                    <a href="/game/requested-match">
                     <%= notifications[i].request_teamname %>팀이 경기를 <%= notifications[i].requesttype %>하였습니다.
-                </a></li>
+                    </a>
+                  </li>
                 <% } %>
               <% } %>
             </ul>

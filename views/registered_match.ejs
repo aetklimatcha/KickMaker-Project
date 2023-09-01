@@ -75,7 +75,6 @@ establishment가 미성립인 row들만 뽑아 쓰기
           <div class="match_date">날짜</div>
           <div class="match_place">장소</div>
           <div class="match_time_start">경기 시작 시간</div>
-          <div class="match_time_end">경기 종료 시간</div>
           <div class="edit_match">수정하기</div>
         </div>
 
@@ -89,11 +88,10 @@ establishment가 미성립인 row들만 뽑아 쓰기
                   <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
                   <input type="hidden" name="match_place" value="<%= Matches[i].match_place %>">
                   <input type="hidden" name="match_time_start" value="<%= Matches[i].match_time_start %>">
-                  <input type="hidden" name="match_time_end" value="<%= Matches[i].match_time_end %>">
                   <div class="match_date"><%= Matches[i].match_date %></div>
                   <div class="match_place"><%= Matches[i].match_place %></div>
+                  <div class="match_stadium"><%=Matches[i].match_stadium %></div>
                   <div class="match_time_start"><%= Matches[i].match_time %></div>
-                  <div class="match_time_end"></div>
                   <div class="match_edit"onclick="location.href=('/game/edit-match')">
                     <div class="content">수정하기</div> 
                   </div>

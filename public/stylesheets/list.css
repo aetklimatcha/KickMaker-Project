@@ -94,8 +94,6 @@
   text-align:center;
   font-size:1.4rem;
   width: 16%;
-
-
 }
 
 .matchedInfo__card .accept .RQplace,
@@ -209,5 +207,17 @@
   text-indent: -9999px;
 }
 
+
+/* registered_match */
+
+.Matches .matchedInfo__card .top .match_place {
+  width: 40%;
+}
+.Matches .matchedInfo__card .edit .match_place{
+  width: 15%
+}
+.Matches .matchedInfo__card .edit .match_stadium {
+  width: 25%;
+}
 
 

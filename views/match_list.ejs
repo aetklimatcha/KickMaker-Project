@@ -84,7 +84,7 @@
         <% for (var i=0;  i < Matches.length; i++) { %>
           <!-- '성립'된 부분은 pass(continue)하고 '미성립'만 렌더링 -->
           <% if (Matches[i].establishment == '성립'){continue;}; %> 
-          <% var data = Matches[i]; %>
+          <!-- <% var data = Matches[i]; %> -->
           <div class="edit">
             <form action="/matching/request" method="post">
               <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
@@ -98,7 +98,7 @@
               <div class="match_time_start"><%= Matches[i].match_time %></div>
               
               <!-- 팀 정보 모달창 -->
-              <div class="teamname" id="modal_btn"><%= Matches[i].home_teamname %></div>
+              <div class="teamname" id="modal_btn"><%= Matches[i].hometeamInfo.teamname %></div>
               <div class="black_bg"></div>
               <div class="modal_wrap">
                 <div class="modal_body">

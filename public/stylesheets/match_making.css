@@ -39,6 +39,7 @@ label {
 
 .match_making__card {
   width: 800px;
+  padding: 30px;
   margin: 30px auto 50px;
   border-radius: 6px;
   background-color: #f6f5f0;
@@ -51,7 +52,7 @@ label {
 }
 
 .match_making__card form {
-  padding: 30px 22px;
+  /* padding: 30px 22px; */
 }
 
 .match_making__card form input {
@@ -72,7 +73,8 @@ label {
   font-size: 20px;
   cursor: pointer;
 }
-.option__title{
+.option__title,
+.title {
   font-weight: 700;
 }
 
@@ -189,5 +191,19 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 .match_making__card form label {
   margin-bottom: 10px;
-  text-align: center;
+  /* text-align: center; */
+}
+
+/* edit_match */
+
+.matchInfo {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.matchInfo .title {
+  padding: 15px 0;
+  color: #1B775A;
+}
+.matchInfo > p {
+  padding: 0 0 0 5px;
 }
