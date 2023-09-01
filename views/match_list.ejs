@@ -81,9 +81,25 @@
           <div class="request_match">경기 요청하기</div>
         </div>
 
+        
         <% for (var i=0;  i < Matches.length; i++) { %>
-          <!-- '성립'된 부분은 pass(continue)하고 '미성립'만 렌더링 -->
-          <% if (Matches[i].establishment == '성립'){continue;}; %> 
+          <!-- '성립'된 부분과 날짜 지난 경기는 pass(continue)하고 '미성립'만 렌더링 -->
+          <% let today = new Date(); %>
+          <% let year = today.getFullYear(); %>
+          <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>
+          <% let day = ('0' + today.getDate()).slice(-2); %>
+          <% let hours = ('0' + today.getHours()).slice(-2); %>
+          <% let minutes = ('0' + today.getMinutes()).slice(-2); %>
+          <% let seconds = ('0' + today.getSeconds()).slice(-2); %>
+
+
+          <% let dateString = year + '-' + month  + '-' + day; %>
+          <% let timeString = hours + ':' + minutes  + ':' + seconds; %>
+
+          <% let now = new Date(dateString + ' ' + timeString); %>
+          <% let matchDate = new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
+
+          <% if (Matches[i].establishment == '성립' || now >= matchDate ){continue;}; %> 
           <!-- <% var data = Matches[i]; %> -->
           <div class="edit">
             <form action="/matching/request" method="post">
