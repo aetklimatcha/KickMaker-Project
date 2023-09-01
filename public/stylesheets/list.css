@@ -8,11 +8,11 @@
 
 .matched h1,
 .Matches h1 {
-  color: #fff;
+  color: #2c2a29;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
-  padding: 100px 0 0 0;
+  padding: 130px 0 0 0;
 }
 .matchedInfo__card {
   width: 70%;
@@ -114,7 +114,6 @@
 .matchedInfo__card .requestedMatch .teamname,
 .matchedInfo__card .accept .RQteamname,
 .matchedInfo__card .accept .RQstart,
-.matchedInfo__card .edit .match_time_end,
 .matchedInfo__card .edit .teamname,
 .matchedInfo__card .edit .match_time_start,
 .matchedInfo__card .requestedMatch .overlap_start {
@@ -218,6 +217,16 @@
 }
 .Matches .matchedInfo__card .edit .match_stadium {
   width: 25%;
+}
+
+.Matches .matchedInfo__card .top .match_date,
+.Matches .matchedInfo__card .top .match_time_start,
+.Matches .matchedInfo__card .top .match_edit,
+
+.Matches .matchedInfo__card .edit .match_date,
+.Matches .matchedInfo__card .edit .match_time_start,
+.Matches .matchedInfo__card .edit .match_edit {
+  width: 20%;
 }
 
 
