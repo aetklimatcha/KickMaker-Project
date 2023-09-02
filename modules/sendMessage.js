@@ -104,7 +104,7 @@ async function sendMessage(receive_teamname, receive_hp, imagename) {
                 messages: [{
                     to: `${receive_hp}`,
                     subject : `경기 결과 입력용 QR코드 입니다`,
-                    content : `${receive_teamname}님! 상대팀 대표자에게 전송된 QR코드를 통해 리뷰페이지에 접속하여 경기 결과를 남겨주세요!`
+                    content : `${receive_teamname}님! 상대팀 대표자에게 전송된 QR코드를 통해 리뷰페이지에 접속하여 경기 결과를 남겨주세요!\n(승패입력에 오류가 없는지 함께 확인하세요)`
                 }],
                 files: [
                     {

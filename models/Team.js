@@ -79,6 +79,30 @@ module.exports = {
         })
     },
 
+    teamWinLose: function (winnerId, loserId, callback) {
+        const querystring = `
+        SELECT
+            'winner' AS userType,
+            win_score AS win_score
+        FROM Team
+        WHERE user_id = ${winnerId}
+        UNION ALL
+        SELECT
+            'loser' AS userType,
+            win_score AS win_score
+        FROM Team
+        WHERE user_id = ${loserId};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result);
+            } else {
+                // 결과가 없을 시 
+                callback(null);
+            }
+        })
+    },
+
     TeamAndMatchForSMS: function (match_id, callback) {
         const querystring = `
         SELECT m.match_id, 
@@ -152,12 +176,55 @@ module.exports = {
         })
     },
 
-    updateAfterMatch: function (data, user_id,callback) {
+    updateResult: function (data,callback) {
 
-        var querystring = `UPDATE Team SET `+ data.result +`WHERE user_id=${user_id}`;
+        var querystring = `UPDATE Team
+        SET win_score = CASE
+            WHEN user_id = ${data.winnerId} THEN ${data.winnerScore}
+            WHEN user_id = ${data.loserId} THEN ${data.loserScore}
+            ELSE win_score
+        END,
+        win = CASE
+            WHEN user_id = ${data.winnerId} THEN win + 1
+            ELSE win
+        END,
+        lose = CASE
+            WHEN user_id = ${data.loserId} THEN lose + 1
+            ELSE lose
+        END,
+        totalMatches = totalMatches + 1
+        WHERE user_id IN (${data.winnerId}, ${data.loserId});`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
+
+            callback(rows);
+        })
+    },
+
+    updateDraw: function (data,callback) {
+
+        var querystring = `UPDATE Team
+        SET win_score = CASE
+            WHEN user_id = ${data.winnerId} THEN ${data.winnerScore}
+            WHEN user_id = ${data.loserId} THEN ${data.loserScore}
+            ELSE win_score
+        END,
+        draw = draw + 1,
+        totalMatches = totalMatches + 1
+        WHERE user_id IN (${data.winnerId}, ${data.loserId});`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
+
+            callback(rows);
+        })
+    },
+
+    updateManner: function (query, user_id,callback) {
+
+        var querystring = `UPDATE Team SET `+ query +`WHERE user_id=${user_id}`;
+        mysql.query(querystring, (err, rows) => {
+            if ( err ) throw err;
 
             callback(rows);
         })

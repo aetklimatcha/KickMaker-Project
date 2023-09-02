@@ -42,6 +42,7 @@ module.exports = {
         const result = await new Promise((resolve) => {
             match.gethome_id(req.user_id, resolve);
         });
+
         res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
             loginTeam: req.header.loginresult,
             notifications: req.header.notifications,
@@ -82,7 +83,6 @@ module.exports = {
                     matches[i].weather = gameweather;
                 }
             }
-            console.log(matches);
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -236,7 +236,7 @@ module.exports = {
             review_match_info.opponentTeam = opponentTeam;
 
             //홈인지 어웨이인지 여부
-            const isHomeTeam = (req.user_id == review_match_info.home_userid) ? true : false;
+            const isHomeTeam = (req.user_id == review_match_info.home_userid) ? 'home' : 'away';
 
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
@@ -249,71 +249,87 @@ module.exports = {
     },
 
     team_review: async (req, res) => {
+        try {
 
-        var result = new Object();
-        var manner = new Object();
+            const elo = require('../modules/elo');
 
-        //matchresult 앞이 이기면 1, 뒤가 이기면 0
-        // teamAscore = elo.changeScore(teamAscore, teamBscore, matchresult)
+            // 홈 팀이 경기결과를 입력한 때
+            if (req.body.winner) {
+                //무승부인 경우
+                if (req.body == '무승부') {
 
-        // team에다가 승점 반영하기, 매너점수 반영하기 
-        // { result: '승리', manner_rate: '나쁨' }
-        switch (req.body.result) {
-            //
-            case '승리':
-                bonusPoints = elo.changeScore(a, b, 1);
-                console.log(bonusPoints);
-                result.result = `totalMatches = totalMatches+1, win_score = ${bonusPoints[0]}, win = win+1 `
-                break;
-            case '무승부':
-                bonusPoints = elo.changeScore(a, b, 0.5);
-                console.log(bonusPoints);
-                result.result = `totalMatches = totalMatches+1, win_score = ${bonusPoints[0]}, draw = draw+1 `
-                break;
-            case '패배':
-                bonusPoints = elo.changeScore(a, b, 0);
-                console.log(bonusPoints);
-                result.result = `totalMatches = totalMatches+1, win_score = ${bonusPoints[0]}, lose = lose+1 `
-                break;
+                    //표기상 win, lose지만 상관없음!
+                    const winnerId = req.user_id;
+                    const loserId = req.body.opponent_id;
+
+                    //얘 때문에 함수명, 변수 바꾸는 거 좋을듯
+                    const matchTeamscore = await new Promise((resolve) => {
+                        team.teamWinLose(winnerId, loserId, resolve);
+                    });
+
+                    const newScore = elo.changeScore(matchTeamscore[0].win_score, matchTeamscore[1].win_score, 0.5);
+                    var changedScore = Math.abs(newScore[0] - matchTeamscore[0].win_score);
+
+                    var draw = await new Promise((resolve) => {
+                        const matchData = {
+                            winnerId: req.body.winner,
+                            loserId: loserId,
+                            winnerScore: newScore[0],
+                            loserScore: newScore[1],
+                        }
+                        //Team 테이블에 반영
+                        team.updateResult(matchData, resolve)
+                    });
+
+
+                    //승패가 갈린경우
+                } else {
+                    const winnerId = req.body.winner;
+                    const loserId = (req.user_id == req.body.winner) ? req.body.opponent_id : req.user_id;
+
+                    const matchTeamscore = await new Promise((resolve) => {
+                        team.teamWinLose(winnerId, loserId, resolve);
+                    });
+
+                    //team에서 score가져오기
+                    const newScore = elo.changeScore(matchTeamscore[0].win_score, matchTeamscore[1].win_score, 1)
+                    var changedScore = Math.abs(newScore[0] - matchTeamscore[0].win_score);
+
+                    var back = await new Promise((resolve) => {
+                        const matchData = {
+                            winnerId: req.body.winner,
+                            loserId: loserId,
+                            winnerScore: newScore[0],
+                            loserScore: newScore[1],
+                        }
+                        //Team 테이블에 반영
+                        team.updateResult(matchData, resolve)
+                    });
+                }
+            }
+            //매너 반영
+            var manner = ` manner_score = manner_score ${req.body.manner_rate} `;
+
+            // //opponent에게 매너정보 담기
+            var back2 = await new Promise((resolve) => {
+                team.updateManner(manner, req.body.opponent_id, resolve)
+            });
+
+            if (req.body.isHomeTeam == 'home') {
+                var reviewQuery = ` winner=${req.body.winner}, changedScore=${changedScore}, home_userid=${req.user_id}, away_received_manner=${req.body.manner_rate} `
+
+            } else if (req.body.isHomeTeam == 'away') {
+                var reviewQuery = ` away_userid=${req.user_id}, home_received_manner=${req.body.manner_rate} `
+            }
+
+            var results = await new Promise((resolve) => {
+                review.updateTeamReview(reviewQuery, resolve)
+                res.redirect('/game/my-match');
+            });
+        } catch (err) {
+            console.log(err);
+            throw err;
         }
-
-        switch (req.body.manner_rate) {
-            case '매우 좋음':
-                manner.result = `manner_score = manner_score + 2 `;
-                break;
-            case '좋음':
-                manner.result = `manner_score = manner_score + 1 `;
-                break;
-            case '보통':
-                manner.result = `manner_score = manner_score + 0 `;
-                break;
-            case '나쁨':
-                manner.result = `manner_score = manner_score - 1 `;
-                break;
-            case '매우 나쁨':
-                manner.result = `manner_score = manner_score - 2 `;
-                break;
-        }
-        
-        // //opponent에게 매너정보 담기
-        // var back2 = await new Promise((resolve) => {
-        //     team.updateAfterMatch(manner, req.body.opponent_id, resolve)
-        // });
-
-        // //user에게 결과 정보 담기
-        // var back = await new Promise((resolve) => {
-        //     console.log(result)
-        //     team.updateAfterMatch(result, req.user_id, resolve)
-        // });
-
-        // var results = await new Promise((resolve) => {
-        //     teamreview.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, resolve)
-        //     res.redirect('/game/my-match');
-        // });
-
-        // review.insertTeamReview(req.params.pageId, req.user_id, req.body.result, req.body.manner_rate, function (result) {
-        //     res.redirect('/my-match');
-        // });
     },
 
     match_accept: async (req, res) => {
@@ -372,6 +388,12 @@ module.exports = {
             const updateMatchResult = await new Promise((resolve) => {
                 match.updateMatch_accept(data, resolve);
             });
+
+            var results = await new Promise((resolve) => {
+                review.insertTeamReview(data.match_id, resolve)
+                res.redirect('/game/my-match');
+            });
+
         } catch (error) {
             console.error(error);
             // Handle error response

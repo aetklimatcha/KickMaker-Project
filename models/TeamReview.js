@@ -39,20 +39,19 @@ module.exports = {
         },
 
     //TeamReview에 정보(경기번호, 팀아이디, 경기결과, 매너평점) 삽입
-    insertTeamReview: function ( match_id, user_id, result, manner_rate, callback ) {
-        const querystring = `INSERT INTO TeamReview ( match_id, user_id, result, manner_rate ) VALUES ( '${match_id}', '${user_id}', '${result}', '${manner_rate}');`;
+    insertTeamReview: function ( match_id, callback ) {
+        const querystring = `INSERT INTO TeamReview ( match_id ) VALUES ('${match_id}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err; 
-        callback(rows.insertTeamReview);
+        callback(rows);
         });
     },
 
     //TeamReview 정보 수정
     updateTeamReview: function (data, callback) {
-        var querystring = `UPDATE TeamReview SET match_id='${data.match_id}', user_id='${data.user_id}', result='${data.result}', manner_rate='${data.manner_rate}'`;
+        var querystring = `UPDATE TeamReview SET ${data};`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
-            console.log( rows );
 
             callback(rows);
         })

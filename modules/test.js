@@ -1,11 +1,8 @@
-function test (a , b) {
-    var txt = ''
-    txt += a;
-    if (b){
-        txt += b;
+y=1
+if (y=1) {
+    const = 3;
+    if (y=1) {
+        const b=3
     }
-
-    return txt;
-} 
-
-console.log(test('go'));
+    console.log(b)
+}

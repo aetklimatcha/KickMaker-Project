@@ -88,8 +88,8 @@ module.exports = {
     },
 
     //Match 메이킹시에 매치 삽입
-    insertMatch: function ( home_userid, match_date, match_place, match_time, created, stadium, nx, ny, callback ) {
-        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, match_time, created, stadium, nx, ny) VALUES ( '${home_userid}', '${match_date}','${match_place}','${match_time}','${created}', '${stadium}', '${nx}' , '${ny}');`;
+    insertMatch: function ( home_userid, match_date, match_place, match_time, stadium, nx, ny, callback ) {
+        const querystring = `INSERT INTO Matches ( home_userid, match_date, match_place, match_time, created, stadium, nx, ny) VALUES ( '${home_userid}', '${match_date}','${match_place}','${match_time}', NOW() , '${stadium}', '${nx}' , '${ny}');`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
         callback(rows.insertId);
