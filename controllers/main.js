@@ -335,44 +335,52 @@ module.exports = {
     },
 
     requested_matchview: async (req, res) => {
-
-        var notifications = await new Promise((resolve) => {
-            notif.getnotif_userid(req.user_id, resolve);
-        });
-
-        // let count = 0;
-        const updatedNotifications = []; // 수정된 notifications를 저장할 배열
-        let counter = 0; // 완료된 비동기 작업의 수를 추적하는 카운터 변수
-
-        notifications.forEach(function (notification, i) {
-            match.getmatch_id(notification.match_id, function (OG) {
-                const date = new Date(OG.match_date);
-                //const formattedDate = date.toISOString().split("T")[0];
-                const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-                const updatedNotification = {
-                    notif_id: notification.notif_id,
-                    requesttype: notification.requesttype,
-                    match_id: notification.match_id,
-                    date: formattedDate,
-                    time: notification.match_time,
-                    RQuserid: notification.request_userid,
-                    RQteamname: notification.request_teamname,
-                    place: notification.match_place,
-                };
-                updatedNotifications[i] = updatedNotification;
-                counter++;
-
-                if (counter === notifications.length) {
-                    console.log(updatedNotifications)
-                    // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
-                    res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
-                        loginTeam: req.header.loginresult,
-                        notifications: req.header.notifications,
-                        matchinfo: updatedNotifications,
-                    });
-                }
+        try {
+            var notifications = await new Promise((resolve) => {
+                notif.getnotif_userid(req.user_id, resolve);
             });
-        });
+
+            // let count = 0;
+            const updatedNotifications = []; // 수정된 notifications를 저장할 배열
+            let counter = 0; // 완료된 비동기 작업의 수를 추적하는 카운터 변수
+
+            notifications.forEach(function (notification, i) {
+                match.getmatch_id(notification.match_id, function (OG) {
+                    const date = new Date(OG.match_date);
+                    //const formattedDate = date.toISOString().split("T")[0];
+                    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+                    const updatedNotification = {
+                        notif_id: notification.notif_id,
+                        requesttype: notification.requesttype,
+                        match_id: notification.match_id,
+                        date: formattedDate,
+                        time: notification.match_time,
+                        RQuserid: notification.request_userid,
+                        RQteamname: notification.request_teamname,
+                        place: notification.match_place,
+                    };
+                    updatedNotifications[i] = updatedNotification;
+                    counter++;
+
+                    if (counter === notifications.length) {
+                        console.log(updatedNotifications)
+                        // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
+                        res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
+                            loginTeam: req.header.loginresult,
+                            notifications: req.header.notifications,
+                            matchinfo: updatedNotifications,
+                        });
+                    }
+                });
+            });
+        } catch (err) {
+            console.log('requested match 에러');
+            console.log(err);
+            res.write("<script>alert('/requested match에서 에러 발생')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+            return;
+        }
     },
 
     registered_matchview: async (req, res) => {
