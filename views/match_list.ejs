@@ -112,19 +112,8 @@
               <div class="match_date"><%= Matches[i].match_date %></div>
               <div class="match_place"><%= Matches[i].match_place %></div>
               <div class="match_time_start"><%= Matches[i].match_time %></div>
-              
-              <!-- 팀 정보 모달창 -->
-              <div class="teamname" id="modal_btn"><%= Matches[i].hometeamInfo.teamname %></div>
-              <div class="black_bg"></div>
-              <div class="modal_wrap">
-                <div class="modal_body">
-                  <div class="modal_close">
-                    <a href="javascript:void(0)">close</a>
-                  </div>
-                  <div class="team_info">
-                        까꿍
-                  </div>
-                </div>  
+              <div class="teamname" data-modal-id="<%= i %>">
+                <%= Matches[i].hometeamInfo.teamname %>
               </div>
 
               <button class="request_match enter fade-in" type="submit" >
@@ -137,23 +126,42 @@
         </div>
     </section>
 
-    <script>
-      window.onload = function() {
-   
-      function onClick() {
-          document.querySelector('.modal_wrap').style.display ='block';
-          document.querySelector('.black_bg').style.display ='block';
-      }   
-      function offClick() {
-          document.querySelector('.modal_wrap').style.display ='none';
-          document.querySelector('.black_bg').style.display ='none';
-      }
-   
-      document.getElementById('modal_btn').addEventListener('click', onClick);
-      document.querySelector('.modal_close').addEventListener('click', offClick);
-   
-  };
-
+  <!-- Team information modals -->
+  <% for (var i=0; i < Matches.length; i++) { %>
+    <div class="black_bg" id="black_bg_<%= i %>"></div>
+    <div class="modal_wrap" id="modal_<%= i %>">
+      <div class="modal_body">
+        <div class="modal_close" id="modal_close_<%= i %>">
+          <a href="javascript:void(0)">close</a>
+        </div>
+        <div class="team_info">
+          <%= Matches[i].hometeamInfo.teamname %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  
+  <script>
+    // JavaScript to handle modals
+    document.addEventListener('DOMContentLoaded', function () {
+      const modalButtons = document.querySelectorAll('[data-modal-id]');
+      const modalCloses = document.querySelectorAll('[id^="modal_close_"]');
+      const blackBgs = document.querySelectorAll('[id^="black_bg_"]');
+      modalButtons.forEach(button => {
+        const modalId = button.getAttribute('data-modal-id');
+        button.addEventListener('click', () => {
+          document.getElementById(`modal_${modalId}`).style.display = 'block';
+          document.getElementById(`black_bg_${modalId}`).style.display = 'block';
+        });
+      });
+      modalCloses.forEach(close => {
+        const modalId = close.id.split('_')[2];
+        close.addEventListener('click', () => {
+          document.getElementById(`modal_${modalId}`).style.display = 'none';
+          document.getElementById(`black_bg_${modalId}`).style.display = 'none';
+        });
+      });
+    });
   </script>
 
 
