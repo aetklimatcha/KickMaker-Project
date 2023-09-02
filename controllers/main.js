@@ -9,6 +9,9 @@ const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
 const { log } = require("console");
 
+const jwt = require('jsonwebtoken');
+const secretKey = require('../config/secretkey').secretKey;
+const options = require('../config/secretkey').options;
 
 module.exports = {
 
