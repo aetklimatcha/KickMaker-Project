@@ -303,8 +303,11 @@ router.post('/edit-match/:pageId', cookieJwtAuth,header,game.edit_match);
  *       "200":
  *         description: /team/my-match 리다이렉션
  */
-router.get('/team-review/:pageId', cookieJwtAuth,header,game.team_reviewview);
-router.post('/team-review/:pageId', cookieJwtAuth,header,game.team_review);
+router.get('/review/:pageId', cookieJwtAuth,header,game.team_reviewview);
+router.post('/review/:pageId', cookieJwtAuth,header,game.team_review);
+
+
+// router.get('/review-result/:pageId', cookieJwtAuth,header,game.review_resultview);
 
 /**
  * @swagger
