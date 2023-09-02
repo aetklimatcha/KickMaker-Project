@@ -44,94 +44,87 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap"
-    rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="/public/stylesheets/common.css">
   <link rel="stylesheet" href="/public/stylesheets/list.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>match_list</title>
 </head>
-
 <body>
+<!--HEADER-->
   <header>
     <%- include ("./header.ejs") %>
   </header>
 
-  <section class="Team">
-    <!-- <h1>등록된 경기 목록</h1> -->
-    <div class="matchedInfo__card">
-      <div class="top">
-        <div class="match_date">날짜</div>
-        <div class="match_place">장소</div>
-        <div class="match_time_start">경기 시작 시간</div>
-        <div class="teamname">팀 정보</div>
-        <div class="request_match">경기 요청하기</div>
-      </div>
+    <section class="Team">
+      <!-- <h1>등록된 경기 목록</h1> -->
+      <div class="matchedInfo__card">
+        <div class="top">
+          <div class="match_date">날짜</div>
+          <div class="match_place">장소</div>
+          <div class="match_time_start">경기 시작 시간</div>
+          <div class="teamname">팀 정보</div>
+          <div class="request_match">경기 요청하기</div>
+        </div>
 
-      <% for (var i=0; i < Matches.length; i++) { %>
-        <!-- '성립'된 부분과 날짜 지난 경기는 pass(continue)하고 '미성립'만 렌더링 -->
-        <% let today=new Date(); %>
-          <% let year=today.getFullYear(); %>
-            <% let month=('0' + (today.getMonth() + 1)).slice(-2); %>
-              <% let day=('0' + today.getDate()).slice(-2); %>
-                <% let hours=('0' + today.getHours()).slice(-2); %>
-                  <% let minutes=('0' + today.getMinutes()).slice(-2); %>
-                    <% let seconds=('0' + today.getSeconds()).slice(-2); %>
+        
+        <% for (var i=0;  i < Matches.length; i++) { %>
+          <!-- '성립'된 경기 또는 날짜 지난 경기는 pass(continue)하고 '미성립'만 렌더링 -->
+          <% let today = new Date(); %>
+          <% let year = today.getFullYear(); %>
+          <% let month = ('0' + (today.getMonth() + 1)).slice(-2); %>
+          <% let day = ('0' + today.getDate()).slice(-2); %>
+          <% let hours = ('0' + today.getHours()).slice(-2); %>
+          <% let minutes = ('0' + today.getMinutes()).slice(-2); %>
+          <% let seconds = ('0' + today.getSeconds()).slice(-2); %>
 
-                      <% let dateString=year + '-' + month + '-' + day; %>
-                        <% let timeString=hours + ':' + minutes + ':' + seconds; %>
 
-                          <% let now=new Date(dateString + ' ' + timeString); %>
-                            <% let matchDate=new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
+          <% let dateString = year + '-' + month  + '-' + day; %>
+          <% let timeString = hours + ':' + minutes  + ':' + seconds; %>
 
-                              <% if (Matches[i].establishment=='성립' || now>= matchDate) { continue; }; %>
+          <% let now = new Date(dateString + ' ' + timeString); %>
+          <% let matchDate = new Date(Matches[i].match_date + ' ' + Matches[i].match_time); %>
 
-                                <div class="edit">
-                                  <form action="/matching/request" method="post">
-                                    <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
-                                    <input type="hidden" name="home_userid" value="<%= Matches[i].home_userid %>">
-                                    <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
-                                    <input type="hidden" name="teamname" value="<%= Matches[i].home_teamname %>">
-                                    <input type="hidden" name="match_place" value="<%= Matches[i].match_place %>">
-                                    <input type="hidden" name="match_time" value="<%= Matches[i].match_time  %>">
-                                    <div class="match_date">
-                                      <%= Matches[i].match_date %>
-                                    </div>
-                                    <div class="match_place">
-                                      <%= Matches[i].match_place %>
-                                    </div>
-                                    <div class="match_time_start">
-                                      <%= Matches[i].match_time %>
-                                    </div>
-                                    <div class="teamname" data-modal-id="<%= i %>">
-                                      <%= Matches[i].hometeamInfo.teamname %>
-                                    </div>
-                                    <button class="request_match enter fade-in" type="submit">
-                                      경기 요청
-                                    </button>
-                                  </form>
-                                </div>
-                                <% } %>
-    </div>
-  </section>
+          <% if (Matches[i].establishment == '성립' || now >= matchDate ){continue;}; %> 
+          <!-- <% var data = Matches[i]; %> -->
+          <div class="edit">
+            <form action="/matching/request" method="post">
+              <input type="hidden" name="match_id" value="<%= Matches[i].match_id %>">
+              <input type="hidden" name="home_userid" value="<%= Matches[i].home_userid %>">
+              <input type="hidden" name="match_date" value="<%= Matches[i].match_date %>">
+              <input type="hidden" name="teamname" value="<%= Matches[i].home_teamname %>">
+              <input type="hidden" name="match_place" value="<%= Matches[i].match_place %>">
+              <input type="hidden" name="match_time" value="<%= Matches[i].match_time  %>">
+              <div class="match_date"><%= Matches[i].match_date %></div>
+              <div class="match_place"><%= Matches[i].match_place %></div>
+              <div class="match_time_start"><%= Matches[i].match_time %></div>
+              <div class="teamname" data-modal-id="<%= i %>">
+                <%= Matches[i].hometeamInfo.teamname %>
+              </div>
+
+              <button class="request_match enter fade-in" type="submit" >
+                경기 요청
+              </button>
+            </form>
+          </div>
+        <%  } %>
+              
+        </div>
+    </section>
 
   <!-- Team information modals -->
   <% for (var i=0; i < Matches.length; i++) { %>
@@ -147,31 +140,30 @@
       </div>
     </div>
     <% } %>
-
-      <script>
-        // JavaScript to handle modals
-        document.addEventListener('DOMContentLoaded', function () {
-          const modalButtons = document.querySelectorAll('[data-modal-id]');
-          const modalCloses = document.querySelectorAll('[id^="modal_close_"]');
-          const blackBgs = document.querySelectorAll('[id^="black_bg_"]');
-
-          modalButtons.forEach(button => {
-            const modalId = button.getAttribute('data-modal-id');
-            button.addEventListener('click', () => {
-              document.getElementById(`modal_${modalId}`).style.display = 'block';
-              document.getElementById(`black_bg_${modalId}`).style.display = 'block';
-            });
-          });
-
-          modalCloses.forEach(close => {
-            const modalId = close.id.split('_')[2];
-            close.addEventListener('click', () => {
-              document.getElementById(`modal_${modalId}`).style.display = 'none';
-              document.getElementById(`black_bg_${modalId}`).style.display = 'none';
-            });
-          });
+  
+  <script>
+    // JavaScript to handle modals
+    document.addEventListener('DOMContentLoaded', function () {
+      const modalButtons = document.querySelectorAll('[data-modal-id]');
+      const modalCloses = document.querySelectorAll('[id^="modal_close_"]');
+      const blackBgs = document.querySelectorAll('[id^="black_bg_"]');
+      modalButtons.forEach(button => {
+        const modalId = button.getAttribute('data-modal-id');
+        button.addEventListener('click', () => {
+          document.getElementById(`modal_${modalId}`).style.display = 'block';
+          document.getElementById(`black_bg_${modalId}`).style.display = 'block';
         });
-      </script>
-</body>
+      });
+      modalCloses.forEach(close => {
+        const modalId = close.id.split('_')[2];
+        close.addEventListener('click', () => {
+          document.getElementById(`modal_${modalId}`).style.display = 'none';
+          document.getElementById(`black_bg_${modalId}`).style.display = 'none';
+        });
+      });
+    });
+  </script>
 
+
+</body>
 </html>

@@ -55,7 +55,7 @@ establishment가 미성립인 row들만 뽑아 쓰기
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;500;700&family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/public/stylesheets/common.css">
-  <link rel="stylesheet" href="/public/stylesheets/list.css">
+  <link rel="stylesheet" href="/public/stylesheets/registered_match.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -75,7 +75,7 @@ establishment가 미성립인 row들만 뽑아 쓰기
           <div class="match_date">날짜</div>
           <div class="match_place">장소</div>
           <div class="match_time_start">경기 시작 시간</div>
-          <div class="edit_match">수정하기</div>
+          <div class="match_edit">수정하기</div>
         </div>
 
         <% if (Matches == null) { %>
@@ -90,7 +90,7 @@ establishment가 미성립인 row들만 뽑아 쓰기
                   <input type="hidden" name="match_time_start" value="<%= Matches[i].match_time_start %>">
                   <div class="match_date"><%= Matches[i].match_date %></div>
                   <div class="match_place"><%= Matches[i].match_place %></div>
-                  <div class="match_stadium"><%=Matches[i].match_stadium %></div>
+                  <div class="match_stadium"><%=Matches[i].stadium %></div>
                   <div class="match_time_start"><%= Matches[i].match_time %></div>
                   <div class="match_edit"onclick="location.href=('/game/edit-match/<%= Matches[i].match_id %>')">
                     <div class="content">수정하기</div> 
