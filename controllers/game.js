@@ -179,7 +179,7 @@ module.exports = {
         }
     },
 
-    team_reviewview: async (req, res) => {
+    reviewview: async (req, res) => {
         const messageCrypt = require('../modules/messageCrypt');
         const queryId = messageCrypt.decryptString(req.query.id);
 
@@ -238,7 +238,7 @@ module.exports = {
             //홈인지 어웨이인지 여부
             const isHomeTeam = (req.user_id == review_match_info.home_userid) ? 'home' : 'away';
 
-            res.render(path.join(__dirname + '/../views/team_review.ejs'), {
+            res.render(path.join(__dirname + '/../views/review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -248,7 +248,7 @@ module.exports = {
         }
     },
 
-    team_review: async (req, res) => {
+    review: async (req, res) => {
         try {
 
             const elo = require('../modules/elo');
@@ -329,6 +329,42 @@ module.exports = {
         } catch (err) {
             console.log(err);
             throw err;
+        }
+    },
+
+    review_resultview: async (req, res) => {
+        try {
+
+            const review_match_info = await new Promise((resolve) => {
+                review.getreview_matchid(req.params.pageId, resolve);
+            });
+
+            const result = await new Promise((resolve) => {
+                team.getTwoTeam(review_match_info.home_userid, review_match_info.away_userid, resolve);
+            });
+
+            var MatchResult = review_match_info;
+            
+            if (result[0].user_id == review_match_info.winner) {
+                MatchResult.winner = result[0];
+                MatchResult.loser = result[1];
+            } else {
+                MatchResult.winner = result[1];
+                MatchResult.loser = result[0];
+            }
+
+            res.render(path.join(__dirname + '/../views/review_result.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+                matchResult: MatchResult
+            });
+
+        } catch (err) {
+            console.log('에러');
+            console.log(err);
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+            return;
         }
     },
 

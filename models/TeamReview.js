@@ -31,7 +31,7 @@ module.exports = {
             mysql.query(querystring, function (error, result) {
                 if ( error ) throw error;
                 if(result.length) {
-                    callback(result);
+                    callback(result[0]);
                 }
                 // 결과가 없을 시 
                 callback({kind: "not_found"});
