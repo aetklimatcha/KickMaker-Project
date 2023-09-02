@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const match = require('../controllers/match');
 const secretKey = require('../config/secretkey').secretKey;
 const options = require('../config/secretkey').options;
 

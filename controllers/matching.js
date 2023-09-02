@@ -1,16 +1,71 @@
+require("dotenv").config({ path: "./config/.env" });
+
 const path = require("path");
-const team = require("../models/Team")
+
+const team = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
-const findMatch = require("../modules/findMatch");
-//const { match } = require("assert");
-const jwt = require('jsonwebtoken');
-const { create } = require("domain");
-const secretKey = require('../config/secretkey').secretKey;
-const options = require('../config/secretkey').options;
-require('dotenv').config();
+const stadium = require("../modules/getStadium");
+
 
 module.exports = {
+
+    match_listview: async (req, res) => {
+        try {
+
+            var allNomatches = await new Promise((resolve) => {
+                match.getAllnoMatch(req.user_id ,resolve)
+            });
+
+            var homeUserIdArray = []
+            allNomatches.forEach(match => {
+                homeUserIdArray.push(match.home_userid);
+            })
+
+            // const homeTeamPromises = allNomatches.forEach(async match => {
+            //     var hometeaminfo = await new Promise((resolve) => {
+            //         team.getOneTeam(match.home_userid, resolve)
+            //         console.log('ms')
+            //     });
+            //     match.hometeamInfo = hometeaminfo;
+            //     console.log('for')
+            // })
+
+            const hometeaminfo = await new Promise((resolve) => {
+                team.getQueryTeam(homeUserIdArray, resolve);
+            });
+
+            const homeTeamPromises = allNomatches.map(async match => {
+                var foundTeam = hometeaminfo.find(team => team.user_id == match.home_userid);
+                match.hometeamInfo = foundTeam;
+            });
+
+
+            await Promise.all(homeTeamPromises);
+            
+            console.log(allNomatches)
+            res.render(path.join(__dirname + '/../views/match_list.ejs'), {
+                loginTeam: req.header.loginresult,
+                Matches: allNomatches,
+                notifications: req.header.notifications,
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
+    },
+
+    match_makingview: async (req, res) => {
+        if (req.user_id == null) {
+            res.redirect('/signin')
+        } else {
+                    res.render(path.join(__dirname + '/../views/match_making.ejs'), {
+                        loginTeam: req.header.loginresult,
+                        notifications: req.header.notifications,
+                    });
+        }
+    },
 
     match_making : (req, res) => {
         
@@ -57,6 +112,55 @@ module.exports = {
             }
         });
     })
+    },
+
+    noMatchview: async (req, res) => {
+
+        res.render(path.join(__dirname + '/../views/noMatch.ejs'), {
+            loginTeam: req.header.loginresult,
+            notifications: req.header.notifications,
+        });
+    },
+
+    matchedview: async (req, res) => {
+        result = req.findMatches;
+        res.render(path.join(__dirname + '/../views/matched.ejs'), {
+            loginTeam: req.header.loginresult,
+            findTeams: result,
+            notifications: req.header.notifications,
+        });
+    },
+
+    confirm_placeview: async (req, res) => {
+        try {
+            result = req.myMatch;
+
+            //기본값 서초구로 설정해놨음!!!!!!!!!!
+
+            const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
+
+            var nx = 126.95518930412466;
+            var ny = 37.602181608910584;
+
+            if (req.query.nx != undefined) {
+                nx = req.query.nx;
+                ny = req.query.ny;
+            }
+
+            res.render(path.join(__dirname + '/../views/confirm_place.ejs'), {
+                loginTeam: req.header.loginresult,
+                myMatch: result,
+                notifications: req.header.notifications,
+                MAP_KEY: process.env.MAP_KEY,
+                stadium: stadiums,
+                nx: nx,
+                ny: ny,
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     insertMatch : (req,res) => {
@@ -108,104 +212,5 @@ module.exports = {
         });
     },
 
-    cancel_match: (req, res) => {
-        //로그인 사용자와 검증필요? 혹은 이중검증?
-        var data = req.body;
-        //메시지 전송 스케줄러 등록
-
-        const messageScheduler = require("../modules/messageScheduler");
-        messageScheduler.cancelReservation(data.match_id);
-
-        // match.DeleteMatch(req.body.match_id, function (result) {
-        //     console.log('at cancel_match : ' + result)
-        //     res.redirect('/');
-        // })
-    },
-
-    match_accept: async (req, res) => {
-        try {
-            // {
-            //   notif_id: '6',
-            //   date: '2023-08-31',
-            //   match_id: '97',
-            //   RQuserid: '15',
-            //   time: '13:00',
-            //   place: '강남구'
-            // }
-            const data = req.body;
-
-            //비동기 처리 만들것!
-            //이번 경기하는 두 팀 가져오기 (순서는 user_id 순서!)
-            const matchTeams = await new Promise((resolve) => {
-                team.TeamAndMatchForSMS(data.match_id, resolve);
-            });
-            
-            if (matchTeams.home_userid == req.user_id)
-                var loginteamname = matchTeams.home_teamname;
-            else if (matchTeams.away_userid == req.user_id)
-                var loginteamname = matchTeams.away_teamname;
-
-            var matchTeamObj = {
-                home : {
-                    teamname: matchTeams.home_teamname,
-                    opponent_id : matchTeams.away_userid,
-                    hp : matchTeams.home_hp.replace(/-/g, '')
-                },
-                away : {
-                    teamname: matchTeams.away_teamname,
-                    opponent_id :matchTeams.home_userid,
-                    hp : matchTeams.away_hp.replace(/-/g, ''),
-                }
-            }
-
-            var matchTime = new Date(data.date+' '+data.time);
-            matchTime.setMinutes(matchTime.getMinutes() - 60);
-
-            //메시지 전송 스케줄러 등록
-            const messageScheduler = require("../modules/messageScheduler");
-            messageScheduler.messageReservation(data.match_id, matchTeamObj, matchTime);
-            console.log(matchTime)
-            res.redirect('/game/requested-match');
-
-            //noti 삭제, 삽입. 매치에 반영
-            // const delNotifResult = await new Promise((resolve) => {
-            //     notif.DeleteNotification_matchid(data.match_id, resolve);
-            // });
-            // const notiID = await new Promise((resolve) => {
-            //     notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
-            //     res.redirect('/');
-            // });
-            // const updateMatchResult = await new Promise((resolve) => {
-            //     match.updateMatch_accept(data, resolve);
-            // });
-        } catch (error) {
-            console.error(error);
-            // Handle error response
-        }
-    },
-
-    match_reject : (req,res) => {
-        //여기서 할 일 
-        //noti 알림 삭제
-    
-    // [
-    // {
-    //  notif_id: 10,
-    //  match_id: 16,
-    //  date: '2023-05-18',
-    //  RQuserid : 1,
-    //  RQteamname: 'FC도봉',
-    //  RQplace: '강동구',
-    //  RQstart: '16:14',
-    //  OGplace: '강동구,강북구',
-    //  OGstart: '12:14:00',
-    //  OGend: '16:16:00'
-    // }
-    // ]
-
-        notif.DeleteNotification(req.body.notif_id, function () {
-            res.redirect('/game/requested-match');
-        });
-    },
 
 }

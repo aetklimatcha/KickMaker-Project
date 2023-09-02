@@ -4,13 +4,12 @@ const router = express.Router();
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 const { header } = require('../middleware/header');
 
-const main = require('../controllers/main');
-const match = require("../controllers/match");
-const review = require("../controllers/review");
+const game = require('../controllers/game');
+
 
 // match
 
-router.get('/match/:id', cookieJwtAuth,header,main.matchview);
+router.get('/match/:id', cookieJwtAuth,header,game.matchview);
 
 /**
 @swagger
@@ -42,7 +41,7 @@ router.get('/match/:id', cookieJwtAuth,header,main.matchview);
  *                           nx: 127.017
  *                           ny: 37.5256
  */
-router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
+router.get('/registered-match', cookieJwtAuth,header,game.registered_matchview);
 
 /**
 @swagger
@@ -128,7 +127,7 @@ router.get('/registered-match', cookieJwtAuth,header,main.registered_matchview);
  *                         away_teamname: teamname
  *                         weather: DateOverError
  */ 
-router.get('/my-match', cookieJwtAuth,header,main.my_matchview);
+router.get('/my-match', cookieJwtAuth,header,game.my_matchview);
 
 /**
 @swagger
@@ -158,7 +157,7 @@ router.get('/my-match', cookieJwtAuth,header,main.my_matchview);
  *                      RQteamname: 'FC나나'
  *                      place: '강동구'
  */
-router.get('/requested-match', cookieJwtAuth,header,main.requested_matchview);
+router.get('/requested-match', cookieJwtAuth,header,game.requested_matchview);
 
 /**
  * @swagger
@@ -193,7 +192,8 @@ router.get('/requested-match', cookieJwtAuth,header,main.requested_matchview);
  *                           ny: null
  *                           }                     
  */
-router.get('/edit-match/:pageId', cookieJwtAuth,header,main.edit_matchview);
+router.get('/edit-match/:pageId', cookieJwtAuth,header,game.edit_matchview);
+// router.post('/edit-match/:pageId', cookieJwtAuth,header,game.edit_match);
 
 /**
  * @swagger
@@ -303,8 +303,8 @@ router.get('/edit-match/:pageId', cookieJwtAuth,header,main.edit_matchview);
  *       "200":
  *         description: /team/my-match 리다이렉션
  */
-router.get('/team-review/:pageId', cookieJwtAuth,header,main.team_reviewview);
-router.post('/team-review/:pageId', cookieJwtAuth,header,review.team_review);
+router.get('/team-review/:pageId', cookieJwtAuth,header,game.team_reviewview);
+router.post('/team-review/:pageId', cookieJwtAuth,header,game.team_review);
 
 /**
  * @swagger
@@ -347,7 +347,7 @@ router.post('/team-review/:pageId', cookieJwtAuth,header,review.team_review);
  *       "200":
  *         description: 요청 notification삭제, 수락 notification 생성, Match에 away_userid, 메인 리다이렉션
  */
-router.post('/match-accept', cookieJwtAuth,header,match.match_accept);
+router.post('/match-accept', cookieJwtAuth,header,game.match_accept);
 
 /**
  * @swagger
@@ -375,7 +375,7 @@ router.post('/match-accept', cookieJwtAuth,header,match.match_accept);
  *       "200":
  *         description: 요청 notification삭제 /game/requested-match 리다이렉션
  */
-router.post('/match-reject', cookieJwtAuth,header,match.match_reject);
+router.post('/match-reject', cookieJwtAuth,header,game.match_reject);
 
 /**
  * @swagger
@@ -405,6 +405,6 @@ router.post('/match-reject', cookieJwtAuth,header,match.match_reject);
  *       "200":
  *         description: 요청 매치 match db에서 삭제 / 리다이렉션
  */
-router.post('/cancel-match', cookieJwtAuth,header,match.cancel_match);
+router.post('/cancel-match', cookieJwtAuth,header,game.cancel_match);
 
 module.exports = router; 

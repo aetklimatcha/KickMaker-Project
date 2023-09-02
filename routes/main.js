@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const main = require('../controllers/main');
-const signup = require("../controllers/signup");
-const login = require('../controllers/login');
-
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 const { header } = require('../middleware/header');
 const { uploadMiddleware } = require('../middleware/uploadMiddleware');
@@ -13,7 +9,14 @@ const team = require('./team');
 const game = require('./game');
 const matching = require('./matching');
 
+router.use('/team', team);
+router.use('/game', game);
+router.use('/matching', matching);
+
+
 // main
+
+const main = require('../controllers/main');
 
 /**
 @swagger
@@ -170,7 +173,7 @@ router.get('/signup',cookieJwtAuth,header, main.signupview);
  *       "실패":
  *         description: "로그인에 실패하였습니다"
  */
-router.post('/login',login.login_process);
+router.post('/login',main.login_process);
 /**
  * @swagger
  * paths:
@@ -183,7 +186,7 @@ router.post('/login',login.login_process);
  *       "200":
  *         description: 메인페이지 리다이렉션
  */
-router.post('/logout',login.logout);
+router.post('/logout',main.logout);
 /**
  * @swagger
  * paths:
@@ -213,7 +216,7 @@ router.post('/logout',login.logout);
  *       "200":
  *         description: 메인페이지 리다이렉션
  */
-router.post('/signup', uploadMiddleware,signup.signup);
+router.post('/signup', uploadMiddleware,main.signup);
 
 /**
  * @swagger
@@ -232,9 +235,5 @@ router.post('/tomain', cookieJwtAuth,header,main.tomain);
 //test page
 router.get('/maptest', cookieJwtAuth,header,main.maptestview);
 router.post('/upload',main.upload);
-
-router.use('/team', team);
-router.use('/game', game);
-router.use('/matching', matching);
 
 module.exports = router;

@@ -4,8 +4,8 @@ const router = express.Router();
 const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 const { header } = require('../middleware/header');
 
-const main = require('../controllers/main');
-const match = require("../controllers/match");
+const matching = require('../controllers/matching');
+
 
 // matching
 
@@ -54,7 +54,7 @@ const match = require("../controllers/match");
  *                              logo_image: 'fa4c3f1b-6c0d-4780-9e74-2c7c483013f7.jpg'
  *                             }
  */
-router.get('/match-list',cookieJwtAuth,header, main.match_listview);
+router.get('/match-list',cookieJwtAuth,header, matching.match_listview);
 
 /**
  * @swagger
@@ -99,8 +99,8 @@ router.get('/match-list',cookieJwtAuth,header, main.match_listview);
  *       "noMatch":
  *         description: 이전 제출 정보로 myMatchtoken발급 , /noMatch 리다이렉션
  */
-router.get('/match-making', cookieJwtAuth,header,main.match_makingview);
-router.post('/match-making', cookieJwtAuth,header,match.match_making);
+router.get('/match-making', cookieJwtAuth,header,matching.match_makingview);
+router.post('/match-making', cookieJwtAuth,header,matching.match_making);
 
 /**
 @swagger
@@ -113,7 +113,7 @@ router.post('/match-making', cookieJwtAuth,header,match.match_making);
  *       "200":
  *         description: 헤더생략
  */
-router.get('/noMatch',cookieJwtAuth,header, main.noMatchview);
+router.get('/noMatch',cookieJwtAuth,header, matching.noMatchview);
 
 /**
 @swagger
@@ -142,7 +142,7 @@ router.get('/noMatch',cookieJwtAuth,header, main.noMatchview);
  *                           win_score: 930
  *                           manner_score: 61
  */
-router.get('/matched', cookieJwtAuth,header,main.matchedview);
+router.get('/matched', cookieJwtAuth,header,matching.matchedview);
 
 /**
 @swagger
@@ -211,8 +211,8 @@ router.get('/matched', cookieJwtAuth,header,main.matchedview);
  *       "200":
  *         description: /team/registered-match 리다이렉션
  */
-router.get('/confirm-place',cookieJwtAuth,header, main.confirm_placeview);
-router.post('/confirm-place', cookieJwtAuth,header,match.insertMatch);
+router.get('/confirm-place',cookieJwtAuth,header, matching.confirm_placeview);
+router.post('/confirm-place', cookieJwtAuth,header,matching.insertMatch);
 
 /**
 @swagger
@@ -254,7 +254,7 @@ router.post('/confirm-place', cookieJwtAuth,header,match.insertMatch);
  *       "200":
  *         description: notification db에 요청 삽입, 메인 리다이렉션
  */
-router.post('/request', cookieJwtAuth,header,match.match_request);
+router.post('/request', cookieJwtAuth,header,matching.match_request);
 
 
 module.exports = router; 

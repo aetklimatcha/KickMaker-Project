@@ -1,52 +1,26 @@
+require("dotenv").config({ path: "./config/.env" });
+
 const path = require("path");
-const fs = require('fs');
+
 const team = require("../models/Team");
-const review = require("../models/TeamReview");
-const jwt = require('jsonwebtoken');
-const secretKey = require('../config/secretkey').secretKey;
-const options = require('../config/secretkey').options;
 
-module.exports= {
-    loginview : (req, res) => {
-        team.getAllTeam(function( result ) {
-            res.render(path.join(__dirname + '/../views/signin.ejs'), {
-                title: "testtitle",
-                Team: result
-            });
-            //console.log(result);
-        });  
-    },
 
-    login_process : (req, res) => {
-        team.getLoginTeam(req.body.id,req.body.password,function( result ) {
-            if(result==null){
-                login_fail();
-            } else {
-                payload = result.user_id;
-                login_success();
-            }
-        });        
-        //실패시 실패알람코드 추가필요
-        function login_fail () {   
-            res.write("<script>alert('로그인에 실패하였습니다.')</script>");
-            res.write("<script>window.location=\"/signin\"</script>");
-            res.end();
-        }
+module.exports = {
 
-        function login_success () {
-            token = jwt.sign(payload,secretKey,options);  
-            res.cookie('usertoken',token)
-            res.redirect('/')
-        }
-    },
-
-    logout : (req, res) => {
-        res.cookie('usertoken', null, {
-            maxAge: 0,
+    team_infoview: async (req, res) => {
+        res.render(path.join(__dirname + '/../views/team_info.ejs'), {
+            loginTeam: req.header.loginresult,
+            notifications: req.header.notifications,
         });
-        res.redirect('/')
     },
-    
+
+    edit_teamview: async (req, res) => {
+        res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
+            loginTeam: req.header.loginresult,
+            notifications: req.header.notifications,
+        });
+    },
+
     edit_team: async (req, res) => {
         try {
             // {
@@ -93,4 +67,5 @@ module.exports= {
             // Handle error response
         }
     },
+
 }
