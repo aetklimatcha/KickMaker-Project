@@ -26,13 +26,11 @@
     <!-- 원래 경기 정보 -->
     <div class="matchInfo">
 
-      <% for (var i=0;  i < notifications.length; i++) { %>
       <div class="title">변경 전 매치 정보</div>
-      <p>경기 일자: <%= notifications[i].match_date %></p><br>
-      <p>경기 시간: <%= notifications[i].match_time%></p><br>
-      <p>경기 장소: <%= notifications[i].match_place %> </p><br>
+      <p>경기 일자: <%= Match.match_date %></p><br>
+      <p>경기 시간: <%= Match.match_time%></p><br>
+      <p>경기 장소: <%= Match.match_place %> </p><br>
     </div>
-      <% } %>
 
 
   <form action="/matching/match-making" method="post">

@@ -303,7 +303,7 @@ module.exports = {
         const edit_match_info = await new Promise((resolve) => {
             match.getmatch_id(req.params.pageId, resolve);
         });
-
+        console.log(edit_match_info);
         if (edit_match_info.home_userid != req.user_id) {
             // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
             res.write("<script>alert('권한이 없습니다')</script>");
