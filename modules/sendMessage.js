@@ -63,7 +63,7 @@ function uploadfile(imagename) {
 })
 }
 
-async function sendMessage(receive_hp, imagename) {
+async function sendMessage(receive_teamname, receive_hp, imagename) {
     try {
         const date = Date.now().toString();
         // url 관련 변수 선언
@@ -104,7 +104,7 @@ async function sendMessage(receive_hp, imagename) {
                 messages: [{
                     to: `${receive_hp}`,
                     subject : `경기 결과 입력용 QR코드 입니다`,
-                    content : `상대팀 대표자와 서로의 QR코드를 인식하여 경기 리뷰페이지에 접속하여 경기 결과를 남겨주세요 !`
+                    content : `${receive_teamname}님! 상대팀 대표자에게 전송된 QR코드를 통해 리뷰페이지에 접속하여 경기 결과를 남겨주세요!`
                 }],
                 files: [
                     {

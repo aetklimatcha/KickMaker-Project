@@ -79,6 +79,32 @@ module.exports = {
         })
     },
 
+    TeamAndMatchForSMS: function (match_id, callback) {
+        const querystring = `
+        SELECT m.match_id, 
+        t1.user_id as home_userid, 
+        t1.hp as home_hp, 
+        t1.teamname as home_teamname, 
+        t2.user_id as away_userid, 
+        t2.hp as away_hp,
+        t2.teamname as away_teamname
+        FROM Matches m
+        JOIN Team t1 ON m.home_userid = t1.user_id
+        JOIN Team t2 ON m.away_userid = t2.user_id
+        WHERE m.match_id = ${match_id}
+        LIMIT 1;
+        `;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result[0]);
+            } else {
+                // 결과가 없을 시 
+                callback(null);
+            }
+        })
+    },
+
         //id password로 단일 TEam 조회 (로그인)
     getLoginTeam: function (id,password, callback) {
         const querystring = `SELECT * FROM Team Where id= '${id}' and password = '${password}';`;

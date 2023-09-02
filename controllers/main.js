@@ -285,11 +285,15 @@ module.exports = {
             review_match_info.userTeam = userTeam;
             review_match_info.opponentTeam = opponentTeam;
 
+            //홈인지 어웨이인지 여부
+            const isHomeTeam = (req.user_id == review_match_info.home_userid) ? true : false;
+
             res.render(path.join(__dirname + '/../views/team_review.ejs'), {
                 pageId: req.params.pageId,
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
                 Match: review_match_info,
+                isHomeTeam: isHomeTeam
             })
         }
     },
@@ -363,7 +367,6 @@ module.exports = {
                     counter++;
 
                     if (counter === notifications.length) {
-                        console.log(updatedNotifications)
                         // 모든 비동기 작업이 완료되었을 때 렌더링 및 응답 처리를 수행
                         res.render(path.join(__dirname + '/../views/requested_match.ejs'), {
                             loginTeam: req.header.loginresult,

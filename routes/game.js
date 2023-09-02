@@ -225,6 +225,8 @@ router.get('/edit-match/:pageId', cookieJwtAuth,header,main.edit_matchview);
  *               properties:
  *                   pageId:
  *                      type: integer
+ *                   isHomeTeam:
+ *                      type: boolean
  *                   Match:
  *                     example:
  *                           match_id: 86

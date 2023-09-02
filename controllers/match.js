@@ -126,46 +126,35 @@ module.exports = {
         try {
             // {
             //   notif_id: '6',
-            //  date: ~,
+            //   date: '2023-08-31',
             //   match_id: '97',
             //   RQuserid: '15',
-            //   RQstart: '13:00',
-            //   RQplace: '강남구'
+            //   time: '13:00',
+            //   place: '강남구'
             // }
             const data = req.body;
 
             //비동기 처리 만들것!
+            //이번 경기하는 두 팀 가져오기 (순서는 user_id 순서!)
             const matchTeams = await new Promise((resolve) => {
-                team.getTwoTeam(req.user_id, data.RQuserid, resolve);
+                team.TeamAndMatchForSMS(data.match_id, resolve);
             });
             
-            if (matchTeams[0].user_id == req.user_id)
-                var loginteam = matchTeams[0];
-            else if (matchTeams[1].user_id == req.user_id)
-                var loginteam = matchTeams[1];
-
-            const delNotifResult = await new Promise((resolve) => {
-                notif.DeleteNotification_matchid(data.match_id, resolve);
-            });
-
-            request_teamname = loginteam.teamname;
-            const notiID = await new Promise((resolve) => {
-                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, request_teamname, "수락", data.date, data.time, data.place, resolve);
-                res.redirect('/');
-            });
-
-            const updateMatchResult = await new Promise((resolve) => {
-                match.updateMatch_accept(data, resolve);
-            });
+            if (matchTeams.home_userid == req.user_id)
+                var loginteamname = matchTeams.home_teamname;
+            else if (matchTeams.away_userid == req.user_id)
+                var loginteamname = matchTeams.away_teamname;
 
             var matchTeamObj = {
-                team1 : {
-                    opponent_id : matchTeams[1].user_id,
-                    hp : (matchTeams[0].hp).replace(/-/g, '')
+                home : {
+                    teamname: matchTeams.home_teamname,
+                    opponent_id : matchTeams.away_userid,
+                    hp : matchTeams.home_hp.replace(/-/g, '')
                 },
-                team2 : {
-                    opponent_id : matchTeams[0].user_id,
-                    hp : (matchTeams[1].hp).replace(/-/g, ''),
+                away : {
+                    teamname: matchTeams.away_teamname,
+                    opponent_id :matchTeams.home_userid,
+                    hp : matchTeams.away_hp.replace(/-/g, ''),
                 }
             }
 
@@ -174,10 +163,21 @@ module.exports = {
 
             //메시지 전송 스케줄러 등록
             const messageScheduler = require("../modules/messageScheduler");
-            console.log('match에서 확인')
-            console.log(data);
-            console.log(matchTime);
             messageScheduler.messageReservation(data.match_id, matchTeamObj, matchTime);
+            console.log(matchTime)
+            res.redirect('/game/requested-match');
+
+            //noti 삭제, 삽입. 매치에 반영
+            // const delNotifResult = await new Promise((resolve) => {
+            //     notif.DeleteNotification_matchid(data.match_id, resolve);
+            // });
+            // const notiID = await new Promise((resolve) => {
+            //     notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
+            //     res.redirect('/');
+            // });
+            // const updateMatchResult = await new Promise((resolve) => {
+            //     match.updateMatch_accept(data, resolve);
+            // });
         } catch (error) {
             console.error(error);
             // Handle error response
