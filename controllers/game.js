@@ -256,7 +256,7 @@ module.exports = {
             // 홈 팀이 경기결과를 입력한 때
             if (req.body.winner) {
                 //무승부인 경우
-                if (req.body == '무승부') {
+                if (req.body.winner == '무승부') {
 
                     //표기상 win, lose지만 상관없음!
                     const winnerId = req.user_id;
@@ -316,7 +316,11 @@ module.exports = {
             });
 
             if (req.body.isHomeTeam == 'home') {
-                var reviewQuery = ` winner=${req.body.winner}, changedScore=${changedScore}, home_userid=${req.user_id}, away_received_manner=${req.body.manner_rate} `
+                if (req.body.winner == '무승부')
+                    var winner = -1;
+                else 
+                    var winner = req.body.result;
+                var reviewQuery = ` winner=${winner}, changedScore=${changedScore}, home_userid=${req.user_id}, away_received_manner=${req.body.manner_rate} `
 
             } else if (req.body.isHomeTeam == 'away') {
                 var reviewQuery = ` away_userid=${req.user_id}, home_received_manner=${req.body.manner_rate} `
@@ -338,6 +342,13 @@ module.exports = {
             const review_match_info = await new Promise((resolve) => {
                 review.getreview_matchid(req.params.pageId, resolve);
             });
+
+            if (review_match_info.kind == "not_found") {
+                res.write("<script>alert('오류 발생 (리뷰가 작성되지 않음)')</script>");
+                res.write("<script>window.location=\"/game/my-match\"</script>");
+                res.end();
+                return;
+            }
 
             const result = await new Promise((resolve) => {
                 team.getTwoTeam(review_match_info.home_userid, review_match_info.away_userid, resolve);
