@@ -6,6 +6,7 @@
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
+  background-color: #eee;
 }
 
 .team_info_wrap {
@@ -142,4 +143,11 @@ form {
 
 input[value="메인 페이지로"] {
   display: inline-block;
+}
+
+.back {
+  width: 500px;
+  float: right;
+  margin-right: 30px;
+  margin-top: -200px;
 }
