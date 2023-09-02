@@ -98,11 +98,10 @@ module.exports = {
 
     //매치 정보 수정
     updateMatch: function (data, callback) {
-        var querystring = `UPDATE Matches SET match_time='${data.match_time}', match_place='${data.match_place}', updated='${data.updated}' WHERE match_id=${data.match_id}`;
+        var querystring = `UPDATE Matches SET match_date = '${data.gameDate}', match_time='${data.gameTime}', match_place='${data.district}', updated= NOW() WHERE match_id=${data.match_id}`;
         mysql.query(querystring, (err, rows) => {
             if ( err ) throw err;
             console.log( rows );
-
             callback(rows);
         })
     },

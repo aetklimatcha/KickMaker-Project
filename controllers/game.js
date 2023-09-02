@@ -149,7 +149,6 @@ module.exports = {
         const edit_match_info = await new Promise((resolve) => {
             match.getmatch_id(req.params.pageId, resolve);
         });
-        console.log(edit_match_info);
         if (edit_match_info.home_userid != req.user_id) {
             // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
             res.write("<script>alert('권한이 없습니다')</script>");
@@ -163,6 +162,21 @@ module.exports = {
             notifications: req.header.notifications,
             Match: edit_match_info
         });
+    },
+
+    edit_match: async (req, res) => {
+        try {
+            data = req.body;
+
+            data.match_id = req.params.pageId;
+
+            match.updateMatch(req.body, function (result) {
+                res.redirect('/game/registered-match');
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+        }
     },
 
     team_reviewview: async (req, res) => {
@@ -348,16 +362,16 @@ module.exports = {
             res.redirect('/game/requested-match');
 
             //noti 삭제, 삽입. 매치에 반영
-            // const delNotifResult = await new Promise((resolve) => {
-            //     notif.DeleteNotification_matchid(data.match_id, resolve);
-            // });
-            // const notiID = await new Promise((resolve) => {
-            //     notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
-            //     res.redirect('/');
-            // });
-            // const updateMatchResult = await new Promise((resolve) => {
-            //     match.updateMatch_accept(data, resolve);
-            // });
+            const delNotifResult = await new Promise((resolve) => {
+                notif.DeleteNotification_matchid(data.match_id, resolve);
+            });
+            const notiID = await new Promise((resolve) => {
+                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
+                res.redirect('/');
+            });
+            const updateMatchResult = await new Promise((resolve) => {
+                match.updateMatch_accept(data, resolve);
+            });
         } catch (error) {
             console.error(error);
             // Handle error response

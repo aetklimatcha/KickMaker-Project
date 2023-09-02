@@ -193,7 +193,7 @@ router.get('/requested-match', cookieJwtAuth,header,game.requested_matchview);
  *                           }                     
  */
 router.get('/edit-match/:pageId', cookieJwtAuth,header,game.edit_matchview);
-// router.post('/edit-match/:pageId', cookieJwtAuth,header,game.edit_match);
+router.post('/edit-match/:pageId', cookieJwtAuth,header,game.edit_match);
 
 /**
  * @swagger
