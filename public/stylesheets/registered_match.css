@@ -1,0 +1,89 @@
+
+.Matches .matchedInfo__card .comment {
+    color: #2c2a29;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    padding: 50px;
+}
+.Matches h1 {
+    color: #2c2a29;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    padding: 130px 0 0 0;
+}
+
+/* 리스트 공동으로 적용되는 스타일 */
+
+.matchedInfo__card {
+    width: 70%;
+    margin: 100px auto;
+    background-color: #f6f5f0;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+    color: #555;
+    border-top: 2px solid #000;
+}
+.matchedInfo__card > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.matchedInfo__card > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.matchedInfo__card > div:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.matchedInfo__card > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    height: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+}
+.matchedInfo__card > div.top > div {
+    font-weight: 600;
+}
+
+
+/* registered_match */
+
+.matchedInfo__card .edit .match_edit{
+    line-height: 50px;
+    border: none;
+    margin: 0 auto;
+}
+.matchedInfo__card .edit .match_edit .content {
+    width: 70%;
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #666;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 28px;
+    cursor: pointer;
+
+}
+
+.Matches .matchedInfo__card .top .match_place {
+    width: 40%;
+}
+.Matches .matchedInfo__card .edit .match_place{
+    width: 15%
+}
+.Matches .matchedInfo__card .edit .match_stadium {
+    width: 25%;
+}   
+.Matches .matchedInfo__card .top .match_date,
+.Matches .matchedInfo__card .top .match_time_start,
+.Matches .matchedInfo__card .top .match_edit,
+.Matches .matchedInfo__card .edit .match_date,
+.Matches .matchedInfo__card .edit .match_time_start,
+.Matches .matchedInfo__card .edit .match_edit {
+    width: 20%;
+}
+    
