@@ -12,37 +12,43 @@ exports.header = async (req, res, next) => {
                 team.getNotifAndTeamInfo(req.user_id, resolve);
             });
 
-            const notifications = {
-                notif_id: headerData.notif_id,
-                match_id: headerData.match_id,
-                receive_userid: headerData.receive_userid,
-                request_userid: headerData.request_userid,
-                request_teamname: headerData.request_teamname,
-                requesttype: headerData.requesttype,
-                match_date: headerData.match_date,
-                match_time: headerData.match_time,
-                match_place: headerData.match_place,
-            }
 
+            var notifArray = []
+            headerData.forEach(element => {
+                const notifications = {
+                    notif_id: element.notif_id,
+                    match_id: element.match_id,
+                    receive_userid: element.receive_userid,
+                    request_userid: element.request_userid,
+                    request_teamname: element.request_teamname,
+                    requesttype: element.requesttype,
+                    match_date: element.match_date,
+                    match_time: element.match_time,
+                    match_place: element.match_place,
+                }
+                notifArray.push(notifications)
+            });
+
+            const userData = headerData[0];
             const loginresult = {
-                user_id: headerData.user_id,
-                id: headerData.id,
-                password: headerData.password,
-                teamname: headerData.teamname,
-                represent_name: headerData.represent_name,
-                hp: headerData.hp,
-                win_score: headerData.win_score,
-                manner_score: headerData.manner_score,
-                logo_id: headerData.logo_id,
-                totalMatches: headerData.totalMatches,
-                win: headerData.win,
-                draw: headerData.draw,
-                lose: headerData.lose,
-                logo_image: headerData.logo_image
+                user_id: userData.user_id,
+                id: userData.id,
+                password: userData.password,
+                teamname: userData.teamname,
+                represent_name: userData.represent_name,
+                hp: userData.hp,
+                win_score: userData.win_score,
+                manner_score: userData.manner_score,
+                logo_id: userData.logo_id,
+                totalMatches: userData.totalMatches,
+                win: userData.win,
+                draw: userData.draw,
+                lose: userData.lose,
+                logo_image: userData.logo_image
             }
 
             req.header = {
-                notifications: notifications,
+                notifications: notifArray,
                 loginresult: loginresult
             }
 

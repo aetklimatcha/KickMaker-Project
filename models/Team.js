@@ -13,11 +13,10 @@ module.exports = {
             RIGHT JOIN Team AS T 
             ON N.receive_userid = T.user_id
             WHERE T.user_id = ${user_id}
-            LIMIT 1
             `;
             mysql.query(querystring, function (error, result) {
                 if (error) throw error;
-                callback(result[0]);  // 결과가 없을 경우 null이 반환됩니다.
+                callback(result);  // 결과가 없을 경우 null이 반환됩니다.
             });
         }
     },
