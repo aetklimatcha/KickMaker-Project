@@ -58,6 +58,8 @@
   
   <link rel="stylesheet" href="/public/stylesheets/common.css">
   <link rel="stylesheet" href="/public/stylesheets/list.css">
+  <link rel="stylesheet" href="/public/stylesheets/team_info.css">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="../public/javascripts/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -113,7 +115,7 @@
               <div class="match_place"><%= Matches[i].match_place %></div>
               <div class="match_time_start"><%= Matches[i].match_time %></div>
               <div class="teamname" data-modal-id="<%= i %>">
-                <%= Matches[i].hometeamInfo.teamname %>
+                  <%= Matches[i].hometeamInfo.teamname %>
               </div>
 
               <button class="request_match enter fade-in" type="submit" >
@@ -134,12 +136,61 @@
         <div class="modal_close" id="modal_close_<%= i %>">
           <a href="javascript:void(0)">close</a>
         </div>
-        <div class="team_info">
-          <%= Matches[i].hometeamInfo.teamname %>
+
+        <div class="team_info_left">
+          <h1>팀 정보</h1></br>
+          <body class="team01">
+            <section>
+              <article class="profile">
+                <% if (Matches[i].hometeamInfo.logo_image == null) { %>
+                  <img src="testno.jpg" alt="팀 로고 이미지가 없음">
+                <% } else { %> 
+                  <img src="../files/<%= Matches[i].hometeamInfo.logo_image %>" alt="팀 로고 이미지">
+                <% } %>
+                <!--teamname-->
+                <p class="content">팀 이름:</p>
+                <p><% if(Matches[i].hometeamInfo){ %>
+                  <%= Matches[i].hometeamInfo.teamname %>
+                  <% } else { %> 
+                  testno
+                  <% } %></p></br>
+                
+                <!--대표자명-->
+                <p class="content">대표자명:</p>
+                <p><% if(Matches[i].hometeamInfo){ %>
+                    <%= Matches[i].hometeamInfo.represent_name %>
+                    <% } else { %> 
+                    testno
+                    <% } %></p></br>
+
+              </article>		
+            </section><br>
+          </body>
         </div>
+
+        <div class="team_info_right">
+          <h1>승률과 매너점수</h1>
+          <div class="donut-chart">
+            <canvas id="winRateChart" width="200" height="200"></canvas>
+            <div class="donut-label"></div>
+          </div>
+          <div class="donut-chart">
+            <canvas id="mannerChart" width="200" height="200"></canvas>
+            <div class="donut-label"></div>
+          </div>
+        </div>
+
       </div>
+
+      <script src="../public/javascripts/team_info.js"></script>
+      <script src="../public/javascripts/common.js"></script>
+      <script>
+        var manner_score='<%=Matches[i].hometeamInfo.manner_score%>';
+        var win_score='<%=Matches[i].hometeamInfo.win_score%>';
+      </script>
     </div>
-    <% } %>
+  </div>
+  <% } %>
   
   <script>
     // JavaScript to handle modals
