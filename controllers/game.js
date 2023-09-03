@@ -391,11 +391,25 @@ module.exports = {
             // }
             const data = req.body;
 
+            //noti 삭제, 삽입. 매치에 반영
+            const delNotifResult = await new Promise((resolve) => {
+                notif.DeleteNotification_matchid(data.match_id, resolve);
+            });
+            const notiID = await new Promise((resolve) => {
+                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
+                res.redirect('/');
+            });
+            const updateMatchResult = await new Promise((resolve) => {
+                match.updateMatch_accept(data, resolve);
+            });
+
+
             //비동기 처리 만들것!
             //이번 경기하는 두 팀 가져오기 (순서는 user_id 순서!)
             const matchTeams = await new Promise((resolve) => {
                 team.TeamAndMatchForSMS(data.match_id, resolve);
             });
+            console.log(matchTeams)
             
             if (matchTeams.home_userid == req.user_id)
                 var loginteamname = matchTeams.home_teamname;
@@ -423,18 +437,6 @@ module.exports = {
             messageScheduler.messageReservation(data.match_id, matchTeamObj, matchTime);
             console.log(matchTime)
             res.redirect('/game/requested-match');
-
-            //noti 삭제, 삽입. 매치에 반영
-            const delNotifResult = await new Promise((resolve) => {
-                notif.DeleteNotification_matchid(data.match_id, resolve);
-            });
-            const notiID = await new Promise((resolve) => {
-                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
-                res.redirect('/');
-            });
-            const updateMatchResult = await new Promise((resolve) => {
-                match.updateMatch_accept(data, resolve);
-            });
 
             var results = await new Promise((resolve) => {
                 review.insertTeamReview(data.match_id, resolve)
