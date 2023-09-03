@@ -6,7 +6,11 @@ const team = require("../models/Team");
 const match = require("../models/Match");
 const notif = require("../models/Notification");
 const stadium = require("../modules/getStadium");
+const findMatch = require("../modules/findMatch");
 
+const jwt = require('jsonwebtoken');
+const secretKey = require('../config/secretkey').secretKey;
+const options = require('../config/secretkey').options;
 
 module.exports = {
 
