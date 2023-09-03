@@ -83,6 +83,7 @@ module.exports = {
                     matches[i].weather = gameweather;
                 }
             }
+            console.log(matches)
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -391,14 +392,6 @@ module.exports = {
             // }
             const data = req.body;
 
-            //noti 삭제, 삽입. 매치에 반영
-            const delNotifResult = await new Promise((resolve) => {
-                notif.DeleteNotification_matchid(data.match_id, resolve);
-            });
-            const notiID = await new Promise((resolve) => {
-                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
-                res.redirect('/');
-            });
             const updateMatchResult = await new Promise((resolve) => {
                 match.updateMatch_accept(data, resolve);
             });
@@ -409,12 +402,15 @@ module.exports = {
             const matchTeams = await new Promise((resolve) => {
                 team.TeamAndMatchForSMS(data.match_id, resolve);
             });
-            console.log(matchTeams)
-            
+
             if (matchTeams.home_userid == req.user_id)
                 var loginteamname = matchTeams.home_teamname;
             else if (matchTeams.away_userid == req.user_id)
                 var loginteamname = matchTeams.away_teamname;
+
+            console.log('슙')
+            console.log(matchTeams)
+            console.log(loginteamname)
 
             var matchTeamObj = {
                 home : {
@@ -440,6 +436,14 @@ module.exports = {
                 review.insertTeamReview(data.match_id, resolve)
                 res.redirect('/game/my-match');
             });
+            //noti 삭제, 삽입. 매치에 반영
+            const delNotifResult = await new Promise((resolve) => {
+                notif.DeleteNotification_matchid(data.match_id, resolve);
+            });
+            const notiID = await new Promise((resolve) => {
+                notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
+            });
+
 
         } catch (error) {
             console.error(error);
