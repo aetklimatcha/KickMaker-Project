@@ -29,8 +29,8 @@ module.exports = {
                     //전송되는것
                     let teamkey = matchTeamObj[team].key;
                     let url = `http://localhost:3000/game/review/${matchId}?id=${teamkey}`
-                    // var QR = await genQRcode(matchId, opponent_id, url);
-                    // var SM = await sendMessage(teamname, teamhp, opponent_id);
+                    var QR = await genQRcode(matchId, opponent_id, url);
+                    var SM = await sendMessage(teamname, teamhp, opponent_id);
                     console.log('스케줄러 실행 완료');
                 }
             })
