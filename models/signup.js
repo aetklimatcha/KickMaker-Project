@@ -66,6 +66,4 @@ insertsignup: function(request, response) {
         });
     }
 
-
-
     }

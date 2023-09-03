@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // 승률 점수 차트
   var winRateChart = new Chart(document.getElementById('winRateChart'), {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [win_score, 100-win_score], // 승률 점수와 나머지 비율 (임의의 값)
+        data: [win_score, 1000 - win_score], // 승률 점수와 나머지 비율 (임의의 값)
         backgroundColor: ['#3B6E0E', '#CCCCCC'],
         borderWidth: 0
       }]
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     type: 'doughnut',
     data: {
       datasets: [{
-        data: [manner_score, 100-manner_score], // db에서 받아온 manner_score과 나머지 비율
+        data: [manner_score, 100 - manner_score], // db에서 받아온 manner_score과 나머지 비율
         backgroundColor: ['#3B6E0E', '#CCCCCC'],
         borderWidth: 0
       }]
