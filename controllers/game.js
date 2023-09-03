@@ -435,8 +435,6 @@ module.exports = {
             //메시지 전송 스케줄러 등록
             const messageScheduler = require("../modules/messageScheduler");
             messageScheduler.messageReservation(data.match_id, matchTeamObj, matchTime);
-            console.log(matchTime)
-            res.redirect('/game/requested-match');
 
             var results = await new Promise((resolve) => {
                 review.insertTeamReview(data.match_id, resolve)
