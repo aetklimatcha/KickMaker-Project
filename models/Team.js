@@ -1,5 +1,5 @@
 const { response } = require("express");
-const mysql = require("../config3/mysql");
+const mysql = require("../config/mysql");
 
 module.exports = {
 
