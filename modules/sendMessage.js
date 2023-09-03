@@ -10,9 +10,9 @@ const accessKey = process.env.NCP_ACCESS_KEY;
 const my_number = process.env.MY_NUM;
 
 
-function uploadfile(imagename) {
+function uploadfile(matchId, imagename) {
     return new Promise((resolve, reject) => {
-    const imageFilePath = path.join(__dirname, '../files/QRcode', `${imagename}.jpg`);
+    const imageFilePath = path.join(__dirname, `../files/QRcode/${matchId}`, `${imagename}.jpg`);
     const imageBuffer = fs.readFileSync(imageFilePath);
     const base64Image = imageBuffer.toString('base64');
 
@@ -63,7 +63,7 @@ function uploadfile(imagename) {
 })
 }
 
-async function sendMessage(receive_teamname, receive_hp, imagename) {
+async function sendMessage(matchId, receive_teamname, receive_hp, imagename) {
     try {
         const date = Date.now().toString();
         // url 관련 변수 선언
@@ -85,7 +85,7 @@ async function sendMessage(receive_teamname, receive_hp, imagename) {
         const hash = hmac.finalize();
         const signature = hash.toString(CryptoJS.enc.Base64);
 
-        const receivedFileId = await uploadfile(imagename)
+        const receivedFileId = await uploadfile(matchId, imagename)
         const smsRes = await axios({
             method: method,
             url: url,
