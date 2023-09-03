@@ -86,9 +86,13 @@ module.exports = {
     },
 
     signup : (req, res) => {
-        if(req.file.filename == null) 
-            req.file.filename = 'default.jpg';
-        model.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, req.file.filename,function( result ) {
+        console.log(req.file)
+        if(req.file == null) 
+            var filename = 'default.jpg';
+        else {
+            var filename = req.file.filename;
+        }
+        model.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, filename ,function( result ) {
             res.redirect('/')
         });  
     },
