@@ -4,6 +4,7 @@ const path = require("path");
 
 const team = require("../models/Team");
 const match = require("../models/Match");
+const signup = require("../models/signup");
 
 const weather = require("../modules/getWeather");
 const stadium = require("../modules/getStadium");
@@ -92,7 +93,7 @@ module.exports = {
         else {
             var filename = req.file.filename;
         }
-        model.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, filename ,function( result ) {
+        signup.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, filename ,function( result ) {
             res.redirect('/')
         });  
     },
