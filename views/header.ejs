@@ -17,7 +17,7 @@
   <ul class="main-menu">
       <% if(loginTeam){ %>
         <li class="menu">
-          <div class="menu__name">My page</div>
+          <div class="menu__name">My match</div>
           <div class="menu__contents">
             <ul class="inner">
                 <li>
@@ -32,10 +32,7 @@
                 <li>
                   <a href="/game/">요청한 경기</a>
                 </li>
-                <li> 
-                  <a href="/team/team-info">팀 정보</a>
-                  <!-- 팀 정보 -->
-                </li>
+                
                 <!-- 경기 후기 -->
                 <!-- 
                   <li> 
@@ -82,10 +79,29 @@
           </div>
         </li>
         <li class="menu">
-              <form action="/logout" method="post">
-                <input type="submit" value="Logout" />
-              </form>
+          <div class="teamLogo">
+            <img class="teamLogoImg" src="../files/<%= loginTeam.logo_image %>" alt="팀 로고 이미지">
+          </div>
+          <div class="menu__contents">
+            <ul class="inner">
+              <li>
+                <a href="/team/team-info">팀 정보</a>
+              </li>
+              <li>
+                <div class="logout">
+                  <form action="/logout" method="post">
+                    <input type="submit" value="Logout" />
+                  </form>
+                </div>
+                
+              </li>
+            </ul>
+          </div>
+            
+
+             
         </li>
+        
 
       <% } else { %> 
         <a class="signinBtn" href="/signin">Sign In</a>
