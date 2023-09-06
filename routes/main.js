@@ -8,10 +8,12 @@ const { uploadMiddleware } = require('../middleware/uploadMiddleware');
 const team = require('./team');
 const game = require('./game');
 const matching = require('./matching');
+const notification = require('./notification.js');
 
 router.use('/team', team);
 router.use('/game', game);
 router.use('/matching', matching);
+router.use('/notification', notification);
 
 
 // main

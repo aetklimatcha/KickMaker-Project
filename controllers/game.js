@@ -426,7 +426,7 @@ module.exports = {
             }
 
             var matchTime = new Date(data.date+' '+data.time);
-            matchTime.setMinutes(matchTime.getMinutes() - 60);
+            matchTime.setMinutes(matchTime.getMinutes() + 60);
 
             //메시지 전송 스케줄러 등록
             const messageScheduler = require("../modules/messageScheduler");

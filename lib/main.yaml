@@ -11,6 +11,8 @@ tags:
   - name: Matching
     description: 경기 매칭 과정
 
+  - name: Notification
+    description: 알림 관련
 
 components:
   schemas:
