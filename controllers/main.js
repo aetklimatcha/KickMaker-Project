@@ -57,6 +57,12 @@ module.exports = {
     },
 
     login_process : (req, res) => {
+        if (req.query.redirection) {
+            var ogURL = req.query.redirection;
+            ogURL = ogURL.replace('/', '');
+        }
+        else 
+            var ogURL = ''
         team.getLoginTeam(req.body.id,req.body.password,function( result ) {
             if(result==null){
                 login_fail();
@@ -73,9 +79,10 @@ module.exports = {
         }
 
         function login_success () {
+            console.log(ogURL)
             token = jwt.sign(payload,secretKey,options);  
             res.cookie('usertoken',token)
-            res.redirect('/')
+            res.redirect(`/${ogURL}`)
         }
     },
 

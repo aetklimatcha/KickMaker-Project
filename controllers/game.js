@@ -203,7 +203,8 @@ module.exports = {
 
         //0. 로그인 하지 않았을 때
         if (req.user_id == null) {
-            res.redirect('/signin')
+            const originalUrl = req._parsedOriginalUrl.path;
+            res.redirect(`/signin?redirection=${originalUrl}`)
         }
         //1. 자신의 qr로 들어온 것이 아닐때
         else if (queryId != req.user_id) {
@@ -426,7 +427,7 @@ module.exports = {
             }
 
             var matchTime = new Date(data.date+' '+data.time);
-            matchTime.setMinutes(matchTime.getMinutes() - 60);
+            matchTime.setMinutes(matchTime.getMinutes() + 60);
 
             //메시지 전송 스케줄러 등록
             const messageScheduler = require("../modules/messageScheduler");
