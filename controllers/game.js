@@ -203,7 +203,8 @@ module.exports = {
 
         //0. 로그인 하지 않았을 때
         if (req.user_id == null) {
-            res.redirect('/signin')
+            const originalUrl = req._parsedOriginalUrl.path;
+            res.redirect(`/signin?redirection=${originalUrl}`)
         }
         //1. 자신의 qr로 들어온 것이 아닐때
         else if (queryId != req.user_id) {
