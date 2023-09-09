@@ -68,6 +68,13 @@
   font-weight: 700;
   margin: 20px 0px 0px 4px;
 }
+.teamReview__card form .comment {
+  color:#1B775A;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0px 0px 4px;
+
+}
 .teamReview__card .actions {
   display: flex;
   border-top: 1px solid #ddd;
