@@ -67,32 +67,21 @@ module.exports = {
             const matches = await new Promise((resolve) => {
                 match.getmymatch(req.user_id, resolve);
             });
-
-            //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정) ,없는 경우 빈배열
-                const matchPromises = Array.isArray(matches) ? matches.map(async (match) => {
-                    const [homeTeam, awayTeam, gameweather] = await Promise.all([
-                        team.getOneTeamNocallback(match.home_userid),
-                        team.getOneTeamNocallback(match.away_userid),
-                        weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx),
-                    ]);
-
-                    match.home_teamname = homeTeam.teamname;
-                    match.away_teamname = awayTeam ? awayTeam.teamname : '';
-                    match.weather = gameweather;
-                    return match;
-
-                    // var day = match.match_date.replace(/-/g, '');
-                    // var timeArray = match.match_time.split(':')
-                    // var time = timeArray[0] + timeArray[1];
-                    // var x = match.nx;
-                    // var y = match.ny;
-                }) : [];
-            const updatedMatches = await Promise.all(matchPromises);
-            
+    
+            const matchPromises = Array.isArray(matches) ? matches.map((match) => {
+                return weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx);
+            }) : [];
+    
+            const gameweathers = await Promise.all(matchPromises);
+    
+            // 각 매치에 대한 날씨 정보를 할당
+            matches.forEach((match, index) => {
+                match.weather = gameweathers[index];
+            });
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
-                Matches: updatedMatches,
+                Matches: matches,
             });
         } catch (error) {
             console.error(error);
