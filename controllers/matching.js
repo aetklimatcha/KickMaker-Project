@@ -64,10 +64,10 @@ module.exports = {
         if (req.user_id == null) {
             res.redirect('/signin')
         } else {
-                    res.render(path.join(__dirname + '/../views/match_making.ejs'), {
-                        loginTeam: req.header.loginresult,
-                        notifications: req.header.notifications,
-                    });
+            res.render(path.join(__dirname + '/../views/match_making.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+            });
         }
     },
 
@@ -141,7 +141,7 @@ module.exports = {
 
             //기본값 서초구로 설정해놨음!!!!!!!!!!
 
-            const stadiums = await stadium('서초구'); // stadium 함수의 결과를 기다립니다.
+            const stadiums = await stadium(result.place); // stadium 함수의 결과를 기다립니다.
 
             var nx = 126.95518930412466;
             var ny = 37.602181608910584;
