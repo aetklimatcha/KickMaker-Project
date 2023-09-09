@@ -67,20 +67,22 @@ module.exports = {
     },
 
     getOneTeamNocallback: function (user_id) {
-        if (user_id == null) {
-            callback(null);
-        } else {
-            const querystring = `SELECT * FROM Team WHERE user_id= ${user_id} limit 1;`;
-            mysql.query(querystring, function (error, result) {
-                if (error) throw error;
-                if (result.length) {
-                    return result[0];
-                } else {
-                    // 결과가 없을 시 
-                    return null;
-                }
-            })
-        }
+        return new Promise((resolve, reject) => {
+            if (user_id == null) {
+                resolve(null);
+            } else {
+                const querystring = `SELECT * FROM Team WHERE user_id= ${user_id} limit 1;`;
+                mysql.query(querystring, function (error, result) {
+                    if (error) throw error;
+                    if (result.length) {
+                        resolve(result[0]);
+                    } else {
+                        // 결과가 없을 시 
+                        resolve(null);
+                    }
+                })
+            }
+        })
     },
 
     getTwoTeam: function (user_id1, user_id2, callback) {

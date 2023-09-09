@@ -76,11 +76,9 @@ module.exports = {
                         weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx),
                     ]);
 
-
-                    match.home_teamname = homeTeam ? homeTeam.teamname : '';
+                    match.home_teamname = homeTeam.teamname;
                     match.away_teamname = awayTeam ? awayTeam.teamname : '';
                     match.weather = gameweather;
-
                     return match;
 
                     // var day = match.match_date.replace(/-/g, '');
@@ -89,8 +87,8 @@ module.exports = {
                     // var x = match.nx;
                     // var y = match.ny;
                 }) : [];
-
             const updatedMatches = await Promise.all(matchPromises);
+            
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
