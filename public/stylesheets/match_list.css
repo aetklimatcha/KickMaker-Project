@@ -1,8 +1,6 @@
 .Team {
   margin-top: 20px;
   padding: 100px 0 240px;
-  /* background-image: url("../images/soccer.webp"); */
-  /* background-repeat: no-repeat; */
   background-position: center;
   background-attachment: fixed;
   background-size: auto;
@@ -12,68 +10,17 @@
 .matchedInfo__card {
   width: 70%;
   margin: 100px auto;
-  /* border-radius: 6px; */
   background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 }
 
-/* .matchedInfo__card > div {
-  border-bottom: 1px solid #ddd;
-  font-size: 0;
-}
-
-.matchedInfo__card > div.top {
-  border-bottom: 1px solid #999;
-}
-
-.matchedInfo__card > div:last-child {
-  border-bottom: 1px solid #000;
-}
-
-.matchedInfo__card > div > div {
-  display: inline-block;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1.4rem;
-}
-
-
-.matchedInfo__card > div.top > div {
-  font-weight: 600;
-}
-  */
-
-
-
-
-/* .matchedInfo__card .edit .match_date,
-.matchedInfo__card .edit .match_place {
-  display: inline-block;
-  padding:15px 0;
-  height: 100%;
-  font-size: 1.4rem;
-  text-align: center;
-}
-
-
-
-.matchedInfo__card .edit .teamname,
-.matchedInfo__card .edit .match_time_start {
-  display: inline-block;
-  padding: 15px 0;
-  text-align: center;
-  font-size: 1.4rem;
-  text-align: center;
-} */
-
 .edit form {
   display: flex;
   align-items: center;
   border-bottom: solid #E7E7E7;
-
-
 }
+
 .category {
   font-size: 14px;
   color: #727272;
