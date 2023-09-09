@@ -70,6 +70,8 @@
 .edit form {
   display: flex;
   align-items: center;
+  border-bottom: solid #E7E7E7;
+
 
 }
 .category {
