@@ -59,6 +59,8 @@
           </section>
           <form method="post" action="/matching/confirm-place">
             <input type="hidden" id="selectedStadium" name="stadium" value="" />
+            <input type="hidden" id="selectedNX" name="nx" value="" />
+            <input type="hidden" id="selectedNY" name="ny" value="" />
       </div>
       <div class="team_info_right">
         <section>
@@ -69,6 +71,8 @@
           <script>
             function loadStadium(name, nx, ny) {
               document.querySelector('#selectedStadium').value = name;
+              document.querySelector('#selectedNX').value = nx;
+              document.querySelector('#selectedNY').value = ny;
 
               var markerPosition = new kakao.maps.LatLng(ny, nx);
               var marker = new kakao.maps.Marker({
@@ -86,11 +90,6 @@
             }
           </script><br>
 
-
-
-
-          <input type="hidden" name="nx" value="<%= nx %>" />
-          <input type="hidden" name="ny" value="<%= ny %>" />
           <input type="submit" value="경기 확정" class="place" />
           </form>
 
