@@ -22,6 +22,9 @@ module.exports = {
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     }
 
