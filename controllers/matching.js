@@ -176,9 +176,6 @@ module.exports = {
 
             const stadiums = await stadium(result.place); // stadium 함수의 결과를 기다립니다.
 
-            var nx = 126.95518930412466;
-            var ny = 37.602181608910584;
-
             if (req.query.nx != undefined) {
                 nx = req.query.nx;
                 ny = req.query.ny;

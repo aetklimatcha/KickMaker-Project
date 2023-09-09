@@ -64,42 +64,37 @@ module.exports = {
 
     my_matchview: async (req, res) => {
         try {
-
             const matches = await new Promise((resolve) => {
                 match.getmymatch(req.user_id, resolve);
             });
 
-            if (matches == null) throw 'error';
+            //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정) ,없는 경우 빈배열
+                const matchPromises = Array.isArray(matches) ? matches.map(async (match) => {
+                    const [homeTeam, awayTeam, gameweather] = await Promise.all([
+                        team.getOneTeamNocallback(match.home_userid),
+                        team.getOneTeamNocallback(match.away_userid),
+                        weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx),
+                    ]);
 
-            //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정)
-            if (matches != null) {
-                for (let i = 0; i < matches.length; i++) {
-                    const homeTeam = await new Promise((resolve) => {
-                        team.getOneTeam(matches[i].home_userid, resolve);
-                    });
-                    matches[i].home_teamname = homeTeam.teamname;
 
-                    const awayTeam = await new Promise((resolve) => {
-                        team.getOneTeam(matches[i].away_userid, resolve);
-                    });
-                    matches[i].away_teamname = awayTeam.teamname;
+                    match.home_teamname = homeTeam ? homeTeam.teamname : '';
+                    match.away_teamname = awayTeam ? awayTeam.teamname : '';
+                    match.weather = gameweather;
 
-                    var day = matches[i].match_date.replace(/-/g, '');
-                    var timeArray = matches[i].match_time.split(':')
-                    var time = timeArray[0] + timeArray[1];
-                    var x = matches[i].nx;
-                    var y = matches[i].ny;
+                    return match;
 
-                    const gameweather = await weather.weatherAPI(day, time, y, x);
+                    // var day = match.match_date.replace(/-/g, '');
+                    // var timeArray = match.match_time.split(':')
+                    // var time = timeArray[0] + timeArray[1];
+                    // var x = match.nx;
+                    // var y = match.ny;
+                }) : [];
 
-                    matches[i].weather = gameweather;
-                }
-            }
-
+            const updatedMatches = await Promise.all(matchPromises);
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
-                Matches: matches,
+                Matches: updatedMatches,
             });
         } catch (error) {
             console.error(error);
