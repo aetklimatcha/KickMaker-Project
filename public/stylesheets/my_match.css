@@ -1,8 +1,6 @@
-.Matches {
-  height: 100vh;
+body {
   background-color: #eee;
 }
-
 .Matches .matchedInfo__card .comment {
   color: #2c2a29;
   font-size: 30px;

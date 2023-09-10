@@ -1,14 +1,6 @@
-.Team {
-  height: 100vh;
-  position: relative;
-  margin-top: 20px;
-  padding: 100px 0 0 0;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: auto;
+body {
   background-color: #eee;
 }
-
 .matchedInfo__card {
   width: 70%;
   margin: 100px auto;
