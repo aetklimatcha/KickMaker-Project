@@ -1,6 +1,7 @@
 require("dotenv").config({ path: "./config/.env" });
 
 const path = require("path");
+const dayjs = require("dayjs");
 
 const team = require("../models/Team");
 const match = require("../models/Match");
@@ -47,6 +48,12 @@ module.exports = {
                 match.gethome_id(req.user_id, resolve);
             });
 
+            result.forEach(match => {
+                const value = dayjs(match.match_date).format("YYYY-MM-DD");
+                match.match_date = value;
+            })
+
+            // console.log(result[0].match_date);
             res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -68,7 +75,6 @@ module.exports = {
                 match.getmymatch(req.user_id, resolve);
             });
     
-            console.log(matches);
             const matchPromises = Array.isArray(matches) ? matches.map((match) => {
                 return weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx);
             }) : [];
@@ -247,6 +253,10 @@ module.exports = {
 
                 //홈인지 어웨이인지 여부
                 const isHomeTeam = (req.user_id == review_match_info.home_userid) ? 'home' : 'away';
+
+                const value = dayjs(review_match_info.match_date).format("YYYY-MM-DD");
+                review_match_info.match_date = value;
+
 
                 res.render(path.join(__dirname + '/../views/review.ejs'), {
                     pageId: req.params.pageId,
