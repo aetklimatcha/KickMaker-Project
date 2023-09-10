@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
           color: '#000',
           padding: {
             top: 10,
-            bottom: 30
+            bottom: 10
           }
         }
       }
