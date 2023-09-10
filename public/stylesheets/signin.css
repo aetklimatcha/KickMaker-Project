@@ -1,13 +1,10 @@
 .signin {
-  /* margin-top: 50px; */
-  /* padding: 50px 0; */
   height: 100vh;
-  /* background-image: url("../images/soccer.webp"); */
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
-
+  background-color: #eee;
 }
 .signin h1 {
   color: #2c2a29;
@@ -20,7 +17,7 @@
   width: 500px;
   margin: 100px auto;
   border-radius: 6px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 } 
@@ -79,3 +76,33 @@
 .signin__card .actions a:hover {
   text-decoration: underline;
 } 
+
+/* mobile */
+@media (max-width: 812px) {
+  .signin h1 {
+    font-size: 1.8em;
+    padding: 100px 0 0 0;
+  }
+  .signin__card {
+    width: 80vw;
+    margin: 30px auto;
+    border-radius: 6px;
+  } 
+  .signin__card form {
+    padding: 30px 22px;
+  }
+  .teamReview__card form [type="submit"] {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 15px;
+    border-radius: 4px;  
+    font-size: 20px;
+  }
+  .teamReview__card .actions a {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 20px;
+    font-size: 14px;
+  }
+
+}
