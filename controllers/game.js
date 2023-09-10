@@ -385,6 +385,7 @@ module.exports = {
                 MatchResult.loser = result[0];
             }
 
+            console.log(MatchResult)
             res.render(path.join(__dirname + '/../views/review_result.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
