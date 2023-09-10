@@ -1,19 +1,8 @@
-.teamReview__card .matchInfo{
-  color: #555;
-  font-size: 15px;
-  margin: 15px 0px 0px 10px;
+body {
+  background-color: #eee;
 }
-
 .teamReview {
-  /* margin-top: 50px; */
-  /* padding: 50px 0; */
-  height: 100vh;
-  /* background-image: url("../images/soccer.webp"); */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
-
+  padding-bottom: 50px;
 }
 .teamReview h1 {
   color: #2c2a29;
@@ -34,6 +23,12 @@
 .teamReview__card form {
   padding: 30px 22px;
 }
+.teamReview__card .matchInfo{
+  color: #555;
+  font-size: 15px;
+  margin: 15px 0px 0px 10px;
+}
+
 /* .teamReview__card form input {
   width: 100%;
   margin-bottom: 12px;
