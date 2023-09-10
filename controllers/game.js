@@ -257,7 +257,6 @@ module.exports = {
                 const value = dayjs(review_match_info.match_date).format("YYYY-MM-DD");
                 review_match_info.match_date = value;
 
-
                 res.render(path.join(__dirname + '/../views/review.ejs'), {
                     pageId: req.params.pageId,
                     loginTeam: req.header.loginresult,

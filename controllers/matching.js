@@ -9,6 +9,7 @@ const stadium = require("../modules/getStadium");
 const findMatch = require("../modules/findMatch");
 
 const jwt = require('jsonwebtoken');
+const dayjs = require("dayjs");
 const secretKey = require('../config/secretkey').secretKey;
 const options = require('../config/secretkey').options;
 
@@ -24,16 +25,9 @@ module.exports = {
             var homeUserIdArray = []
             allNomatches.forEach(match => {
                 homeUserIdArray.push(match.home_userid);
+                const value = dayjs(match.match_date).format("YYYY-MM-DD");
+                match.match_date = value;
             })
-
-            // const homeTeamPromises = allNomatches.forEach(async match => {
-            //     var hometeaminfo = await new Promise((resolve) => {
-            //         team.getOneTeam(match.home_userid, resolve)
-            //         console.log('ms')
-            //     });
-            //     match.hometeamInfo = hometeaminfo;
-            //     console.log('for')
-            // })
 
             const hometeaminfo = await new Promise((resolve) => {
                 team.getQueryTeam(homeUserIdArray, resolve);
