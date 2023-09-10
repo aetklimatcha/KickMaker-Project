@@ -353,6 +353,8 @@ router.post('/review/:pageId', cookieJwtAuth,header,game.review);
  *                          changedScore: 24
  *                          home_received_manner: 1
  *                          away_received_manner: -1
+ *                          match_date: '2023-09-02'
+ *                          stadium: '반포종합운동장'
  *                          loser: {
  *                            user_id: 3,
  *                            id: 'seocho',

@@ -21,19 +21,26 @@ module.exports = {
                 callback(result[0]);
             }
             // 결과가 없을 시 
-            callback({kind: "not_found"});
+            callback({ kind: "not_found" });
         })
     },
 
-        //review_id로 팀 로고 조회
-        getreview_matchid: function (match_id, callback) {
-            const querystring = `SELECT * FROM TeamReview Where match_id= ${match_id};`;
-            mysql.query(querystring, function (error, result) {
-                if ( error ) throw error;
-                if(result.length) {
-                    callback(result[0]);
-                }
-                // 결과가 없을 시 
+    //review_id로 팀 로고 조회
+    getreview_matchid: function (match_id, callback) {
+        const querystring = `
+            SELECT TeamReview.*,
+            DATE_FORMAT(Matches.match_date, '%Y-%m-%d') as match_date, 
+            Matches.stadium
+            FROM TeamReview 
+            INNER JOIN
+            Matches ON TeamReview.match_id = Matches.match_id 
+            Where TeamReview.match_id= ${match_id};`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            if (result.length) {
+                callback(result[0]);
+            }
+    // 결과가 없을 시 
                 callback({kind: "not_found"});
             })
         },
