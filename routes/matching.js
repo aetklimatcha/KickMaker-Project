@@ -136,11 +136,11 @@ router.get('/noMatch',cookieJwtAuth,header, matching.noMatchview);
  *                           match_place: ['서초구']
  *                           match_date: '2023-08-20'
  *                           match_time: '11:00:00'
- *                           home_userid: 2
+ *                           home_userid: 41
  *                           establishment: 미성립
- *                           teamname: 'FC나나'
- *                           win_score: 930
- *                           manner_score: 61
+ *                           teamname: 'qwer'
+ *                           win_score: 1000
+ *                           manner_score: 50
  *                           stadium: '서울숲>서울숲 다목적구장'
  *                           hometeam: {
  *                             user_id: 41,
