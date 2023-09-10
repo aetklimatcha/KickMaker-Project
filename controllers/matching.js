@@ -148,6 +148,28 @@ module.exports = {
     matchedview: async (req, res) => {
         try {
             result = req.findMatches;
+
+            const matchPromises = result.map(async mapmatch => {
+                const hometeaminfoPromise = new Promise((resolve) => {
+                    team.getOneTeam(mapmatch.home_userid, resolve);
+                })
+                const matchinfoPromise = new Promise((resolve) => {
+                    match.getmatch_id(mapmatch.match_id, resolve);
+                });
+
+                const [hometeaminfo, matchinfo] = await Promise.all([hometeaminfoPromise, matchinfoPromise]);
+
+                // hometeaminfo와 matchinfo를 result 객체에 추가
+                mapmatch.hometeam = hometeaminfo;
+                mapmatch.stadium = matchinfo.stadium;
+
+                return mapmatch;
+            })
+
+            const updatedResult = await Promise.all(matchPromises);
+
+            console.log(updatedResult)
+
             res.render(path.join(__dirname + '/../views/matched.ejs'), {
                 loginTeam: req.header.loginresult,
                 findTeams: result,
