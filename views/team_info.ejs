@@ -73,15 +73,36 @@
       </body>
   </div>
     <div class="team_info_right">
-      <h1>승률과 매너점수</h1>
-      <div class="donut-chart">
+      <h1>승점과 매너점수</h1>
+      <!-- <div class="donut-chart">
         <canvas id="winRateChart" width="200" height="200"></canvas>
         <div class="donut-label"></div>
+      </div> -->
+      <div class="info_box">
+        <div class="score_info">
+          <div class="category">승점</div>
+          <div class="win_score"> <%= loginTeam.win_score %></div> <br/>
+          <div class="category">전적</div>
+          <div class="total_score">
+            <%= loginTeam.win %>승 /
+            <%= loginTeam.draw %>무 /
+            <%= loginTeam.lose %>패
+          </div>  
+        </div>
       </div>
-      <div class="donut-chart">
-        <canvas id="mannerChart" width="200" height="200"></canvas>
-        <div class="donut-label"></div>
+
+      <div class="info_box">
+        <div class="donut-chart">
+          <canvas id="mannerChart" style="display:inline-block; height: 100px; width: 100px;"></canvas>
+          <div class="donut-label"></div>
+        </div>
+          <!-- <div class="category">승률</div> -->
+          <div class="manner_score"> 
+            <%= loginTeam.manner_score %>
+            <p>/100</p>
+          </div> <br/>
       </div>
+
     </div>
   </div>
   <script src="../public/javascripts/team_info.js"></script>

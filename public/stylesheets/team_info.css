@@ -1,12 +1,10 @@
 /* Team Info styles */
+body {
+  background-color: #eee;
+}
 .team_info {
   margin-top: 5px;
   padding: 100px 0 240px;
-  /* background-image: url("../images/soccer.webp"); */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
 }
 .team_info_wrap {
   display: flex;
@@ -16,7 +14,7 @@
 .team_info_left {
   width: 340px;
   padding: 30px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-right: 40px;
@@ -40,11 +38,11 @@
 .team_info_right {
   width: 340px;
   padding: 30px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
   justify-content: center;
 }
@@ -62,14 +60,15 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
 }
 .team01 .profile img {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 50%;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 .team_profile ul {
   list-style: none;
@@ -85,14 +84,14 @@ h1 {
 
 /* Donut chart styles */
 .donut-chart {
-  margin-bottom: 20px;
-  text-align: center;
+  /* margin-bottom: 20px;
+  text-align: center; */
 }
 
 .donut-chart canvas {
-  width: 200px;
+  /* width: 200px;
   height: 200px;
-  border-radius: 50%;
+  border-radius: 50%; */
 }
 
 .donut-label {
@@ -124,4 +123,51 @@ section a.btnView {
   margin: 20px auto 0;
   text-align: center;
   line-height: 50px;
+}
+
+.info_box {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 30px 10px;
+}
+.score_info {
+
+}
+.category {
+  display: inline-block;
+  font-size: 14px;
+  color: #727272;
+  padding: 5px;
+}
+.win_score {
+  display: inline-block;
+  font-size: 45px;
+  font-weight: 700;
+  padding: 10px 0;
+  color: #56C453;
+}
+.total_score {
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+.donut-chart {
+  display: inline-block;
+  width: 200px;
+}
+.manner_score {
+  font-size: 60px;
+  font-weight: 700;
+  margin: auto 0;
+  color: #339FFF;
+}
+.manner_score > p {
+  font-size: 16px;
+  color: #5F5C5B;
+  text-align: center;
 }

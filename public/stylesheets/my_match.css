@@ -137,7 +137,6 @@ body {
 .matchedInfo__card .myMatch .cancelBtn,
 .matchedInfo__card .myMatch .reviewBtn {
   display: inline-block;
-  background: #666;
   color: #fff;
   font-size: 20px;
   font-weight: 700;
@@ -148,5 +147,14 @@ body {
   width: 14%;
   border-radius: 20px;
 }
+
+.matchedInfo__card .myMatch .cancelBtn {
+  background-color: #FF5733;
+}
+
+.matchedInfo__card .myMatch .reviewBtn {
+  background: #666;
+}
+
 
 
