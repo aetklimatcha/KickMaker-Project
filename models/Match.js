@@ -71,7 +71,10 @@ module.exports = {
         // establishment, stadium, home_userid, away_userid
         const querystring = 
         `SELECT
-        Matches.*,
+        match_id, match_place,
+        DATE_FORMAT(match_date,'%Y-%m-%d') AS match_date,
+        DATE_FORMAT(match_time,'%H:%i') AS match_time,
+        establishment, stadium, home_userid, away_userid,
         homeTeam.teamname AS home_teamname,
         awayTeam.teamname AS away_teamname
     FROM

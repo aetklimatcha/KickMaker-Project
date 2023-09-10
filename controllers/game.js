@@ -68,6 +68,7 @@ module.exports = {
                 match.getmymatch(req.user_id, resolve);
             });
     
+            console.log(matches);
             const matchPromises = Array.isArray(matches) ? matches.map((match) => {
                 return weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx);
             }) : [];
