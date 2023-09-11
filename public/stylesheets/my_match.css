@@ -8,6 +8,9 @@ body {
   text-align: center;
   padding: 50px;
 }
+.Matches {
+  padding-bottom: 50px;
+}
 
 .Matches h1 {
   color: #2c2a29;

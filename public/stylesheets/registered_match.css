@@ -8,6 +8,9 @@ body {
     text-align: center;
     padding: 50px;
 }
+.Matches {
+    padding-bottom: 50px;
+}
 .Matches h1 {
     color: #2c2a29;
     font-size: 30px;
@@ -20,7 +23,7 @@ body {
 
 .matchedInfo__card {
     width: 70%;
-    margin: 50px auto;
+    margin: 50px auto 100px;
     background-color: #fff;
     box-shadow: 2px 2px 20px rgba(0,0,0,.3);
     color: #555;
