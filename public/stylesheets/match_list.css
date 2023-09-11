@@ -57,14 +57,13 @@ body {
 /* 경기 정보 */
 .div2 {
   width: 35%;
-  display: inline-block;
   display: flex;
   justify-content: center;
-
 }
 
 .info2 {
   height: 100%;
+  width: 100%;
 }
 
 .info2 .category {
