@@ -1,5 +1,8 @@
+body {
+  background-color: #eee;
+}
 label {
-  color: black;
+  color: #2c2a29;
 }
 .registerdMatch{
   margin-bottom: 3em;
@@ -10,11 +13,6 @@ label {
 .match_making {
   height: 100vh;
   padding: 100px 0 100px;
-  /* background-image: url("../images/soccer.webp"); */
-  background-repeat:no-repeat;
-  background-position: center;
-  background-attachment:scroll;
-  background-size: cover;
 }
 
 .match_making h1 {
@@ -42,7 +40,7 @@ label {
   padding: 30px;
   margin: 30px auto 50px;
   border-radius: 6px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
   display: flex;
@@ -163,7 +161,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   box-sizing: border-box;
 }
 .time-block.selected {
-  background-color: rgb(171, 232, 179);
+  background-color: #b1d1c5;
   border: 1px solid black;
 }
 

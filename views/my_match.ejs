@@ -150,6 +150,7 @@ weather: 'ApiError'
                   <% } else { %>
                     <div class="teamname"><%= Matches[i].away_teamname %></div>
                   <% } %>
+
                 <% if (today < matchDate) { %>
                   <div class="cancelBtn" onclick="submitForm('<%= Matches[i].match_id %>')">
                     경기 취소

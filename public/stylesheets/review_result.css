@@ -1,0 +1,205 @@
+body {
+    background-color: #eee;
+  }
+  .teamReviewResult {
+    padding-bottom: 50px;
+  }
+  .teamReviewResult h1 {
+    color: #2c2a29;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    padding: 130px 0 0 0;
+  }
+  .teamReviewResult__card {
+    width: 560px;
+    padding: 10px 20px;
+    margin: 80px auto;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+    color: #555;
+  } 
+
+  .teamReviewResult__card .matchInfo {
+    color: #555;
+    font-size: 15px;
+    font-weight: 700;
+    /* margin: 15px 0px 0px 10px; */
+    background-color: #b1d1c5;
+    width: 100%;
+    padding: 20px 20px 0;
+    /* margin: 20px 0 30px 30px; */
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .teams_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .winner,
+  .loser {
+    text-align: center;
+  }
+  .winner .winner_logo,
+  .loser .loser_logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 70%;
+    margin: 20px 20px 0;
+    }
+.winner .winner_teamname,
+.loser .loser_teamname {
+    font-size: 15px;
+    padding: 15px 15px 20px;  
+}
+  .vs {
+    text-align: center;
+    font-size: 20px;
+  }
+  .teamReviewResult__card .title {
+    /* font-size: 12px;
+    color: #006633;
+    text-align: center; */
+    color: #555;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 20px 0px 0px 4px;
+  }
+  .teamReviewResult__card .comment {
+    color:#FF5733;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 20px 0px 0px 4px;
+  
+  }
+  .teamReviewResult__card .actions {
+    display: flex;
+    border-top: 1px solid #ddd;
+  }
+  .teamReviewResult__card .actions a {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 14px;
+    border-right: 1px solid #ddd;
+  }
+  .teamReviewResult__card .actions a:last-child {
+    border-right: none;
+  }
+  .teamReviewResult__card .actions a:hover {
+    text-decoration: underline;
+  } 
+
+  
+  
+  label {
+    font-size: 18px;
+    line-height: 2rem;
+    padding: 0.2em 0.4em;
+  }
+  
+  [type="radio"], span {
+    vertical-align: middle;
+  }
+  
+  [type="radio"] {
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 50%;
+    width: 1.25em;
+    height: 1.25em;
+    transition: border 0.5s ease-in-out;
+  }
+  
+  [type="radio"]:checked {
+    border: 0.4em solid #1B775A;
+  }
+  
+  [type="radio"]:focus-visible {
+    outline-offset: max(2px, 0.1em);
+    outline: max(2px, 0.1em) dotted #1B775A;
+  }
+  
+  [type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+    cursor: pointer;
+  }
+  
+  [type="radio"]:hover + span {
+    cursor: pointer;
+  }
+  
+  
+  /* Global CSS */
+  fieldset {
+    display: flex;
+    justify-content: center;
+    border: none;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  
+  /* mobile */
+  @media (max-width: 812px) {
+    .teamReviewResult__card .matchInfo{
+      font-size: 1em;
+      margin: 15px 0px 0px 10px;
+    }
+    
+    .teamReviewResult h1 {
+      font-size: 1.8em;
+      padding: 100px 0 0 0;
+    }
+    .teamReviewResult__card {
+      width: 80vw;
+      margin: 30px auto;
+      border-radius: 6px;
+    } 
+    .teamReviewResult__card form {
+      padding: 30px 22px;
+    }
+    .teamReviewResult__card form [type="submit"] {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 15px;
+      border-radius: 4px;  
+      font-size: 20px;
+    }
+    .teamReviewResult__card form .title {
+      font-size: 1em;
+      font-weight: 700;
+      margin: 20px 0px 0px 4px;
+    }
+    .teamReviewResult__card .actions a {
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 20px;
+      font-size: 14px;
+    }
+    label {
+      font-size: 1em;
+      /* line-height: 2rem; */
+      padding: 0.2em 0.4em;
+      display:block;
+    }
+    fieldset {
+      display: block;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      margin: 0 auto;
+      padding: 10px;
+    }
+  }

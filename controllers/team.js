@@ -8,17 +8,33 @@ const team = require("../models/Team");
 module.exports = {
 
     team_infoview: async (req, res) => {
-        res.render(path.join(__dirname + '/../views/team_info.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-        });
+        try {
+            res.render(path.join(__dirname + '/../views/team_info.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
     edit_teamview: async (req, res) => {
-        res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-        });
+        try {
+            res.render(path.join(__dirname + '/../views/edit_team.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
     edit_team: async (req, res) => {
@@ -53,8 +69,6 @@ module.exports = {
                 req.body.logo_image = old_image;
             }
 
-            
-
             team.updateTeam(req.body, req.user_id, function (result) {
                 console.log(req.body);
                 res.cookie('usertoken', null, {
@@ -65,6 +79,9 @@ module.exports = {
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 

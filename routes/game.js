@@ -329,63 +329,47 @@ router.post('/review/:pageId', cookieJwtAuth,header,game.review);
  *             schema:
  *               type: object
  *               properties:
- *                   pageId:
- *                      type: integer
- *                   isHomeTeam:
- *                      type: string
- *                   Match:
- *                     example:
- *                           match_id: 86
- *                           home_userid: 9
- *                           away_userid: 2
- *                           match_date: '2023-08-20'
- *                           match_time: '11:00:00'
- *                           match_place: 서초구
- *                           created: 2023-08-19T15:00:00.000Z
- *                           updated: null
- *                           establishment: 성립
- *                           stadium: 잠원한강공원>축구장,방배배수지체육공원,
- *                           nx: 127.017
- *                           ny: 37.5256
- *                           matchResult: {
- *                                 review_id: 1,
- *                                 match_id: 125,
- *                                 winner: {
- *                                   user_id: 2,
- *                                   id: 'gangdong',
- *                                   password: '2222',
- *                                   teamname: 'FC강동',
- *                                   represent_name: '허이구',
- *                                   hp: '010-5289-1929',
- *                                   win_score: 1546,
- *                                   manner_score: 46,
- *                                   totalMatches: 11,
- *                                   win: 7,
- *                                   draw: 2,
- *                                   lose: 2,
- *                                   logo_image: 'default.jpg'
- *                                 },
- *                                 home_userid: 2,
- *                                 away_userid: 3,
- *                                 changedScore: 24,
- *                                 home_received_manner: 1,
- *                                 away_received_manner: -1,
- *                                 loser: {
- *                                   user_id: 3,
- *                                   id: 'seocho',
- *                                   password: '3333',
- *                                   teamname: 'FC서초',
- *                                   represent_name: '박삼',
- *                                   hp: '010-5289-1939',
- *                                   win_score: 1700,
- *                                   manner_score: 20,
- *                                   totalMatches: 2,
- *                                   win: 0,
- *                                   draw: 0,
- *                                   lose: 2,
- *                                   logo_image: 'default.jpg'
- *                                 }
- *                               }
+ *                    matchResult: 
+ *                      example:
+ *                          review_id: 1
+ *                          match_id: 125
+ *                          winner: {
+ *                            user_id: 2,
+ *                            id: 'gangdong',
+ *                            password: '2222',
+ *                            teamname: 'FC강동',
+ *                            represent_name: '허이구',
+ *                            hp: '010-5289-1929',
+ *                            win_score: 1546,
+ *                            manner_score: 46,
+ *                            totalMatches: 11,
+ *                            win: 7,
+ *                            draw: 2,
+ *                            lose: 2,
+ *                            logo_image: 'default.jpg'
+ *                          }
+ *                          home_userid: 2
+ *                          away_userid: 3
+ *                          changedScore: 24
+ *                          home_received_manner: 1
+ *                          away_received_manner: -1
+ *                          match_date: '2023-09-02'
+ *                          stadium: '반포종합운동장'
+ *                          loser: {
+ *                            user_id: 3,
+ *                            id: 'seocho',
+ *                            password: '3333',
+ *                            teamname: 'FC서초',
+ *                            represent_name: '박삼',
+ *                            hp: '010-5289-1939',
+ *                            win_score: 1700,
+ *                            manner_score: 20,
+ *                            totalMatches: 2,
+ *                            win: 0,
+ *                            draw: 0,
+ *                            lose: 2,
+ *                            logo_image: 'default.jpg'
+ *                          }
  *       "매치 외 사용자":
  *         description: 권한이 없습니다 팝업 후 메인 리다이렉션
  *       "기작성시":

@@ -1,6 +1,7 @@
 require("dotenv").config({ path: "./config/.env" });
 
 const path = require("path");
+const dayjs = require("dayjs");
 
 const team = require("../models/Team");
 const match = require("../models/Match");
@@ -35,55 +36,55 @@ module.exports = {
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
     registered_matchview: async (req, res) => {
-        const result = await new Promise((resolve) => {
-            match.gethome_id(req.user_id, resolve);
-        });
+        try {
+            const result = await new Promise((resolve) => {
+                match.gethome_id(req.user_id, resolve);
+            });
 
-        res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-            Matches: result,
-        });
+            result.forEach(match => {
+                const value = dayjs(match.match_date).format("YYYY-MM-DD");
+                match.match_date = value;
+            })
+
+            // console.log(result[0].match_date);
+            res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+                Matches: result,
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
     my_matchview: async (req, res) => {
-        try {  
-
+        try {
             const matches = await new Promise((resolve) => {
                 match.getmymatch(req.user_id, resolve);
             });
-
-            if (matches == null) throw 'error';
-
-            //매치있는 경우 홈팀, 어웨이팀 정보 넣기, (날씨 정보 배열 넣기 예정)
-            if (matches != null) {
-                for (let i = 0; i < matches.length; i++) {
-                    const homeTeam = await new Promise((resolve) => {
-                        team.getOneTeam(matches[i].home_userid, resolve);
-                    });
-                    matches[i].home_teamname = homeTeam.teamname;
-
-                    const awayTeam = await new Promise((resolve) => {
-                        team.getOneTeam(matches[i].away_userid, resolve);
-                    });
-                    matches[i].away_teamname = awayTeam.teamname;
-
-                    var day = matches[i].match_date.replace(/-/g, '');
-                    var timeArray = matches[i].match_time.split(':')
-                    var time = timeArray[0] + timeArray[1];
-                    var x = matches[i].nx;
-                    var y = matches[i].ny;
-
-                    const gameweather = await weather.weatherAPI(day, time, y, x);
-
-                    matches[i].weather = gameweather;
-                }
-            }
-            console.log(matches)
+    
+            const matchPromises = Array.isArray(matches) ? matches.map((match) => {
+                return weather.weatherAPI(match.match_date.replace(/-/g, ''), match.match_time.split(':')[0] + match.match_time.split(':')[1], match.ny, match.nx);
+            }) : [];
+    
+            const gameweathers = await Promise.all(matchPromises);
+    
+            // 각 매치에 대한 날씨 정보를 할당
+            matches.forEach((match, index) => {
+                match.weather = gameweathers[index];
+            });
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -91,9 +92,10 @@ module.exports = {
             });
         } catch (error) {
             console.error(error);
-            res.write("<script>alert('권한이 없습니다')</script>");
-            res.write("<script>window.location=\"/\"</script>");
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
@@ -135,34 +137,41 @@ module.exports = {
                     }
                 });
             });
-        } catch (err) {
-            console.log('requested match 에러');
-            console.log(err);
-            res.write("<script>alert('/requested match에서 에러 발생')</script>");
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
             res.write("<script>window.location=\"/\"</script>");
             res.end();
-            return;
         }
     },
 
     edit_matchview: async (req, res) => {
+        try {
+            const edit_match_info = await new Promise((resolve) => {
+                match.getmatch_id(req.params.pageId, resolve);
+            });
+            if (edit_match_info.home_userid != req.user_id) {
+                // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.write("<script>alert('권한이 없습니다')</script>");
+                res.write("<script>window.location=\"/\"</script>");
+                res.end();
+                return;
+            }
 
-        const edit_match_info = await new Promise((resolve) => {
-            match.getmatch_id(req.params.pageId, resolve);
-        });
-        if (edit_match_info.home_userid != req.user_id) {
-            // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.write("<script>alert('권한이 없습니다')</script>");
+            res.render(path.join(__dirname + '/../views/edit_match.ejs'), {
+                loginTeam: req.header.loginresult,
+                notifications: req.header.notifications,
+                Match: edit_match_info
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
             res.write("<script>window.location=\"/\"</script>");
             res.end();
-            return;
         }
-
-        res.render(path.join(__dirname + '/../views/edit_match.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-            Match: edit_match_info
-        });
     },
 
     edit_match: async (req, res) => {
@@ -174,78 +183,95 @@ module.exports = {
             match.updateMatch(req.body, function (result) {
                 res.redirect('/game/registered-match');
             });
+
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
     reviewview: async (req, res) => {
-        const messageCrypt = require('../modules/messageCrypt');
-        const queryId = messageCrypt.decryptString(req.query.id);
+        try {
+            const messageCrypt = require('../modules/messageCrypt');
+            const queryId = messageCrypt.decryptString(req.query.id);
 
-        //1. pageId(match_id)로 조회, home과 away에 userid 있나 조회 후 없으면 '권한 없습니다' return
-        const review_match_info = await new Promise((resolve) => {
-            match.getmatch_id(req.params.pageId, resolve);
-        });
-
-        var review_info = await new Promise((resolve) => {
-            review.getreview_matchid(req.params.pageId, resolve);
-        });
-
-        var reviewWritten = false;
-
-        for (var i = 0; i < review_info.length; i++) {
-            if (req.user_id == review_info[i].user_id) {
-                reviewWritten = true;
-            }
-        }
-
-        //0. 로그인 하지 않았을 때
-        if (req.user_id == null) {
-            res.redirect('/signin')
-        }
-        //1. 자신의 qr로 들어온 것이 아닐때
-        else if (queryId != req.user_id) {
-            // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.write("<script>alert('권한이 없습니다')</script>");
-            res.write("<script>window.location=\"/\"</script>");
-            res.end();
-            return;
-        }
-        //2. (match_id로) review 조회, 이미 있으면 작성했습니다 return, 
-        else if (reviewWritten) {
-            res.write("<script>alert('이미 리뷰를 작성하셨습니다.')</script>");
-            res.write("<script>window.location=\"/team/my-match\"</script>");
-            res.end();
-            return;
-        }
-
-        else {
-            var opponent_id = (req.user_id == review_match_info.home_userid) ? review_match_info.away_userid : review_match_info.home_userid;
-        
-            var matchTeams = await new Promise((resolve) => {
-                team.getTwoTeam( opponent_id,req.user_id, resolve);
+            //1. pageId(match_id)로 조회, home과 away에 userid 있나 조회 후 없으면 '권한 없습니다' return
+            const review_match_info = await new Promise((resolve) => {
+                match.getmatch_id(req.params.pageId, resolve);
             });
 
-            // 로그인 유저팀과, 상대팀 구분
-            var userTeam = matchTeams.find(team => team.user_id == req.user_id);
-            var opponentTeam = matchTeams.find(team => team.user_id != req.user_id);
+            var review_info = await new Promise((resolve) => {
+                review.getreview_matchid(req.params.pageId, resolve);
+            });
 
-            //Match로 한번에 넘기기 위해서 담음
-            review_match_info.userTeam = userTeam;
-            review_match_info.opponentTeam = opponentTeam;
+            var reviewWritten = false;
 
-            //홈인지 어웨이인지 여부
-            const isHomeTeam = (req.user_id == review_match_info.home_userid) ? 'home' : 'away';
+            for (var i = 0; i < review_info.length; i++) {
+                if (req.user_id == review_info[i].user_id) {
+                    reviewWritten = true;
+                }
+            }
 
-            res.render(path.join(__dirname + '/../views/review.ejs'), {
-                pageId: req.params.pageId,
-                loginTeam: req.header.loginresult,
-                notifications: req.header.notifications,
-                Match: review_match_info,
-                isHomeTeam: isHomeTeam
-            })
+            //0. 로그인 하지 않았을 때
+            if (req.user_id == null) {
+                const originalUrl = req._parsedOriginalUrl.path;
+                res.redirect(`/signin?redirection=${originalUrl}`)
+            }
+            //1. 자신의 qr로 들어온 것이 아닐때
+            else if (queryId != req.user_id) {
+                // res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                res.write("<script>alert('권한이 없습니다')</script>");
+                res.write("<script>window.location=\"/\"</script>");
+                res.end();
+                return;
+            }
+            //2. (match_id로) review 조회, 이미 있으면 작성했습니다 return, 
+            else if (reviewWritten) {
+                res.write("<script>alert('이미 리뷰를 작성하셨습니다.')</script>");
+                res.write("<script>window.location=\"/team/my-match\"</script>");
+                res.end();
+                return;
+            }
+
+            else {
+                var opponent_id = (req.user_id == review_match_info.home_userid) ? review_match_info.away_userid : review_match_info.home_userid;
+
+                var matchTeams = await new Promise((resolve) => {
+                    team.getTwoTeam(opponent_id, req.user_id, resolve);
+                });
+
+                // 로그인 유저팀과, 상대팀 구분
+                var userTeam = matchTeams.find(team => team.user_id == req.user_id);
+                var opponentTeam = matchTeams.find(team => team.user_id != req.user_id);
+
+                //Match로 한번에 넘기기 위해서 담음
+                review_match_info.userTeam = userTeam;
+                review_match_info.opponentTeam = opponentTeam;
+
+                //홈인지 어웨이인지 여부
+                const isHomeTeam = (req.user_id == review_match_info.home_userid) ? 'home' : 'away';
+
+                const value = dayjs(review_match_info.match_date).format("YYYY-MM-DD");
+                review_match_info.match_date = value;
+
+                res.render(path.join(__dirname + '/../views/review.ejs'), {
+                    pageId: req.params.pageId,
+                    loginTeam: req.header.loginresult,
+                    notifications: req.header.notifications,
+                    Match: review_match_info,
+                    isHomeTeam: isHomeTeam
+                })
+            }
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
@@ -319,7 +345,7 @@ module.exports = {
             if (req.body.isHomeTeam == 'home') {
                 if (req.body.winner == '무승부')
                     var winner = -1;
-                else 
+                else
                     var winner = req.body.result;
                 var reviewQuery = ` winner=${winner}, changedScore=${changedScore}, home_userid=${req.user_id}, away_received_manner=${req.body.manner_rate} `
 
@@ -331,9 +357,13 @@ module.exports = {
                 review.updateTeamReview(reviewQuery, resolve)
                 res.redirect('/game/my-match');
             });
-        } catch (err) {
-            console.log(err);
-            throw err;
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
@@ -356,7 +386,7 @@ module.exports = {
             });
 
             var MatchResult = review_match_info;
-            
+
             if (result[0].user_id == review_match_info.winner) {
                 MatchResult.winner = result[0];
                 MatchResult.loser = result[1];
@@ -365,18 +395,19 @@ module.exports = {
                 MatchResult.loser = result[0];
             }
 
+            console.log(MatchResult)
             res.render(path.join(__dirname + '/../views/review_result.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
                 matchResult: MatchResult
             });
 
-        } catch (err) {
-            console.log('에러');
-            console.log(err);
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
             res.write("<script>window.location=\"/\"</script>");
             res.end();
-            return;
         }
     },
 
@@ -413,19 +444,19 @@ module.exports = {
             console.log(loginteamname)
 
             var matchTeamObj = {
-                home : {
+                home: {
                     teamname: matchTeams.home_teamname,
-                    opponent_id : matchTeams.away_userid,
-                    hp : matchTeams.home_hp.replace(/-/g, '')
+                    opponent_id: matchTeams.away_userid,
+                    hp: matchTeams.home_hp.replace(/-/g, '')
                 },
-                away : {
+                away: {
                     teamname: matchTeams.away_teamname,
-                    opponent_id :matchTeams.home_userid,
-                    hp : matchTeams.away_hp.replace(/-/g, ''),
+                    opponent_id: matchTeams.home_userid,
+                    hp: matchTeams.away_hp.replace(/-/g, ''),
                 }
             }
 
-            var matchTime = new Date(data.date+' '+data.time);
+            var matchTime = new Date(data.date + ' ' + data.time);
             matchTime.setMinutes(matchTime.getMinutes() + 60);
 
             //메시지 전송 스케줄러 등록
@@ -444,49 +475,67 @@ module.exports = {
                 notif.insertNotification(data.match_id, data.RQuserid, req.user_id, loginteamname, "수락", data.date, data.time, data.place, resolve);
             });
 
-
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
-    match_reject : (req,res) => {
-        //여기서 할 일 
-        //noti 알림 삭제
-    
-    // [
-    // {
-    //  notif_id: 10,
-    //  match_id: 16,
-    //  date: '2023-05-18',
-    //  RQuserid : 1,
-    //  RQteamname: 'FC도봉',
-    //  RQplace: '강동구',
-    //  RQstart: '16:14',
-    //  OGplace: '강동구,강북구',
-    //  OGstart: '12:14:00',
-    //  OGend: '16:16:00'
-    // }
-    // ]
+    match_reject: (req, res) => {
+        try {
+            //여기서 할 일 
+            //noti 알림 삭제
 
-        notif.DeleteNotification(req.body.notif_id, function () {
-            res.redirect('/game/requested-match');
-        });
+            // [
+            // {
+            //  notif_id: 10,
+            //  match_id: 16,
+            //  date: '2023-05-18',
+            //  RQuserid : 1,
+            //  RQteamname: 'FC도봉',
+            //  RQplace: '강동구',
+            //  RQstart: '16:14',
+            //  OGplace: '강동구,강북구',
+            //  OGstart: '12:14:00',
+            //  OGend: '16:16:00'
+            // }
+            // ]
+
+            notif.DeleteNotification(req.body.notif_id, function () {
+                res.redirect('/game/requested-match');
+            });
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
     cancel_match: (req, res) => {
-        //로그인 사용자와 검증필요? 혹은 이중검증?
-        var data = req.body;
-        //메시지 전송 스케줄러 등록
+        try {
+            //로그인 사용자와 검증필요? 혹은 이중검증?
+            var data = req.body;
+            //메시지 전송 스케줄러 등록
 
-        const messageScheduler = require("../modules/messageScheduler");
-        messageScheduler.cancelReservation(data.match_id);
+            const messageScheduler = require("../modules/messageScheduler");
+            messageScheduler.cancelReservation(data.match_id);
 
-        // match.DeleteMatch(req.body.match_id, function (result) {
-        //     console.log('at cancel_match : ' + result)
-        //     res.redirect('/');
-        // })
+            // match.DeleteMatch(req.body.match_id, function (result) {
+            //     console.log('at cancel_match : ' + result)
+            //     res.redirect('/');
+            // })
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
 }

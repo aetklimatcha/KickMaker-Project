@@ -34,68 +34,131 @@ module.exports = {
         } catch (error) {
             console.error(error);
             // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.end();
         }
     },
 
     signinview: async (req, res) => {
-        res.render(path.join(__dirname + '/../views/signin.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-        });
-        //로그인 실패시!!!!
-        if (req.query.value == 'fail') {
-            console.log("login failed");
-        };
+        try {
+            if (req.user_id) {
+                res.write("<script>alert('비정상적인 접근입니다.')</script>");
+                res.write("<script>window.location=\"/\"</script>");
+                res.end();
+            } else {
+
+                res.render(path.join(__dirname + '/../views/signin.ejs'), {
+                    loginTeam: req.header.loginresult,
+                    notifications: req.header.notifications,
+                });
+                //로그인 실패시!!!!
+                if (req.query.value == 'fail') {
+                    console.log("login failed");
+                };
+            }
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
     signupview: async (req, res) => {
-        res.render(path.join(__dirname + '/../views/signup.ejs'), {
-            loginTeam: req.header.loginresult,
-            notifications: req.header.notifications,
-
-        });
-    },
-
-    login_process : (req, res) => {
-        team.getLoginTeam(req.body.id,req.body.password,function( result ) {
-            if(result==null){
-                login_fail();
+        try {
+            if (req.user_id) {
+                res.write("<script>alert('비정상적인 접근입니다.')</script>");
+                res.write("<script>window.location=\"/\"</script>");
+                res.end();
             } else {
-                payload = result.user_id;
-                login_success();
+                res.render(path.join(__dirname + '/../views/signup.ejs'), {
+                    loginTeam: req.header.loginresult,
+                    notifications: req.header.notifications,
+                });
             }
-        });        
-        //실패시 실패알람코드 추가필요
-        function login_fail () {   
-            res.write("<script>alert('로그인에 실패하였습니다.')</script>");
-            res.write("<script>window.location=\"/signin\"</script>");
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
             res.end();
         }
+    },
 
-        function login_success () {
-            token = jwt.sign(payload,secretKey,options);  
-            res.cookie('usertoken',token)
-            res.redirect('/')
+    login_process: (req, res) => {
+        try {
+            if (req.query.redirection) {
+                var ogURL = req.query.redirection;
+                ogURL = ogURL.replace('/', '');
+            }
+            else
+                var ogURL = ''
+            team.getLoginTeam(req.body.id, req.body.password, function (result) {
+                if (result == null) {
+                    login_fail();
+                } else {
+                    payload = result.user_id;
+                    login_success();
+                }
+            });
+            //실패시 실패알람코드 추가필요
+            function login_fail() {
+                res.write("<script>alert('로그인에 실패하였습니다.')</script>");
+                res.write("<script>window.location=\"/signin\"</script>");
+                res.end();
+            }
+
+            function login_success() {
+                console.log(ogURL)
+                token = jwt.sign(payload, secretKey, options);
+                res.cookie('usertoken', token)
+                res.redirect(`/${ogURL}`)
+            }
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
     },
 
-    logout : (req, res) => {
-        res.cookie('usertoken', null, {
-            maxAge: 0,
-        });
-        res.redirect('/')
+    logout: (req, res) => {
+        try {
+            res.cookie('usertoken', null, {
+                maxAge: 0,
+            });
+            res.redirect('/')
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
+        }
     },
 
-    signup : (req, res) => {
-        console.log(req.file)
-        if(req.file == null) 
-            var filename = 'default.jpg';
-        else {
-            var filename = req.file.filename;
+    signup: (req, res) => {
+        try {
+            if (req.file == null)
+                var filename = 'default.jpg';
+            else {
+                var filename = req.file.filename;
+            }
+            signup.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, filename, function (result) {
+                res.redirect('/')
+            });
+
+        } catch (error) {
+            console.error(error);
+            // Handle error response
+            res.write("<script>alert('에러가 발생하였습니다.')</script>");
+            res.write("<script>window.location=\"/\"</script>");
+            res.end();
         }
-        signup.insertsignup(req.body.id, req.body.password, req.body.teamname, req.body.represent_name, req.body.hp, filename ,function( result ) {
-            res.redirect('/')
-        });  
     },
 
     // test 페이지

@@ -1,0 +1,141 @@
+body {
+    background-color: #eee;
+  }
+  .matchedInfo__card {
+    width: 70%;
+    margin: 100px auto;
+    background-color: #fff;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.3);
+    color: #555;
+  }
+  
+  .requestedMatch form {
+    display: flex;
+    align-items: center;
+    border-bottom: solid #E7E7E7;
+  }
+  
+  .category {
+    font-size: 14px;
+    color: #727272;
+    padding: 5px;
+  }
+  
+  /* 팀 로고 & 이름 */
+  .div1 {
+    width: 23%;
+  }
+  .info1 {
+    padding: 10px 10px 15px 10px;
+  }
+  .info1 .teamLogo {
+    width: 100px;
+    height: 100px; 
+    border-radius: 70%;
+    overflow: hidden;
+    margin: 10px auto;
+  }
+  .info1 .teamLogo .teamLogoImg {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    
+  }
+  .info1 .teamname {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  
+  /* 경기 정보 */
+  .div2 {
+    width: 35%;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+  
+  }
+  .info2 {
+    height: 100%;
+  }
+  .info2 .category {
+    display: inline-block;
+  }
+  .info2 .match_date,
+  .info2 .match_time_start,
+  .info2 .match_place {
+    display: inline-block;
+    padding: 5px;
+    font-size: 18px;
+  }
+  
+  /* 상대팀 승률 정보 */
+  .div3 {
+    width: 25%;
+    background-color: #E7E7E7;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;
+  
+  }
+  .info3{
+    padding: 5px;
+  }
+  .info3 .category {
+    display: inline;
+  }
+  .info3 .win_score {
+    display: inline;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  .info3 .total_score {
+    display: inline;
+  
+  }
+  .info3 .gap {
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .div3 .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    margin: 5px 5px 5px 15px;
+    width: 20px;
+    height: 90px;
+    text-align: center;
+    font-size: 11px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #5F5C5B;
+    border-radius: 5px;
+  }
+  
+  /* 경기 요청 버튼 */
+  .div4 {
+    width: 12%;
+    display: inline-block;
+  }
+  .div4 .enter {
+    margin: auto 0;
+    padding:15px 0;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #2c2a29;
+    border-radius: 5px;
+  }
+  
+  

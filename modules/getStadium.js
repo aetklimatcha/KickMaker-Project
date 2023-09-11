@@ -13,14 +13,15 @@ function createComment(json, location) {
     var cnt = 0;
 
     for (var i = 0; i < route.length; i++) {
-        if ((route[i].SVCSTATNM === '접수중' || route[i].SVCSTATNM === '안내중') && route[i].AREANM === location) {
+        // route[i].SVCSTATNM === '접수중' || route[i].SVCSTATNM === '안내중') &&
+        if ( route[i].AREANM === location) {
             const newObj = {
                 name: route[i].PLACENM,
-                type: route[i].MINCLASSNM,
+                // type: route[i].MINCLASSNM,
                 nx: route[i].X,
                 ny: route[i].Y,
-                url: route[i].SVCURL,
-                tel: route[i].TELNO
+                // url: route[i].SVCURL,
+                // tel: route[i].TELNO
             };
     
             // result 배열에 같은 name을 가진 객체가 있는지 확인
@@ -75,6 +76,19 @@ function createComment(json, location) {
     return result;
 }
 
+
+function stadiumFromDB(district) {
+    return new Promise(function(resolve, reject){
+        const mysql = require("../config/mysql");
+
+        const querystring = `Select * from Stadium where district = '${district}';`;
+        mysql.query(querystring, function (error, result) {
+            if (error) throw error;
+            resolve(result);
+        })
+    })
+}
+
 function getStadium(location) {
     const url1 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/538/축구장`;
     const url2 = `http://openAPI.seoul.go.kr:8088/${stadium_key}/json/ListPublicReservationSport/1/538/다목적경기장`;
@@ -82,11 +96,13 @@ function getStadium(location) {
     // 두 개의 GET 요청을 Promise.all로 동시에 처리
     return Promise.all([
         axios.get(url1).then(response => createComment(response.data, location)),
-        axios.get(url2).then(response => createComment(response.data, location))
+        axios.get(url2).then(response => createComment(response.data, location)),
+        stadiumFromDB(location)
     ])
-    .then(([soccer_result, util_result]) => {
+    .then(([soccer_result, util_result, DB_result]) => {
         // 두 결과 배열을 합치기
-        const result = [...soccer_result, ...util_result];
+        const result = [...soccer_result, ...util_result, ...DB_result];
+        console.log(result)
         return result;
     })
     .catch(error => {

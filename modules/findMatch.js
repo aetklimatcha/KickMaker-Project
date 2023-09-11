@@ -43,10 +43,6 @@ module.exports = {
         AND match_time = '${info.time}';`
 
         mysql.query(querystring, function (error, result) {
-            console.log('info at findmatch')
-            console.log(info);
-            console.log('시간찾기 at findmatch')
-            console.log(result);
             if ( error ) throw error;
             var results = idplaceMatch(info.user_id,info.place, result);
             enterTeaminfo(results,(matchData)=>{

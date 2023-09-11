@@ -70,11 +70,22 @@ module.exports = {
         // DATE_FORMAT(match_time,'%H%i') AS match_time,
         // establishment, stadium, home_userid, away_userid
         const querystring = 
-        `SELECT *
-        FROM Matches 
-        Where (home_userid= ${userid} OR away_userid= ${userid} )AND establishment='성립';`;
+        `SELECT
+        match_id, match_place,
+        DATE_FORMAT(match_date,'%Y-%m-%d') AS match_date,
+        DATE_FORMAT(match_time,'%H:%i') AS match_time,
+        establishment, stadium, home_userid, away_userid,
+        homeTeam.teamname AS home_teamname,
+        awayTeam.teamname AS away_teamname
+    FROM
+        Matches
+    INNER JOIN
+        Team AS homeTeam ON Matches.home_userid = homeTeam.user_id
+    INNER JOIN
+        Team AS awayTeam ON Matches.away_userid = awayTeam.user_id
+    WHERE
+        Matches.home_userid = ${userid} or Matches.away_userid = ${userid} AND establishment='성립';`;
         mysql.query(querystring, function (error, result) {
-            console.log('at getmymatch '+ userid)
             // if (error) throw error;
             if (result) {
                 // console.log("!")

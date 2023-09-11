@@ -1,136 +1,208 @@
+body {
+  background-color: #eee;
+}
 
-  .matchedInfo__card {
-    width: 70%;
-    margin: 100px auto;
-    /* border-radius: 6px; */
-    background-color: #f6f5f0;
-    box-shadow: 2px 2px 20px rgba(0,0,0,.3);
-    color: #555;
-    border-top: 2px solid #000;
-  }
+.matchedInfo__card {
+  width: 70%;
+  margin: 100px auto;
+  background-color: #fff;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, .3);
+  color: #555;
+}
 
-  .matchedInfo__card > div {
-    border-bottom: 1px solid #ddd;
-    font-size: 0;
-  }
-  
-  .matchedInfo__card > div.top {
-    border-bottom: 1px solid #999;
-  }
-  
-  .matchedInfo__card > div:last-child {
-    border-bottom: 1px solid #000;
-  }
-  
-  .matchedInfo__card > div > div {
-    display: inline-block;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 1.4rem;
-  }
-  
-  
-  .matchedInfo__card > div.top > div {
-    font-weight: 600;
-  }
-  
+.edit form {
+  display: flex;
+  align-items: center;
+  border-bottom: solid #E7E7E7;
+}
 
-  .matchedInfo__card .request_match {
-    display: inline-block;
-    padding:15px 0;
-    text-align:center;
-    font-size:1.4rem;
-    width: 16%;
-  }
-  
+.category {
+  font-size: 14px;
+  color: #727272;
+  padding: 5px;
+}
 
-  .matchedInfo__card .edit .match_date,
-  .matchedInfo__card .edit .match_place {
-    display: inline-block;
-    padding:15px 0;
-    height: 100%;
-    font-size: 1.4rem;
-    /* width: 25%; */
-    text-align: center;
-  }
-  
-  
+/* 팀 로고 & 이름 */
+.div1 {
+  width: 23%;
+}
 
-  .matchedInfo__card .edit .teamname,
-  .matchedInfo__card .edit .match_time_start {
-    display: inline-block;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 1.4rem;
-    /* width:17%; */
-    text-align: center;
-  }
+.info1 {
+  padding: 10px 10px 15px 10px;
+}
 
-  .matchedInfo__card .accept .enter  {
-    /* width: 10%; */
-    margin: 10px;
-    text-align: center;
-  }
-  
-  /* match_list */
-  .matchedInfo__card .edit .request_match {
-    border: 0;
-    outline: 0;
-    margin: 5px 30px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #2c2a29;
-    border-radius: 5px;
-  }
-  
-  /* 모달창 */
-  .matchedInfo__card .edit .teamname {
-    cursor: pointer;
-  }
-  .modal_body{
-    /* width: 80%; */
-  }
-  .modal_wrap{
-    display: none;
-    width: 1000px;
-    height: 500px;
-    position: absolute;
-    /* top:50%;
-    left: 50%; */
-    /* margin: -250px 0 0 -250px; */
-    background:#eee;
-    z-index: 3;
-    color:#2c2a29;
-    font-size: 15px;
-  }
-  .black_bg{
-    display: none;
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-color:rgba(0, 0,0, 0.5);
-    top:0;
-    left: 0;
-    z-index: 2;
-  }
-  .modal_close{
-    width: 26px;
-    height: 26px;
-    position: absolute;
-    top: -30px;
-    right: 0;
-  }
-  .modal_close> a{
-    display: block;
-    width: 100%;
-    height: 100%;
-    background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-    text-indent: -9999px;
-  }
-  
-  
-  
-  
+.info1 .teamLogo {
+  width: 100px;
+  height: 100px;
+  border-radius: 70%;
+  overflow: hidden;
+  margin: 10px auto;
+}
+
+.info1 .teamLogo .teamLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+.info1 .teamname {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* 경기 정보 */
+.div2 {
+  width: 35%;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+
+}
+
+.info2 {
+  height: 100%;
+}
+
+.info2 .category {
+  display: inline-block;
+}
+
+.info2 .match_date,
+.info2 .match_time_start,
+.info2 .match_place {
+  display: inline-block;
+  padding: 5px;
+  font-size: 18px;
+}
+
+/* 상대팀 승률 정보 */
+.div3 {
+  width: 25%;
+  background-color: #E7E7E7;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.info3 {
+  padding: 5px;
+}
+
+.info3 .category {
+  display: inline;
+}
+
+.info3 .win_score {
+  display: inline;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.info3 .total_score {
+  display: inline;
+
+}
+
+.info3 .gap {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div3 .modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 3px;
+  margin: 5px 5px 5px 15px;
+  width: 20px;
+  height: 90px;
+  text-align: center;
+  font-size: 11px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #5F5C5B;
+  border-radius: 5px;
+}
+
+/* 경기 요청 버튼 */
+.div4 {
+  width: 12%;
+  display: inline-block;
+}
+
+.div4 .request_match {
+  margin: auto 0;
+  padding: 15px 0;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #2c2a29;
+  border-radius: 5px;
+}
+
+.modal_wrap {
+  display: none;
+  width: 80%;
+
+  max-width: 1000px;
+  /* 모달 창의 최대 너비 설정 */
+  height: 700px;
+  position: fixed;
+  /* 고정 위치로 변경 */
+  top: 50%;
+  /* 화면 상단에서 절반 높이로 이동 */
+  left: 50%;
+  /* 화면 왼쪽에서 절반 너비로 이동 */
+  transform: translate(-50%, -50%);
+  /* 화면 가운데 정렬을 위한 변형(Transform) */
+  background: #eee;
+  z-index: 3;
+  color: #2c2a29;
+  font-size: 15px;
+}
+
+
+.black_bg {
+  display: none;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.modal_close {
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  top: -30px;
+  right: 0;
+}
+
+.modal_close>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+  text-indent: -9999px;
+}
+
+.modal_body {
+  margin-top: -50px;
+}
