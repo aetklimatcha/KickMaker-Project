@@ -2,15 +2,19 @@
 body {
   background-color: #eee;
 }
+
 .team_info {
   margin-top: 5px;
   padding: 100px 0 240px;
 }
+
 .team_info_wrap {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 30px;
+  position: inherit;
 }
+
 .team_info_left {
   width: 340px;
   padding: 30px;
@@ -21,16 +25,17 @@ body {
   text-align: center;
   position: relative;
 }
-.team_info_left .profile{
 
-}
-.team_info_left .profile p{
+.team_info_left .profile {}
+
+.team_info_left .profile p {
   display: inline-block;
   list-style: none;
   margin-bottom: 1em;
   /* text-align: left; 
   left: 0; */
 }
+
 .team_info_left .profile p.content {
   font-weight: 700;
 }
@@ -46,22 +51,27 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .team_info li {
   font-size: 14px;
   margin-bottom: 5px;
-  text-align: left; /* 왼쪽 정렬 */
+  text-align: left;
+  /* 왼쪽 정렬 */
 }
+
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
+
 h1 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
 }
+
 .team01 .profile img {
   display: block;
   width: 150px;
@@ -70,15 +80,18 @@ h1 {
   border-radius: 50%;
   margin: 20px auto;
 }
+
 .team_profile ul {
   list-style: none;
   margin-top: 10px;
 }
+
 .team_profile li {
   font-size: 14px;
   margin-bottom: 5px;
 }
-.profile{
+
+.profile {
   /* margin-top: 20px; */
 }
 
@@ -100,21 +113,21 @@ h1 {
 }
 
 section a.btnView {
-    width: 180px;
-    height: 32px;
-    /* margin: 0px auto 20px; */
-    padding: 10px;
-    background-color:#444;
-    border-radius: 16px;
-    font-weight: bold;
-    font-size: 10px;
-    font-family: "arial";
-    color: #fff;
-    line-height: 32px;
-    text-align: center;
+  width: 180px;
+  height: 32px;
+  /* margin: 0px auto 20px; */
+  padding: 10px;
+  background-color: #444;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 10px;
+  font-family: "arial";
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
 }
 
-.team_edit{
+.team_edit {
   background-color: #666;
   border: none;
   color: #fff;
@@ -134,15 +147,16 @@ section a.btnView {
   padding: 10px;
   margin: 30px 10px;
 }
-.score_info {
 
-}
+.score_info {}
+
 .category {
   display: inline-block;
   font-size: 14px;
   color: #727272;
   padding: 5px;
 }
+
 .win_score {
   display: inline-block;
   font-size: 45px;
@@ -150,6 +164,7 @@ section a.btnView {
   padding: 10px 0;
   color: #56C453;
 }
+
 .total_score {
   display: inline-block;
   font-size: 16px;
@@ -160,13 +175,15 @@ section a.btnView {
   display: inline-block;
   width: 200px;
 }
+
 .manner_score {
   font-size: 60px;
   font-weight: 700;
   margin: auto 0;
   color: #339FFF;
 }
-.manner_score > p {
+
+.manner_score>p {
   font-size: 16px;
   color: #5F5C5B;
   text-align: center;

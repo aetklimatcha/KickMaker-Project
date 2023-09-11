@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-epuiv="X-UA-Compatible" content="ie=edge" />
   <title>match_making</title>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/public/stylesheets/common.css">
   <link rel="stylesheet" href="/public/stylesheets/team_info.css">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
   <!--HEADER-->
   <header>
@@ -23,94 +27,106 @@
 
   <!-- 팀 정보 -->
   <section class="team_info">
-  <div class="team_info_wrap">
-    <div class="team_info_left">
-      <h1>팀 정보</h1></br>
-      <body class="team01">
-        <section>
-          <article class="profile">
-            <% if (loginTeam && loginTeam.logo_image) { %>
-              <img src="../files/<%= loginTeam.logo_image %>" alt="팀 로고 이미지">
-            <% } else { %> 
-              <img src="testno.jpg" alt="팀 로고 이미지가 없음">
-            <% } %>
-            <!--teamname-->
-            <p class="content">팀 이름:</p>
-            <p><% if(loginTeam){ %>
-              <%= loginTeam.teamname %>
-              <% } else { %> 
-              testno
-              <% } %></p></br>
-            
-              <!--user_id-->
-            <p class="content">아이디:</p>
-            <p><% if(loginTeam){ %>
-                <%= loginTeam.id %>
-                <% } else { %> 
-                testno
-                <% } %></p></br>
-            
-            <!--대표자명-->
-            <p class="content">대표자명:</p>
-            <p><% if(loginTeam){ %>
-                <%= loginTeam.represent_name %>
-                <% } else { %> 
-                testno
-                <% } %></p></br>
+    <div class="team_info_wrap">
+      <div class="team_info_left">
+        <h1>팀 정보</h1></br>
 
-            <!--대표자 연락처-->
-            <p class="content">대표자 연락처:</p>
-            <p><% if(loginTeam){ %>
-                <%= loginTeam.hp %>
-                <% } else { %> 
-                testno
-                <% } %></p></br>
-          </article>		
-        </section><br>
-        <div class="team_edit" onclick="location.href=('/team/edit-team')">
-          수정하기
-        </div>
-      </body>
-  </div>
-    <div class="team_info_right">
-      <h1>승점과 매너점수</h1>
-      <!-- <div class="donut-chart">
+        <body class="team01">
+          <section>
+            <article class="profile">
+              <% if (loginTeam && loginTeam.logo_image) { %>
+                <img src="../files/<%= loginTeam.logo_image %>" alt="팀 로고 이미지">
+                <% } else { %>
+                  <img src="testno.jpg" alt="팀 로고 이미지가 없음">
+                  <% } %>
+                    <!--teamname-->
+                    <p class="content">팀 이름:</p>
+                    <p>
+                      <% if(loginTeam){ %>
+                        <%= loginTeam.teamname %>
+                          <% } else { %>
+                            testno
+                            <% } %>
+                    </p></br>
+
+                    <!--user_id-->
+                    <p class="content">아이디:</p>
+                    <p>
+                      <% if(loginTeam){ %>
+                        <%= loginTeam.id %>
+                          <% } else { %>
+                            testno
+                            <% } %>
+                    </p></br>
+
+                    <!--대표자명-->
+                    <p class="content">대표자명:</p>
+                    <p>
+                      <% if(loginTeam){ %>
+                        <%= loginTeam.represent_name %>
+                          <% } else { %>
+                            testno
+                            <% } %>
+                    </p></br>
+
+                    <!--대표자 연락처-->
+                    <p class="content">대표자 연락처:</p>
+                    <p>
+                      <% if(loginTeam){ %>
+                        <%= loginTeam.hp %>
+                          <% } else { %>
+                            testno
+                            <% } %>
+                    </p></br>
+            </article>
+          </section><br>
+          <div class="team_edit" onclick="location.href=('/team/edit-team')">
+            수정하기
+          </div>
+        </body>
+      </div>
+      <div class="team_info_right">
+        <h1>승점과 매너점수</h1>
+        <!-- <div class="donut-chart">
         <canvas id="winRateChart" width="200" height="200"></canvas>
         <div class="donut-label"></div>
       </div> -->
-      <div class="info_box">
-        <div class="score_info">
-          <div class="category">승점</div>
-          <div class="win_score"> <%= loginTeam.win_score %></div> <br/>
-          <div class="category">전적</div>
-          <div class="total_score">
-            <%= loginTeam.win %>승 /
-            <%= loginTeam.draw %>무 /
-            <%= loginTeam.lose %>패
-          </div>  
+        <div class="info_box">
+          <div class="score_info">
+            <div class="category">승점</div>
+            <div class="win_score">
+              <%= loginTeam.win_score %>
+            </div> <br />
+            <div class="category">전적</div>
+            <div class="total_score">
+              <%= loginTeam.win %>승 /
+                <%= loginTeam.draw %>무 /
+                  <%= loginTeam.lose %>패
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="info_box">
-        <div class="donut-chart">
-          <canvas id="mannerChart" style="display:inline-block; height: 100px; width: 100px;"></canvas>
-          <div class="donut-label"></div>
-        </div>
+        <div class="info_box">
+          <div class="donut-chart">
+            <canvas id="mannerChart" style="display:inline-block; height: 100px; width: 100px;"></canvas>
+            <div class="donut-label"></div>
+          </div>
           <!-- <div class="category">승률</div> -->
-          <div class="manner_score"> 
+          <div class="manner_score">
             <%= loginTeam.manner_score %>
-            <p>/100</p>
-          </div> <br/>
-      </div>
+              <p>/100</p>
+          </div> <br />
+        </div>
 
+      </div>
     </div>
-  </div>
-  <script src="../public/javascripts/team_info.js"></script>
-  <script src="../public/javascripts/common.js"></script>
-  <script>
-  var manner_score='<%=loginTeam.manner_score%>';
-  var win_score='<%=loginTeam.win_score%>';
-  </script>
+    <script src="../public/javascripts/team_info.js"></script>
+    <script src="../public/javascripts/common.js"></script>
+    <script>
+      var manner_score = '<%=loginTeam.manner_score%>';
+      var win_score = '<%=loginTeam.win_score%>';
+    </script>
 </body>
 </section>
+
 </html>
