@@ -1,14 +1,16 @@
 .signup {
-  margin-top: 50px;
-  padding: 100px 0 240px;
-  /* background-image: url("../images/soccer.webp"); */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
+    /* margin-top: 50px;
+    padding: 100px 0 240px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover; */
+    height: 100vh;
+    background-color: #eee;
+  
 }
 .signup h1 {
-  color: #fff;
+  color: #2c2a29;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
@@ -16,9 +18,9 @@
 }
 .signup__card {
   width: 500px;
-  margin: 0 auto;
+  margin: 100px auto;
   border-radius: 5px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 } 
@@ -34,10 +36,10 @@
 }
 
 .signup__card form {
-  padding: 20px 12px;
+  padding: 30px 40px;
 }
 .signup__card form input {
-  width: 75%;
+  width: 100%;
   margin-bottom: 12px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -53,14 +55,15 @@
   font-size: 20px;
   cursor: pointer;
   display: block;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 
 .signup__card form p {
-  display: block;
+  /* display: block; */
+  width: 200px;
   font-size: 15px;
   color: #555;
-  margin: 0 0 8px 3px;
+  /* margin: 0 0 8px 3px; */
   font-weight: 700;
   /* text-align: center; */
 }
