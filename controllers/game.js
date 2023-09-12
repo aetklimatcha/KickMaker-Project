@@ -48,10 +48,12 @@ module.exports = {
                 match.gethome_id(req.user_id, resolve);
             });
 
-            result.forEach(match => {
-                const value = dayjs(match.match_date).format("YYYY-MM-DD");
-                match.match_date = value;
-            })
+            if (result) {
+                result.forEach(match => {
+                    const value = dayjs(match.match_date).format("YYYY-MM-DD");
+                    match.match_date = value;
+                })
+            }
 
             // console.log(result[0].match_date);
             res.render(path.join(__dirname + '/../views/registered_match.ejs'), {
