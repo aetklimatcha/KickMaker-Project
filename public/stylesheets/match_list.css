@@ -2,6 +2,7 @@ body {
   background-color: #eee;
 }
 
+
 .matchedInfo__card {
   width: 70%;
   margin: 100px auto;
@@ -58,7 +59,10 @@ body {
 .div2 {
   width: 35%;
   display: flex;
-  justify-content: center;
+  margin-left: 30px;
+  margin-right: -50px;
+
+
 }
 
 .info2 {
