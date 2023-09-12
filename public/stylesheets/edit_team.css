@@ -1,25 +1,25 @@
-.editTeam {
+body{
+  background-color: #eee;
+}
+/* .editTeam {
   margin-top: 50px;
   padding: 50px 0 240px;
-  background-image: url("../images/soccer.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: cover;
-}
-.editTeam h1 {
+  background-color: #eee;
+
+} */
+/* .editTeam h1 {
   color: #fff;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 24px;
 
-}
+} */
 .editTeam__card {
-  width: 500px;
-  margin: 0 auto;
+  width: 35%;
+  margin: 130px auto;
   border-radius: 6px;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
 } 
