@@ -15,6 +15,8 @@
     />
     <link rel="stylesheet" href="/public/stylesheets/common.css" />
     <link rel="stylesheet" href="/public/stylesheets/signup.css" />
+    <script src="/public/javascripts/cellPhone.js"></script>
+
   </head>
   <body>
     <!--HEADER-->
@@ -26,42 +28,44 @@
       <h1>회원가입</h1>
       <div class="signup__card">
         <form action="/signup" method="post" enctype="multipart/form-data">
-          아이디 입력<br />
+          <p>아이디 입력</p><br />
           <input
             type="text"
             name="id"
             placeholder="아이디를 입력하세요"
             required
           /><br />
-          비밀번호 입력<br />
+          <p>비밀번호 입력</p><br />
           <input
             type="password"
             name="password"
             placeholder="비밀번호를 입력하세요."
             required
           /><br />
-          팀이름 입력<br />
+          <p>팀이름 입력</p><br />
           <input
             type="text"
             name="teamname"
             placeholder="팀명을 입력하세요"
             required
           /><br />
-          팀대표자명 입력<br />
+          <p>팀대표자명 입력</p><br />
           <input
             type="text"
             name="represent_name"
             placeholder="대표자 이름을 입력하세요"
             required
           /><br />
-          연락처 입력<br />
+          <p>연락처 입력</p><br />
           <input
             type="text"
             name="hp"
             placeholder="010-****-****"
+            maxlength="13" 
+            id="cellPhone"
             required
           /><br />
-          팀 로고 사진 첨부<br />
+          <p>팀 로고 사진 첨부</p><br />
           <input
             type="file"
             id="profile_pic"
@@ -80,3 +84,41 @@
     </section>
   </body>
 </html>
+<script>
+  function autoHypenPhone(str){
+      str = str.replace(/[^0-9]/g, '');
+      var tmp = '';
+      if( str.length < 4){
+          return str;
+      }else if(str.length < 7){
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3);
+          return tmp;
+      }else if(str.length < 11){
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3, 3);
+          tmp += '-';
+          tmp += str.substr(6);
+          return tmp;
+      }else{              
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3, 4);
+          tmp += '-';
+          tmp += str.substr(7);
+          return tmp;
+      }
+      return str;
+  }
+
+  var cellPhone = document.getElementById('cellPhone');
+  cellPhone.onkeyup = function(event){
+    event = event || window.event;
+    var _val = this.value.trim();
+    this.value = autoHypenPhone(_val) ;
+  }
+
+</script>
+
