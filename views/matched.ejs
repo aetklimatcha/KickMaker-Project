@@ -100,14 +100,14 @@
                     </div>
                   <!-- 2. 같은 경우 -->
                   <% } else if (findTeams[i].win_score == loginTeam.win_score) { %>
-                    <div class="win_score" style="color:#56C453;"> <%= findTeams[i].hometeamInfo.win_score %> </div>
+                    <div class="win_score" style="color:#56C453;"> <%= findTeams[i].win_score %> </div>
                     <div class="gap">
                       <span class="material-symbols-outlined"> minimize </span>
-                      <%= findTeams[i].hometeamInfo.win_score - loginTeam.win_score %>
+                      <%= findTeams[i].win_score - loginTeam.win_score %>
                     </div>
                   <!-- 3. 낮은 경우 -->
                   <% } else { %>
-                    <div class="win_score" style="color:#339FFF;"> <%= findTeams[i].hometeamInfo.win_score %> </div>
+                    <div class="win_score" style="color:#339FFF;"> <%= findTeams[i].win_score %> </div>
                     <div class="gap">
                       <span class="material-symbols-outlined"> arrow_drop_down </span>
                       <%= loginTeam.win_score - findTeams[i].win_score %>
