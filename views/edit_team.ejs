@@ -29,6 +29,7 @@
           <form action="/team/edit-team" method="post" enctype="multipart/form-data">
               <!--value에 현재 로그인 되어있는 팀 정보 추가 필요-->
               <p>팀 로고 사진</p>
+              <img class="logo_image" src="/files/<%= loginTeam.logo_image %>" alt="로고 이미지">
               <input
                 type="file"
                 id="profile_pic"
