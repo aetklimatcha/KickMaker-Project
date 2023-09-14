@@ -225,7 +225,8 @@ module.exports = {
             var ny = req.body.ny;
 
             match.insertMatch(home_userid, match_date, match_place, match_time, stadium, nx, ny, function (result) {
-                res.redirect('/game/registered-match');
+                res.write("<script>alert('경기가 등록되었습니다.')</script>");
+                res.write("<script>window.location=\"/game/registered-match\"</script>");
             });
         } catch (error) {
             console.error(error);

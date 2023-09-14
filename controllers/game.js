@@ -87,6 +87,8 @@ module.exports = {
             matches.forEach((match, index) => {
                 match.weather = gameweathers[index];
             });
+
+            console.log(matches)
             res.render(path.join(__dirname + '/../views/my_match.ejs'), {
                 loginTeam: req.header.loginresult,
                 notifications: req.header.notifications,
@@ -440,10 +442,6 @@ module.exports = {
                 var loginteamname = matchTeams.home_teamname;
             else if (matchTeams.away_userid == req.user_id)
                 var loginteamname = matchTeams.away_teamname;
-
-            console.log('슙')
-            console.log(matchTeams)
-            console.log(loginteamname)
 
             var matchTeamObj = {
                 home: {
