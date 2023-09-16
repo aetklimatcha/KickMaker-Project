@@ -123,6 +123,7 @@ function extractWeatherInfoByDateTime(type, gamedate, gametime, json) {
 module.exports = {
 
     weatherAPI: (gamedate, gametime, inputx, inputy) => {
+        console.log(gamedate, gametime, inputx, inputy);
         const nx = latLngToGrid(inputx, inputy).x;
         const ny = latLngToGrid(inputx, inputy).y;
         const selectedAPI = determineAppropriateForecastAPI(gamedate, gametime);

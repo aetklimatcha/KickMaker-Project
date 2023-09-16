@@ -1,3 +1,7 @@
+body {
+  background-color: #eee;
+}
+
 .Matches .matchedInfo__card .comment {
     color: #2c2a29;
     font-size: 30px;
@@ -16,7 +20,7 @@
 .matchedInfo__card {
   width: 70%;
   margin: 100px auto;
-  background-color: #f6f5f0;
+  background-color: #fff;
   box-shadow: 2px 2px 20px rgba(0,0,0,.3);
   color: #555;
   border-top: 2px solid #000;
