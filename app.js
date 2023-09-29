@@ -27,8 +27,8 @@ app.use(express.static(__dirname));
 // app.use(express.static('public'));
 
 //swagger
-const { swaggerUi, specs } = require("./lib/swagger.js");
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+//const { swaggerUi, specs } = require("./lib/swagger.js");
+//app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 
 // const swaggerUi = require("swagger-ui-express");
 // const swaggerFile = require("./lib/swagger-output.json");
